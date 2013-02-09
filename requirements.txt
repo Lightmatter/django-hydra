@@ -3,6 +3,8 @@ django-pipeline
 cssmin
 slimit
 django-grappelli
+django-filebrowser
+
 
 #DB
 psycopg2
@@ -18,6 +20,8 @@ django-extensions
 django-model-utils
 unipath
 pytz
+feedparser
+
 
 #REDIS CACHING
 hiredis

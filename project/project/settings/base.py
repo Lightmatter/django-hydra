@@ -100,6 +100,7 @@ TEMPLATE_DIRS = (
 INSTALLED_APPS = (
     'grappelli.dashboard',
     'grappelli',
+    'filebrowser',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -148,7 +149,6 @@ LOGGING = {
         },
     }
 }
-
 
 from .pipeline import *
 from .grappelli import *
