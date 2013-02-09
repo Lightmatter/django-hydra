@@ -2,6 +2,7 @@ git+git://github.com/django/django.git@1.5b2
 django-pipeline
 cssmin
 slimit
+django-grappelli
 
 #DB
 psycopg2

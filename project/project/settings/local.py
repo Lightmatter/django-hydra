@@ -1,12 +1,14 @@
 from .base import *
 
+DEBUG = True
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
+        'NAME': 'mapsite',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
+        'USER': 'mapsite',
+        'PASSWORD': 'mapsite',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
     }
@@ -25,7 +27,7 @@ STATIC_ROOT = PROJECT_ROOT.child("static")
 
 INSTALLED_APPS += (
     'debug_toolbar',
-    'devserver',
+    'devserver'
 )
 
 MIDDLEWARE_CLASSES += (
@@ -38,7 +40,7 @@ DEBUG_TOOLBAR_CONFIG = {
 
 INTERNAL_IPS = ('127.0.0.1',)
 
-DEVSERVER_ARGS = ['werkzeug', 'dozer']
+DEVSERVER_ARGS = ['--werkzeug']
 
 
 DEVSERVER_MODULES = (
@@ -47,8 +49,8 @@ DEVSERVER_MODULES = (
     'devserver.modules.profile.ProfileSummaryModule',
 
     # # Modules not enabled by default
-    # 'devserver.modules.ajax.AjaxDumpModule',
-    # 'devserver.modules.profile.MemoryUseModule',
-    # 'devserver.modules.cache.CacheSummaryModule',
-    # 'devserver.modules.profile.LineProfilerModule',
+    'devserver.modules.ajax.AjaxDumpModule',
+    'devserver.modules.profile.MemoryUseModule',
+    'devserver.modules.cache.CacheSummaryModule',
+    'devserver.modules.profile.LineProfilerModule',
 )

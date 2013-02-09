@@ -2,6 +2,10 @@ git+git://github.com/django/django.git@1.5b2
 django-pipeline
 cssmin
 slimit
+django-grappelli
+
+
+
 
 #DB
 psycopg2
@@ -31,7 +35,7 @@ django-ses
 django_smtp_ssl
 
 #OPTIONAL TOOLS
-#pillow
+pillow
 #whoosh
 #django-haystack
 
@@ -41,7 +45,7 @@ django-debug-toolbar
 -e git+https://github.com/dcramer/django-devserver#egg=django-devserver
 werkzeug
 sqlparse
-guppy
+https://guppy-pe.svn.sourceforge.net/svnroot/guppy-pe/trunk/guppy  #cheeseshop version doesn't work with 2.7
 line_profiler
 dozer
 

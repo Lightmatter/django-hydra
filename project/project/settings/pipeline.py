@@ -1,18 +1,18 @@
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 
-PIPELINE_CSS = {
-    'screen': {
-        'source_filenames': (
-          'css/*.css',
-        ),
-        'output_filename': 'css/screen.css',
-        'extra_context': {
-            'media': 'screen,projection',
-        },
-    },
-}
+# PIPELINE_CSS = {
+#     'screen': {
+#         'source_filenames': (
+#           'css/*.css',
+#         ),
+#         'output_filename': 'css/screen.css',
+#         'extra_context': {
+#             'media': 'screen,projection',
+#         },
+#     },
+# }
 
-PIPELINE_CSS_COMPRESSOR = "cssmin"
+PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.cssmin.CSSMinCompressor'
 
 
 
@@ -27,7 +27,7 @@ PIPELINE_JS = {
         'output_filename': 'js/stats.js',
     }
 }
-PIPELINE_JS_COMPRESSOR = "slimit"
+PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.slimit.SlimItCompressor'
 
 PIPELINE_COMPILERS = (
   'pipeline.compilers.coffee.CoffeeScriptCompiler',
