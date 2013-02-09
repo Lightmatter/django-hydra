@@ -1,0 +1,31 @@
+git+git://github.com/django/django.git@1.5b2
+
+#DB
+psycopg2
+south
+
+#FORMS
+django-cripsy-forms
+django-floppy-forms
+
+#GENERAL TOOLS
+django-annoying
+django-extensions
+django-model-utils
+
+#REDIS CACHING
+hiredis
+redis
+django-redis-cache
+django-redis-sessions
+
+## AWS
+boto
+django-storages
+django-ses
+django_smtp_ssl
+
+#OPTIONAL TOOLS
+#pillow
+#whoosh
+#django-haystack
