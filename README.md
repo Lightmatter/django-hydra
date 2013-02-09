@@ -1,0 +1,1 @@
+a generic django project
