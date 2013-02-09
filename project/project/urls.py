@@ -8,7 +8,7 @@ from filebrowser.sites import site
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^test/$', 'app.views.test', name='home'),
+    url(r'^$', 'app.views.index', name='home'),
     # url(r'^project/', include('project.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
