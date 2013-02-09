@@ -1,17 +1,22 @@
 git+git://github.com/django/django.git@1.5b2
+django-pipeline
+cssmin
+slimit
 
 #DB
 psycopg2
 south
 
 #FORMS
-django-cripsy-forms
-django-floppy-forms
+django-crispy-forms
+django-floppyforms
 
 #GENERAL TOOLS
 django-annoying
 django-extensions
 django-model-utils
+unipath
+pytz
 
 #REDIS CACHING
 hiredis
@@ -31,7 +36,13 @@ django_smtp_ssl
 #django-haystack
 
 # Debug Tools
-sqlparse
+
 django-debug-toolbar
 django-devserver
+werkzeug
+sqlparse
+guppy
+line_profiler
+dozer
+
 ipython
