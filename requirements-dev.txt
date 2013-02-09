@@ -38,7 +38,7 @@ django_smtp_ssl
 # Debug Tools
 
 django-debug-toolbar
-django-devserver
+-e git+https://github.com/dcramer/django-devserver#egg=django-devserver
 werkzeug
 sqlparse
 guppy

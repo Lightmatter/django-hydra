@@ -25,13 +25,21 @@ STATIC_ROOT = PROJECT_ROOT.child("static")
 
 INSTALLED_APPS += (
     'debug_toolbar',
-    'devserver'
+    'devserver',
 )
+
+MIDDLEWARE_CLASSES += (
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+)
+
+DEBUG_TOOLBAR_CONFIG = {
+    'INTERCEPT_REDIRECTS': False,
+}
 
 INTERNAL_IPS = ('127.0.0.1',)
 
 DEVSERVER_ARGS = ['werkzeug', 'dozer']
-DEVSERVER_WSGI_MIDDLEWARE = ['debug_toolbar.middleware.DebugToolbarMiddleware',]
+
 
 DEVSERVER_MODULES = (
     'devserver.modules.sql.SQLRealTimeModule',

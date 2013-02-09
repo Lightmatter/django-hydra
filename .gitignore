@@ -3,3 +3,4 @@
 *.ropeproject
 */static/*
 *_flymake*
+*.\#*
