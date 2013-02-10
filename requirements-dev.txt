@@ -46,7 +46,8 @@ django-debug-toolbar
 -e git+https://github.com/dcramer/django-devserver#egg=django-devserver
 werkzeug
 sqlparse
-https://guppy-pe.svn.sourceforge.net/svnroot/guppy-pe/trunk/guppy  #cheeseshop version doesn't work with 2.7
+#cheeseshop version doesn't work with 2.7
+https://guppy-pe.svn.sourceforge.net/svnroot/guppy-pe/trunk/guppy
 line_profiler
 dozer
 
