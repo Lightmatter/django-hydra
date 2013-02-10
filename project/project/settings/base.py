@@ -118,6 +118,7 @@ INSTALLED_APPS = (
     'model_utils',
     'south',
     'pipeline',
+    'app',
 
 )
 
