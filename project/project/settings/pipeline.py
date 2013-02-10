@@ -30,5 +30,5 @@ PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.slimit.SlimItCompressor'
 
 PIPELINE_COMPILERS = (
   'pipeline.compilers.coffee.CoffeeScriptCompiler',
-  'pipeline.compilers.sass.SASSCompiler',
+  'pipeline_compass.compiler.CompassCompiler',
 )
