@@ -1,53 +1,11 @@
-git+git://github.com/django/django.git@1.5b2
-django-pipeline
-django-pipeline-compass
-cssmin
-slimit
-django-grappelli
-django-filebrowser
-
-
-#DB
-psycopg2
-south
-
-#FORMS
-django-crispy-forms
-django-floppyforms
-
-#GENERAL TOOLS
-django-annoying
-django-extensions
-django-model-utils
-unipath
-pytz
-feedparser
-
-#REDIS CACHING
-hiredis
-redis
-django-redis-cache
-django-redis-sessions
-
-## AWS
-boto
-django-storages
-django-ses
-django_smtp_ssl
-
-#OPTIONAL TOOLS
-pillow
-#whoosh
-#django-haystack
-
+-r requirements.txt
 # Debug Tools
 
 django-debug-toolbar
--e git+https://github.com/dcramer/django-devserver#egg=django-devserver
+django-devserver
 werkzeug
 sqlparse
-#cheeseshop version doesn't work with 2.7
-https://guppy-pe.svn.sourceforge.net/svnroot/guppy-pe/trunk/guppy
+guppy
 line_profiler
 dozer
 
