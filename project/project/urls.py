@@ -8,15 +8,16 @@ from filebrowser.sites import site
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^$', 'app.views.index', name='home'),
+    url(r'', include('app.urls')),
     # url(r'^project/', include('project.foo.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
+    url(r'^user_settings/', include('auth.urls')),
     url(r'^admin/filebrowser/', include(site.urls)),
-    (r'^grappelli/', include('grappelli.urls')),
+    url(r'^grappelli/', include('grappelli.urls')),
     url(r'^admin/', include(admin.site.urls)),
 )
 
