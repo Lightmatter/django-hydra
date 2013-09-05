@@ -6,7 +6,7 @@ cssmin
 slimit
 django-grappelli
 django-filebrowser
-
+pillow
 
 #DB
 psycopg2
@@ -17,6 +17,7 @@ django-crispy-forms
 django-floppyforms
 
 #GENERAL TOOLS
+django-registration
 django-annoying
 django-extensions
 django-model-utils
@@ -38,6 +39,6 @@ django-ses
 django_smtp_ssl
 
 #OPTIONAL TOOLS
-#pillow
+
 #whoosh
 #django-haystack
