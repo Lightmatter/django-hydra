@@ -6,7 +6,6 @@ todo:
   500 page
   update templates_loader conf setting for prod to use cached templates rather than reload
   add in sticky footer
-  add in compass conf
   figure out some way to automatically move files from project to $project_name
   setup django csrf for ajax requests
   move requirements (symlinks?) to project folder

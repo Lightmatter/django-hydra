@@ -152,7 +152,7 @@ LOGGING = {
 }
 
 
-AUTH_USER_MODEL = 'app.User'
+AUTH_USER_MODEL = 'auth.User'
 
 from .pipeline import *
 from .grappelli import *
