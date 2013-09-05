@@ -1,4 +1,4 @@
-git+git://github.com/django/django.git@1.5b2
+Django
 django-pipeline
 django-pipeline-compass
 
