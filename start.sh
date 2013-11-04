@@ -5,9 +5,10 @@ unset PYTHONDONTWRITEBYTECODE
 echo "Making Virtual Environment"
 source `which virtualenvwrapper.sh`
 cd $WORKON_HOME
-$VIRTUALENVWRAPPER_VIRTUALENV $ENV_OPTS $ENV_NAME
+mkvirtualenv --distribute $ENV_OPTS $ENV_NAME
 cd -
 workon $ENV_NAME
+echo $VIRTUAL_ENV
 pip install -r requirements-dev.txt
 psql -c "create role {{ project_name }} with encrypted password '{{ project_name }}' login;"
 psql -c "create database {{ project_name }} with owner {{ project_name }};"
