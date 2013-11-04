@@ -12,7 +12,7 @@ Follow the four steps below to start a new project using this django template::
     $ cd project_name
     $ sh start.sh
     $ compass watch
-    $ python light/manage.py runserver
+    $ python project_name/manage.py runserver
 
 Todo
 =====================
