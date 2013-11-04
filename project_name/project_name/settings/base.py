@@ -152,6 +152,11 @@ LOGGING = {
 }
 
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'app.backends.UserAuthBackend',
+)
+
 AUTH_USER_MODEL = 'app.User'
 
 from .pipeline import *
