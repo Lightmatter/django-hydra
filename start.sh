@@ -9,5 +9,8 @@ $VIRTUALENVWRAPPER_VIRTUALENV $ENV_OPTS $ENV_NAME
 cd -
 workon $ENV_NAME
 pip install -r requirements-dev.txt
+psql -c "create role light with encrypted password 'light' login;"
+psql -c "create database light with owner light;"
+python manage.py syncdb --migrate
 
 
