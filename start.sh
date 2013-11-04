@@ -1,14 +1,13 @@
-#!/bin/bash
+#!/bin/echo
+ENV_NAME="light"
+ENV_OPSTS="--no-site-packages --distribute"
+unset PYTHONDONTWRITEBYTECODE
 echo "Making Virtual Environment"
-mkvirtualenv {{ project_name }}
-echo "Installing requirements"
-pip install -r requirements
-echo "Creating Database"
-psql createuser {{ project_name }} with encrypted password "{{ project_name }}" login
-psql createdb {{ project_name }} --owner={{ project_name }}
-echo "Syncdb and Migrate"
-chmod +x manage.py
-./manage.py syncdb --migrate
-
+source $(which virtualenvwrapper.sh)
+cd $WORKON_HOME
+$VIRTUALENVWRAPPER_VIRTUALENV $ENV_OPTS $ENV_NAME
+cd -
+workon $ENV_NAME
+pip install -r requirements-dev.txt
 
 
