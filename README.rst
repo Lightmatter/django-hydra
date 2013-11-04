@@ -8,11 +8,11 @@ Instructions
 =====================
 Follow the four steps below to start a new project using this django template
 
-    django-admin.py startproject --template=https://github.com/Lightmatter/generic-django-conf/archive/master.zip project_name --extension=py,rb,sh,project_name --name=project_name
-    cd project_name
-    sh start.sh
-    compass watch
-    python light/manage.py runserver
+    $ django-admin.py startproject --template=https://github.com/Lightmatter/generic-django-conf/archive/master.zip project_name --extension=py,rb,sh,project_name --name=project_name
+    $ cd project_name
+    $ sh start.sh
+    $ compass watch
+    $ python light/manage.py runserver
 
 Todo
 =====================
