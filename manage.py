@@ -1,1 +1,1 @@
-project/manage.py
+{{ project_name }}/manage.py
