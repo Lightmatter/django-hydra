@@ -1,1 +1,1 @@
-project/wsgi.py
+project_name/wsgi.py
