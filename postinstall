@@ -1,0 +1,6 @@
+echo "syncdb"
+/home/dotcloud/current/manage.py syncdb --noinput --settings {{ project_name }}.settings.production
+echo "migrate"
+/home/dotcloud/current/manage.py migrate --noinput --settings {{ project_name }}.settings.production
+echo "collectstatic" 
+/home/dotcloud/current/manage.py collectstatic --noinput --settings {{ project_name }}.settings.production

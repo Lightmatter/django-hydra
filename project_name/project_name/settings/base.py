@@ -57,7 +57,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = "&)y$vgj8lzxlexal31dcd(^ua(0yf95)f^b@$=*to5s)*eznxq"
+SECRET_KEY = "{{ secret_key }}"
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -85,10 +85,10 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'project.urls'
+ROOT_URLCONF = '{{ project_name }}.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'project.wsgi.application'
+WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
 
 TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
@@ -150,6 +150,11 @@ LOGGING = {
     }
 }
 
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'app.backends.UserAuthBackend',
+)
 
 AUTH_USER_MODEL = 'app.User'
 

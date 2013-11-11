@@ -1,0 +1,9 @@
+www:
+  approot: {{ project_name }}
+  type: python
+  config:
+    python_version: v2.7
+db:
+  type: postgis
+cache:
+  type: redis
