@@ -118,9 +118,7 @@ INSTALLED_APPS = (
     'model_utils',
     'south',
     'pipeline',
-    'auth',
     'app',
-
 )
 
 # A sample logging configuration. The only tangible logging
@@ -153,7 +151,7 @@ LOGGING = {
 }
 
 
-AUTH_USER_MODEL = 'auth.User'
+AUTH_USER_MODEL = 'app.User'
 
 from .pipeline import *
 from .grappelli import *
