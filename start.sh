@@ -29,7 +29,7 @@ python $ENV_NAME/manage.py syncdb --migrate
 if [ -d .git ]; then
   echo "Git exists";
 else
-    "Setting up Git"
+    echo "Setting up Git"
     git init .
     git remote add origin "git@github.com:Lightmatter/{{ project_name }}.git"
 fi
