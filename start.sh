@@ -32,4 +32,5 @@ else
     "Setting up Git"
     git init .
     git remote add origin "git@github.com:Lightmatter/{{ project_name }}.git"
+fi
 
