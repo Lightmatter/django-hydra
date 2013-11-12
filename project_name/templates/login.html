@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='login'>
+  <h1>Login</h1>
+  <div class='box'>
+    <form method='POST'>
+      {% csrf_token %}
+      {{ form.email }}
+      {{ form.password }}
+      <input type='submit' />
+    </form>
+  </div>
+  <div class='notright'>
+    Need an Account? <a href='{% url register %}'>Sign Up</a>
+  </div>
+</div>
+{% endblock %}
