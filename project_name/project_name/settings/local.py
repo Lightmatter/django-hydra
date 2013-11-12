@@ -57,3 +57,5 @@ DEVSERVER_MODULES = (
     'devserver.modules.cache.CacheSummaryModule',
     'devserver.modules.profile.LineProfilerModule',
 )
+
+TEMPLATE_STRING_IF_INVALID = "BAD TEMPLATE VARIABLE"

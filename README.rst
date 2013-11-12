@@ -2,7 +2,7 @@
 LightMatter Django Template
 =====================
 
-A generic template for Django 1.5 
+A generic template for Django 1.5
 
 Instructions
 =====================
@@ -33,3 +33,15 @@ Things we still want to do::
      -setup api for user
      -wire in user
   put all third party css files into vendor
+  click jacking
+  django-secure
+  django-configurations
+  avatars by default
+  update templates_loader conf setting for prod to use cached templates rather than reload
+  add in sticky footer
+  figure out some way to automatically move files from project to $project_name
+  setup django csrf for ajax requests
+  setup django crispy and floppy
+  setup a base url
+  django-htmlmin
+  django-filer
