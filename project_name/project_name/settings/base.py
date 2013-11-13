@@ -119,6 +119,7 @@ INSTALLED_APPS = (
     'south',
     'pipeline',
     'app',
+    'registration',
 )
 
 # A sample logging configuration. The only tangible logging
