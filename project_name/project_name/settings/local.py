@@ -47,7 +47,7 @@ DEVSERVER_ARGS = ['--werkzeug']
 
 
 DEVSERVER_MODULES = (
-    'devserver.modules.sql.SQLRealTimeModule',
+    #'devserver.modules.sql.SQLRealTimeModule',
     'devserver.modules.sql.SQLSummaryModule',
     'devserver.modules.profile.ProfileSummaryModule',
 
@@ -59,3 +59,4 @@ DEVSERVER_MODULES = (
 )
 
 TEMPLATE_STRING_IF_INVALID = "BAD TEMPLATE VARIABLE"
+SECRET_KEY = "&)y$vgj8lzxlexal31dcd(^ua(0yf95)f^b@$=*to5s)*eznxq"
