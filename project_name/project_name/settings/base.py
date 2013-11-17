@@ -107,17 +107,17 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # Uncomment the next line to enable the admin:
     'django.contrib.admin',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
     'annoying',
     'django_extensions',
     'model_utils',
     'south',
     'pipeline',
-    'app',
     'registration',
+    #our local apps
+    'app',
+    'account',
+
 )
 
 # A sample logging configuration. The only tangible logging
@@ -155,7 +155,6 @@ AUTHENTICATION_BACKENDS = (
     'app.backends.UserAuthBackend',
 )
 
-AUTH_USER_MODEL = 'app.User'
+AUTH_USER_MODEL = 'account.User'
 
-from .pipeline import *
-from .grappelli import *
+from {{project_name}}.settings.app import *

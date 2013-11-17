@@ -38,3 +38,6 @@ fi
 
 
 ln -s $ENV_NAME/manage.py
+cd $ENV_NAME/
+ln -s ../requirements.txt
+cd ../
