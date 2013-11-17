@@ -13,8 +13,6 @@ psycopg2
 south
 
 #FORMS
-django-crispy-forms
-django-floppyforms
 
 #GENERAL TOOLS
 django-registration
@@ -23,7 +21,7 @@ django-extensions
 django-model-utils
 unipath
 pytz
-feedparser
+#feedparser
 
 
 #REDIS CACHING
@@ -36,7 +34,7 @@ django-redis-sessions
 boto
 django-storages
 django-ses
-django_smtp_ssl
+#django_smtp_ssl
 
 #OPTIONAL TOOLS
 
