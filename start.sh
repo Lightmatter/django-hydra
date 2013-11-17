@@ -6,10 +6,12 @@ ENV_OPSTS="--no-site-packages --distribute"
 unset PYTHONDONTWRITEBYTECODE
 echo "Making Virtual Environment"
 source `which virtualenvwrapper.sh`
+source /etc/bash_completion.d/virtualenvwrapper
 cd $WORKON_HOME
 mkvirtualenv --distribute $ENV_OPTS $ENV_NAME
 cd -
 workon $ENV_NAME
+export DJANGO_SETTINGS_MODULE=$ENV_NAME.settings.local
 echo $VIRTUAL_ENV
 
 #install requirements
@@ -34,3 +36,5 @@ else
     git remote add origin "git@github.com:Lightmatter/{{ project_name }}.git"
 fi
 
+
+ln -s $ENV_NAME/manage.py
