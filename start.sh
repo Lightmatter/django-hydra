@@ -21,7 +21,7 @@ pip install -r requirements-dev.txt
 RESULT=`psql -l | grep light | wc -l | awk '{print $1}'`;
 if test $RESULT -eq 0; then
     echo "Creating Database";
-    psql -c "create role {{ project_name }} with encrypted password '{{ project_name }}' login;"
+    psql -c "create role {{ project_name }} with createdb encrypted password '{{ project_name }}' login;"
     psql -c "create database {{ project_name }} with owner {{ project_name }};"
 else
     echo "Database exists"

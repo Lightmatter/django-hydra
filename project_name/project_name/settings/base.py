@@ -152,7 +152,7 @@ LOGGING = {
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'app.backends.UserAuthBackend',
+    'account.backends.UserAuthBackend',
 )
 
 AUTH_USER_MODEL = 'account.User'
