@@ -4,6 +4,7 @@ PIPELINE_CSS = {
     'screen': {
         'source_filenames': (
           'css/*.css',
+          'sass/*.scss',
         ),
         'output_filename': 'css/screen.css',
         'variant': 'datauri',
@@ -22,6 +23,7 @@ PIPELINE_JS = {
         'source_filenames': (
             'js/jquery-1.9.0.min.js',
             'js/*.js',
+            'js/*.coffee',
             ),
         'output_filename': 'js/app.js',
     }

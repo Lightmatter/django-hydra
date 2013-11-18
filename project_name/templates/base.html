@@ -2,8 +2,8 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> 
-<html class="no-js"> 
+<!--[if gt IE 8]><!-->
+<html class="no-js">
   <!--<![endif]-->
   <head>
     <meta charset="utf-8">
@@ -29,15 +29,12 @@
     {% include "nav.html" %}
     </header>
     {% endblock header %}
-    <div class="container">
+    <div class="container" id="main">
       {% block content %}
       {% endblock content %}
-      {% block footer %}
-      <footer>
-      {% include "footer.html" %}
-      </footer>
-      {% endblock footer %}
     </div> <!-- /container -->
+	{% include "footer.html" %}
+
     {% compressed_js 'app' %}
     {% block body_media %}
     {% endblock body_media %}
