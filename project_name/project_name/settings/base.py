@@ -115,6 +115,7 @@ INSTALLED_APPS = (
     'pipeline',
     'registration',
     #our local apps
+    'manifesto',
     'app',
     'account',
 

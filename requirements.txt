@@ -22,8 +22,7 @@ django-extensions
 django-model-utils
 unipath
 pytz
-#feedparser
-
+manifesto
 
 #REDIS CACHING
 hiredis
