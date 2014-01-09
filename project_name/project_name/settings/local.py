@@ -25,7 +25,8 @@ MEDIA_URL = "/media/"
 # Example: "/var/www/example.com/static/"
 STATIC_ROOT = PROJECT_ROOT.child("static")
 
-
+import scss
+scss.config.STATIC_ROOT = STATIC_ROOT
 
 
 INSTALLED_APPS += (
