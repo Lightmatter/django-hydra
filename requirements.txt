@@ -1,6 +1,6 @@
-Django==1.5.5
+Django==1.6.1
 django-pipeline==1.3.20
--e "git+https://github.com/vbabiy/django-pipeline-compass.git@f5a942380d0dfc3fafb8d867830780f4e576e7f9#egg=django_pipeline_compass-dev"
+-e git+https://github.com/vbabiy/django-pipeline-compass.git@f5a942380d0dfc3fafb8d867830780f4e576e7f9#egg=django_pipeline_compass-dev
 pyScss==1.2.0.post3
 django-filebrowser==3.5.3
 django-zebra==0.4.4
@@ -8,10 +8,10 @@ stripe
 
 cssmin==0.2.0
 slimit==0.8.1
-django-grappelli==2.4.8
+django-grappelli==2.5.1
+feedparser==5.1.3
 
--e git+https://github.com/sehmaschine/django-filebrowser.git#egg=filebrowser
-#django-filebrowser  #until they fix the version
+django-filebrowser==3.5.3
 pillow==2.3.0
 
 #DB
