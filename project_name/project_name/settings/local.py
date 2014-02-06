@@ -47,6 +47,9 @@ INTERNAL_IPS = ('127.0.0.1',)
 DEVSERVER_ARGS = ['--werkzeug']
 
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
 DEVSERVER_MODULES = (
     #'devserver.modules.sql.SQLRealTimeModule',
     'devserver.modules.sql.SQLSummaryModule',

@@ -1,13 +1,13 @@
 -r requirements.txt
 # Debug Tools
+django-debug-toolbar==1.0.1
+django-devserver==0.7.0
+Werkzeug==0.9.4
+sqlparse==0.1.10
 
-django-debug-toolbar
-django-devserver
-werkzeug
-sqlparse
-guppy
+guppy==0.1.10
 line_profiler==1.0b3
-dozer
+Dozer==0.4
 
-ipython
+ipython==1.1.0
 ipdb
