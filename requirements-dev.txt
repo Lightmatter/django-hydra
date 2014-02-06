@@ -10,3 +10,4 @@ line_profiler==1.0b3
 Dozer==0.4
 
 ipython==1.1.0
+ipdb
