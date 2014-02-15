@@ -42,6 +42,9 @@ django-storages==1.1.8
 django-ses==0.4.1
 #django_smtp_ssl
 
+### TESTING
+factory-boy==2.3.1
+
 #OPTIONAL TOOLS
 
 #whoosh

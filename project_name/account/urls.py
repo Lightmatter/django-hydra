@@ -10,12 +10,12 @@ urlpatterns = patterns('',
 
 
 ###Simple backend doesn't do email confirmation
-# urlpatterns += patterns('app.views',
-#     (r'', include('registration.backends.simple.urls')),
-# )
+urlpatterns += patterns('app.views',
+    (r'', include('registration.backends.simple.urls')),
+)
 
 ###default backend does  email confirmation
 
-urlpatterns = patterns('app.views',
-    (r'', include('registration.backends.default.urls')),
-)
+# urlpatterns = patterns('app.views',
+#     (r'', include('registration.backends.default.urls')),
+# )
