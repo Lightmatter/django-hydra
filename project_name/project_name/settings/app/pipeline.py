@@ -1,16 +1,19 @@
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+
+STATICFILES_STORAGE = 'util.gzipstorage.GZIPCachedStorage'
 
 PIPELINE_CSS = {
     'screen': {
         'source_filenames': (
-          'css/*.css',
-          'sass/*.scss',
+          'sass/main.scss',
         ),
         'output_filename': 'css/screen.css',
         'variant': 'datauri',
         'extra_context': {
             'media': 'screen,projection',
+
         },
+
+        'manifest': True,
     },
 }
 
@@ -26,7 +29,9 @@ PIPELINE_JS = {
             'js/*.coffee',
             ),
         'output_filename': 'js/app.js',
+        'manifest': True,
     }
+
 }
 PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.slimit.SlimItCompressor'
 

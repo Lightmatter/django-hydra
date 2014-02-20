@@ -157,5 +157,14 @@ AUTHENTICATION_BACKENDS = (
 )
 
 AUTH_USER_MODEL = 'account.User'
+LOGIN_REDIRECT_URL = "/"
+LOGIN_URL = "/account/login"
+LOGOUT_URL = "/account/logout"
+
+
+
+import scss
+scss.config.PROJECT_ROOT = PROJECT_ROOT
+scss.config.STATIC_URL = STATIC_URL
 
 from {{project_name}}.settings.app import *

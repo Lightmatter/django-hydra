@@ -1,12 +1,19 @@
-#!/bin/echo
+#!/bin/bash
 #set up project name
 ENV_NAME="{{ project_name }}"
 ENV_OPSTS="--no-site-packages --distribute"
 
 unset PYTHONDONTWRITEBYTECODE
 echo "Making Virtual Environment"
-source `which virtualenvwrapper.sh`
-source /etc/bash_completion.d/virtualenvwrapper
+os="`uname -a`"
+if [[ "$os" == *Linux* ]]; then
+    source /etc/bash_completion.d/virtualenvwrapper
+else
+    source `which virtualenvwrapper.sh`
+fi
+
+
+
 cd $WORKON_HOME
 mkvirtualenv --distribute $ENV_OPTS $ENV_NAME
 cd -

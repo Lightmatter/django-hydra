@@ -8,9 +8,10 @@ Instructions
 =====================
 Follow the four steps below to start a new project using this django template::
 
-    $ django-admin.py startproject --template=https://github.com/Lightmatter/generic-django-conf/archive/master.zip  --extension=py,rb,sh,project_name project_name
-    $ cd project_name
-    $ sh start.sh
+    $ django-admin.py startproject --template=https://github.com/Lightmatter/generic-django-conf/archive/master.zip  --extension=py,rb,sh,project_name <project_name>
+    $ cd <project_name>
+    $ chmod +x start.sh
+    $ ./start.sh
     $ workon project_name
     $ python project_name/manage.py runserver
 
