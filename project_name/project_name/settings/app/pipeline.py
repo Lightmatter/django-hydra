@@ -1,12 +1,5 @@
-from staticfiles.storage import CachedStaticFilesStorage
 
-from pipeline.storage import GZIPMixin
-
-
-class GZIPCachedStorage(GZIPMixin, CachedStaticFilesStorage):
-    pass
-
-STATICFILES_STORAGE = '{{project_name}}.settings.app.pipeline.GZIPCachedStorage'
+STATICFILES_STORAGE = 'util.pipeline.GZIPCachedStorage'
 
 PIPELINE_CSS = {
     'screen': {
