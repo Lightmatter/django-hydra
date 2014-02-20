@@ -1,4 +1,4 @@
-#!/bin/echo
+#!/bin/bash
 #set up project name
 ENV_NAME="{{ project_name }}"
 ENV_OPSTS="--no-site-packages --distribute"
