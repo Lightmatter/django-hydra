@@ -1,9 +1,16 @@
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+from staticfiles.storage import CachedStaticFilesStorage
+
+from pipeline.storage import GZIPMixin
+
+
+class GZIPCachedStorage(GZIPMixin, CachedStaticFilesStorage):
+    pass
+
+STATICFILES_STORAGE = '{{project_name}}.settings.app.pipeline.GZIPCachedStorage'
 
 PIPELINE_CSS = {
     'screen': {
         'source_filenames': (
-          'css/*.css',
           'sass/main.scss',
         ),
         'output_filename': 'css/screen.css',
@@ -13,7 +20,7 @@ PIPELINE_CSS = {
 
         },
 
-        'manifest': True, 
+        'manifest': True,
     },
 }
 
@@ -29,7 +36,7 @@ PIPELINE_JS = {
             'js/*.coffee',
             ),
         'output_filename': 'js/app.js',
-        'manifest': True,            
+        'manifest': True,
     }
 
 }
@@ -39,4 +46,3 @@ PIPELINE_COMPILERS = (
   'pipeline.compilers.coffee.CoffeeScriptCompiler',
   'pipeline_compass.compiler.CompassCompiler',
 )
-
