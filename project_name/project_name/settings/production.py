@@ -24,7 +24,7 @@ CACHES = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'sitterfied',
+        'NAME': '{{project_name}}',
         'USER': env.get('DOTCLOUD_DB_SQL_LOGIN', ''),
         'PASSWORD': env.get('DOTCLOUD_DB_SQL_PASSWORD', ''),
         'HOST': env.get('DOTCLOUD_DB_SQL_HOST', ''),
