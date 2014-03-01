@@ -167,4 +167,11 @@ import scss
 scss.config.PROJECT_ROOT = PROJECT_ROOT
 scss.config.STATIC_URL = STATIC_URL
 
+ALLOWED_HOSTS = [
+    "localhost"
+    ".herokuapp.com"
+]
+
+DEFAULT_FROM_EMAIL = "hello@{{project_name}}.com"
+SERVER_EMAIL = "error@{{project_name}}.com"
 from {{project_name}}.settings.app import *
