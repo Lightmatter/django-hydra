@@ -6,7 +6,7 @@ User = get_user_model()
 class UserAuthBackend():
     def authenticate(self, username=None, password=None):
         try:
-            user = User.objects.get(email=username)
+            user = User.objects.get(email__iexact=username)
         except User.DoesNotExist:
             return None
 
