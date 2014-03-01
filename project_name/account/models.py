@@ -6,5 +6,10 @@ from django.contrib.auth.models import AbstractUser
 
 from {{ project_name }} import settings
 
-class User(TimeStampedModel, AbstractUser):
-    pass
+class User(AbstractUser, TimeStampedModel):
+
+    def __unicode__(self):
+        if self.get_full_name() == "":
+            return self.email
+        else:
+            return super(User, self).__unicode__()
