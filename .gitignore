@@ -56,3 +56,10 @@ coverage.xml
 
 # Sphinx documentation
 docs/_build/
+
+
+#django media folder
+media/
+
+
+*.sass-cache/
