@@ -43,8 +43,4 @@ else
     git remote add origin "git@github.com:Lightmatter/{{ project_name }}.git"
 fi
 
-chmod +x $ENV_NAME/manage.py
-ln -s $ENV_NAME/manage.py
-cd $ENV_NAME/
-ln -s ../requirements.txt
-cd ../
+chmod +x manage.py

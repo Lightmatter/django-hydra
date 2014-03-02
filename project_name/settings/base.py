@@ -1,6 +1,14 @@
 # Django settings for project project.
 from unipath import Path
 
+def get_env_setting(setting):
+    """ Get the environment setting or return exception """
+    try:
+        return environ[setting]
+    except KeyError:
+        error_msg = "Set the %s env variable" % setting
+        raise ImproperlyConfigured(error_msg)
+
 PROJECT_ROOT = Path(__file__).ancestor(3)
 
 DEBUG = False
@@ -73,7 +81,9 @@ TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
                                "django.core.context_processors.media",
                                "django.core.context_processors.static",
                                "django.core.context_processors.tz",
-                               "django.contrib.messages.context_processors.messages")
+                               "django.contrib.messages.context_processors.messages",
+                               "app.context_processors.settings",
+)
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -162,7 +172,6 @@ LOGIN_URL = "/account/login"
 LOGOUT_URL = "/account/logout"
 
 
-
 import scss
 scss.config.PROJECT_ROOT = PROJECT_ROOT
 scss.config.STATIC_URL = STATIC_URL
@@ -175,3 +184,10 @@ ALLOWED_HOSTS = [
 DEFAULT_FROM_EMAIL = "hello@{{project_name}}.com"
 SERVER_EMAIL = "error@{{project_name}}.com"
 from {{project_name}}.settings.app import *
+
+
+AWS_ACCESS_KEY_ID = get_env_setting('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = get_env_setting('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = get_env_setting('AWS_STORAGE_BUCKET_NAME')
+
+SOUTH_TESTS_MIGRATE = False

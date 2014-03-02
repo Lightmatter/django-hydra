@@ -35,6 +35,7 @@
     </div> <!-- /container -->
 	{% include "footer.html" %}
 
+    {% compressed_js 'vendor' %}
     {% compressed_js 'app' %}
     {% block body_media %}
     {% endblock body_media %}

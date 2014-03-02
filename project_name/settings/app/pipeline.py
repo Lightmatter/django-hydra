@@ -1,10 +1,10 @@
-
-STATICFILES_STORAGE = 'util.gzipstorage.GZIPCachedStorage'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+#STATICFILES_STORAGE = 'util.gzipstorage.GZIPCachedStorage'
 
 PIPELINE_CSS = {
     'screen': {
         'source_filenames': (
-          'sass/main.scss',
+            'sass/screen.scss',
         ),
         'output_filename': 'css/screen.css',
         'variant': 'datauri',
@@ -19,23 +19,31 @@ PIPELINE_CSS = {
 
 PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.cssmin.CSSMinCompressor'
 
-
-
 PIPELINE_JS = {
     'app': {
         'source_filenames': (
-            'js/jquery-1.9.0.min.js',
             'js/*.js',
             'js/*.coffee',
             ),
         'output_filename': 'js/app.js',
         'manifest': True,
+    },
+
+    'vendor': {
+        'source_filenames': (
+            'js/vendor/jquery-1.9.0.min.js',
+            'js/vendor/bootstrap.min.js',
+            'js/vendor/select2.min.js',
+            ),
+        'output_filename': 'js/vendor.js',
+        'manifest': True,
     }
 
 }
-PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.slimit.SlimItCompressor'
+
+PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.jsmin.JSMinCompressor'
 
 PIPELINE_COMPILERS = (
-  'pipeline.compilers.coffee.CoffeeScriptCompiler',
-  'pipeline_compass.compiler.CompassCompiler',
+    'pipeline.compilers.coffee.CoffeeScriptCompiler',
+    'pipeline_compass.compiler.CompassCompiler',
 )

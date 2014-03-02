@@ -13,3 +13,11 @@ class User(AbstractUser, TimeStampedModel):
             return self.email
         else:
             return super(User, self).__unicode__()
+
+
+    def get_absolute_url():
+        """
+        The absolute url of the user model
+        """
+
+        raise NotImplemented()
