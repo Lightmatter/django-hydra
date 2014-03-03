@@ -124,7 +124,7 @@ INSTALLED_APPS = (
     'south',
     'pipeline',
     'registration',
-    'payment',
+    'payments',
     'manifesto',
     'app',
     'account',
@@ -184,9 +184,5 @@ DEFAULT_FROM_EMAIL = "hello@{{project_name}}.com"
 SERVER_EMAIL = "error@{{project_name}}.com"
 from {{project_name}}.settings.app import *
 
-
-AWS_ACCESS_KEY_ID = get_env_setting('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = get_env_setting('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = get_env_setting('AWS_STORAGE_BUCKET_NAME')
 
 SOUTH_TESTS_MIGRATE = False

@@ -61,4 +61,13 @@ MEDIA_URL = "https://s3-us-west-2.amazonaws.com/{{project_name}}/"
 EMAIL_BACKEND = 'django_mandrill.mail.backends.mandrillbackend.EmailBackend'
 MANDRILL_API_KEY = get_env_setting('MANDRILL_APIKEY')
 
+STRIPE_PUBLIC_KEY = get_env_setting('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = get_env_setting('STRIPE_SECRET_KEY')
+
+AWS_ACCESS_KEY_ID = get_env_setting('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = get_env_setting('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = get_env_setting('AWS_STORAGE_BUCKET_NAME')
+
+
+
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
