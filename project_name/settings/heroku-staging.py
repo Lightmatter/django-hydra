@@ -59,6 +59,6 @@ DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 MEDIA_URL = "https://s3-us-west-2.amazonaws.com/{{project_name}}/"
 
 EMAIL_BACKEND = 'django_mandrill.mail.backends.mandrillbackend.EmailBackend'
-MANDRILL_API_KEY = get_env_setting('MANDRILL_API_KEY')
+MANDRILL_API_KEY = get_env_setting('MANDRILL_APIKEY')
 
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

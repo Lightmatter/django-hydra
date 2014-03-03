@@ -66,4 +66,4 @@ AWS_STORAGE_BUCKET_NAME = "{{project_name}}"
 MEDIA_URL = ""
 
 EMAIL_BACKEND = 'django_mandrill.mail.backends.mandrillbackend.EmailBackend'
-MANDRILL_API_KEY = get_env_setting('MANDRILL_API_KEY')
+MANDRILL_API_KEY = get_env_setting('MANDRILL_APIKEY')
