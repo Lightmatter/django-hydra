@@ -37,6 +37,9 @@ $ heroku addons:add mandrill:starter
 Make sure to add psql backup
 $ heroku addons:add pgbackups
 
+Add in the newrelic addon:
+$ heroku addons:add newrelic
+
 
 
 Todo

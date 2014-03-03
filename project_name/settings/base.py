@@ -124,11 +124,10 @@ INSTALLED_APPS = (
     'south',
     'pipeline',
     'registration',
-    #our local apps
+    'payment',
     'manifesto',
     'app',
     'account',
-
 )
 
 # A sample logging configuration. The only tangible logging
