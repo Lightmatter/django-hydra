@@ -34,7 +34,7 @@ heroku config:set SECRET_KEY=`python -c 'import random; print "".join([random.ch
 Use the Mandrill addon to setup email - just
 $ heroku addons:add mandrill:starter
 
-Make sure to add psql backup to production
+Make sure to add psql backup
 $ heroku addons:add pgbackups
 
 
