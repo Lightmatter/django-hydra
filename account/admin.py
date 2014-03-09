@@ -27,5 +27,5 @@ class UserAdmin(DjangoUserAdmin):
     search_fields = ('username', 'email', 'first_name', 'last_name')
     list_display = ('email', 'first_name', 'last_name', 'created')
 
-
+admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
