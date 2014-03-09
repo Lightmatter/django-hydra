@@ -60,5 +60,4 @@ docs/_build/
 #django media folder
 media/
 
-
-*.sass-cache/
+.sass-cache/
