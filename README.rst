@@ -70,3 +70,50 @@ Things we still want to do::
   setup django crispy and floppy
   django-htmlmin
   django-filer
+
+
+
+
+
+TRANSFERING DATA
+================
+
+make sure the pgbackups script is installed on staging and prod
+LOCAL TO REMOTE
+Back up your local data via
+```
+pg_dump -Fc --no-acl --no-owner <DBNAME> > database.dump
+```
+put the dump in a world readable location - dropbox works, or s3
+use
+```
+heroku pgbackups:restore DATABASE_URL '<url to your dump file>'
+```
+make sure to use the url to the raw file and not an html document talking about the file (eg dropbox, right click on save file and click copy file url)
+
+REMOTE TO LOCAL
+Create a database dump with
+```
+$ heroku pgbackups:capture
+```
+Download it locally with
+```
+$ curl -o latest.dump `heroku pgbackups:url`
+```
+and load into your local db with
+
+```
+$ pg_restore --verbose --clean --no-acl --no-owner <DB_NAME> latest.dump
+```
+
+
+REMOTE TO REMOTE (staging to prod, or prod to staging)
+Create a database dump with
+```
+$ heroku pgbackups:capture
+```
+
+and load remotely with
+```
+heroku pgbackups:restore DATABASE_URL '`heroku pgbackups:url`'
+```
