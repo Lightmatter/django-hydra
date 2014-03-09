@@ -70,7 +70,3 @@ Things we still want to do::
   setup django crispy and floppy
   django-htmlmin
   django-filer
-
-
-
-D
