@@ -1,5 +1,7 @@
 # Django settings for project project.
 from unipath import Path
+from os import environ
+from django.core.exceptions import ImproperlyConfigured
 
 def get_env_setting(setting):
     """ Get the environment setting or return exception """
@@ -186,3 +188,5 @@ from {{project_name}}.settings.app import *
 
 
 SOUTH_TESTS_MIGRATE = False
+
+GRAPPELLI_ADMIN_TITLE = '{{project_name}}'
