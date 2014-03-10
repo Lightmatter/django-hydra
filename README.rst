@@ -51,8 +51,6 @@ Things we still want to do::
   404/403 ect
   500 page
   update templates_loader conf setting for prod to use cached templates rather than reload
-  setup django csrf for ajax requests in javascript
-  setup secret key for prod  (os.envrion)
   add in s3 settings
   create shell script to set envrionment variables
   user useradmin
@@ -73,45 +71,31 @@ Things we still want to do::
 
 
 
-TRANSFERING DATA
+TRANSFERRING DATA
 ================
 
 make sure the pgbackups script is installed on staging and prod
 LOCAL TO REMOTE
 Back up your local data via
-```
-pg_dump -Fc --no-acl --no-owner <DBNAME> > database.dump
-```
+```pg_dump -Fc --no-acl --no-owner <DBNAME> > database.dump```
 put the dump in a world readable location - dropbox works, or s3
 use
-```
-heroku pgbackups:restore DATABASE_URL '<url to your dump file>'
-```
+```heroku pgbackups:restore DATABASE_URL '<url to your dump file>'```
 make sure to use the url to the raw file and not an html document talking about the file (eg dropbox, right click on save file and click copy file url)
 
 REMOTE TO LOCAL
 Create a database dump with
-```
-$ heroku pgbackups:capture
-```
+```$ heroku pgbackups:capture```
 Download it locally with
-```
-$ curl -o latest.dump `heroku pgbackups:url`
-```
+```$ curl -o latest.dump `heroku pgbackups:url````
 and load into your local db with
 
-```
-$ pg_restore --verbose --clean --no-acl --no-owner <DB_NAME> latest.dump
-```
+```$ pg_restore --verbose --clean --no-acl --no-owner <DB_NAME> latest.dump```
 
 
 REMOTE TO REMOTE (staging to prod, or prod to staging)
 Create a database dump with
-```
-$ heroku pgbackups:capture
-```
+```$ heroku pgbackups:capture```
 
 and load remotely with
-```
-heroku pgbackups:restore DATABASE_URL '`heroku pgbackups:url`'
-```
+```heroku pgbackups:restore DATABASE_URL '`heroku pgbackups:url`'```
