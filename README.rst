@@ -35,24 +35,24 @@ heroku config:set SECRET_KEY=`python -c 'import random; print "".join([random.ch
 ```
 
 Use the Mandrill addon to setup email -
-```
+``
 $ heroku addons:add mandrill:starter
-```
+``
 
 Make sure to add psql backup
-```
+``
 $ heroku addons:add pgbackups
-```
+``
 
 Add in the newrelic addon:
-```
+``
 $ heroku addons:add newrelic
-```
+``
 
 After pushing the code, you'll need to syncdb and run the initial migrations:
-```
+``
 $ heroku run python manage.py syncdb --migrate
-```
+``
 
 
 
