@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.conf import settings
 
+from django.contrib.auth.decorators import login_required
 
 from payments.models import Customer
 from annoying.decorators import render_to, ajax_request
@@ -38,7 +39,7 @@ def registration(request):
 def create_customer(request):
     form = StripeTokenForm(request.POST)
     if not form.is_valid():
-        Return HttpResponseBadRequest()
+        return HttpResponseBadRequest()
     card = form.cleaned_data['id']
     customer = Customer.create(request.user, card=card, charge_immediately=False)
     return {}
@@ -48,7 +49,7 @@ def charge_customer(request):
     customer = request.user.customer
     form = StripeTokenForm(request.POST)
     if not form.is_valid():
-        Return HttpResponseBadRequest()
+        return HttpResponseBadRequest()
 
     amount = form.cleaned_data['amount']
     customer.charge(amount, description="{{project_name}}")
