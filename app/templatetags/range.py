@@ -7,11 +7,13 @@ register = Library()
 def range(value):
     """
     Filter - returns a list containing range made from given value
-    Usage (in template):
-
+    Usage (in template): (verbatim tags to account for start project)
+    {% verbatim %}
     <ul>{% for i in 3|range %}
       <li>{{ i }}. Do something</li>
     {% endfor %}</ul>
+    {% endverbatim %}
+
 
     Results with the HTML:
     <ul>
