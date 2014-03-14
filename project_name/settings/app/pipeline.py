@@ -4,7 +4,7 @@ STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
 PIPELINE_CSS = {
     'screen': {
         'source_filenames': (
-            'sass/screen.scss',
+            'sass/style.scss',
         ),
         'output_filename': 'css/screen.css',
         'variant': 'datauri',
