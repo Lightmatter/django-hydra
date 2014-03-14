@@ -1,10 +1,10 @@
-from django.template import Library
+#from django.template import Library
 
-register = Library()
+#register = Library()
 
-@register.filter
+"""
+#@register.filter
 def get_range( value ):
-  """
     Filter - returns a list containing range made from given value
     Usage (in template):
 
@@ -20,5 +20,5 @@ def get_range( value ):
     </ul>
 
     Instead of 3 one may use the variable set in the views
-  """
   return range( value )
+"""
