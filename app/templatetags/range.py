@@ -9,7 +9,7 @@ def range(value):
     Filter - returns a list containing range made from given value
     Usage (in template):
 
-    <ul>{% for i in 3|get_range %}
+    <ul>{% for i in 3|range %}
       <li>{{ i }}. Do something</li>
     {% endfor %}</ul>
 
