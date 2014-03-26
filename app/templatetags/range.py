@@ -1,7 +1,7 @@
 from django.template import Library
 
 register = Library()
-
+oldrange = range
 
 @register.filter(name="range")
 def range(value):
@@ -23,4 +23,4 @@ def range(value):
     </ul>
     Instead of 3 one may use the variable set in the views
     """
-    return range(value)
+    return oldrange(value)

@@ -8,6 +8,8 @@ from {{ project_name }} import settings
 
 class User(AbstractUser, TimeStampedModel):
 
+    #custom user fields go here
+    ####
     def __unicode__(self):
         if self.get_full_name() == "":
             return self.email
