@@ -1,4 +1,4 @@
-registration-box {
+.registration-box {
         height: 100%;
         padding: 30px;
         border: 1px solid #ccc;
@@ -9,7 +9,7 @@ registration-box {
 
 %abstract-form-dimensions {
     width: 250px;
-    height: 40px;
+    height: 30px;
 }
 
 #id_first_name {
@@ -74,3 +74,4 @@ ul.errorlist {
 
 p.errors {
   color: red;
+}
