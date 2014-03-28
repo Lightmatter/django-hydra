@@ -34,7 +34,10 @@ else
     echo "Database exists"
 fi
 
-python $ENV_NAME/manage.py syncdb --migrate
+#run initial migrations and syncdb
+python manage.py syncdb --migrate
+
+#link up with git!
 if [ -d .git ]; then
   echo "Git exists";
 else
