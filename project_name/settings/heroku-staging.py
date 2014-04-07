@@ -46,8 +46,7 @@ MIDDLEWARE_CLASSES += (
     'pipeline.middleware.MinifyHTMLMiddleware',
 )
 
-SECRET_KEY =  os.environ.get('DJANGO_SECRET_KEY','boo')
-SECRET_KEY = "hwk4xwq%-i4_$=i=(k7dorw!j9p@bkywwqtu5y729xbxs&0h6+"
+SECRET_KEY = get_env_setting('SECRET_KEY')
 
 #TODO:
 #set secret key as env variable??
