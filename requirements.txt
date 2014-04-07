@@ -62,3 +62,4 @@ gunicorn==18.0
 django-jsonfield==0.9.12
 django-mandrill==0.1.0
 mandrill==1.0.53
+jsmin

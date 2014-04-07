@@ -23,17 +23,6 @@ def _404(request):
     """for testing purposes"""
     raise Http404
 
-@render_to('login.html')
-def login_view(request):
-    return {}
-
-def logout_view(request):
-    pass
-
-@render_to('register.html')
-def registration(request):
-    return {}
-
 @ajax_request
 @login_required
 def create_customer(request):

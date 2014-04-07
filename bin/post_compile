@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-python manage.py syncdb --migrate
+#python manage.py syncdb --migrate
