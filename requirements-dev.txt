@@ -8,5 +8,6 @@ sqlparse==0.1.10
 guppy==0.1.10
 line_profiler==1.0b3
 Dozer==0.4
+django-template-debug==0.3.3
 
 ipdb

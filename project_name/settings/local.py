@@ -38,7 +38,8 @@ scss.config.STATIC_ROOT = STATIC_ROOT
 
 INSTALLED_APPS += (
     'debug_toolbar',
-    'devserver'
+    'devserver',
+    'template_debug',
 )
 
 MIDDLEWARE_CLASSES += (
