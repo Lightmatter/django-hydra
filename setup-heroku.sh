@@ -44,3 +44,5 @@ git push staging master
 git push prod master
 heroku run python manage.py syncdb --migrate --app $ENV_NAME-staging
 heroku run python manage.py syncdb --migrate --app $ENV_NAME-prod
+
+echo "python manage.py syncdb --migrate" >> bin/post_compile
