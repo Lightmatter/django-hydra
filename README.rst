@@ -2,7 +2,7 @@
 LightMatter Django Template
 =====================
 
-A generic template for Django 1.5
+A generic template for Django 1.6
 
 Instructions
 =====================
