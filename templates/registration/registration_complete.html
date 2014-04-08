@@ -1,1 +1,13 @@
-Used after successful completion of the registration form. This template has no context variables of its own, and should simply inform the user that an email containing account-activation information has been sent.
+{% extends "base.html" %}
+
+{% block title %}
+ZoieSays - Registration Email Sent 
+{% endblock title %}
+
+{% block content %}
+
+<div class="registration-box">
+  <p>Thanks for signing up. Please check your email to confirm your account.</p>
+</div>
+
+{% endblock content %}

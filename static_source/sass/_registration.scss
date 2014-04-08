@@ -1,0 +1,77 @@
+.registration-box {
+        height: 100%;
+        padding: 30px;
+        border: 1px solid #ccc;
+        background-color: #DCDCDC;
+        width: 45%;
+        margin: 0 auto;
+    }
+
+%abstract-form-dimensions {
+    width: 250px;
+    height: 30px;
+}
+
+#id_first_name {
+    @extend %abstract-form-dimensions;
+}
+
+#id_last_name {
+    @extend %abstract-form-dimensions;
+}
+
+#id_email {
+   @extend %abstract-form-dimensions;
+}
+
+#id_password1 {
+   @extend %abstract-form-dimensions;
+}
+
+#id_password2 {
+   @extend %abstract-form-dimensions;
+}
+
+#id_username {
+   @extend %abstract-form-dimensions;
+}
+
+#id_password {
+   @extend %abstract-form-dimensions;
+}
+
+#id_name {
+
+   @extend %abstract-form-dimensions;
+}
+
+#id_party_type {
+   @extend %abstract-form-dimensions;
+
+}
+
+#id_new_password1 {
+       @extend %abstract-form-dimensions;
+}
+
+#id_new_password2 {
+       @extend %abstract-form-dimensions;
+}
+
+#id_old_password {
+       @extend %abstract-form-dimensions;
+}
+
+
+ul.errorlist {
+    padding-left: 0px;
+    li {
+
+        list-style: none;
+        color: red;
+    }
+}
+
+p.errors {
+  color: red;
+}

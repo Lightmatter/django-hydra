@@ -4,10 +4,10 @@
 Lightmatter Base Install
 {% endblock title %}
 
+
 {% block content %}
-<div class="row">
-  <div class="span 12">
-    <h1>Welcome to Lightmatter</h1>
-  </div>
-</div>
+{% load static from staticfiles %}
+<h1>Go forth and build...</h1>
+<img src='{% static 'img/lightmatter-medium.png' %}'/>
+
 {% endblock content %}
