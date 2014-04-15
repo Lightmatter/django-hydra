@@ -85,6 +85,8 @@ TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
                                "django.core.context_processors.tz",
                                "django.contrib.messages.context_processors.messages",
                                "app.context_processors.settings",
+                               'social.apps.django_app.context_processors.backends',
+                               'social.apps.django_app.context_processors.login_redirect',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -110,9 +112,11 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
+    # Grapelli tools
     'grappelli.dashboard',
     'grappelli',
     'filebrowser',
+    'reversion',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -128,6 +132,7 @@ INSTALLED_APPS = (
     'registration',
     'payments',
     'manifesto',
+    'social.apps.django_app.default',
     'app',
     'account',
 )
@@ -165,6 +170,7 @@ LOGGING = {
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'account.backends.UserAuthBackend',
+    'social.backends.facebook.FacebookOAuth2',
 )
 
 AUTH_USER_MODEL = 'account.User'
