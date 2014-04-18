@@ -55,7 +55,13 @@ SECRET_KEY = get_env_setting('SECRET_KEY')
 
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+AWS_QUERYSTRING_AUTH = False
 MEDIA_URL = "https://s3-us-west-2.amazonaws.com/{{project_name}}/"
+
+#put the cloudfront distro here
+#AWS_S3_CUSTOM_DOMAIN = "foo.cloudfront.net"
+
+
 
 EMAIL_BACKEND = 'django_mandrill.mail.backends.mandrillbackend.EmailBackend'
 MANDRILL_API_KEY = get_env_setting('MANDRILL_APIKEY')
@@ -70,3 +76,9 @@ AWS_STORAGE_BUCKET_NAME = get_env_setting('AWS_STORAGE_BUCKET_NAME')
 
 
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+TEMPLATE_LOADERS = (
+    ('django.template.loaders.cached.Loader', (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )),
+)

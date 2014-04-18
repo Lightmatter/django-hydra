@@ -90,7 +90,7 @@ Download it locally with
 ```$ curl -o latest.dump `heroku pgbackups:url````
 and load into your local db with
 
-```$ pg_restore --verbose --clean --no-acl --no-owner <DB_NAME> latest.dump```
+```$ pg_restore --verbose --clean -U <DB_USER_NAME> -W  --no-acl --no-owner -d <DB_NAME> latest.dump```
 
 
 REMOTE TO REMOTE (staging to prod, or prod to staging)
