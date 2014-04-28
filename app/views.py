@@ -11,7 +11,7 @@ from django.contrib.auth.decorators import login_required
 from payments.models import Customer
 from annoying.decorators import render_to, ajax_request
 
-from .forms import class StripeTokenForm, ChargeForm
+from .forms import StripeTokenForm, ChargeForm
 
 
 @render_to('index.html')

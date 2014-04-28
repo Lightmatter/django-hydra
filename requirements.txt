@@ -45,10 +45,6 @@ django-ses==0.4.1
 ### TESTING
 factory-boy==2.3.1
 
-#OPTIONAL TOOLS
-
-#whoosh
-#django-haystack
 
 #HEROKU
 dj-database-url==0.2.2
@@ -64,6 +60,11 @@ django-mandrill==0.1.0
 mandrill==1.0.53
 jsmin
 
-
 #cool stuff
 django-reversion==1.8.0
+python-social-auth==0.1.23
+
+
+#OPTIONAL TOOLS
+#whoosh
+#django-haystack
