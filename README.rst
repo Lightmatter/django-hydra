@@ -75,7 +75,9 @@ TRANSFERRING DATA
 ================
 
 make sure the pgbackups script is installed on staging and prod
+
 LOCAL TO REMOTE
+
 Back up your local data via
 ```pg_dump -Fc --no-acl --no-owner <DBNAME> > database.dump```
 put the dump in a world readable location - dropbox works, or s3
@@ -84,6 +86,7 @@ use
 make sure to use the url to the raw file and not an html document talking about the file (eg dropbox, right click on save file and click copy file url)
 
 REMOTE TO LOCAL
+
 Create a database dump with
 ```$ heroku pgbackups:capture```
 Download it locally with
@@ -94,8 +97,9 @@ and load into your local db with
 
 
 REMOTE TO REMOTE (staging to prod, or prod to staging)
+
 Create a database dump with
 ```$ heroku pgbackups:capture```
 
 and load remotely with
-```heroku pgbackups:restore DATABASE_URL '`heroku pgbackups:url`'```
+```heroku pgbackups:restore DATABASE_URL `heroku pgbackups:url````
