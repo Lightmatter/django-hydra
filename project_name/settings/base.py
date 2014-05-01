@@ -3,10 +3,12 @@ from unipath import Path
 from os import environ
 from django.core.exceptions import ImproperlyConfigured
 
+
 def get_env_setting(setting, default=None):
     """ Get the environment setting or return exception """
     try:
-        return environ.get(setting, default)
+        var = environ.get(setting, default) if default else environ[setting]
+        return var
     except KeyError:
         error_msg = "Set the %s env variable" % setting
         raise ImproperlyConfigured(error_msg)
@@ -63,7 +65,6 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -84,7 +85,10 @@ TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
                                "django.core.context_processors.static",
                                "django.core.context_processors.tz",
                                "django.contrib.messages.context_processors.messages",
+                               "django.core.context_processors.media",
                                "app.context_processors.settings",
+                               'social.apps.django_app.context_processors.backends',
+                               'social.apps.django_app.context_processors.login_redirect',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -110,9 +114,11 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
+    # Grapelli tools
     'grappelli.dashboard',
     'grappelli',
     'filebrowser',
+    'reversion',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -128,6 +134,7 @@ INSTALLED_APPS = (
     'registration',
     'payments',
     'manifesto',
+    'social.apps.django_app.default',
     'app',
     'account',
 )
@@ -165,6 +172,7 @@ LOGGING = {
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'account.backends.UserAuthBackend',
+    'social.backends.facebook.FacebookOAuth2',
 )
 
 AUTH_USER_MODEL = 'account.User'

@@ -46,8 +46,7 @@ MIDDLEWARE_CLASSES += (
     'pipeline.middleware.MinifyHTMLMiddleware',
 )
 
-SECRET_KEY =  os.environ.get('DJANGO_SECRET_KEY','boo')
-SECRET_KEY = "hwk4xwq%-i4_$=i=(k7dorw!j9p@bkywwqtu5y729xbxs&0h6+"
+SECRET_KEY = get_env_setting('SECRET_KEY')
 
 #TODO:
 #set secret key as env variable??
@@ -56,7 +55,13 @@ SECRET_KEY = "hwk4xwq%-i4_$=i=(k7dorw!j9p@bkywwqtu5y729xbxs&0h6+"
 
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+AWS_QUERYSTRING_AUTH = False
 MEDIA_URL = "https://s3-us-west-2.amazonaws.com/{{project_name}}/"
+
+#put the cloudfront distro here
+#AWS_S3_CUSTOM_DOMAIN = "foo.cloudfront.net"
+
+
 
 EMAIL_BACKEND = 'django_mandrill.mail.backends.mandrillbackend.EmailBackend'
 MANDRILL_API_KEY = get_env_setting('MANDRILL_APIKEY')
@@ -71,3 +76,9 @@ AWS_STORAGE_BUCKET_NAME = get_env_setting('AWS_STORAGE_BUCKET_NAME')
 
 
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+TEMPLATE_LOADERS = (
+    ('django.template.loaders.cached.Loader', (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )),
+)

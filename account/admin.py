@@ -3,6 +3,8 @@ from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
 from django.contrib.auth.forms import UserCreationForm as DjangoUserCreationForm
 from django.contrib.auth.forms import UserChangeForm  as DjangoUserChangeForm
 
+import reversion
+
 from .models import User
 
 
@@ -21,7 +23,7 @@ class UserCreationForm(DjangoUserCreationForm):
         model = User
 
 
-class UserAdmin(DjangoUserAdmin):
+class UserAdmin(reversion.VersionAdmin, DjangoUserAdmin):
     add_form = UserCreationForm
     #list_per_page = 25
     search_fields = ('username', 'email', 'first_name', 'last_name')

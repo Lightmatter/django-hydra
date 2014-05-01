@@ -7,6 +7,10 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    needed_by = (
+        ("reversion", "0001_initial"),
+    )
+
     def forwards(self, orm):
         # Adding model 'User'
         db.create_table(u'account_user', (

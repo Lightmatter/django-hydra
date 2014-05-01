@@ -10,10 +10,13 @@
 @import "variables";
 @import "nav";
 @import "footer";
+$bootstrap-sass-asset-helper: false;
+@import "bootstrap";
 
 .container {
     width: 960px;
     margin: 0 auto;
+    margin-top: 50px;
 }
 
 .clear {

@@ -56,7 +56,11 @@ SECRET_KEY = get_env_setting('SECRET_KEY')
 
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-AWS_STORAGE_BUCKET_NAME = "{{project_name}}"
+AWS_QUERYSTRING_AUTH = False
+MEDIA_URL = "https://s3-us-west-2.amazonaws.com/{{project_name}}/"
+
+#put the cloudfront distro here
+#AWS_S3_CUSTOM_DOMAIN = "foo.cloudfront.net"
 
 
 #s3
@@ -74,3 +78,10 @@ STRIPE_SECRET_KEY = get_env_setting('STRIPE_SECRET_KEY')
 AWS_ACCESS_KEY_ID = get_env_setting('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = get_env_setting('AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = get_env_setting('AWS_STORAGE_BUCKET_NAME')
+
+TEMPLATE_LOADERS = (
+    ('django.template.loaders.cached.Loader', (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )),
+)
