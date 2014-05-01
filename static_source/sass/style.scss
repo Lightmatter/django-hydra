@@ -10,6 +10,7 @@
 @import "variables";
 @import "nav";
 @import "footer";
+$bootstrap-sass-asset-helper: false;
 @import "bootstrap";
 
 .container {

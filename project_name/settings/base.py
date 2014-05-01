@@ -3,10 +3,12 @@ from unipath import Path
 from os import environ
 from django.core.exceptions import ImproperlyConfigured
 
+
 def get_env_setting(setting, default=None):
     """ Get the environment setting or return exception """
     try:
-        return environ.get(setting, default)
+        var = environ.get(setting, default) if default else environ[setting]
+        return var
     except KeyError:
         error_msg = "Set the %s env variable" % setting
         raise ImproperlyConfigured(error_msg)
