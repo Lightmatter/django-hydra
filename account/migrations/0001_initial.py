@@ -9,6 +9,8 @@ class Migration(SchemaMigration):
 
     needed_by = (
         ("reversion", "0001_initial"),
+        ("app", "0001_initial"),
+
     )
 
     def forwards(self, orm):
