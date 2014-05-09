@@ -54,8 +54,7 @@ SECRET_KEY = get_env_setting('SECRET_KEY')
 #media root??
 #cache settings??
 
-
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+DEFAULT_FILE_STORAGE = 'app.storage.S3PipelineStorage'
 AWS_QUERYSTRING_AUTH = False
 MEDIA_URL = "https://s3-us-west-2.amazonaws.com/{{project_name}}/"
 
