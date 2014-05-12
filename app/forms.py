@@ -10,8 +10,8 @@ from django.forms.extras.widgets import SelectDateWidget
 from django.utils.translation import ugettext_lazy as _
 
 class StripeTokenForm(forms.Form):
-    id = CharField()
+    id = forms.CharField()
 
 
 class ChargeForm(forms.Form):
-    amount = DecimalField(max_digits=5, decimal_places=2)
+    amount = forms.DecimalField(max_digits=5, decimal_places=2)
