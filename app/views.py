@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.conf import settings
 
+from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
 from payments.models import Customer
@@ -46,3 +47,13 @@ def charge_customer(request):
     amount = form.cleaned_data['amount']
     customer.charge(amount, description="{{project_name}}")
     return HttpResponseRedirect("/")
+
+
+class LoginRequiredMixin(object):
+    """
+    Class-based view mixin to extend @login_required decorator
+    used in functional-based views
+    """
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(LoginRequiredMixin, self).dispatch(*args, **kwargs)
