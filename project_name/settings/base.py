@@ -131,6 +131,7 @@ INSTALLED_APPS = (
     'model_utils',
     'south',
     'pipeline',
+    'django_nose',
     'registration',
     'payments',
     'manifesto',
@@ -180,6 +181,13 @@ LOGIN_REDIRECT_URL = "/"
 LOGIN_URL = "/account/login"
 LOGOUT_URL = "/account/logout"
 
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+# Tell nose to measure coverage on the 'app' and 'account' apps
+NOSE_ARGS = [
+    '--with-coverage',
+    '--cover-package=app,account',
+]
 
 import scss
 scss.config.PROJECT_ROOT = PROJECT_ROOT
