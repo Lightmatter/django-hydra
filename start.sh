@@ -22,7 +22,19 @@ export DJANGO_SETTINGS_MODULE=$ENV_NAME.settings.local
 echo $VIRTUAL_ENV
 
 #install requirements
-pip install -r requirements-dev.txt
+if [ ! -d ${HOME}/.pip-packages ]
+then
+    mkdir -p ${HOME}/.pip-packages
+fi
+
+
+if [  -d $WORKON_HOME/{{ project_name }}/build/ ]
+then
+    rm -rf $WORKON_HOME/{{ project_name }}/build/
+fi
+
+pip install --download ${HOME}/.pip-packages --exists-action w -r requirements-dev.txt
+pip install --no-index --exists-action w --find-links=file://${HOME}/.pip-packages/ -r requirements-dev.txt
 
 #check if postgres installed
 RESULT=`psql -l | grep light | wc -l | awk '{print $1}'`;
