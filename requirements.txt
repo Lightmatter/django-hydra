@@ -1,6 +1,6 @@
-Django==1.6.2
+Django==1.6.5
 django-pipeline==1.3.20
--e git+https://github.com/vbabiy/django-pipeline-compass.git@f5a942380d0dfc3fafb8d867830780f4e576e7f9#egg=django_pipeline_compass
+django-pipeline-compass==0.1.5
 pyScss==1.2.0.post3
 django-filebrowser==3.5.3
 stripe==1.12.0
