@@ -37,7 +37,7 @@ pip install --download ${HOME}/.pip-packages --exists-action w -r requirements-d
 pip install --no-index --exists-action w --find-links=file://${HOME}/.pip-packages/ -r requirements-dev.txt
 
 #check if postgres installed
-RESULT=`psql -l | grep light | wc -l | awk '{print $1}'`;
+RESULT=`psql -l | grep "{{ project_name }}" | wc -l | awk '{print $1}'`;
 if test $RESULT -eq 0; then
     echo "Creating Database";
     psql -c "create role {{ project_name }} with createdb encrypted password '{{ project_name }}' login;"
