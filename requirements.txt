@@ -50,7 +50,8 @@ coverage==3.7.1
 
 #HEROKU
 dj-database-url==0.2.2
-dj-static==0.0.5
+#dj-static==0.0.5
+-e git+https://github.com/gone/dj-static.git@5da00529c033afa8e65aef13555b9eaec6dfc388#egg=dj-static
 django-stripe-payments==2.0b34
 django-toolbelt==0.0.1
 ipython==1.1.0
