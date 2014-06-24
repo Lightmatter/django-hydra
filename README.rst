@@ -8,7 +8,7 @@ Instructions
 =====================
 Follow the steps below to start a new project using this django template::
 
-    $ django-admin.py startproject --template=https://github.com/Lightmatter/generic-django-conf/archive/master.zip  --extension=py,rb,sh,project_name --name=Procfile <project_name>
+    $ django-admin.py startproject --template=https://github.com/Lightmatter/generic-django-conf/archive/master.zip  --extension=py,rb,sh,yml,project_name --name=Procfile <project_name>
     $ cd <project_name>
     $ chmod +x start.sh
     $ ./start.sh
