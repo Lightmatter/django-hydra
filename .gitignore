@@ -62,6 +62,10 @@ docs/_build/
 #django media folder
 media/
 
+#PYSCSS trash
 .sass-cache/
 *style.css
 *static_source/sass/style.css*
+
+#VIM
+*.swp
