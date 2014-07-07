@@ -66,7 +66,7 @@ jsmin
 #cool stuff
 django-reversion==1.8.0
 python-social-auth==0.1.23
-
+django-smuggler==0.4.1
 
 #OPTIONAL TOOLS
 #whoosh
