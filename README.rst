@@ -49,6 +49,14 @@ After pushing the code, you'll need to syncdb and run the initial migrations:
 Release notes
 =============
 
+
+Version 0.1.1 (2014-07-7)
+--------------------------
+
+* Adding in django smuggler
+* Adding in error message for manage.py to check to ensure your django settings env variable is set
+
+
 Version 0.1 (2014-07-7)
 --------------------------
 
