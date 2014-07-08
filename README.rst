@@ -69,7 +69,6 @@ Things we still want to do::
 
   404/403 ect
   500 page
-  update templates_loader conf setting for prod to use cached templates rather than reload
   user useradmin
   click jacking
   django-secure
