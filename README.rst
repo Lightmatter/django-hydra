@@ -50,6 +50,14 @@ Release notes
 =============
 
 
+
+Version 0.1.2 (2014-07-7)
+--------------------------
+
+* Adding in Easy-thumbnails
+* Restructing heroku settings in a better format
+* Adding in redis for caching
+
 Version 0.1.1 (2014-07-7)
 --------------------------
 
@@ -69,7 +77,6 @@ Things we still want to do::
 
   404/403 ect
   500 page
-  update templates_loader conf setting for prod to use cached templates rather than reload
   user useradmin
   click jacking
   django-secure

@@ -15,12 +15,19 @@ fi
 workon $ENV_NAME
 heroku create $ENV_NAME-staging --remote staging
 heroku create $ENV_NAME-prod --remote prod
+
 heroku addons:add pgbackups --app $ENV_NAME-prod
 heroku addons:add pgbackups --app $ENV_NAME-staging
+
 heroku addons:add mandrill:starter --app $ENV_NAME-staging
 heroku addons:add mandrill:starter --app $ENV_NAME-prod
+
 heroku addons:add newrelic --app $ENV_NAME-staging
 heroku addons:add newrelic --app $ENV_NAME-prod
+
+heroku addons:add redistogo --app $ENV_NAME-staging
+heroku addons:add redistogo --app $ENV_NAME-prod
+
 heroku config:set SECRET_KEY=`python -c 'import random; print "".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)])'` --app $ENV_NAME-staging
 heroku config:set SECRET_KEY=`python -c 'import random; print "".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)])'` --app $ENV_NAME-prod
 heroku config:set DJANGO_SETTINGS_MODULE=$ENV_NAME.settings.heroku-staging --app $ENV_NAME-staging
@@ -37,8 +44,6 @@ heroku config:set STRIPE_PUBLIC_KEY="" --app $ENV_NAME-staging
 heroku config:set STRIPE_PUBLIC_KEY="" --app $ENV_NAME-prod
 heroku config:set STRIPE_SECRET_KEY="" --app $ENV_NAME-staging
 heroku config:set STRIPE_SECRET_KEY="" --app $ENV_NAME-prod
-
-
 
 git push staging master
 git push prod master
