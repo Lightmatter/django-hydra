@@ -80,8 +80,6 @@ Things we still want to do::
   user useradmin
   click jacking
   django-secure
-  django-configurations
   avatars by default
   setup django crispy and floppy
   django-htmlmin
-  django-filer
