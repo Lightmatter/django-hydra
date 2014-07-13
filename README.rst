@@ -75,6 +75,8 @@ Todo
 =====================
 Things we still want to do::
 
+  caching everything possible (middleware for sure)
+  Setting up heroku optimg/jpgopti and combining with thumbnail
   404/403 ect
   500 page
   user useradmin
