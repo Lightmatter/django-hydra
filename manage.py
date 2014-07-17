@@ -7,7 +7,7 @@ from django.core.exceptions import ImproperlyConfigured
 
 if __name__ == "__main__":
     try:
-        os.environ.get["DJANGO_SETTINGS_MODULE"]
+        os.environ["DJANGO_SETTINGS_MODULE"]
     except KeyError:
         raise ImproperlyConfigured("You must set your DJANGO_SETTINGS_MODULE - try working {{ project_name }}")
     from django.core.management import execute_from_command_line

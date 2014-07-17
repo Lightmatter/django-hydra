@@ -29,6 +29,8 @@ django-model-utils==2.0
 unipath==1.0
 pytz==2013.9
 manifesto==0.5
+python-social-auth==0.1.23
+easy-thumbnails==2.0.1
 
 #REDIS CACHING
 hiredis==0.1.2
@@ -58,6 +60,8 @@ ipython==1.1.0
 gunicorn==18.0
 
 
+
+
 django-jsonfield==0.9.12
 django-mandrill==0.1.0
 mandrill==1.0.53
@@ -65,7 +69,7 @@ jsmin==2.0.11
 
 #cool stuff
 django-reversion==1.8.0
-python-social-auth==0.1.23
+
 django-smuggler==0.4.1
 
 #OPTIONAL TOOLS

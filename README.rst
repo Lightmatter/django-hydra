@@ -49,6 +49,11 @@ After pushing the code, you'll need to syncdb and run the initial migrations:
 Release notes
 =============
 
+Version 0.1.3 (2014-07-7)
+--------------------------
+
+* bug fixes and updates to readme
+
 
 
 Version 0.1.2 (2014-07-7)
@@ -75,13 +80,13 @@ Todo
 =====================
 Things we still want to do::
 
+  caching everything possible (middleware for sure)
+  Setting up heroku optimg/jpgopti and combining with thumbnail
   404/403 ect
   500 page
   user useradmin
   click jacking
   django-secure
-  django-configurations
   avatars by default
   setup django crispy and floppy
   django-htmlmin
-  django-filer

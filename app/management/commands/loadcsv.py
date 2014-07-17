@@ -14,8 +14,8 @@ from os.path import splitext, basename
 
 
 class Command(BaseCommand):
-   #args[0] '<Full path to CSV file>'
-   #help = 'Populates the ? table'
+    #args[0] '<Full path to CSV file>'
+    #help = 'Populates the ? table'
 
-   def handle(self, *args, **options):
-      pass
+    def handle(self, *args, **options):
+        pass
