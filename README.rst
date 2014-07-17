@@ -49,6 +49,11 @@ After pushing the code, you'll need to syncdb and run the initial migrations:
 Release notes
 =============
 
+Version 0.1.3 (2014-07-7)
+--------------------------
+
+* bug fixes and updates to readme
+
 
 
 Version 0.1.2 (2014-07-7)
