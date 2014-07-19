@@ -17,7 +17,7 @@ class User(AbstractUser, TimeStampedModel):
             return super(User, self).__unicode__()
 
 
-    def get_absolute_url():
+    def get_absolute_url(self):
         """
         The absolute url of the user model
         """
