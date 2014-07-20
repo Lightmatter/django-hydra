@@ -57,7 +57,7 @@ dj-database-url==0.2.2
 django-stripe-payments==2.0b34
 django-toolbelt==0.0.1
 ipython==1.1.0
-gunicorn==18.0
+waitress==0.8.9
 
 
 

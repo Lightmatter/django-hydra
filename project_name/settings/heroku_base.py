@@ -1,5 +1,9 @@
-from .base import *
+import os
+import urlparse
 import dj_database_url
+
+from .base import *
+
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config()
 
@@ -9,16 +13,10 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
-import os
-import urlparse
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = PROJECT_ROOT.child("static")
 STATIC_URL = '/static/'
-
-DEBUG = True
-PIPELINE_ENABLED = True
-
 
 redis_url = urlparse.urlparse(os.environ.get('REDISTOGO_URL', 'redis://localhost:6959'))
 CACHES = {

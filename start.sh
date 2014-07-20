@@ -56,6 +56,9 @@ else
     echo "Setting up Git"
     git init .
     git remote add origin "git@github.com:Lightmatter/{{ project_name }}.git"
+    #todo - add all and make initial push
 fi
+
+#todo - git flow init
 
 chmod +x manage.py

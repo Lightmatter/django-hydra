@@ -35,3 +35,7 @@ build:
         name: test
         code: |
           python manage.py test
+  after-steps:
+    - hipchat-notify:
+        token: $HIPCHAT_TOKEN
+        room-id: {{ project_name }}
