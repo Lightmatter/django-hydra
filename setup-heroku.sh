@@ -50,4 +50,34 @@ git push prod master
 heroku run python manage.py syncdb --migrate --app $ENV_NAME-staging
 heroku run python manage.py syncdb --migrate --app $ENV_NAME-prod
 
+
+heroku sharing:add ben@lightmatter.com --app $ENV_NAME-staging
+heroku sharing:add ben@lightmatter.com --app $ENV_NAME-prod
+heroku sharing:add greg@lightmatter.com --app $ENV_NAME-staging
+heroku sharing:add greg@lightmatter.com --app $ENV_NAME-prod
+heroku sharing:add ryan@lightmatter.com --app $ENV_NAME-staging
+heroku sharing:add ryan@lightmatter.com --app $ENV_NAME-prod
+heroku sharing:add chris@lightmatter.com --app $ENV_NAME-staging
+heroku sharing:add chris@lightmatter.com --app $ENV_NAME-prod
+heroku sharing:add geoff@lightmatter.com --app $ENV_NAME-staging
+heroku sharing:add geoff@lightmatter.com --app $ENV_NAME-prod
+heroku sharing:add kevin@lightmatter.com --app $ENV_NAME-staging
+heroku sharing:add kevin@lightmatter.com --app $ENV_NAME-prod
+
+if [[ -z "$HIPCHAT_AUTH_TOKEN" ]]; then
+    heroku addons:add deployhooks:hipchat \
+           --auth_token=$HIPCHAT_AUTH_TOKEN \
+           --room="$ENV_NAME" \
+           --color="green" \
+           --message="{{user}} pushed {{head}} to {{app}} at <a href='{{url}}'>{{url}}</a><br><br>This push consists of {{git_log}}." \
+           --app=$ENV_NAME-staging
+
+    heroku addons:add deployhooks:hipchat \
+           --auth_token=$HIPCHAT_AUTH_TOKEN \
+           --room="$ENV_NAME" \
+           --color="red" \
+           --message="{{user}} pushed {{head}} to {{app}} at <a href='{{url}}'>{{url}}</a><br><br>This push consists of {{git_log}}." \
+           --app=$ENV_NAME-prod
+fi
+
 echo "python manage.py syncdb --migrate" >> bin/post_compile
