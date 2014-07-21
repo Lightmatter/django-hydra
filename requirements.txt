@@ -1,5 +1,5 @@
 Django==1.6.5
-django-pipeline==1.3.20
+django-pipeline==1.3.25
 django-pipeline-compass==0.1.5
 pyScss==1.2.0.post3
 django-filebrowser==3.5.3
