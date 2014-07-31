@@ -128,6 +128,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
     'annoying',
+    'localflavor',
     'django_extensions',
     'model_utils',
     'south',

@@ -31,6 +31,9 @@ CACHES = {
         },
     },
 }
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
 #MEDIA_ROOT = "/home/dotcloud/data/media/"
@@ -81,3 +84,4 @@ TEMPLATE_LOADERS = (
 
 # SOCIAL_AUTH_FACEBOOK_KEY = get_env_setting('SOCIAL_AUTH_FACEBOOK_KEY')
 # SOCIAL_AUTH_FACEBOOK_SECRET = get_env_setting('SOCIAL_AUTH_FACEBOOK_SECRET')
+'
