@@ -13,8 +13,8 @@ fi
 
 
 workon $ENV_NAME
-heroku create $ENV_NAME-staging --remote staging
-heroku create $ENV_NAME-prod --remote prod
+heroku create $ENV_NAME-staging --remote staging --buildpack https://github.com/ddollar/heroku-buildpack-multi.git
+heroku create $ENV_NAME-prod --remote prod --buildpack https://github.com/ddollar/heroku-buildpack-multi.git
 
 heroku addons:add pgbackups --app $ENV_NAME-prod
 heroku addons:add pgbackups --app $ENV_NAME-staging
