@@ -48,3 +48,5 @@ PIPELINE_COMPILERS = (
     'pipeline.compilers.coffee.CoffeeScriptCompiler',
     'pipeline_compass.compiler.CompassCompiler',
 )
+
+PIPELINE_DISABLE_WRAPPER = True
