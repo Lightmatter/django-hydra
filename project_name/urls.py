@@ -5,12 +5,12 @@ from django.contrib import admin
 admin.autodiscover()
 
 from filebrowser.sites import site
+from django.views.generic.base import RedirectView as rv
 
 urlpatterns = patterns('',
     # Examples:
-    url('', include('social.apps.django_app.urls', namespace='social')),
+    url(r'^favicon\.ico$', rv.as_view(url='/static/img/favicon.ico')),
     url(r'account/', include('account.urls')),
-
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include('smuggler.urls')), # put it before admin url
     url(r'^admin/', include(admin.site.urls)),
     url(r"^payments/", include("payments.urls")),
+    url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'', include('app.urls')),
 )
 
