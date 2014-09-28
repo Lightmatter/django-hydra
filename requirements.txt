@@ -21,7 +21,7 @@ south==.0.8.4
 #FORMS
 
 #GENERAL TOOLS
--e hg+https://hg@bitbucket.org/kanja/django-registration@69e70e8fd55004fa18c8f234dad472daf5b55771#egg=django_registration
+-e git+https://github.com/gone/django-registration.git#egg=django_registration
 
 django-annoying==0.7.9
 django-extensions==1.3.3
