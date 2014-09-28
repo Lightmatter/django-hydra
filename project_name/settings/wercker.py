@@ -25,7 +25,7 @@ STATIC_URL = '/static/'
 
 DEBUG = True
 PIPELINE_ENABLED = False
-
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 # CACHES = {
 #     'default': {
 #         'BACKEND': 'redis_cache.RedisCache',
