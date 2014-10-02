@@ -21,6 +21,7 @@ class UserCreationForm(DjangoUserCreationForm):
 
     class Meta:
         model = User
+        fields = '__all__'
 
 
 class UserAdmin(reversion.VersionAdmin, DjangoUserAdmin):
