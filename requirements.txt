@@ -46,7 +46,7 @@ django-ses==0.4.1
 
 ### TESTING
 factory-boy==2.3.1
-model_mommy==1.2.0
+model_mommy==1.2.2
 django-nose==1.2
 coverage==3.7.1
 
