@@ -1,6 +1,6 @@
 -r requirements.txt
 # Debug Tools
-django-debug-toolbar==1.0.1
+django-debug-toolbar==1.2.1
 django-devserver==0.7.0
 Werkzeug==0.9.4
 sqlparse==0.1.10

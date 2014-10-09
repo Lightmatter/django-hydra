@@ -113,7 +113,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    PROJECT_ROOT.child('templates')
+    PROJECT_ROOT.child('templates'),
 )
 
 INSTALLED_APPS = (
@@ -133,7 +133,6 @@ INSTALLED_APPS = (
     'localflavor',
     'django_extensions',
     'model_utils',
-    'south',
     'pipeline',
     'easy_thumbnails',
     'django_nose',
@@ -208,8 +207,6 @@ DEFAULT_FROM_EMAIL = "hello@{{project_name}}.com"
 SERVER_EMAIL = "error@{{project_name}}.com"
 from {{project_name}}.settings.app import *
 
-
-SOUTH_TESTS_MIGRATE = False
 
 #for easy thumbnails
 SOUTH_MIGRATION_MODULES = {

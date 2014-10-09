@@ -5,7 +5,7 @@ LightMatter Django Template
 ABOUT
 =====================
 
-A generic template for Django 1.6
+A generic template for Django 1.7
 
 
 Instructions
@@ -21,7 +21,7 @@ Follow the steps below to start a new project using this django template::
 
 Deployment
 =====================
-This is ment to be deployed on the heroku
+Projects created using this template are meant to be deployed on heroku
 
 Create a heroku application and push the code there. You will need to set:
 
