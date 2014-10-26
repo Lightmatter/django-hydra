@@ -57,14 +57,9 @@ heroku sharing:add greg@lightmatter.com --app $ENV_NAME-staging
 heroku sharing:add greg@lightmatter.com --app $ENV_NAME-prod
 heroku sharing:add ryan@lightmatter.com --app $ENV_NAME-staging
 heroku sharing:add ryan@lightmatter.com --app $ENV_NAME-prod
-heroku sharing:add chris@lightmatter.com --app $ENV_NAME-staging
-heroku sharing:add chris@lightmatter.com --app $ENV_NAME-prod
 heroku sharing:add geoff@lightmatter.com --app $ENV_NAME-staging
 heroku sharing:add geoff@lightmatter.com --app $ENV_NAME-prod
-heroku sharing:add kevin@lightmatter.com --app $ENV_NAME-staging
-heroku sharing:add kevin@lightmatter.com --app $ENV_NAME-prod
-heroku sharing:add sgeos@hotmail.com  --app $ENV_NAME-staging
-heroku sharing:add sgeos@hotmail.com  --app $ENV_NAME-prod
+
 
 if [[ -z "$HIPCHAT_AUTH_TOKEN" ]]; then
     heroku addons:add deployhooks:hipchat \
