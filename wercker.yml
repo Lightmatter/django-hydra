@@ -32,10 +32,17 @@ build:
         code: |
           export DJANGO_SETTINGS_MODULE={{ project_name }}.settings.wercker
     - script:
+        name: migrate db
+        code: |
+          python manage.py syncdb --noinput
+    - script:
         name: test
         code: |
           python manage.py test
   after-steps:
-    - hipchat-notify:
-        token: $HIPCHAT_TOKEN
-        room-id: {{ project_name }}
+    - sherzberg/slack-notify:
+        subdomain: slacksubdomain
+        token: $SLACK_TOKEN
+        channel: "#general"
+        username: wercker
+        icon_url: https://avatars3.githubusercontent.com/u/1695193?s=140
