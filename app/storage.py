@@ -1,12 +1,13 @@
-from pipeline.storage import GZIPMixin
 from django.contrib.staticfiles.storage import CachedFilesMixin
 
+from pipeline.storage import GZIPMixin
 from pipeline.storage import PipelineMixin
-
 from storages.backends.s3boto import S3BotoStorage
-
-
 from filebrowser.storage import StorageMixin
+
+
+class StorageException(Exception):
+    pass
 
 class S3BotoStorageMixin(StorageMixin):
 
@@ -21,7 +22,7 @@ class S3BotoStorageMixin(StorageMixin):
         dirlist = self.bucket.list(self._encode_name(name))
 
         # Check whether the iterator is empty
-        for item in dirlist:
+        for _ in dirlist:
             return True
         return False
 
@@ -31,7 +32,7 @@ class S3BotoStorageMixin(StorageMixin):
             if allow_overwrite:
                 self.delete(new_file_name)
             else:
-                raise "The destination file '%s' exists and allow_overwrite is False" % new_file_name
+                raise StorageException("The destination file '%s' exists and allow_overwrite is False" % new_file_name)
 
         old_key_name = self._encode_name(self._normalize_name(self._clean_name(old_file_name)))
         new_key_name = self._encode_name(self._normalize_name(self._clean_name(new_file_name)))
@@ -39,7 +40,7 @@ class S3BotoStorageMixin(StorageMixin):
         k = self.bucket.copy_key(new_key_name, self.bucket.name, old_key_name)
 
         if not k:
-            raise "Couldn't copy '%s' to '%s'" % (old_file_name, new_file_name)
+            raise StorageException("Couldn't copy '%s' to '%s'" % (old_file_name, new_file_name))
 
         self.delete(old_file_name)
 
