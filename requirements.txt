@@ -18,7 +18,7 @@ psycopg2==2.5.2
 #FORMS
 
 #GENERAL TOOLS
-django-registration-redux=1.1
+django-registration-redux==1.1
 django-annoying==0.7.9
 django-extensions==1.4.0
 django-model-utils==2.0
