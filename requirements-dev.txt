@@ -1,4 +1,5 @@
 -r requirements.txt
+
 # Debug Tools
 django-debug-toolbar==1.2.1
 django-devserver==0.7.0
@@ -9,5 +10,11 @@ guppy==0.1.10
 line_profiler==1.0b3
 Dozer==0.4
 django-template-debug==0.3.3
+
+### TESTING
+factory-boy==2.3.1
+model_mommy==1.2.2
+django-nose==1.2
+coverage==3.7.1
 
 ipdb
