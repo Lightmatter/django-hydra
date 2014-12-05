@@ -12,7 +12,6 @@ Dozer==0.4
 django-template-debug==0.3.3
 
 ### TESTING
-factory-boy==2.3.1
 model_mommy==1.2.2
 django-nose==1.2
 coverage==3.7.1
