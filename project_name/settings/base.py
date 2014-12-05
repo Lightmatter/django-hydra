@@ -208,10 +208,4 @@ SERVER_EMAIL = "error@{{project_name}}.com"
 from {{project_name}}.settings.app import *
 
 
-#for easy thumbnails
-SOUTH_MIGRATION_MODULES = {
-    'easy_thumbnails': 'easy_thumbnails.south_migrations',
-}
-
-
 GRAPPELLI_ADMIN_TITLE = '{{project_name}}'
