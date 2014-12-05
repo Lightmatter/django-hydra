@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<div class="registration-box">
+<div>
     <form method="post" action="{% url "django.contrib.auth.views.login" %}{% if next %}?next={{next}}{% endif %}">
         {% csrf_token %}
         <table>

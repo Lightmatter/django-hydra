@@ -10,11 +10,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>{%block title%} {%endblock title%}</title>
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width" initial-scale=1.0>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {% load compressed %}
-    {% compressed_css 'screen' %}
-    {% compressed_js 'vendor' %}
+    {% load pipeline %}
+    {% stylesheet 'screen' %}
+    {% stylesheet 'vendor' %}
+    {% javascript 'vendor' %}
     {% block extra_head %}
     {% endblock extra_head %}
   </head>
@@ -23,22 +24,16 @@
     <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
     <![endif]-->
 
-    <!-- This code is taken from http://twitter.github.com/bootstrap/examples/hero.html -->
+    {% include "header.html" %}
 
-    {% block header %}
-    <header class="navbar navbar-inverse navbar-fixed-top">
-    {% include "nav.html" %}
-    </header>
-    {% endblock header %}
-    <div class="container" id="main">
+    <div id="main">
       {% block content %}
       {% endblock content %}
-      <div id="main-footer"></div>
     </div> <!-- /container -->
-	{% include "footer.html" %}
 
+    {% include "footer.html" %}
 
-    {% compressed_js 'app' %}
+    {% javascript 'app' %}
     {% block body_media %}
     {% endblock body_media %}
     <script>

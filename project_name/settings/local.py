@@ -73,7 +73,13 @@ DEVSERVER_MODULES = (
     'devserver.modules.profile.LineProfilerModule',
 )
 
-TEMPLATE_STRING_IF_INVALID = "BAD TEMPLATE VARIABLE"
+#fix for grapelli inline stuff
+class FalseString(str):
+    def __nonzero__(self):
+        return False
+    __bool__ = __nonzero__
+
+TEMPLATE_STRING_IF_INVALID = FalseString("BAD TEMPLATE VARIABLE")
 SECRET_KEY = "&)y$vgj8lzxlexal31dcd(^ua(0yf95)f^b@$=*to5s)*eznxq"
 
 STRIPE_PUBLIC_KEY = ""

@@ -1,10 +1,8 @@
 Django==1.7
-django-pipeline==1.3.25
-django-pipeline-compass==0.1.5
+django-pipeline==1.4.2
 pyScss==1.2.0.post3
 django-filebrowser==3.5.3
 stripe==1.12.0
-
 
 cssmin==0.2.0
 slimit==0.8.1
@@ -20,8 +18,7 @@ psycopg2==2.5.2
 #FORMS
 
 #GENERAL TOOLS
--e git+https://github.com/gone/django-registration.git#egg=django_registration
-
+django-registration-redux=1.1
 django-annoying==0.7.9
 django-extensions==1.4.0
 django-model-utils==2.0
@@ -44,12 +41,6 @@ django-storages==1.1.8
 django-ses==0.4.1
 #django_smtp_ssl
 
-### TESTING
-factory-boy==2.3.1
-model_mommy==1.2.2
-django-nose==1.2
-coverage==3.7.1
-
 #HEROKU
 dj-database-url==0.2.2
 #dj-static==0.0.5
@@ -58,9 +49,6 @@ django-stripe-payments==2.0b34
 django-toolbelt==0.0.1
 ipython==1.1.0
 waitress==0.8.9
-
-
-
 
 django-jsonfield==0.9.12
 django-mandrill==0.1.0

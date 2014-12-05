@@ -10,11 +10,19 @@ PIPELINE_CSS = {
         'variant': 'datauri',
         'extra_context': {
             'media': 'screen,projection',
-
         },
-
         'manifest': True,
     },
+
+    'vendor': {
+        'source_filenames': (
+            'css/vendor/base.css',
+            'css/vendor/font-awesome.min.css',
+            'css/vendor/select2.css',
+        ),
+        'output_filename': 'css/vendor.css',
+        'manifest': True,
+    }
 }
 
 PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.cssmin.CSSMinCompressor'
@@ -32,8 +40,6 @@ PIPELINE_JS = {
     'vendor': {
         'source_filenames': (
             'js/vendor/jquery-1.11.0.min.js',
-            'js/vendor/jquery-1.11.0.min.map',
-            'js/vendor/bootstrap.min.js',
             'js/vendor/select2.min.js',
             ),
         'output_filename': 'js/vendor.js',

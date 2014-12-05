@@ -6,7 +6,7 @@
 
 {% block content %}
 
-  <div class="registration-box">
+  <div>
     <h1>Signup</h1>
     <form action='/account/register/{% if next %}?next={{ next }}{% endif %}' method="POST">
       {% csrf_token %}
@@ -61,8 +61,6 @@
 <script type="text/javascript">
 $(function(){
  $("form").submit(function(){
-   debugger
-   mixpanel.track("register");
  })
 })
 </script>

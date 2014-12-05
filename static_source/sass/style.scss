@@ -1,35 +1,19 @@
-@import "compass/css3/background-size";
-
-@import "compass/layout.scss";
-
-@include sticky-footer(88px, "#main", "#main-footer", "#footer");
-
-
-@import "registration";
-@import "buttons";
-@import "variables";
-@import "nav";
-@import "footer";
-
-/* uncomment for bootstrap */
-/* $bootstrap-sass-asset-helper: false; */
-/* @import "bootstrap"; */
-
 /* uncomment for bourbon and neat */
 /* http://bourbon.io/docs/ */
 @import 'bourbon/bourbon';
+/* bitters (base) must go before neat */
 @import 'base/base';
 /* http://neat.bourbon.io/docs/ */
 @import 'neat/neat';
 
+
+@import "variables";
+@import "buttons";
+@import "forms";
+@import "header";
+@import "footer";
+
+
 /* comment to turn off grid */
 $visual-grid: true;
 
-/* div.container { */
-/*   @include outer-container; */
-/* } */
-
-.clear {
-    clear: both;
-    margin: 0 auto;
-}
