@@ -12,10 +12,10 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    {% load compressed %}
-    {% compressed_css 'screen' %}
-    {% compressed_css 'vendor' %}
-    {% compressed_js 'vendor' %}
+    {% load pipeline %}
+    {% stylesheet 'screen' %}
+    {% stylesheet 'vendor' %}
+    {% javascript 'vendor' %}
     {% block extra_head %}
     {% endblock extra_head %}
   </head>
@@ -33,7 +33,7 @@
 
     {% include "footer.html" %}
 
-    {% compressed_js 'app' %}
+    {% javascript 'app' %}
     {% block body_media %}
     {% endblock body_media %}
     <script>
