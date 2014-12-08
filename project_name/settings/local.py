@@ -80,7 +80,7 @@ class FalseString(str):
     __bool__ = __nonzero__
 
 TEMPLATE_STRING_IF_INVALID = FalseString("BAD TEMPLATE VARIABLE")
-SECRET_KEY = "&)y$vgj8lzxlexal31dcd(^ua(0yf95)f^b@$=*to5s)*eznxq"
+SECRET_KEY = "{{ secret_key }}"
 
 STRIPE_PUBLIC_KEY = ""
 STRIPE_SECRET_KEY = ""
