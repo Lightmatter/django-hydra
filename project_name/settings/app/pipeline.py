@@ -52,7 +52,7 @@ PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.jsmin.JSMinCompressor'
 
 PIPELINE_COMPILERS = (
     'pipeline.compilers.coffee.CoffeeScriptCompiler',
-    'pipeline_compass.compiler.CompassCompiler',
+    'util.libsass_compiler.LibSassCompiler',
 )
 
 PIPELINE_DISABLE_WRAPPER = True

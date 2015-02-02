@@ -6,11 +6,7 @@ ENV_OPSTS="--no-site-packages --distribute"
 unset PYTHONDONTWRITEBYTECODE
 echo "Making Virtual Environment"
 os="`uname -a`"
-if [[ "$os" == *Linux* ]]; then
-    source /etc/bash_completion.d/virtualenvwrapper
-else
-    source `which virtualenvwrapper.sh`
-fi
+source `which virtualenvwrapper.sh`
 
 
 

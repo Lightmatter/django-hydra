@@ -36,9 +36,19 @@ build:
         code: |
           python manage.py syncdb --noinput
     - script:
+        name: collect static
+        code: |
+          python manage.py collectstatic --noinput
+    - script:
         name: test
         code: |
           python manage.py test
+  after-steps:
+    - wantedly/pretty-slack-notify@0.2.4:
+        webhook_url: $SLACK_WEBHOOK_URL
+deploy:
+  steps:
+    - heroku-deploy
   after-steps:
     - wantedly/pretty-slack-notify@0.2.4:
         webhook_url: $SLACK_WEBHOOK_URL

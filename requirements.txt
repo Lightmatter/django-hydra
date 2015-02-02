@@ -63,3 +63,4 @@ django-smuggler==0.4.1
 #OPTIONAL TOOLS
 #whoosh
 #django-haystack
+libsass==0.6.2
