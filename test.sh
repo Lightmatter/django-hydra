@@ -12,5 +12,5 @@ echo "Running tests"
 source `which virtualenvwrapper.sh`
 workon testapp
 export DJANGO_SETTINGS_MODULE=testapp.settings.local
-echo `pwd`
-python manage.py test
+python manage.py collectstatic --noinput
+python manage.py test --noinput
