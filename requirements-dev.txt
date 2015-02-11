@@ -1,19 +1,17 @@
 -r requirements.txt
+ipdb
 
 # Debug Tools
 django-debug-toolbar==1.2.1
-django-devserver==0.7.0
+django-template-debug==0.3.3
+
+# Debug server
+django-devserver==0.8.0
 Werkzeug==0.9.4
 sqlparse==0.1.10
-
-guppy==0.1.10
-line_profiler==1.0b3
 Dozer==0.4
-django-template-debug==0.3.3
+
 
 ### TESTING
 model_mommy==1.2.2
-django-nose==1.2
 coverage==3.7.1
-
-ipdb
