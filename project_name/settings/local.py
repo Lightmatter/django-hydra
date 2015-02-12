@@ -2,6 +2,8 @@ from .base import *
 
 #if you want to test with debug off
 ALLOWED_HOSTS = [u'127.0.0.1', 'localhost']
+STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+
 
 DEBUG = True
 

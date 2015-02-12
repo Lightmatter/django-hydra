@@ -1,18 +1,23 @@
-/* /\* uncomment for bourbon and neat *\/ */
-/* /\* http://bourbon.io/docs/ *\/ */
-/* @import 'bourbon/bourbon'; */
-/* /\* bitters (base) must go before neat *\/ */
-/* @import 'base/base'; */
-/* /\* http://neat.bourbon.io/docs/ *\/ */
-/* @import 'neat/neat'; */
+/* uncomment for bourbon and neat */
+/* http://bourbon.io/docs/ */
+@import 'bourbon/bourbon';
+/* bitters (base) must go before neat */
+@import 'base/base';
+/* http://neat.bourbon.io/docs/ */
+@import 'neat/neat';
 
 
-/* @import "variables"; */
-/* @import "buttons"; */
-/* @import "forms"; */
-/* @import "header"; */
-/* @import "footer"; */
+@import "variables";
+@import "buttons";
+@import "forms";
+@import "header";
+@import "footer";
 
 
-/* /\* comment to turn off grid *\/ */
-/* $visual-grid: true; */
+/* comment to turn off grid */
+$visual-grid: true;
+
+
+body {
+  color: white;
+}
