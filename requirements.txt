@@ -8,7 +8,7 @@ cssmin==0.2.0
 slimit==0.8.1
 django-grappelli==2.5.2
 feedparser==5.1.3
-django-localflavor==1.0
+django-localflavor==1.1
 
 pillow==2.3.0
 
