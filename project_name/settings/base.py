@@ -67,6 +67,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'pipeline.finders.CachedFileFinder',
     'pipeline.finders.PipelineFinder',
 )
 
@@ -134,10 +135,8 @@ INSTALLED_APPS = (
     'pipeline',
     'easy_thumbnails',
     'registration',
-    'payments',
     'manifesto',
     'social.apps.django_app.default',
-    'smuggler',
     'app',
     'account',
 )
@@ -184,10 +183,6 @@ LOGIN_URL = "/account/login"
 LOGOUT_URL = "/account/logout"
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
-
-import scss
-scss.config.PROJECT_ROOT = PROJECT_ROOT
-scss.config.STATIC_URL = STATIC_URL
 
 ALLOWED_HOSTS = [
     "localhost"

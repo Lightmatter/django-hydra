@@ -48,12 +48,12 @@ class LibSassCompiler(SubProcessCompiler):
         return False
 
     def compile_file(self, content, path, outdated, force):
-        if outdated or force:
-            with open(path, "w") as fsock:
+        if True or outdated or force:
+            with open(path, "wb") as fsock:
 
                 css, map = sass.compile(filename=content,
                                         source_map_filename=path+'map',
                 )
                 fsock.write(css.encode('utf8'))
-                with open(path + "map", "w") as mapsock:
+                with open(path + "map", "wb") as mapsock:
                     mapsock.write(map.encode('utf8'))

@@ -16,9 +16,7 @@ urlpatterns = patterns('',
     # Uncomment the next line to enable the admin:
     url(r'^admin/filebrowser/', include(site.urls)),
     url(r'^grappelli/', include('grappelli.urls')),
-    url(r'^admin/', include('smuggler.urls')), # put it before admin url
     url(r'^admin/', include(admin.site.urls)),
-    url(r"^payments/", include("payments.urls")),
     url('', include('social.apps.django_app.urls', namespace='social')),
     url(r'', include('app.urls')),
 )

@@ -2,6 +2,8 @@ from .base import *
 
 #if you want to test with debug off
 ALLOWED_HOSTS = [u'127.0.0.1', 'localhost']
+STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
+
 
 DEBUG = True
 
@@ -35,9 +37,6 @@ MEDIA_URL = "/media/"
 # Example: "/var/www/example.com/static/"
 STATIC_ROOT = PROJECT_ROOT.child("static")
 
-import scss
-scss.config.STATIC_ROOT = STATIC_ROOT
-
 
 INSTALLED_APPS += (
     'debug_toolbar',
@@ -62,11 +61,11 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 DEVSERVER_MODULES = (
-    #'devserver.modules.sql.SQLRealTimeModule',
+    'devserver.modules.sql.SQLRealTimeModule',
     'devserver.modules.sql.SQLSummaryModule',
     'devserver.modules.profile.ProfileSummaryModule',
 
-    # # Modules not enabled by default
+    # Modules not enabled by default
     'devserver.modules.ajax.AjaxDumpModule',
     'devserver.modules.profile.MemoryUseModule',
     'devserver.modules.cache.CacheSummaryModule',
