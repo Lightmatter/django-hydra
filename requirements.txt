@@ -2,7 +2,7 @@ Django==1.7.4
 
 #Admin
 django-filebrowser==3.5.3
-django-grappelli==2.5.2
+django-grappelli==2.6.3
 feedparser==5.1.3
 pillow==2.3.0
 django-localflavor==1.1

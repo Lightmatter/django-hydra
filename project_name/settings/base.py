@@ -117,7 +117,6 @@ TEMPLATE_DIRS = (
 
 INSTALLED_APPS = (
     # Grapelli tools
-    'grappelli.dashboard',
     'grappelli',
     'filebrowser',
     'reversion',
