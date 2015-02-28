@@ -1,15 +1,16 @@
 
-=====================
+***************************
 LightMatter Django Template
+***************************
 
 ABOUT
-=====================
+=====
 
 A generic template for Django 1.7
 
 
 Instructions
-=====================
+============
 Follow the steps below to start a new project using this django template::
 
     $ django-admin.py startproject --template=https://github.com/Lightmatter/generic-django-conf/archive/master.zip  --extension=py,rb,sh,yml,project_name --name=Procfile <project_name>
@@ -20,7 +21,7 @@ Follow the steps below to start a new project using this django template::
     $ python <project_name>/manage.py runserver
 
 Deployment
-=====================
+==========
 Projects created using this template are meant to be deployed on heroku
 
 Create a heroku application and push the code there. You will need to set:
@@ -77,7 +78,7 @@ Version 0.1 (2014-07-7)
 
 
 Todo
-=====================
+====
 Things we still want to do::
 
   caching everything possible (middleware for sure)
