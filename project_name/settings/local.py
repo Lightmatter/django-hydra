@@ -38,9 +38,9 @@ MEDIA_URL = "/media/"
 STATIC_ROOT = PROJECT_ROOT.child("static")
 
 
+INSTALLED_APPS = ('devserver',) + INSTALLED_APPS
 INSTALLED_APPS += (
     'debug_toolbar',
-    'devserver',
     'template_debug',
 )
 
