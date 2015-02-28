@@ -6,7 +6,7 @@ django-debug-toolbar==1.2.1
 django-template-debug==0.3.3
 
 # Debug server
-django-devserver==0.8.0
+git+https://github.com/coagulant/django-devserver.git
 Werkzeug==0.9.4
 sqlparse==0.1.10
 Dozer==0.4
