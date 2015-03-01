@@ -1,5 +1,11 @@
 import os
-import urlparse
+
+try:
+    from urllib.parse import urlparse
+except ImportError:
+    from urlparse import urlparse
+
+
 import dj_database_url
 
 from .base import *
@@ -18,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = PROJECT_ROOT.child("static")
 STATIC_URL = '/static/'
 
-redis_url = urlparse.urlparse(os.environ.get('REDISTOGO_URL', 'redis://localhost:6959'))
+redis_url = urlparse(os.environ.get('REDISTOGO_URL', 'redis://localhost:6959'))
 CACHES = {
     'default': {
         'BACKEND': 'redis_cache.RedisCache',
@@ -61,7 +67,7 @@ AWS_QUERYSTRING_AUTH = False
 #AWS_S3_CUSTOM_DOMAIN = "foo.cloudfront.net"
 
 
-EMAIL_BACKEND = 'django_mandrill.mail.backends.mandrillbackend.EmailBackend'
+EMAIL_BACKEND = "djrill.mail.backends.djrill.DjrillBackend"
 MANDRILL_API_KEY = get_env_setting('MANDRILL_APIKEY')
 
 STRIPE_PUBLIC_KEY = get_env_setting('STRIPE_PUBLIC_KEY')

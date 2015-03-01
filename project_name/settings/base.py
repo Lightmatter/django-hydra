@@ -136,6 +136,7 @@ INSTALLED_APPS = (
     'registration',
     'manifesto',
     'social.apps.django_app.default',
+    'djrill',
     'app',
     'account',
 )

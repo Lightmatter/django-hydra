@@ -29,7 +29,7 @@ heroku config:set AWS_ACCESS_KEY_ID="" --app $ENV_NAME-prod
 heroku config:set AWS_STORAGE_BUCKET_NAME=$ENV_NAME-prod --app $ENV_NAME-prod
 heroku config:set STRIPE_PUBLIC_KEY="" --app $ENV_NAME-prod
 heroku config:set STRIPE_SECRET_KEY="" --app $ENV_NAME-prod
-heroku config:set SECRET_KEY=`python -c 'import random; print "".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)])'` --app $ENV_NAME-prod
+heroku config:set SECRET_KEY=`python -c 'import random; print("".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)]))'` --app $ENV_NAME-prod
 heroku config:set DJANGO_SETTINGS_MODULE=$ENV_NAME.settings.heroku --app $ENV_NAME-prod
 
 git push prod master
@@ -46,3 +46,6 @@ heroku config:set DJANGO_SETTINGS_MODULE=$ENV_NAME.settings.heroku-dev --app $EN
 heroku config:set DJANGO_SETTINGS_MODULE=$ENV_NAME.settings.heroku-staging --app $ENV_NAME-staging
 
 echo "python manage.py migrate" >> bin/post_compile
+
+heroku git:remote -r dev -a $ENV_NAME-dev
+heroku git:remote -r staging -a $ENV_NAME-staging

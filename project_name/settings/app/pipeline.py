@@ -1,5 +1,5 @@
-#STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
-STATICFILES_STORAGE = 'util.gzipstorage.GZIPCachedStorage'
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+#STATICFILES_STORAGE = 'util.gzipstorage.GZIPCachedStorage'
 
 PIPELINE_CSS = {
     'screen': {
