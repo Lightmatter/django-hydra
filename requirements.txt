@@ -42,7 +42,7 @@ django-redis-sessions==0.4.0
 
 ## AWS
 boto==2.24.0
-django-storages==1.1.8
+django-storages-redux==1.2.2
 
 #HEROKU
 dj-database-url==0.2.2
