@@ -3,15 +3,14 @@ import re
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm
 
 User = get_user_model()
 
-class RegistrationForm(forms.Form):
+class RegistrationForm(forms.ModelForm):
     """
     Form for registering a new user account.
     """
-    username = forms.CharField(widget=forms.HiddenInput,required=False)
-
     email = forms.EmailField(label=_("E-mail"), required=True)
     password1 = forms.CharField(widget=forms.PasswordInput,
                                 label=_("Password"))
@@ -33,12 +32,6 @@ class RegistrationForm(forms.Form):
         if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
             if self.cleaned_data['password1'] != self.cleaned_data['password2']:
                 raise forms.ValidationError(_("The two password fields didn't match."))
-        username = (self.cleaned_data.get('email', "bad@email.com").split("@")[0]).lower()
-        username = re.sub('\W', "", username)
-
-        otherusers = User.objects.filter(username__startswith=username).count()
-        username = username + str(otherusers)
-        self.cleaned_data['username'] = username
         return self.cleaned_data
 
 
@@ -51,3 +44,15 @@ class RegistrationForm(forms.Form):
         if User.objects.filter(email__iexact=self.cleaned_data['email']):
             raise forms.ValidationError(_("This email address is already in use. Please supply a different email address."))
         return self.cleaned_data['email']
+
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data["password1"])
+        if commit:
+            user.save()
+        return user
+
+    class Meta:
+        model = User
+        fields = ('email', 'password1', 'password2', 'first_name', 'last_name')

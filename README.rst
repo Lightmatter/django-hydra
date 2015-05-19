@@ -47,6 +47,7 @@ Add in the newrelic addon:
 After pushing the code, you'll need to syncdb and run the initial migrations:
 ```$ heroku run python manage.py syncdb --migrate```
 
+
 Release notes
 =============
 

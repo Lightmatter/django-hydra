@@ -17,8 +17,8 @@ class RegistrationView(SimpleRegistrationView):
     form_class = RegistrationForm
 
     ##Stick extra registration logic here
-    def register(self, request, **cleaned_data):
-        new_user = super(RegistrationView, self).register(request, **cleaned_data)
+    def register(self, request, form, **cleaned_data):
+        new_user = super(RegistrationView, self).register(request, form, **cleaned_data)
         return new_user
 
     def get_success_url(self, request, user):

@@ -12,14 +12,6 @@ from annoying.decorators import render_to, ajax_request
 from .forms import StripeTokenForm, ChargeForm
 
 
-@render_to('index.html')
-def index(request):
-    return {}
-
 def error(request):
     """for testing purposes"""
     raise Exception
-
-def _404(request):
-    """for testing purposes"""
-    raise Http404

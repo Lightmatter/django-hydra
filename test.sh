@@ -6,6 +6,7 @@ if [ -d ../testapp ]; then
 fi
 echo "Creating app"
 cd ../
+pip install virtualenvwrapper
 django-admin.py startproject --template=./generic-django-conf/ --extension=py,rb,sh,yml,project_name --name=Procfile testapp
 cd testapp
 echo "Running Start.sh"

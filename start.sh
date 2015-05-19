@@ -29,8 +29,15 @@ then
     rm -rf $WORKON_HOME/{{ project_name }}/build/
 fi
 
-pip install --download ${HOME}/.pip-packages --exists-action w -r requirements-dev.txt
-pip install --no-index --exists-action w --find-links=file://${HOME}/.pip-packages/ -r requirements-dev.txt
+pip install pip-accel
+which pip-accel
+if [ $? -ne 0 ]; then
+    pip install --download ${HOME}/.pip-packages --exists-action w -r requirements-dev.txt
+    pip install --no-index --exists-action w --find-links=file://${HOME}/.pip-packages/ -r requirements-dev.txt
+else
+    pip-accel install -r requirements.txt
+fi
+
 
 #check if postgres installed
 RESULT=`psql -l | grep "{{ project_name }}" | wc -l | awk '{print $1}'`;
