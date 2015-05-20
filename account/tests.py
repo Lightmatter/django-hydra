@@ -1,9 +1,16 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
+from django.contrib.auth.hashers import make_password
 
 from .forms import RegistrationForm
 from .models import User
 from .recipies import user_recipe
+
+
+class UserManager(TestCase):
+    def test_create_user(self):
+        user = User.objects.create_user("jonnyrico@fednet.gov", password="iwanttoknowmore")
+        User.objects.get(id=user.id)
 
 
 class RegistrationTest(TestCase):
@@ -98,3 +105,63 @@ class LoginTest(TestCase):
         actual = self.client.post(url, self.form_data)
         expected = reverse("home")
         self.assertRedirects(actual, expected)
+
+
+    def test_register_login_flow_works(self):
+        self.user = user_recipe.prepare()
+        self.form_keys = RegistrationForm.base_fields.keys()
+        self.form_data = {k: v for (k, v) in self.user.__dict__.items() if k in self.form_keys}
+        self.form_data['tos'] = "True"
+        self.form_data['password1'] = self.form_data['password2'] = "bugssuck"
+        url = reverse("registration_register")
+        actual = self.client.post(url, self.form_data)
+        expected = reverse("home")
+        self.assertRedirects(actual, expected)
+
+        self.form_data = {"username": self.user.email,
+                          "password": "bugssuck",
+                          }
+
+        self.client.logout()
+        url = reverse('auth_login')
+        actual = self.client.post(url, self.form_data)
+        expected = reverse("home")
+        self.assertRedirects(actual, expected)
+
+
+
+class UserAdminTest(TestCase):
+    def setUp(self):
+        form_data = self.login_form_data = {"username": "ben@coolguy.com",
+                                            "password": "yeahman"}
+
+        self.user = user_recipe.make(email=form_data['username'],
+                                     is_superuser=True,
+                                     is_staff=True,
+                                     password=make_password(form_data['password']),
+        )
+
+        self.client.login(username=self.login_form_data['username'],
+                          password=self.login_form_data['password'])
+
+
+    def test_user_admin_list(self):
+        url = reverse("admin:account_user_changelist")
+        response = self.client.get(url)
+        actual = response.status_code
+        expected = 200
+        self.assertEqual(actual, expected)
+
+    def test_user_admin_detail(self):
+        url = reverse("admin:account_user_change", args=[self.user.id])
+        response = self.client.get(url)
+        actual = response.status_code
+        expected = 200
+        self.assertEqual(actual, expected)
+
+    def test_user_admin_post(self):
+        url = reverse("admin:account_user_change", args=[self.user.id])
+        response = self.client.post(url, )
+        actual = response.status_code
+        expected = 200
+        self.assertEqual(actual, expected)

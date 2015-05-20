@@ -3,6 +3,7 @@ from django.utils import timezone
 from model_utils.models import TimeStampedModel
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.hashers import make_password
 
 
 class UserManager(BaseUserManager):
@@ -14,7 +15,7 @@ class UserManager(BaseUserManager):
         email = self.normalize_email(email)
         user = self.model(email=email, is_staff=is_staff,
                           is_active=True, is_superuser=is_superuser,
-                          date_joined=now, **extra_fields)
+                          **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -28,7 +29,7 @@ class UserManager(BaseUserManager):
                                  **extra_fields)
 
 
-class User(AbstractBaseUser, TimeStampedModel, PermissionsMixin):
+class User(TimeStampedModel, AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True,
         error_messages={
             'unique': _('A user with that email address already exists.'),
