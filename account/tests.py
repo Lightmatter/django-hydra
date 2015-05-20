@@ -6,6 +6,7 @@ from .forms import RegistrationForm
 from .models import User
 from .recipies import user_recipe
 
+from datetime import datetime
 
 class UserManager(TestCase):
     def test_create_user(self):
@@ -159,9 +160,15 @@ class UserAdminTest(TestCase):
         expected = 200
         self.assertEqual(actual, expected)
 
-    def test_user_admin_post(self):
+    def test_user_admin_add(self):
+        pass
+
+    def test_user_admin_change(self):
         url = reverse("admin:account_user_change", args=[self.user.id])
-        response = self.client.post(url, )
-        actual = response.status_code
-        expected = 200
-        self.assertEqual(actual, expected)
+        form_data = {"email": "ben@coolguy.com",
+                     "last_login_0": "2015-05-20",
+                     "last_login_1": "03:38:28",
+                     }
+        actual = response = self.client.post(url, form_data)
+        expected = reverse("admin:account_user_changelist")
+        self.assertRedirects(actual, expected, target_status_code=302)
