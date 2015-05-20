@@ -6,7 +6,6 @@ from .forms import RegistrationForm
 from .models import User
 from .recipies import user_recipe
 
-from datetime import datetime
 
 class UserManager(TestCase):
     def test_create_user(self):
@@ -21,7 +20,6 @@ class RegistrationTest(TestCase):
         self.form_data = {k: v for (k, v) in self.user.__dict__.items() if k in self.form_keys}
         self.form_data['tos'] = "True"
         self.form_data['password1'] = self.form_data['password2'] = "bugssuck"
-
 
     def test_user_registration_fails(self):
         """
@@ -161,6 +159,7 @@ class UserAdminTest(TestCase):
         self.assertEqual(actual, expected)
 
     def test_user_admin_add(self):
+        #TODO
         pass
 
     def test_user_admin_change(self):
