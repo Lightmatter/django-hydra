@@ -65,5 +65,3 @@ django-reversion==1.8.6
 #Money
 #stripe==1.12.0
 pip-accel==0.31
-
--e git+https://github.com/gone/dj-static.git@5da00529c033afa8e65aef13555b9eaec6dfc388#egg=dj_static-master

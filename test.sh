@@ -1,6 +1,9 @@
 #!/bin/bash
 cwd=$(pwd)
+source `which virtualenvwrapper.sh`
 if [ -d ../testapp ]; then
+    echo "Deleting Old venv"
+    rmvirtualenv testapp
     echo "Deleting Old app"
     rm -rf ../testapp
 fi
@@ -12,7 +15,6 @@ cd testapp
 echo "Running Start.sh"
 ./start.sh
 echo "Running tests"
-source `which virtualenvwrapper.sh`
 workon testapp
 export DJANGO_SETTINGS_MODULE=testapp.settings.local
 python manage.py collectstatic --noinput

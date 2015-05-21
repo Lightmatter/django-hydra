@@ -11,7 +11,7 @@ source `which virtualenvwrapper.sh`
 
 
 cd $WORKON_HOME
-mkvirtualenv --distribute $ENV_OPTS $ENV_NAME
+mkvirtualenv --distribute $ENV_OPTS $ENV_NAME  -ppython3
 cd -
 workon $ENV_NAME
 export DJANGO_SETTINGS_MODULE=$ENV_NAME.settings.local
@@ -35,7 +35,7 @@ if [ $? -ne 0 ]; then
     pip install --download ${HOME}/.pip-packages --exists-action w -r requirements-dev.txt
     pip install --no-index --exists-action w --find-links=file://${HOME}/.pip-packages/ -r requirements-dev.txt
 else
-    pip-accel install -r requirements.txt
+    pip-accel install -r requirements-dev.txt
 fi
 
 
