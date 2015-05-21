@@ -1,5 +1,6 @@
 #!/bin/bash
 cwd=$(pwd)
+unset DJANGO_SETTINGS_MODULE
 source `which virtualenvwrapper.sh`
 if [ -d ../testapp ]; then
     echo "Deleting Old venv"

@@ -159,8 +159,30 @@ class UserAdminTest(TestCase):
         self.assertEqual(actual, expected)
 
     def test_user_admin_add(self):
-        #TODO
-        pass
+        url = reverse("admin:account_user_add")
+
+        form_data = { "email": "robertcop@ocp.com",
+                      "password1":"deadoraliveyourecomingwithme",
+                      "password2":"deadoraliveyourecomingwithme",
+        }
+        actual = response = self.client.post(url, form_data)
+        new_user = User.objects.latest("created")
+        self.assertEqual(new_user.email, "robertcop@ocp.com")
+
+        expected = reverse("admin:account_user_change", args=[new_user.id])
+        self.assertRedirects(actual, expected)
+
+
+    def test_user_admin_add_different_passwords(self):
+        url = reverse("admin:account_user_add")
+        form_data = { "email": "robertcop@ocp.com",
+                      "password1":"deadoraliveyourecomingwithme",
+                      "password2":"freezecreep",
+        }
+        response = self.client.post(url, form_data)
+        actual = response.context['adminform'].form.errors
+        expected = {'password2': ["The two password fields didn't match."]}
+        self.assertEqual(actual, expected)
 
     def test_user_admin_change(self):
         url = reverse("admin:account_user_change", args=[self.user.id])
