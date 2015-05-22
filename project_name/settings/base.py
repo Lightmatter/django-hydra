@@ -139,6 +139,7 @@ INSTALLED_APPS = (
     'djrill',
     'app',
     'account',
+    'util',
 )
 
 # A sample logging configuration. The only tangible logging
