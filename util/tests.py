@@ -42,3 +42,8 @@ class FileUrlTest(TestCase):
         actual = x.file_field.url
         expected = '/media/uploads/filez/{0.year:04}/{0.month:02}/{0.day:02}/{1}/some_file.txt'.format(now, timestamp)
         self.assertEqual(actual, expected)
+
+
+#TODO: Write this test
+class SendEmailtest(TestCase):
+    pass
