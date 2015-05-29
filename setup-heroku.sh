@@ -4,24 +4,17 @@ ENV_OPSTS="--no-site-packages --distribute"
 
 
 unset PYTHONDONTWRITEBYTECODE
-os="`uname -a`"
-if [[ "$os" == *Linux* ]]; then
-    source /etc/bash_completion.d/virtualenvwrapper
-else
-    source `which virtualenvwrapper.sh`
-fi
+source `which virtualenvwrapper.sh`
 
 
 workon $ENV_NAME
 heroku create $ENV_NAME-prod --remote prod --buildpack https://github.com/ddollar/heroku-buildpack-multi.git
 
-heroku addons:add pgbackups --app $ENV_NAME-prod
+heroku addons:create mandrill:starter --app $ENV_NAME-prod
 
-heroku addons:add mandrill:starter --app $ENV_NAME-prod
+heroku addons:create newrelic --app $ENV_NAME-prod
 
-heroku addons:add newrelic --app $ENV_NAME-prod
-
-heroku addons:add redistogo --app $ENV_NAME-prod
+heroku addons:create redistogo --app $ENV_NAME-prod
 
 
 heroku config:set AWS_SECRET_ACCESS_KEY="" --app $ENV_NAME-prod
@@ -35,15 +28,17 @@ heroku config:set DJANGO_SETTINGS_MODULE=$ENV_NAME.settings.heroku --app $ENV_NA
 git push prod master
 heroku run python manage.py migrate --app $ENV_NAME-prod
 
-heroku fork $ENV_NAME-staging
-heroku fork $ENV_NAME-dev
+heroku fork --to $ENV_NAME-staging --from $ENV_NAME-prod
+heroku fork --to $ENV_NAME-dev --from $ENV_NAME-prod
 
-heroku config:set SECRET_KEY=`python -c 'import random; print "".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)])'` --app $ENV_NAME-dev
-heroku config:set SECRET_KEY=`python -c 'import random; print "".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)])'` --app $ENV_NAME-staging
-
+heroku config:set SECRET_KEY=`python -c 'import random; print("".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)]))'` --app $ENV_NAME-dev
+heroku config:set SECRET_KEY=`python -c 'import random; print("".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)]))'` --app $ENV_NAME-staging
 
 heroku config:set DJANGO_SETTINGS_MODULE=$ENV_NAME.settings.heroku-dev --app $ENV_NAME-dev
 heroku config:set DJANGO_SETTINGS_MODULE=$ENV_NAME.settings.heroku-staging --app $ENV_NAME-staging
+
+heroku config:set AWS_STORAGE_BUCKET_NAME=$ENV_NAME-dev --app $ENV_NAME-dev
+heroku config:set AWS_STORAGE_BUCKET_NAME=$ENV_NAME-staging --app $ENV_NAME-staging
 
 echo "python manage.py migrate" >> bin/post_compile
 
