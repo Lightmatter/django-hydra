@@ -6,7 +6,7 @@ LightMatter Django Template
 ABOUT
 =====
 
-A generic template for Django 1.7
+A generic template for Django 1.8.1
 
 
 Instructions
