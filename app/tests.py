@@ -13,3 +13,16 @@ class SimpleTest(TestCase):
         c = Client()
         response = c.get('/')
         self.assertEqual(response.status_code, 200)
+
+
+from casper.tests import CasperTestCase
+from django.contrib.staticfiles import finders
+
+
+class SampleCasperTest(CasperTestCase):
+    def test_something(self):
+        self.assertTrue(self.casper(finders.find('js/tests/sample.casper.js')))
+
+class QunitRunner(CasperTestCase):
+    def test_something(self):
+        self.assertTrue(self.casper(finders.find('js/tests/qunit.runner.js')))

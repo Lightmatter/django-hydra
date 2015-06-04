@@ -33,6 +33,9 @@ git+https://github.com/mikeorr/Unipath.git#egg=unipath
 pytz==2015.4
 easy-thumbnails==2.2
 
+#JS tools
+django.js==0.8.1
+git+https://github.com/nanuxbe/django-casper.git#egg=casper
 
 #REDIS CACHING
 hiredis==0.2.0
