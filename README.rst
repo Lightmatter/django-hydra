@@ -6,7 +6,7 @@ LightMatter Django Template
 ABOUT
 =====
 
-A generic template for Django 1.7
+A generic template for Django 1.8.1
 
 
 Instructions
@@ -50,6 +50,18 @@ After pushing the code, you'll need to syncdb and run the initial migrations:
 
 Release notes
 =============
+
+Version 0.1.4 (2015-07-7)
+--------------------------
+
+* switching to python 3
+* Upgraded version of django to 1.8.2
+* added casper.js powered acceptance testing
+* added qunit powered javascript unit testing
+* adding script to automatically create heroku hosts
+* using custom user model
+* adding script to test template
+
 
 Version 0.1.3 (2014-07-7)
 --------------------------

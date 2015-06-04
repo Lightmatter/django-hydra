@@ -132,6 +132,8 @@ INSTALLED_APPS = (
     'django_extensions',
     'model_utils',
     'pipeline',
+    'djangojs',
+    'casper',
     'easy_thumbnails',
     'registration',
     'manifesto',
@@ -139,6 +141,7 @@ INSTALLED_APPS = (
     'djrill',
     'app',
     'account',
+    'util',
 )
 
 # A sample logging configuration. The only tangible logging
