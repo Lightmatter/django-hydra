@@ -18,11 +18,13 @@ class SimpleTest(TestCase):
 from casper.tests import CasperTestCase
 from django.contrib.staticfiles import finders
 
-
 class SampleCasperTest(CasperTestCase):
     def test_something(self):
         self.assertTrue(self.casper(finders.find('js/tests/sample.casper.js')))
 
-class QunitRunner(CasperTestCase):
-    def test_something(self):
-        self.assertTrue(self.casper(finders.find('js/tests/qunit.runner.js')))
+from djangojs.runners import JsTestCase
+from djangojs.runners import QUnitSuite
+
+class QunitTests(QUnitSuite, JsTestCase):
+    title = 'Qunit tests'
+    url_name = 'qunit_view'

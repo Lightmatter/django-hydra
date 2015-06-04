@@ -31,5 +31,6 @@ fi
 workon testapp
 export DJANGO_SETTINGS_MODULE=testapp.settings.local
 python manage.py collectstatic --noinput
+rm -rf static/
 python manage.py test --noinput --keepdb
 cd $cwd

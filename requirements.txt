@@ -34,7 +34,8 @@ pytz==2015.4
 easy-thumbnails==2.2
 
 #JS tools
-django.js==0.8.1
+#django.js==0.8.1 # needs to be fixed up - using lightmatter version for now
+git+https://github.com/Lightmatter/django.js.git
 git+https://github.com/nanuxbe/django-casper.git#egg=casper
 
 #REDIS CACHING
