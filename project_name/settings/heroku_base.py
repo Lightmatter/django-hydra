@@ -88,5 +88,8 @@ TEMPLATE_LOADERS = (
 )
 
 
+# GEOS_LIBRARY_PATH = "/app/.heroku/vendor/lib/libgeos_c.so"
+# GDAL_LIBRARY_PATH = "/app/.heroku/vendor/lib/libgdal.so"
+
 # SOCIAL_AUTH_FACEBOOK_KEY = get_env_setting('SOCIAL_AUTH_FACEBOOK_KEY')
 # SOCIAL_AUTH_FACEBOOK_SECRET = get_env_setting('SOCIAL_AUTH_FACEBOOK_SECRET')
