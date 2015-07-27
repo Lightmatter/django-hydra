@@ -51,12 +51,13 @@ django-storages-redux==1.2.3
 #HEROKU
 dj-database-url==0.3.0
 #dj-static==0.0.5
--e git+https://github.com/gone/dj-static.git@5da00529c033afa8e65aef13555b9eaec6dfc388#egg=dj-static
+git+https://github.com/gone/dj-static.git@5da00529c033afa8e65aef13555b9eaec6dfc388#egg=dj-static
 django-toolbelt==0.0.1
-ipython==1.1.0
+ipython==3.2.1
 waitress==0.8.9
 djrill==1.4.0
 gunicorn==19.3.0
+newrelic==2.52.0.40
 
 #cool stuff
 django-reversion==1.8.6
@@ -69,3 +70,4 @@ django-reversion==1.8.6
 #Money
 #stripe==1.12.0
 pip-accel==0.31
+ptpython==0.18

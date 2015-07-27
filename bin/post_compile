@@ -1,3 +1,2 @@
 #!/usr/bin/env bash
 # uncomment this line after the first time the system builds, or run the setup_heroku script to do it for you
-#python manage.py syncdb --migrate
