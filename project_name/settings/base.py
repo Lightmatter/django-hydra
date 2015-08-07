@@ -119,14 +119,16 @@ INSTALLED_APPS = (
     # Grapelli tools
     'grappelli',
     'filebrowser',
-    'reversion',
-    'django.contrib.auth',
+
     'django.contrib.contenttypes',
+    'django.contrib.auth',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+
+    'reversion',
     'annoying',
     'localflavor',
     'django_extensions',
@@ -139,6 +141,7 @@ INSTALLED_APPS = (
     'manifesto',
     'social.apps.django_app.default',
     'djrill',
+
     'app',
     'account',
     'util',
