@@ -8,7 +8,7 @@ from django.views.generic.base import RedirectView as rv
 
 urlpatterns = patterns('',
     # Examples:
-    url(r'^favicon\.ico$', rv.as_view(url='/static/img/favicon.ico')),
+    url(r'^favicon\.ico$', rv.as_view(url='/static/img/favicon.ico', permanent=True)),
     url(r'account/', include('account.urls')),
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
