@@ -1,7 +1,7 @@
 # Django settings for project project.
-from unipath import Path
 from os import environ
 from django.core.exceptions import ImproperlyConfigured
+import pathlib
 
 
 def get_env_setting(setting, default=None):
@@ -13,7 +13,7 @@ def get_env_setting(setting, default=None):
         error_msg = "Set the %s env variable" % setting
         raise ImproperlyConfigured(error_msg)
 
-PROJECT_ROOT = Path(__file__).ancestor(3)
+PROJECT_ROOT = pathlib.Path(__file__).parent.parent.parent
 
 DEBUG = False
 TEMPLATE_DEBUG = DEBUG
@@ -56,10 +56,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    PROJECT_ROOT.child("static_source"),# An absolute path: /foo/bar/baz.py
+    PROJECT_ROOT / 'static_source',
 )
 
 # List of finder classes that know how to find static files in
@@ -112,7 +109,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    PROJECT_ROOT.child('templates'),
+    PROJECT_ROOT / 'templates',
 )
 
 INSTALLED_APPS = (

@@ -21,7 +21,7 @@ ALLOWED_HOSTS = ['*']
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = PROJECT_ROOT.child("static")
+STATIC_ROOT = PROJECT_ROOT / 'static'
 STATIC_URL = '/static/'
 
 redis_url = urlparse(os.environ.get('REDISTOGO_URL', 'redis://localhost:6959'))

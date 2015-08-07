@@ -28,8 +28,6 @@ django-annoying==0.8.1
 django-extensions==1.5.5
 django-model-utils==2.2
 django-braces==1.8.0
-#TODO remove unipath
-git+https://github.com/mikeorr/Unipath.git#egg=unipath
 pytz==2015.4
 easy-thumbnails==2.2
 

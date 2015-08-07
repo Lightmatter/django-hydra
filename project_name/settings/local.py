@@ -35,7 +35,7 @@ MEDIA_URL = "/media/"
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = PROJECT_ROOT.child("static")
+STATIC_ROOT = PROJECT_ROOT / 'static'
 
 
 #TODO: Fix this when devserver is python3 compat

@@ -1,5 +1,4 @@
 from .base import *
-from unipath import Path
 import dj_database_url
 
 
@@ -19,7 +18,7 @@ ALLOWED_HOSTS = ['*']
 
 import os
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = PROJECT_ROOT.child("static")
+STATIC_ROOT = PROJECT_ROOT / 'static'
 STATIC_URL = '/static/'
 
 DEBUG = True
