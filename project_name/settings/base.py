@@ -124,7 +124,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
 
     'reversion',
-    'annoying',
     'localflavor',
     'django_extensions',
     'model_utils',

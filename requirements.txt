@@ -1,4 +1,4 @@
-Django==1.8.2
+Django==1.8.3
 
 #Admin
 django-filebrowser==3.5.7
@@ -8,8 +8,8 @@ Pillow==2.8.1
 django-localflavor==1.1
 
 #Static hosting
-django-pipeline==1.5.0
-libsass==0.8.2
+django-pipeline==1.5.3
+libsass==0.8.3
 cssmin==0.2.0
 slimit==0.8.1
 jsmin==2.1.1
@@ -24,10 +24,9 @@ python-social-auth==0.2.9
 
 
 #Utils
-django-annoying==0.8.1
 django-extensions==1.5.5
 django-model-utils==2.2
-django-braces==1.8.0
+django-braces==1.8.1
 pytz==2015.4
 easy-thumbnails==2.2
 
@@ -58,7 +57,7 @@ gunicorn==19.3.0
 newrelic==2.52.0.40
 
 #cool stuff
-django-reversion==1.8.6
+django-reversion==1.9.3
 
 #OPTIONAL TOOLS
 #whoosh
