@@ -5,7 +5,7 @@ ALLOWED_HOSTS = [u'127.0.0.1', 'localhost']
 STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 
 
-DEBUG = True
+DEBUG = TEMPLATE_DEBUG = True
 
 DATABASES = {
     'default': {

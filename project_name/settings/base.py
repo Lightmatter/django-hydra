@@ -14,9 +14,7 @@ def get_env_setting(setting, default=None):
         raise ImproperlyConfigured(error_msg)
 
 PROJECT_ROOT = pathlib.Path(__file__).parent.parent.parent
-
-DEBUG = False
-TEMPLATE_DEBUG = DEBUG
+DEBUG = TEMPLATE_DEBUG = False
 
 ADMINS = (
     ('Ben Beecher', 'Ben@Lightmatter.com'),
