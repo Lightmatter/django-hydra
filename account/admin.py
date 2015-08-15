@@ -5,7 +5,6 @@ from django.contrib.auth.forms import UserCreationForm as DjangoUserCreationForm
 from django.contrib.auth.forms import UserChangeForm  as DjangoUserChangeForm
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashWidget, ReadOnlyPasswordHashField
-import reversion
 
 from .models import User
 
@@ -38,8 +37,7 @@ class UserChangeForm(forms.ModelForm):
         return self.initial["password"]
 
 
-
-class UserAdmin(reversion.VersionAdmin, DjangoUserAdmin):
+class UserAdmin(DjangoUserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name')}),
@@ -54,10 +52,9 @@ class UserAdmin(reversion.VersionAdmin, DjangoUserAdmin):
         }),
     )
 
-
     add_form = UserCreationForm
     form = UserChangeForm
-    #list_per_page = 25
+    # list_per_page = 25
     search_fields = ('email', 'first_name', 'last_name')
     list_display = ('email', 'first_name', 'last_name', 'created')
     ordering = ('email',)

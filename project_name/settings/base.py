@@ -123,7 +123,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
 
-    'reversion',
     'localflavor',
     'django_extensions',
     'model_utils',

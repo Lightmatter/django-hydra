@@ -56,13 +56,9 @@ djrill==1.4.0
 gunicorn==19.3.0
 newrelic==2.52.0.40
 
-#cool stuff
-django-reversion==1.9.3
-
 #OPTIONAL TOOLS
 #whoosh
 #django-haystack
-
 
 #Money
 #stripe==1.12.0

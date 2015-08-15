@@ -1,7 +1,6 @@
 from django.contrib import admin
-import reversion
 
-# class YourModelAdmin(reversion.VersionAdmin):
+# class YourModelAdmin(admin.ModelAdmin):
 #     pass
 
 #admin.site.register(<your model here>, YourModelAdmin)
