@@ -1,29 +1,32 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
-
+from django.core.urlresolvers import reverse
 from django.test import TestCase
-from django.test.client import Client
+
+from .views import error
+
 
 class SimpleTest(TestCase):
     def test_home(self):
-        c = Client()
-        response = c.get('/')
+        response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
+
+    def test_error_route(self):
+        visit = lambda: self.client.get(reverse('error'))
+        self.assertRaises(Exception, error)
+        self.assertRaises(Exception, visit)
 
 
 from casper.tests import CasperTestCase
 from django.contrib.staticfiles import finders
 
+
 class SampleCasperTest(CasperTestCase):
     def test_something(self):
         self.assertTrue(self.casper(finders.find('js/tests/sample.casper.js')))
 
+
 from djangojs.runners import JsTestCase
 from djangojs.runners import QUnitSuite
+
 
 class QunitTests(QUnitSuite, JsTestCase):
     title = 'Qunit tests'
