@@ -7,8 +7,6 @@ from django.conf import settings
 
 from django.contrib.auth.decorators import login_required
 
-from annoying.decorators import render_to, ajax_request
-
 from .forms import StripeTokenForm, ChargeForm
 
 
