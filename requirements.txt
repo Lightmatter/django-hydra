@@ -43,7 +43,7 @@ django-redis-sessions==0.4.0
 
 ## AWS
 boto==2.38.0
-django-storages-redux==1.2.3
+django-storages-redux==1.3
 
 #HEROKU
 dj-database-url==0.3.0
@@ -66,5 +66,3 @@ django-reversion==1.9.3
 
 #Money
 #stripe==1.12.0
-pip-accel==0.31
-ptpython==0.18
