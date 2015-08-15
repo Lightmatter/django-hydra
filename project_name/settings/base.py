@@ -54,7 +54,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    PROJECT_ROOT / 'static_source',
+    str(PROJECT_ROOT / 'static_source'),
 )
 
 # List of finder classes that know how to find static files in
@@ -107,7 +107,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    PROJECT_ROOT / 'templates',
+    str(PROJECT_ROOT / 'templates'),
 )
 
 INSTALLED_APPS = (
