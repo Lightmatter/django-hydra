@@ -1,9 +1,7 @@
 import datetime
 import time
 from django.test import TestCase
-from django.test.client import Client
 from django.core.files.uploadedfile import SimpleUploadedFile
-import io
 
 from .util import random_string, file_url
 from .models import TestFileModel
