@@ -16,7 +16,7 @@ jsmin==2.1.1
 manifesto==0.5
 
 #DB
-psycopg2==2.6
+psycopg2==2.6.1
 
 #User Accounts
 django-registration-redux==1.2
