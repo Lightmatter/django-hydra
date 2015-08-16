@@ -1,0 +1,29 @@
+machine:
+  python:
+    version: 3.4.2
+  services:
+    - postgresql
+    - redis
+  environment:
+    DJANGO_SETTINGS_MODULE: {{ project_name }}.settings.circleci
+dependecies:
+  override:
+    - pip install -r requirements-dev.txt
+test:
+  override:
+    - coverage run --source='.' manage.py test
+  post:
+    - coveralls
+deployment:
+  prod:
+    branch: master
+    heroku:
+      appname: {{ project_name }}-prod
+  staging:
+    branch: master
+    heroku:
+      appname: {{ project_name }}-staging
+  dev:
+    branch: develop
+    heroku:
+      appname: {{ project_name }}-dev
