@@ -194,3 +194,10 @@ from {{project_name}}.settings.app import *
 
 
 GRAPPELLI_ADMIN_TITLE = '{{project_name}}'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+    },
+]

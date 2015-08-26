@@ -83,3 +83,11 @@ SECRET_KEY = "{{ secret_key }}"
 
 STRIPE_PUBLIC_KEY = ""
 STRIPE_SECRET_KEY = ""
+
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+    },
+]

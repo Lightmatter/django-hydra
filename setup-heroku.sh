@@ -49,7 +49,7 @@ heroku config:set STRIPE_SECRET_KEY="" --app $ENV_NAME-staging
 heroku config:set DJANGO_SETTINGS_MODULE=$ENV_NAME.settings.heroku --app $ENV_NAME-dev
 heroku config:set DJANGO_SETTINGS_MODULE=$ENV_NAME.settings.heroku --app $ENV_NAME-staging
 
-echo "python manage.py migrate" >> bin/post_compile
+echo "python manage.py migrate --noinput" >> bin/post_compile
 
 heroku git:remote -r dev -a $ENV_NAME-dev
 heroku git:remote -r staging -a $ENV_NAME-staging
