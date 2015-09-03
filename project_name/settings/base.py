@@ -132,6 +132,7 @@ INSTALLED_APPS = (
     'easy_thumbnails',
     'registration',
     'manifesto',
+    'import_export',
     'social.apps.django_app.default',
     'djrill',
 
