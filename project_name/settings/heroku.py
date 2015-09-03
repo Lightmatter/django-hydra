@@ -10,6 +10,7 @@ import dj_database_url
 
 from .base import *
 
+SSLIFY_DISABLE = False
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config()
 

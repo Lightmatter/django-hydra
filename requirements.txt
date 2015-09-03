@@ -27,6 +27,7 @@ python-social-auth==0.2.9
 django-extensions==1.5.5
 django-model-utils==2.2
 django-braces==1.8.1
+django-sslify==0.2.7
 pytz==2015.4
 easy-thumbnails==2.2
 
