@@ -1,9 +1,9 @@
-from django.db import models
-from django.utils import timezone
-from model_utils.models import TimeStampedModel
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.core.mail import send_mail
+from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.hashers import make_password
+
+from model_utils.models import TimeStampedModel
 
 
 class UserManager(BaseUserManager):
@@ -11,7 +11,6 @@ class UserManager(BaseUserManager):
 
     def _create_user(self, email, password, is_staff,
                      is_superuser, **extra_fields):
-        now = timezone.now()
         email = self.normalize_email(email)
         user = self.model(email=email, is_staff=is_staff,
                           is_active=True, is_superuser=is_superuser,
