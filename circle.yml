@@ -6,7 +6,7 @@ machine:
     - redis
   environment:
     DJANGO_SETTINGS_MODULE: {{ project_name }}.settings.circleci
-dependecies:
+dependencies:
   override:
     - pip install -r requirements-dev.txt
 test:
