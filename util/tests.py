@@ -1,5 +1,6 @@
 import datetime
 import time
+from django.conf import settings
 from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
 
@@ -38,7 +39,7 @@ class FileUrlTest(TestCase):
         timestamp = int(time.time())
         x = TestFileModel.objects.create(file_field=fake_file)
         actual = x.file_field.url
-        expected = '/media/uploads/filez/{0.year:04}/{0.month:02}/{0.day:02}/{1}/some_file.txt'.format(now, timestamp)
+        expected = settings.MEDIA_URL + 'uploads/filez/{0.year:04}/{0.month:02}/{0.day:02}/{1}/some_file.txt'.format(now, timestamp)
         self.assertEqual(actual, expected)
 
 
