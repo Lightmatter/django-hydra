@@ -66,8 +66,7 @@ DEVSERVER_MODULES = (
     'devserver.modules.profile.LineProfilerModule',
 )
 
-
-TEMPLATE_STRING_IF_INVALID = 'BAD TEMPLATE VARIABLE'
+TEMPLATES[0]['OPTIONS']['string_if_invalid'] = 'BAD TEMPLATE VARIABLE: %s'
 SECRET_KEY = '{{ secret_key }}'
 
 STRIPE_PUBLIC_KEY = ''

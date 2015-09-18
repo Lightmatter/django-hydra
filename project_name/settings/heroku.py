@@ -62,7 +62,7 @@ AWS_STORAGE_BUCKET_NAME = get_env_setting('AWS_STORAGE_BUCKET_NAME')
 
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-TEMPLATES['OPTIONS']['loaders'] = (
+TEMPLATES[0]['OPTIONS']['loaders'] = (
     ('django.template.loaders.cached.Loader', [
         'django.template.loaders.filesystem.Loader',
         'django.template.loaders.app_directories.Loader',
