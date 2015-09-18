@@ -23,7 +23,7 @@ STATIC_URL = '/static/'
 DEBUG = True
 PIPELINE_ENABLED = False
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
-SECRET_KEY = "testing"
+SECRET_KEY = 'testing'
 
 TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
 TEST_OUTPUT_DIR = get_env_setting('CIRCLE_TEST_REPORTS', default='.')

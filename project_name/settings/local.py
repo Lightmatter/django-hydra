@@ -25,15 +25,9 @@ CACHES = {
         }
 }
 
-# Absolute filesystem path to the directory that will hold user-uploaded files.
-# Example: "/var/www/example.com/media/"
 MEDIA_ROOT = str(PROJECT_ROOT)
-MEDIA_URL = "/media/"
+MEDIA_URL = '/media/'
 
-# Absolute path to the directory static files should be collected to.
-# Don't put anything in this directory yourself; store your static files
-# in apps' "static/" subdirectories and in STATICFILES_DIRS.
-# Example: "/var/www/example.com/static/"
 STATIC_ROOT = str(PROJECT_ROOT / 'static')
 
 
@@ -45,7 +39,7 @@ INSTALLED_APPS += (
 )
 
 MIDDLEWARE_CLASSES += (
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 DEBUG_TOOLBAR_CONFIG = {
@@ -78,11 +72,11 @@ class FalseString(str):
     def __bool__(self):
         return False
 
-TEMPLATE_STRING_IF_INVALID = FalseString("BAD TEMPLATE VARIABLE")
-SECRET_KEY = "{{ secret_key }}"
+TEMPLATE_STRING_IF_INVALID = FalseString('BAD TEMPLATE VARIABLE')
+SECRET_KEY = '{{ secret_key }}'
 
-STRIPE_PUBLIC_KEY = ""
-STRIPE_SECRET_KEY = ""
+STRIPE_PUBLIC_KEY = ''
+STRIPE_SECRET_KEY = ''
 
 
 TEMPLATES = [

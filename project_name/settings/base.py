@@ -10,7 +10,7 @@ def get_env_setting(setting, default=None):
         var = environ.get(setting, default) if default else environ[setting]
         return var
     except KeyError:
-        error_msg = "Set the %s env variable" % setting
+        error_msg = 'Set the %s env variable' % setting
         raise ImproperlyConfigured(error_msg)
 
 PROJECT_ROOT = pathlib.Path(__file__).parent.parent.parent
@@ -74,16 +74,16 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = ("django.contrib.auth.context_processors.auth",
-                               "django.core.context_processors.debug",
-                               "django.core.context_processors.request",
-                               "django.core.context_processors.i18n",
-                               "django.core.context_processors.media",
-                               "django.core.context_processors.static",
-                               "django.core.context_processors.tz",
-                               "django.contrib.messages.context_processors.messages",
-                               "django.core.context_processors.media",
-                               "app.context_processors.settings",
+TEMPLATE_CONTEXT_PROCESSORS = ('django.contrib.auth.context_processors.auth',
+                               'django.core.context_processors.debug',
+                               'django.core.context_processors.request',
+                               'django.core.context_processors.i18n',
+                               'django.core.context_processors.media',
+                               'django.core.context_processors.static',
+                               'django.core.context_processors.tz',
+                               'django.contrib.messages.context_processors.messages',
+                               'django.core.context_processors.media',
+                               'app.context_processors.settings',
                                'social.apps.django_app.context_processors.backends',
                                'social.apps.django_app.context_processors.login_redirect',
 )
@@ -106,9 +106,6 @@ ROOT_URLCONF = '{{ project_name }}.urls'
 WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
     str(PROJECT_ROOT / 'templates'),
 )
 
@@ -180,19 +177,19 @@ AUTHENTICATION_BACKENDS = (
 )
 
 AUTH_USER_MODEL = 'account.User'
-LOGIN_REDIRECT_URL = "/"
-LOGIN_URL = "/account/login"
-LOGOUT_URL = "/account/logout"
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/account/login'
+LOGOUT_URL = '/account/logout'
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 ALLOWED_HOSTS = [
-    "localhost"
-    ".herokuapp.com"
+    'localhost'
+    '.herokuapp.com'
 ]
 
-DEFAULT_FROM_EMAIL = "hello@{{project_name}}.com"
-SERVER_EMAIL = "error@{{project_name}}.com"
+DEFAULT_FROM_EMAIL = 'hello@{{project_name}}.com'
+SERVER_EMAIL = 'error@{{project_name}}.com'
 from {{project_name}}.settings.app import *
 
 
