@@ -20,6 +20,7 @@ class UserCreationForm(DjangoUserCreationForm):
         model = User
         fields = '__all__'
 
+
 class UserChangeForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField(label=_("Password"),
         help_text=_("Raw passwords are not stored, so there is no way to see "
@@ -31,7 +32,7 @@ class UserChangeForm(forms.ModelForm):
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):
-        super(UserChangeForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         f = self.fields.get('user_permissions', None)
         if f is not None:
             f.queryset = f.queryset.select_related('content_type')
