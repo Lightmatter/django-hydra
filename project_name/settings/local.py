@@ -5,7 +5,7 @@ ALLOWED_HOSTS = [u'127.0.0.1', 'localhost']
 STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 
 
-DEBUG = TEMPLATE_DEBUG = True
+DEBUG = True
 
 DATABASES = {
     'default': {
@@ -77,11 +77,3 @@ SECRET_KEY = '{{ secret_key }}'
 
 STRIPE_PUBLIC_KEY = ''
 STRIPE_SECRET_KEY = ''
-
-
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'APP_DIRS': True,
-    },
-]

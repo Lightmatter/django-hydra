@@ -14,7 +14,7 @@ def get_env_setting(setting, default=None):
         raise ImproperlyConfigured(error_msg)
 
 PROJECT_ROOT = pathlib.Path(__file__).parent.parent.parent
-DEBUG = TEMPLATE_DEBUG = False
+DEBUG = False
 SSLIFY_DISABLE = True
 
 ADMINS = (
@@ -67,27 +67,6 @@ STATICFILES_FINDERS = (
     'pipeline.finders.PipelineFinder',
 )
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
-)
-
-TEMPLATE_CONTEXT_PROCESSORS = ('django.contrib.auth.context_processors.auth',
-                               'django.core.context_processors.debug',
-                               'django.core.context_processors.request',
-                               'django.core.context_processors.i18n',
-                               'django.core.context_processors.media',
-                               'django.core.context_processors.static',
-                               'django.core.context_processors.tz',
-                               'django.contrib.messages.context_processors.messages',
-                               'django.core.context_processors.media',
-                               'app.context_processors.settings',
-                               'social.apps.django_app.context_processors.backends',
-                               'social.apps.django_app.context_processors.login_redirect',
-)
-
 MIDDLEWARE_CLASSES = (
     'sslify.middleware.SSLifyMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -104,10 +83,6 @@ ROOT_URLCONF = '{{ project_name }}.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
-
-TEMPLATE_DIRS = (
-    str(PROJECT_ROOT / 'templates'),
-)
 
 INSTALLED_APPS = (
     # Grapelli tools
@@ -198,6 +173,23 @@ GRAPPELLI_ADMIN_TITLE = '{{project_name}}'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [str(PROJECT_ROOT / 'templates')],
         'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+                'django.core.context_processors.debug',
+                'django.core.context_processors.request',
+                'django.core.context_processors.i18n',
+                'django.core.context_processors.media',
+                'django.core.context_processors.static',
+                'django.core.context_processors.tz',
+                'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.media',
+                'app.context_processors.settings',
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
+            ],
+        },
     },
 ]

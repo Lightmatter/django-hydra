@@ -62,13 +62,12 @@ AWS_STORAGE_BUCKET_NAME = get_env_setting('AWS_STORAGE_BUCKET_NAME')
 
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-TEMPLATE_LOADERS = (
-    ('django.template.loaders.cached.Loader', (
+TEMPLATES['OPTIONS']['loaders'] = (
+    ('django.template.loaders.cached.Loader', [
         'django.template.loaders.filesystem.Loader',
         'django.template.loaders.app_directories.Loader',
-    )),
+    ]),
 )
-
 
 # GEOS_LIBRARY_PATH = '/app/.heroku/vendor/lib/libgeos_c.so'
 # GDAL_LIBRARY_PATH = '/app/.heroku/vendor/lib/libgdal.so'
