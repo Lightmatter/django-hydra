@@ -1,8 +1,6 @@
 Django==1.8.4
 
 #Admin
-django-filebrowser==3.5.7
-django-grappelli==2.6.4
 Pillow==2.8.1
 django-localflavor==1.1
 django-import-export==0.2.8

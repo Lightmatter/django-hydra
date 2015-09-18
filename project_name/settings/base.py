@@ -85,10 +85,6 @@ ROOT_URLCONF = '{{ project_name }}.urls'
 WSGI_APPLICATION = '{{ project_name }}.wsgi.application'
 
 INSTALLED_APPS = (
-    # Grapelli tools
-    'grappelli',
-    'filebrowser',
-
     'django.contrib.contenttypes',
     'django.contrib.auth',
     'django.contrib.sessions',
@@ -167,8 +163,6 @@ DEFAULT_FROM_EMAIL = 'hello@{{project_name}}.com'
 SERVER_EMAIL = 'error@{{project_name}}.com'
 from {{project_name}}.settings.app import *
 
-
-GRAPPELLI_ADMIN_TITLE = '{{project_name}}'
 
 TEMPLATES = [
     {

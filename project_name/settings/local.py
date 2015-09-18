@@ -67,12 +67,7 @@ DEVSERVER_MODULES = (
 )
 
 
-# fix for grapelli inline stuff
-class FalseString(str):
-    def __bool__(self):
-        return False
-
-TEMPLATE_STRING_IF_INVALID = FalseString('BAD TEMPLATE VARIABLE')
+TEMPLATE_STRING_IF_INVALID = 'BAD TEMPLATE VARIABLE'
 SECRET_KEY = '{{ secret_key }}'
 
 STRIPE_PUBLIC_KEY = ''
