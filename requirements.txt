@@ -61,3 +61,7 @@ newrelic==2.52.0.40
 
 #Money
 #stripe==1.12.0
+
+#standard utilities
+raven==5.3.1
+#celery==3.1.18
