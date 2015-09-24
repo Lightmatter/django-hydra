@@ -50,8 +50,9 @@ AWS_QUERYSTRING_AUTH = False
 # AWS_S3_CUSTOM_DOMAIN = 'foo.cloudfront.net'
 
 
-EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
-MANDRILL_API_KEY = get_env_setting('MANDRILL_APIKEY')
+EMAIL_BACKEND = b'sgbackend.SendGridBackend'
+SENDGRID_USER = get_env_setting('SENDGRID_USERNAME')
+SENDGRID_PASSWORD = get_env_setting('SENDGRID_PASSWORD')
 
 STRIPE_PUBLIC_KEY = get_env_setting('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = get_env_setting('STRIPE_SECRET_KEY')

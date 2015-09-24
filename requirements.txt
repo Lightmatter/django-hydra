@@ -65,3 +65,4 @@ newrelic==2.52.0.40
 #standard utilities
 raven==5.3.1
 #celery==3.1.18
+sendgrid-django==1.3.0

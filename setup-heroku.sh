@@ -11,8 +11,7 @@ workon $ENV_NAME
 heroku buildpacks:add https://github.com/cyberdelia/heroku-geo-buildpack.git#1.3 -a $ENV_NAME-prod
 heroku buildpacks:add https://github.com/heroku/heroku-buildpack-python.git -a $ENV_NAME-prod
 
-heroku addons:create mandrill:starter --app $ENV_NAME-prod
-
+heroku addons:create sendgrid --app $ENV_NAME-prod
 heroku addons:create newrelic --app $ENV_NAME-prod
 
 heroku addons:create redistogo --app $ENV_NAME-prod

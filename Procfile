@@ -1,1 +1,1 @@
-web: waitress-serve --port=$PORT {{ project_name }}.wsgi:application
+web: gunicorn {{ project_name }}.wsgi:application --log-file -

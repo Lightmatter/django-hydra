@@ -21,6 +21,7 @@ ADMINS = (
     ('Ben Beecher', 'Ben@Lightmatter.com'),
     ('Greg Hausheer', 'Greg@Lightmatter.com'),
     ('Ryan Hinchey', 'Ryan@Lightmatter.com'),
+    ('Josh Schneier', 'Josh@Lightmatter.com'),
 )
 
 MANAGERS = ADMINS
@@ -168,7 +169,6 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [str(PROJECT_ROOT / 'templates')],
-        'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
                 'django.contrib.auth.context_processors.auth',
