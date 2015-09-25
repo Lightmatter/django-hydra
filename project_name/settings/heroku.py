@@ -50,7 +50,7 @@ AWS_QUERYSTRING_AUTH = False
 # AWS_S3_CUSTOM_DOMAIN = 'foo.cloudfront.net'
 
 
-EMAIL_BACKEND = b'sgbackend.SendGridBackend'
+EMAIL_BACKEND = 'sgbackend.SendGridBackend'
 SENDGRID_USER = get_env_setting('SENDGRID_USERNAME')
 SENDGRID_PASSWORD = get_env_setting('SENDGRID_PASSWORD')
 
