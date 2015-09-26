@@ -23,7 +23,7 @@ class UserCreationForm(DjangoUserCreationForm):
 
 class UserChangeForm(forms.ModelForm):
     password = ReadOnlyPasswordHashField(label=_("Password"),
-        help_text=_("Raw passwords are not stored, so there is no way to see "
+        help_text=_("Raw passwords are not stored, so there is no way to see "  # noqa
                     "this user's password, but you can change the password "
                     "using <a href=\"password/\">this form</a>."))
 
@@ -50,7 +50,7 @@ class UserAdmin(ImportExportMixin, DjangoUserAdmin):
         (_('Personal info'), {'fields': ('first_name', 'last_name')}),
         (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
                                        'groups', 'user_permissions')}),
-        (_('Important dates'), {'fields': ('last_login',)}),
+        (_('Important dates'), {'fields': ('last_login', 'created')}),
     )
     add_fieldsets = (
         (None, {
@@ -63,6 +63,7 @@ class UserAdmin(ImportExportMixin, DjangoUserAdmin):
     form = UserChangeForm
     # list_per_page = 25
     search_fields = ('email', 'first_name', 'last_name')
+    readonly_fields = ('created', 'last_login')
     list_display = ('email', 'first_name', 'last_name', 'created')
     ordering = ('email',)
 
