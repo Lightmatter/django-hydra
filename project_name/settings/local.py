@@ -6,6 +6,7 @@ STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 
 
 DEBUG = True
+SESSION_COOKIE_SECURE = False
 
 DATABASES = {
     'default': {

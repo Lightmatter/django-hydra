@@ -152,6 +152,7 @@ AUTH_USER_MODEL = 'account.User'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/account/login'
 LOGOUT_URL = '/account/logout'
+SESSION_COOKIE_SECURE = True
 
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
