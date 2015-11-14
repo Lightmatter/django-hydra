@@ -27,6 +27,9 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, True, True,
                                  **extra_fields)
 
+    def get_by_natural_key(self, email):  # Used by contrib.auth.backends.ModelBackend
+        return self.get(email__iexact=email)
+
 
 class User(TimeStampedModel, AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(_('email address'), unique=True,
