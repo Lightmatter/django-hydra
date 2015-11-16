@@ -9,6 +9,12 @@ from model_utils.models import TimeStampedModel
 class UserManager(BaseUserManager):
     use_in_migrations = True
 
+    @classmethod
+    def normalize_email(self, email):
+        """All email providers treat emails in a case-insensitive manner."""
+        email = email or ''
+        return email.lower()
+
     def _create_user(self, email, password, is_staff,
                      is_superuser, **extra_fields):
         email = self.normalize_email(email)
