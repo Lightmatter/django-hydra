@@ -18,7 +18,7 @@ psycopg2==2.6.1
 
 #User Accounts
 django-registration-redux==1.2
-python-social-auth==0.2.9
+python-social-auth==0.2.13
 
 
 #Utils
@@ -37,7 +37,7 @@ git+https://github.com/nanuxbe/django-casper.git#egg=casper
 #REDIS CACHING
 hiredis==0.2.0
 redis==2.10.3
-django-redis-cache==0.13.1
+django-redis-cache==1.6.4
 django-redis-sessions==0.4.0
 
 ## AWS
@@ -53,7 +53,7 @@ ipython==3.2.1
 waitress==0.8.9
 djrill==1.4.0
 gunicorn==19.3.0
-newrelic==2.52.0.40
+newrelic==2.58.2.45
 
 #OPTIONAL TOOLS
 #whoosh
