@@ -3,6 +3,7 @@ from django.conf.urls import include, url
 from django.contrib import admin
 
 from django.views.generic.base import RedirectView as rv
+from django.views.static import serve as static_serve
 
 urlpatterns = [
     url(r'^favicon\.ico$', rv.as_view(url='/static/img/favicon.ico', permanent=True)),
@@ -20,7 +21,7 @@ if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += [
         url(r'^qunit/$', QUnitView.as_view(js_files='js/tests/*.tests.js'), name='qunit_view'),
-        url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {
+        url(r'^media/(?P<path>.*)$', static_serve, {
             'document_root': settings.MEDIA_ROOT,
         }),
    ]
