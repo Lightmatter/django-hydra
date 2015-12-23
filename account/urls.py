@@ -8,5 +8,5 @@ urlpatterns = [
 
 # Simple backend doesn't do email confirmation
 urlpatterns += [
-    (r'', include('registration.backends.simple.urls')),
+    url(r'', include('registration.backends.simple.urls')),
 ]
