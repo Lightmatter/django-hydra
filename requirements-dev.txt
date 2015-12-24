@@ -1,7 +1,7 @@
 -r requirements.txt
 ipdb
-ptpython==0.21
-pip-accel==0.31
+ptpython==0.25
+pip-accel==0.37
 
 # Debug Tools
 django-debug-toolbar==1.4
@@ -10,12 +10,12 @@ django-template-debug==0.3.5
 # Debug server
 git+https://github.com/coagulant/django-devserver.git
 Werkzeug==0.10.4
-sqlparse==0.1.15
-Dozer==0.4
+sqlparse==0.1.18
+Dozer==0.5
 
 
 # Testing
 model-mommy==1.2.6
-coverage==4.0a5
-unittest-xml-reporting==1.12.0
-coveralls==0.5
+coverage==4.0.3
+unittest-xml-reporting==1.13.0
+coveralls==1.1

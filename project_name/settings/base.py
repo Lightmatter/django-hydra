@@ -102,10 +102,8 @@ INSTALLED_APPS = (
     'casper',
     'easy_thumbnails',
     'registration',
-    'manifesto',
     'import_export',
     'social.apps.django_app.default',
-    'djrill',
 
     'app',
     'account',
@@ -162,7 +160,6 @@ ALLOWED_HOSTS = [
 
 DEFAULT_FROM_EMAIL = 'hello@{{project_name}}.com'
 SERVER_EMAIL = 'error@{{project_name}}.com'
-from {{project_name}}.settings.app import *
 
 
 TEMPLATES = [
@@ -191,3 +188,80 @@ TEMPLATES = [
         },
     },
 ]
+
+
+#### registration
+ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
+
+
+#### pipeline
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+#STATICFILES_STORAGE = 'util.gzipstorage.GZIPCachedStorage'
+
+PIPELINE = {
+    "STYLESHEETS": {
+        'screen': {
+            'source_filenames': (
+                'sass/style.scss',
+            ),
+            'output_filename': 'css/screen.css',
+            'variant': 'datauri',
+            'extra_context': {
+                'media': 'screen,projection',
+            },
+        },
+        'vendor': {
+            'source_filenames': (
+                'css/vendor/base.css',
+                'css/vendor/font-awesome.min.css',
+                'css/vendor/select2.css',
+            ),
+            'output_filename': 'css/vendor.css',
+        }
+    },
+    "CSS_COMPRESSOR": 'pipeline.compressors.cssmin.CSSMinCompressor',
+    "JS": {
+        'app': {
+            'source_filenames': (
+                'js/*.js',
+                'js/*.coffee',
+            ),
+            'output_filename': 'js/app.js',
+        },
+        'vendor': {
+            'source_filenames': (
+                'js/vendor/jquery-1.11.0.min.js',
+                'js/djangojs/django.js',
+                'js/vendor/select2.min.js',
+            ),
+            'output_filename': 'js/vendor.js',
+        }
+    },
+    "JS_COMPRESSOR": 'pipeline.compressors.jsmin.JSMinCompressor',
+    "COMPILERS": (
+        'pipeline.compilers.coffee.CoffeeScriptCompiler',
+        'util.libsass_compiler.LibSassCompiler',
+    ),
+    "DISABLE_WRAPPER": True,
+}
+
+
+###social
+SOCIAL_AUTH_PIPELINE = (
+     'social.pipeline.social_auth.social_details',
+     'social.pipeline.social_auth.social_uid',
+     'social.pipeline.social_auth.auth_allowed',
+     'social.pipeline.social_auth.social_user',
+     'social.pipeline.user.get_username',
+     'social.pipeline.user.create_user',
+     'social.pipeline.social_auth.associate_user',
+     'social.pipeline.social_auth.load_extra_data',
+     'social.pipeline.user.user_details',
+     'account.pipeline.save_facebook_details'
+)
+
+
+SOCIAL_AUTH_ENABLED_BACKENDS = ('facebook')
+SOCIAL_AUTH_USER_MODEL = 'account.User'
+SOCIAL_AUTH_DEFAULT_USERNAME = "new_social_auth_user"
