@@ -17,12 +17,12 @@ class RegistrationView(SimpleRegistrationView):
     form_class = RegistrationForm
 
     # Stick extra registration logic here
-    def register(self, request, form, **cleaned_data):
-        new_user = super().register(request, form, **cleaned_data)
+    def register(self, form, **cleaned_data):
+        new_user = super().register(form, **cleaned_data)
         return new_user
 
-    def get_success_url(self, request, user):
+    def get_success_url(self, user):
         """
         Return the url a user should be redirected to after registration
         """
-        return request.GET.get('next', '/')
+        return self.request.GET.get('next', '/')
