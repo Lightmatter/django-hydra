@@ -1,5 +1,5 @@
 #!/bin/bash
-ENV_NAME="{{ project_name }}"
+ENV_NAME="{{ cookiecutter.repo_name }}"
 ENV_OPSTS="--no-site-packages --distribute"
 
 

@@ -26,17 +26,16 @@ pip install virtualenvwrapper
 cd ..
 base=$(pwd)
 echo "Creating App"
-
-django-admin.py startproject --template=./generic-django-conf/ --extension=py,rb,sh,yml,project_name --name=Procfile testapp
+cookiecutter generic-django-conf --default-config --no-input
 cd testapp
 if [ -z $1 ]; then
     echo "Running Start.sh"
-    ./start.sh
-    echo "Running tests"
+    ./scripts/start.sh
 fi
+echo "Running tests"
 workon testapp
-cd $base/testapp/testapp
-export DJANGO_SETTINGS_MODULE=testapp.settings.local
+cd $base/testapp/
+export DJANGO_SETTINGS_MODULE=testapp.testapp.settings.local
 python manage.py collectstatic --noinput
 rm -rf static/
 python manage.py test --noinput --keepdb

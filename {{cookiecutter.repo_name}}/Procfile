@@ -1,0 +1,1 @@
+web: gunicorn {{ cookiecutter.repo_name }}.wsgi:application --log-file -
