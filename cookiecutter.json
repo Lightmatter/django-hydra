@@ -8,5 +8,8 @@
     "version": "0.1.0",
     "timezone": "UTC",
     "now": "2016/01/07",
-    "year": "{{ cookiecutter.now[:4] }}"
+    "year": "{{ cookiecutter.now[:4] }}",
+    "ember": false,
+    "django-rest": false,
+    "geo": false
 }
