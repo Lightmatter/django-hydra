@@ -9,11 +9,8 @@ SSLIFY_DISABLE = False
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config()
 
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-
-ALLOWED_HOSTS = []  # TODO
-
+ALLOWED_HOSTS = get_env_setting('ALLOWED_HOSTS').split()
 STATIC_ROOT = str(PROJECT_ROOT / 'static')
 
 redis_url = urlparse(os.environ.get('REDISTOGO_URL', 'redis://localhost:6959'))
