@@ -36,7 +36,7 @@ djoser==0.4.3
 {% if cookiecutter.django_registration == 'n' %}
 # user authentication
 djoser==0.4.3
-{% endif }
+{% endif %}
 
 
 #Utils
