@@ -16,10 +16,9 @@ def get_env_setting(setting, default=None):
         raise ImproperlyConfigured(error_msg)
 
 PROJECT_ROOT = pathlib.Path(__file__).parent.parent.parent
-
-env = Env()
-env.read_env()
-
+Env.read_env(str(PROJECT_ROOT) + '.env')
+DEBUG = env('DEBUG')
+SSLIFY_DISABLE = env('SSLIFY_DISABLE')
 
 ADMINS = (
     ('Ben Beecher', 'Ben@Lightmatter.com'),
