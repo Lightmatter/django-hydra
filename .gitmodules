@@ -1,0 +1,3 @@
+[submodule "django-push-notifications"]
+	path = django-push-notifications
+	url = https://github.com/lightmatter/django-push-notifications

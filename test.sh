@@ -12,10 +12,14 @@ unset DJANGO_SETTINGS_MODULE
 source `which virtualenvwrapper.sh`
 
 if [ -d $app ]; then
+    # check to see if it's already created
     if [ -z $1 ]; then
+        # check to see if the first arg in the command line is non-existent
+        # if so, removes the virtual environment
         echo "Deleting Old venv"
         rmvirtualenv testapp
     fi
+    # then deletes the
     echo "Deleting Old app"
     rm -rf $app
 fi
