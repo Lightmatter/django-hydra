@@ -1,17 +1,17 @@
 {
     "project_name": "testapp",
     "repo_name": "{{ cookiecutter.project_name|replace(' ', '_') }}",
-    "djoser": ["basic", "all"],
+    "djoser": ["basic", "with pw reset", "all"],
     "client_repo_name": "{{ cookiecutter.repo_name}}-client",
     "django_registration": ["y", "n"],
     "stripe": ["y", "n"],
+    "stripe_key": "lk;gjsglkjsdlgkjsdlkgfj",
     "aws_access_key_id": "",
     "aws_storage_secret": "",
-    "org_name": "Lightmatter",
     "description": "A short description of the project.",
     "domain_name": "example.com",
     "version": "0.1.0",
     "timezone": "UTC",
     "now": "2016/01/07",
-    "year": "{{ cookiecutter.now[:4] }}"
+    "year": "{{ cookiecutter.now[:4] }}",
 }
