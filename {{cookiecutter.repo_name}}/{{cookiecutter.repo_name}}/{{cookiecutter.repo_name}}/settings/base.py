@@ -1,8 +1,14 @@
 # Django settings for project project.
-from os import environ
-from django.core.exceptions import ImproperlyConfigured
+from environ import Env, Path
 import pathlib
+from django.core.exceptions import ImproperlyConfigured
 
+env = Env()
+
+
+Env.read_env('.env')
+DEBUG = env('DEBUG')
+SSLIFY_DISABLE = env('SSLIFY_DISABLE')
 
 def get_env_setting(setting, default=None):
     """ Get the environment setting or return exception """
