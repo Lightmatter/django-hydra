@@ -12,11 +12,10 @@ DATABASES['default'] = dj_database_url.config()
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-ALLOWED_HOSTS = []  # TODO
+ALLOWED_HOSTS = env('ALLOWED_HOSTS').split('|')
 
 STATIC_ROOT = str(PROJECT_ROOT / 'static')
-
-redis_url = urlparse(os.environ.get('REDISTOGO_URL', 'redis://localhost:6959'))
+redis_url = env.url('REDISTOGO_URL', default='redis://localhost:6959')
 CACHES = {
     'default': {
         'BACKEND': 'redis_cache.RedisCache',
@@ -51,16 +50,15 @@ AWS_QUERYSTRING_AUTH = False
 
 
 EMAIL_BACKEND = 'sgbackend.SendGridBackend'
-SENDGRID_USER = get_env_setting('SENDGRID_USERNAME')
-SENDGRID_PASSWORD = get_env_setting('SENDGRID_PASSWORD')
+SENDGRID_USER = env('SENDGRID_USERNAME')
+SENDGRID_PASSWORD = env('SENDGRID_PASSWORD')
 
-STRIPE_PUBLIC_KEY = get_env_setting('STRIPE_PUBLIC_KEY')
-STRIPE_SECRET_KEY = get_env_setting('STRIPE_SECRET_KEY')
+STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY', default='')
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY', default='')
 
-AWS_ACCESS_KEY_ID = get_env_setting('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = get_env_setting('AWS_SECRET_ACCESS_KEY')
-AWS_STORAGE_BUCKET_NAME = get_env_setting('AWS_STORAGE_BUCKET_NAME')
-
+AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID', default='')
+AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY', default='')
+AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME', default='')
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 TEMPLATES[0]['OPTIONS']['loaders'] = (

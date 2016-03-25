@@ -1,22 +1,13 @@
 from .base import *
-
 # if you want to test with debug off
 ALLOWED_HOSTS = [u'127.0.0.1', 'localhost']
 STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
-
-
 DEBUG = True
+SSLIFY_DISABLE = True
 SESSION_COOKIE_SECURE = False
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '{{ cookiecutter.repo_name }}',
-        'USER': '{{ cookiecutter.repo_name }}',
-        'PASSWORD': '{{ cookiecutter.repo_name }}',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
+    'default': env.db()
 }
 
 CACHES = {
@@ -69,6 +60,3 @@ DEVSERVER_MODULES = (
 
 TEMPLATES[0]['OPTIONS']['string_if_invalid'] = 'BAD TEMPLATE VARIABLE: %s'
 SECRET_KEY = env('SECRET_KEY')
-
-STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
-STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
