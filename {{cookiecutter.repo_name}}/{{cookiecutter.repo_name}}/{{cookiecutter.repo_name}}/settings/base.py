@@ -151,6 +151,13 @@ LOGIN_URL = '/account/login'
 LOGOUT_URL = '/account/logout'
 SESSION_COOKIE_SECURE = True
 
+def prefixed_cookie(name):
+    return '{{ cookiecutter.repo_name }}_{}'.format(name)
+
+SESSION_COOKIE_NAME = prefixed_cookie('sessionid')
+CSRF_COOKIE_NAME = prefixed_cookie('csrftoken')
+LANGUAGE_COOKIE_NAME = prefixed_cookie('django_language')
+
 TEST_RUNNER = 'django.test.runner.DiscoverRunner'
 
 ALLOWED_HOSTS = [
