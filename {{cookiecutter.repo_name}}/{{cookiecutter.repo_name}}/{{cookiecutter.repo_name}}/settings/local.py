@@ -23,7 +23,7 @@ CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
         'LOCATION': 'unique-snowflake'
-        }
+    }
 }
 
 MEDIA_ROOT = str(PROJECT_ROOT)
@@ -68,7 +68,7 @@ DEVSERVER_MODULES = (
 )
 
 TEMPLATES[0]['OPTIONS']['string_if_invalid'] = 'BAD TEMPLATE VARIABLE: %s'
-SECRET_KEY = get_env_setting("DJANGO_SECRET_KEY", default='CHANGEME!!!')
+SECRET_KEY = env('SECRET_KEY')
 
-STRIPE_PUBLIC_KEY = ''
-STRIPE_SECRET_KEY = ''
+STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
