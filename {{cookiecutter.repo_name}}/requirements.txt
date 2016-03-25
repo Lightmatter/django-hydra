@@ -21,6 +21,12 @@ django-registration-redux==1.4
 python-social-auth==0.2.16
 
 
+{% if cookiecutter.django_registration == 'n' %}
+# user authentication
+djoser==0.4.3
+{% endif %}
+
+
 #Utils
 django-extensions==1.6.1
 django-model-utils==2.5
@@ -58,7 +64,10 @@ gunicorn==19.4.5
 #django-haystack
 
 #Money
-#stripe==1.12.0
+
+{% if cookiecutter.stripe == 'y' %}
+stripe==1.12.0
+{% endif %}
 
 #standard utilities
 raven==5.13.0

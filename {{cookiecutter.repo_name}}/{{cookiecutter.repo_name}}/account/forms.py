@@ -1,3 +1,5 @@
+{%- if cookiecutter.django_registration == 'y' -%}
+
 import re
 
 from django import forms
@@ -27,7 +29,6 @@ class RegistrationForm(forms.ModelForm):
         match. Note that an error here will end up in
         ``non_field_errors()`` because it doesn't apply to a single
         field.
-
         """
         if 'password1' in self.cleaned_data and 'password2' in self.cleaned_data:
             if self.cleaned_data['password1'] != self.cleaned_data['password2']:
@@ -39,7 +40,6 @@ class RegistrationForm(forms.ModelForm):
         """
         Validate that the supplied email address is unique for the
         site.
-
         """
         if User.objects.filter(email__iexact=self.cleaned_data['email']):
             raise forms.ValidationError(_("This email address is already in use. Please supply a different email address."))
@@ -56,3 +56,5 @@ class RegistrationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('email', 'password1', 'password2', 'first_name', 'last_name')
+
+{%- endif -%}
