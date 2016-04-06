@@ -139,6 +139,10 @@ sftp-config.json
 # Icon must end with two \r
 Icon
 
+# mailhog
+/node_modules
+node/mailhog/mailhog
+
 
 # Thumbnails
 ._*
