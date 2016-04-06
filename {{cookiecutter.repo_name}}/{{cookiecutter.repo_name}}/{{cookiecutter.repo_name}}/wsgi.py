@@ -25,9 +25,11 @@ os.environ.setdefault("DJANGO_SETTINGS_MODULE", "{{cookiecutter.repo_name}}.sett
 # file. This includes Django's development server, if the WSGI_APPLICATION
 # setting points here.
 from django.core.wsgi import get_wsgi_application
-from dj_static import Cling
+from whitenoise import WhiteNoise
+from settings.base import STATICFILES_DIRS
 
-application = Cling(get_wsgi_application(), ignore_debug=True)
+
+application = WhiteNoise(get_wsgi_application(), root=STATICFILES_DIRS)
 
 
 # Apply WSGI middleware here.
