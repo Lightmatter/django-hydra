@@ -27,6 +27,12 @@ djoser==0.4.3
 {% endif %}
 
 
+{% if cookiecutter.django_registration == 'n' %}
+# user authentication
+djoser==0.4.3
+{% endif %}
+
+
 #Utils
 django-extensions==1.6.1
 django-model-utils==2.5
