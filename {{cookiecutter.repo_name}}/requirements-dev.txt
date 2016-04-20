@@ -19,3 +19,6 @@ model-mommy==1.2.6
 coverage==4.0.3
 unittest-xml-reporting==2.1.0
 coveralls==1.1
+
+# environment variables
+django-environ==0.4.0

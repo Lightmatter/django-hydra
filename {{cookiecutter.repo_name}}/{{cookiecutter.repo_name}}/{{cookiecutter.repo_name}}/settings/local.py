@@ -1,29 +1,20 @@
 from .base import *
-
 # if you want to test with debug off
 ALLOWED_HOSTS = [u'127.0.0.1', 'localhost']
 STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
-
-
 DEBUG = True
+SSLIFY_DISABLE = True
 SESSION_COOKIE_SECURE = False
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '{{ cookiecutter.repo_name }}',
-        'USER': '{{ cookiecutter.repo_name }}',
-        'PASSWORD': '{{ cookiecutter.repo_name }}',
-        'HOST': 'localhost',
-        'PORT': '',
-    }
+    'default': env.db()
 }
 
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
         'LOCATION': 'unique-snowflake'
-        }
+    }
 }
 
 MEDIA_ROOT = str(PROJECT_ROOT)
@@ -68,7 +59,4 @@ DEVSERVER_MODULES = (
 )
 
 TEMPLATES[0]['OPTIONS']['string_if_invalid'] = 'BAD TEMPLATE VARIABLE: %s'
-SECRET_KEY = get_env_setting("DJANGO_SECRET_KEY", default='CHANGEME!!!')
-
-STRIPE_PUBLIC_KEY = ''
-STRIPE_SECRET_KEY = ''
+SECRET_KEY = env('SECRET_KEY')
