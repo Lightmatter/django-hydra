@@ -206,7 +206,6 @@ ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, us
 #### pipeline
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
-#STATICFILES_STORAGE = 'util.gzipstorage.GZIPCachedStorage'
 
 PIPELINE = {
     "STYLESHEETS": {
