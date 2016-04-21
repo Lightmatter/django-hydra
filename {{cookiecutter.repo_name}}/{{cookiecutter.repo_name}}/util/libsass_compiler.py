@@ -1,29 +1,8 @@
-import os, fnmatch
-
-from django.conf import settings
-from django.contrib.staticfiles import finders
+import os
+import sass
 
 from pipeline.compilers import SubProcessCompiler
 
-def finder(glob):
-    for finder in finders.get_finders():
-        for path, storage in finder.list([]):
-            if fnmatch.fnmatchcase(path, glob):
-                yield path, storage
-
-
-import sass
-# from scss.compiler import compile_file
-# scss.config.PROJECT_ROOT = settings.PROJECT_ROOT
-# scss.config.STATIC_URL = settings.STATIC_URL
-
-# # this is where pyScss looks for images and static data
-# scss.STATIC_ROOT = finder
-# scss.STATIC_URL = settings.STATIC_URL
-
-# # this is where pyScss outputs the generated/compiled files
-# scss.ASSETS_ROOT = os.path.join(settings.MEDIA_ROOT, 'assets/')
-# scss.ASSETS_URL = settings.MEDIA_URL + 'assets/'
 
 class LibSassCompiler(SubProcessCompiler):
     output_extension = 'css'
@@ -49,11 +28,10 @@ class LibSassCompiler(SubProcessCompiler):
 
     def compile_file(self, content, path, outdated, force):
         if True or outdated or force:
-            with open(path, "wb") as fsock:
+            with open(path, 'wb') as fsock:
 
                 css, map = sass.compile(filename=content,
-                                        source_map_filename=path+'map',
-                )
+                                        source_map_filename=path+'.map')
                 fsock.write(css.encode('utf8'))
-                with open(path + "map", "wb") as mapsock:
+                with open(path + '.map', 'wb') as mapsock:
                     mapsock.write(map.encode('utf8'))
