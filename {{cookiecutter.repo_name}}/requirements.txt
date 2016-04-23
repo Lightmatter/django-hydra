@@ -59,8 +59,8 @@ django-storages==1.4.1
 
 #HEROKU
 dj-database-url==0.4.1
-#dj-static==0.0.5
 git+https://github.com/gone/dj-static.git@5da00529c033afa8e65aef13555b9eaec6dfc388#egg=dj-static
+whitenoise==3.0
 django-toolbelt==0.0.1
 ipython==4.1.2
 gunicorn==19.4.5
