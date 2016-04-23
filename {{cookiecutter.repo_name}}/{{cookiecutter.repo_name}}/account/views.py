@@ -1,13 +1,13 @@
 {% if cookiecutter.django_registration == 'n' %}
 
     from djoser.views import (
-    {%- if cookiecutter.djoser != 'basic' -%}
+    {%- if cookiecutter.djoser != 'basic' %}
         SetPasswordView as DjoserSetPasswordView,
         PasswordResetView as DjoserPasswordResetView,
         PasswordResetConfirmView as DjoserPasswordResetConfirmView,
         ActivationView as DjoserActivationView
         SetUsernameView as DjoserSetUsernameView,
-    {%- endif -%}
+    {%- endif %}
         RegistrationView as DjoserUserRegistrationView,
         LoginView as DjoserLoginView,
         LogoutView as DjoserLogoutView,
@@ -32,7 +32,7 @@
         pass
 
 
-    {%- if cookiecutter.djoser|lower != 'basic' -%}
+    {% if cookiecutter.djoser|lower != 'basic' %}
 
         # Utility User Views
 
@@ -51,7 +51,7 @@
         class ActivationView(DjoserActivationView):
             pass
 
-    {%- endif -%}
+    {% endif %}
 
 {% else %}
 
@@ -76,7 +76,16 @@ class RegistrationView(SimpleRegistrationView):
     # Stick extra registration logic here
     def register(self, form, **cleaned_data):
         new_user = super().register(form, **cleaned_data)
-        return new_user
+    return new_user
+
+    def get_success_url(self, user):
+        """
+        Return the url a user should be redirected to after registration
+        """
+        return self.request.GET.get('next', '/')
+
 
 class ActivationView(DjoserActivationView):
     pass
+
+{% endif %}

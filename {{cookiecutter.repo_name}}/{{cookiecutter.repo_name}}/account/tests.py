@@ -1,11 +1,9 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth.hashers import make_password
-
-{%- if cookiecutter.django_registration == 'y' -%}
+{% if cookiecutter.django_registration == 'y' %}
 from .forms import RegistrationForm
-{%- endif -%}
-
+{% endif -%}
 from .models import User
 from .recipies import user_recipe
 
@@ -15,7 +13,7 @@ class UserManager(TestCase):
         user = User.objects.create_user("jonnyrico@fednet.gov", password="iwanttoknowmore")
         User.objects.get(id=user.id)
 
-{%- if cookiecutter.django_registration == 'y' -%}
+{% if cookiecutter.django_registration == 'y' %}
 
 class RegistrationTest(TestCase):
     def setUp(self):
@@ -74,7 +72,7 @@ class RegistrationTest(TestCase):
         self.assertRedirects(actual, expected)
         User.objects.get(email=self.user.email)
 
-{%- endif -%}
+{% endif %}
 
 class LoginTest(TestCase):
     def setUp(self):
@@ -111,6 +109,31 @@ class LoginTest(TestCase):
         self.assertRedirects(actual, expected)
 
 {%- if cookiecutter.django_registration == 'y' %}
+
+    def test_register_login_flow_works(self):
+        self.user = user_recipe.prepare()
+        self.form_keys = RegistrationForm.base_fields.keys()
+        self.form_data = {k: v for (k, v) in self.user.__dict__.items() if k in self.form_keys}
+        self.form_data['tos'] = "True"
+        self.form_data['password1'] = self.form_data['password2'] = "bugssuck"
+        url = reverse("registration_register")
+        actual = self.client.post(url, self.form_data)
+        expected = reverse("home")
+        self.assertRedirects(actual, expected)
+
+        self.form_data = {"username": self.user.email,
+                          "password": "bugssuck",
+                          }
+
+        self.client.logout()
+        url = reverse('auth_login')
+        actual = self.client.post(url, self.form_data)
+        expected = reverse("home")
+        self.assertRedirects(actual, expected)
+
+{%- endif %}
+
+{% if cookiecutter.django_registration == 'y' %}
 
 class UserAdminTest(TestCase):
     def setUp(self):
@@ -176,3 +199,4 @@ class UserAdminTest(TestCase):
         actual = response = self.client.post(url, form_data)
         expected = reverse("admin:account_user_changelist")
         self.assertRedirects(actual, expected, target_status_code=302)
+{% endif %}
