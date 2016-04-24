@@ -1,10 +1,15 @@
 from .base import *
 # if you want to test with debug off
+env.read_env(str(PROJECT_ROOT.parent / ".env"),
+             SECRET_KEY="changeme",
+)
+
 ALLOWED_HOSTS = [u'127.0.0.1', 'localhost']
 STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 DEBUG = True
 SSLIFY_DISABLE = True
 SESSION_COOKIE_SECURE = False
+
 
 DATABASES = {
     'default': env.db()
@@ -59,4 +64,6 @@ DEVSERVER_MODULES = (
 )
 
 TEMPLATES[0]['OPTIONS']['string_if_invalid'] = 'BAD TEMPLATE VARIABLE: %s'
+
+
 SECRET_KEY = env('SECRET_KEY')

@@ -3,8 +3,6 @@ from environ import Env, Path
 import pathlib
 from django.core.exceptions import ImproperlyConfigured
 
-env = Env()
-Env.read_env()
 DEBUG = False
 SSLIFY_DISABLE = True
 
@@ -18,6 +16,10 @@ def get_env_setting(setting, default=None):
         raise ImproperlyConfigured(error_msg)
 
 PROJECT_ROOT = pathlib.Path(__file__).parent.parent.parent
+
+env = Env()
+env.read_env()
+
 
 ADMINS = (
     ('Ben Beecher', 'Ben@Lightmatter.com'),
@@ -275,7 +277,8 @@ SOCIAL_AUTH_ENABLED_BACKENDS = ('facebook')
 SOCIAL_AUTH_USER_MODEL = 'account.User'
 SOCIAL_AUTH_DEFAULT_USERNAME = "new_social_auth_user"
 
-{%- if cookiecutter.stripe -%}
+{% if cookiecutter.stripe  == "y" %}
+
 STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
-{%- endif -%}
+{% endif %}
