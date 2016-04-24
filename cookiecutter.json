@@ -4,7 +4,7 @@
     "djoser": ["basic", "all"],
     "client_repo_name": "{{ cookiecutter.repo_name}}-client",
     "django_registration": ["y", "n"],
-    "stripe": ["y", "n"],
+    "stripe": ["n", "y"],
     "aws_access_key_id": "",
     "aws_storage_secret": "",
     "org_name": "Lightmatter",

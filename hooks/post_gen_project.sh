@@ -44,12 +44,6 @@ fi
 
 export DJANGO_SETTINGS_MODULE=$ENV_NAME.$ENV_NAME.settings.local
 
-SECRET_KEY=`python -c 'import random; print("".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)]))'`
-#todo - git flow init
-cat >> .env <<EOF
-SECRET_KEY="${SECRET_KEY}"
-EOF
-
 python manage.py migrate
 
 # download mailhog binary
