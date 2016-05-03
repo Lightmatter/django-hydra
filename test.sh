@@ -39,5 +39,6 @@ export DJANGO_SETTINGS_MODULE=testapp.testapp.settings.local
 python manage.py collectstatic --noinput
 rm -rf static/
 python manage.py test --noinput --keepdb
-
+RV=$?
 cd $original
+exit $RV
