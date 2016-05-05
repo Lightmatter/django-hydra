@@ -35,7 +35,7 @@ if [ $? -ne 0 ]; then
     pip install --download ${HOME}/.pip-packages --exists-action w -r requirements-dev.txt
     pip install --no-index --exists-action w --find-links=file://${HOME}/.pip-packages/ -r requirements-dev.txt
 else
-    pip-accel install -r requirements-dev.txt
+    pip-accel install -r requirements-dev.txt -q
 fi
 
 
