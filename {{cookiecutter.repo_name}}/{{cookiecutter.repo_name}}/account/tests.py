@@ -1,11 +1,9 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from django.contrib.auth.hashers import make_password
-
 {% if cookiecutter.django_registration == 'y' %}
 from .forms import RegistrationForm
-{% endif %}
-
+{% endif -%}
 from .models import User
 from .recipies import user_recipe
 
@@ -15,7 +13,7 @@ class UserManager(TestCase):
         user = User.objects.create_user("jonnyrico@fednet.gov", password="iwanttoknowmore")
         User.objects.get(id=user.id)
 
-{%- if cookiecutter.django_registration == 'y' %}
+{% if cookiecutter.django_registration == 'y' %}
 
 class RegistrationTest(TestCase):
     def setUp(self):
@@ -74,7 +72,7 @@ class RegistrationTest(TestCase):
         self.assertRedirects(actual, expected)
         User.objects.get(email=self.user.email)
 
-{%- endif %}
+{% endif %}
 
 class LoginTest(TestCase):
     def setUp(self):
@@ -134,6 +132,8 @@ class LoginTest(TestCase):
         self.assertRedirects(actual, expected)
 
 {%- endif %}
+
+{% if cookiecutter.django_registration == 'y' %}
 
 class UserAdminTest(TestCase):
     def setUp(self):
@@ -199,3 +199,4 @@ class UserAdminTest(TestCase):
         actual = response = self.client.post(url, form_data)
         expected = reverse("admin:account_user_changelist")
         self.assertRedirects(actual, expected, target_status_code=302)
+{% endif %}
