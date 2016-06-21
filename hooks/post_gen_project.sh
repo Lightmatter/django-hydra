@@ -23,14 +23,8 @@ then
 fi
 
 
-pip install pip-accel
-which pip-accel
-if [ $? -ne 0 ]; then
-    pip install --download ${HOME}/.pip-packages --exists-action w -r requirements-dev.txt
-    pip install --no-index --exists-action w --find-links=file://${HOME}/.pip-packages/ -r requirements-dev.txt
-else
-    pip install -r requirements-dev.txt
-fi
+pip download -r requirements-dev.txt -d ${HOME}/.pip-packages --exists-action w
+pip install --no-index --exists-action w --find-links=file://${HOME}/.pip-packages/ -r requirements-dev.txt
 
 RESULT=`psql -l | grep "{{ cookiecutter.repo_name }}" | wc -l | awk '{print $1}'`;
 if test $RESULT -eq 0; then
