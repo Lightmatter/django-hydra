@@ -16,6 +16,7 @@ def get_env_setting(setting, default=None):
         raise ImproperlyConfigured(error_msg)
 
 PROJECT_ROOT = pathlib.Path(__file__).parent.parent.parent
+env = Env(DEBUG=(bool, False),)
 Env.read_env('.env')
 DEBUG = env('DEBUG')
 SSLIFY_DISABLE = env('SSLIFY_DISABLE')
