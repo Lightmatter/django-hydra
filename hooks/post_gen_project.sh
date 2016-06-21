@@ -73,7 +73,7 @@ mv .env.example .env
 echo "Setting up Git"
 git init .
 git remote add origin "git@github.com:{{cookiecutter.org_name}}/{{ cookiecutter.repo_name }}.git"
-git flow init -d
+git flow init -d || echo "Don't forget to install git flow"
 git add .
 git commit -m "initial commit"
 #this might not work, it's ok if it fails
