@@ -67,14 +67,14 @@ echo "|| To start mailhog, run ./node/mailhog/mailhog or make an alias to it. ||
 echo "||===================================================================================||"
 {% endif %}
 
+chmod +x manage.py
+mv .env.example .env
+
 echo "Setting up Git"
 git init .
 git remote add origin "git@github.com:{{cookiecutter.org_name}}/{{ cookiecutter.repo_name }}.git"
 git flow init -d
 git add .
 git commit -m "initial commit"
-git push
-
-chmod +x manage.py
-
-mv .env.example .env
+#this might not work, it's ok if it fails
+git push --set-upstream origin develop || echo "don't forget to setup github!"
