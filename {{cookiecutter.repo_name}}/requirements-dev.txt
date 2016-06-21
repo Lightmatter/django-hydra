@@ -1,7 +1,6 @@
 -r requirements.txt
 ipdb
 ptpython==0.32
-pip-accel==0.43
 
 # Debug Tools
 django-debug-toolbar==1.4
