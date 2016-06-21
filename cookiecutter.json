@@ -2,7 +2,7 @@
     "project_name": "testapp",
     "domain_name": "{{ cookiecutter.project_name }}.com",
     "repo_name": "{{ cookiecutter.project_name|replace(' ', '_') }}",
-    "djoser": ["basic", "all"],
+    "use_djoser": ["n", "y"],
     "client_repo_name": "{{ cookiecutter.repo_name}}-client",
     "django_registration": ["y", "n"],
     "stripe": ["n", "y"],
@@ -17,5 +17,6 @@
     "year": "{{ cookiecutter.now[:4] }}",
     "ember": false,
     "django-rest": false,
-    "geo": false
+    "geo": false,
+    "install_mailhog": ["n", "y"]
 }

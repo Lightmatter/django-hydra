@@ -46,6 +46,7 @@ export DJANGO_SETTINGS_MODULE=$ENV_NAME.$ENV_NAME.settings.local
 
 python manage.py migrate
 
+{% if cookiecutter.install_mailhog == "y" %}
 # download mailhog binary
 SYSTEM=uname
 
@@ -64,6 +65,7 @@ npm install
 echo "||===================================================================================||"
 echo "|| To start mailhog, run ./node/mailhog/mailhog or make an alias to it. ||"
 echo "||===================================================================================||"
+{% endif %}
 
 echo "Setting up Git"
 git init .

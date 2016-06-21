@@ -28,7 +28,7 @@ class RegistrationTest(TestCase):
         on failed registration, keep the user on the same page and ask for a fix
         """
         del self.form_data['tos']
-        url = reverse("registration_register")
+        url = reverse("register")
         response = self.client.post(url, self.form_data)
         actual = response.status_code
         expected = 200
@@ -37,7 +37,7 @@ class RegistrationTest(TestCase):
     def test_user_registration_fails_passwords_must_match(self):
         self.form_data['password2'] = "bugs rule"
 
-        url = reverse("registration_register")
+        url = reverse("register")
         response = self.client.post(url, self.form_data)
         actual = response.status_code
         expected = 200
@@ -47,7 +47,7 @@ class RegistrationTest(TestCase):
         self.assertEqual(actual, expected)
 
     def test_user_registration_fails_unique_email(self):
-        url = reverse("registration_register")
+        url = reverse("register")
         actual = self.client.post(url, self.form_data)
         expected = reverse("home")
         self.assertRedirects(actual, expected)
@@ -66,7 +66,7 @@ class RegistrationTest(TestCase):
         on successful registration, move user to either
         their profile page or the next page specified in the querystring
         """
-        url = reverse("registration_register")
+        url = reverse("register")
         actual = self.client.post(url, self.form_data)
         expected = reverse("home")
         self.assertRedirects(actual, expected)
@@ -90,7 +90,7 @@ class LoginTest(TestCase):
         and show error
         """
         self.form_data['password'] = "bugs rule federation drulz"
-        url = reverse("auth_login")
+        url = reverse("login")
         response = self.client.post(url, self.form_data)
         actual = response.status_code
         expected = 200
@@ -103,7 +103,7 @@ class LoginTest(TestCase):
         """
         on attempted login, move user to the special page
         """
-        url = reverse('auth_login')
+        url = reverse('login')
         actual = self.client.post(url, self.form_data)
         expected = reverse("home")
         self.assertRedirects(actual, expected)
@@ -116,7 +116,7 @@ class LoginTest(TestCase):
         self.form_data = {k: v for (k, v) in self.user.__dict__.items() if k in self.form_keys}
         self.form_data['tos'] = "True"
         self.form_data['password1'] = self.form_data['password2'] = "bugssuck"
-        url = reverse("registration_register")
+        url = reverse("register")
         actual = self.client.post(url, self.form_data)
         expected = reverse("home")
         self.assertRedirects(actual, expected)
@@ -126,7 +126,7 @@ class LoginTest(TestCase):
                           }
 
         self.client.logout()
-        url = reverse('auth_login')
+        url = reverse('login')
         actual = self.client.post(url, self.form_data)
         expected = reverse("home")
         self.assertRedirects(actual, expected)
