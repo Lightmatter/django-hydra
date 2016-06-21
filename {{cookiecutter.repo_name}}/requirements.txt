@@ -50,7 +50,7 @@ easy-thumbnails==2.3
 
 #JS tools
 #django.js==0.8.1 # needs to be fixed up - using lightmatter version for now
-git+https://github.com/Lightmatter/django.js.git@24a9a41bf6aa7f454c4977b79059209434759b11#egg=djangojs
+git+https://github.com/Lightmatter/django.js.git@24a9a41bf6aa7f454c4977b79059209434759b11#egg=django-js
 
 django-casper==0.0.4
 

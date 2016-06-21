@@ -6,7 +6,6 @@ echo "Setting up repository..."
 echo "You better have virtualenvwrapper installed or this ain't gonna work..."
 ENV_NAME="{{ cookiecutter.repo_name }}"
 ENV_PATH="${PROJECT_HOME}/${ENV_NAME}"
-ENV_OPTS="--no-site-packages --distribute"
 
 source `which virtualenvwrapper.sh`
 
@@ -16,6 +15,6 @@ cd $WORKON_HOME
 
 echo "Creating virtual environment..."
 cd $WORKON_HOME
-mkvirtualenv $ENV_OPTS $ENV_NAME -ppython3
+mkvirtualenv $ENV_NAME -ppython3
 cd -
 workon $ENV_NAME
