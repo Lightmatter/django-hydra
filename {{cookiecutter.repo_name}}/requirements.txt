@@ -44,7 +44,6 @@ djoser==0.4.3
 django-extensions==1.6.1
 django-model-utils==2.5
 django-braces==1.8.1
-django-sslify==0.2.7
 pytz==2016.3
 easy-thumbnails==2.3
 
