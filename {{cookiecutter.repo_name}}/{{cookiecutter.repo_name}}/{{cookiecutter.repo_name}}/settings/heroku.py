@@ -1,11 +1,11 @@
-import os
 from urllib.parse import urlparse
 
 import dj_database_url
 
 from .base import *
 
-SSLIFY_DISABLE = False
+SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
 DATABASES = {}
 DATABASES['default'] = dj_database_url.config()
 

@@ -4,7 +4,7 @@ import pathlib
 from django.core.exceptions import ImproperlyConfigured
 
 DEBUG = False
-SSLIFY_DISABLE = True
+
 
 def get_env_setting(setting, default=None):
     """ Get the environment setting or return exception """
@@ -19,7 +19,6 @@ PROJECT_ROOT = pathlib.Path(__file__).parent.parent.parent
 env = Env(DEBUG=(bool, False),)
 Env.read_env('.env')
 DEBUG = env('DEBUG')
-SSLIFY_DISABLE = env('SSLIFY_DISABLE')
 
 ADMINS = (
     ('Ben Beecher', 'Ben@Lightmatter.com'),
@@ -73,14 +72,13 @@ STATICFILES_FINDERS = (
 )
 
 MIDDLEWARE_CLASSES = (
-    'sslify.middleware.SSLifyMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',
 )
@@ -153,7 +151,8 @@ AUTHENTICATION_BACKENDS = (
 AUTH_USER_MODEL = 'account.User'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/account/login'
-SESSION_COOKIE_SECURE = True
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
 
 
 def prefixed_cookie(name):
