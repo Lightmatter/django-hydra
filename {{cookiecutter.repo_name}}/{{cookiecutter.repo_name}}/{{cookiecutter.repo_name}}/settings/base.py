@@ -153,8 +153,8 @@ AUTHENTICATION_BACKENDS = (
 AUTH_USER_MODEL = 'account.User'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/account/login'
-LOGOUT_URL = '/account/logout'
 SESSION_COOKIE_SECURE = True
+
 
 def prefixed_cookie(name):
     return '{{ cookiecutter.repo_name }}_{}'.format(name)
