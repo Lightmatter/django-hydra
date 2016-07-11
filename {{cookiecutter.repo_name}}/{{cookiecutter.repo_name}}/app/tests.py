@@ -14,16 +14,6 @@ class SimpleTest(TestCase):
         self.assertRaises(Exception, error)
         self.assertRaises(Exception, visit)
 
-
-from casper.tests import CasperTestCase
-from django.contrib.staticfiles import finders
-
-
-class SampleCasperTest(CasperTestCase):
-    def test_something(self):
-        self.assertTrue(self.casper(finders.find('js/tests/sample.casper.js')))
-
-
 from djangojs.runners import JsTestCase
 from djangojs.runners import QUnitSuite
 
