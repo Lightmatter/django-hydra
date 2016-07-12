@@ -52,5 +52,9 @@ heroku config:set DJANGO_SETTINGS_MODULE=$ENV_NAME.$ENV_NAME.settings.heroku --a
 
 echo "python manage.py migrate --noinput" >> bin/post_compile
 
+heroku apps:transfer lightmatter --app $ENV_NAME-dev
+heroku apps:transfer lightmatter --app $ENV_NAME-staging
+heroku apps:transfer lightmatter --app $ENV_NAME-prod
+
 heroku git:remote -r dev -a $ENV_NAME-dev
 heroku git:remote -r staging -a $ENV_NAME-staging
