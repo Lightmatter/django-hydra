@@ -22,7 +22,7 @@ heroku config:set AWS_STORAGE_BUCKET_NAME=$ENV_NAME-prod --app $ENV_NAME-prod
 heroku config:set STRIPE_PUBLIC_KEY="" --app $ENV_NAME-prod
 heroku config:set STRIPE_SECRET_KEY="" --app $ENV_NAME-prod
 heroku config:set SECRET_KEY=`python -c 'import random; print("".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)]))'` --app $ENV_NAME-prod
-heroku config:set DJANGO_SETTINGS_MODULE=$ENV_NAME.settings.heroku --app $ENV_NAME-prod
+heroku config:set DJANGO_SETTINGS_MODULE=$ENV_NAME.$ENV_NAME.settings.heroku --app $ENV_NAME-prod
 
 git push prod master
 heroku run python manage.py migrate --app $ENV_NAME-prod
@@ -47,8 +47,8 @@ heroku config:set AWS_STORAGE_BUCKET_NAME=$ENV_NAME-staging --app $ENV_NAME-stag
 heroku config:set STRIPE_PUBLIC_KEY="" --app $ENV_NAME-staging
 heroku config:set STRIPE_SECRET_KEY="" --app $ENV_NAME-staging
 
-heroku config:set DJANGO_SETTINGS_MODULE=$ENV_NAME.settings.heroku --app $ENV_NAME-dev
-heroku config:set DJANGO_SETTINGS_MODULE=$ENV_NAME.settings.heroku --app $ENV_NAME-staging
+heroku config:set DJANGO_SETTINGS_MODULE=$ENV_NAME.$ENV_NAME.settings.heroku --app $ENV_NAME-dev
+heroku config:set DJANGO_SETTINGS_MODULE=$ENV_NAME.$ENV_NAME.settings.heroku --app $ENV_NAME-staging
 
 echo "python manage.py migrate --noinput" >> bin/post_compile
 
