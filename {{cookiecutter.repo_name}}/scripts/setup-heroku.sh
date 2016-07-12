@@ -12,9 +12,8 @@ heroku buildpacks:add https://github.com/cyberdelia/heroku-geo-buildpack.git#1.3
 heroku buildpacks:add heroku/python -a $ENV_NAME-prod
 
 heroku addons:create sendgrid --app $ENV_NAME-prod
-heroku addons:create newrelic --app $ENV_NAME-prod
 
-heroku addons:create redistogo --app $ENV_NAME-prod
+heroku addons:create heroku-redis:hobby-dev --app $ENV_NAME-prod
 
 heroku config:set PYTHONHASHSEED=random --app $ENV_NAME-prod
 heroku config:set AWS_SECRET_ACCESS_KEY="" --app $ENV_NAME-prod
