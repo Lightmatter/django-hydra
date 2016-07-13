@@ -101,7 +101,6 @@ INSTALLED_APPS = (
     'django_extensions',
     'model_utils',
     'pipeline',
-    'djangojs',
     'casper',
     'easy_thumbnails',
     'registration',
