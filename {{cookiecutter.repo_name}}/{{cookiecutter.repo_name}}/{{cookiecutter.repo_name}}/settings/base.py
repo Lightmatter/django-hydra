@@ -101,7 +101,6 @@ INSTALLED_APPS = (
     'django_extensions',
     'model_utils',
     'pipeline',
-    'casper',
     'easy_thumbnails',
     'registration',
     'import_export',
