@@ -21,6 +21,10 @@ psycopg2==2.6.1
 django-registration-redux==1.4
 python-social-auth==0.2.16
 
+#Forms
+git+https://github.com/gregmuellegger/django-floppyforms.git#egg=django_floppyforms
+git+https://github.com/agiliq/Django-parsley.git@03fbb0e116a47bb0b10edf560ad587d71951bbb7#egg=django_parsley
+
 
 {% if cookiecutter.django_registration == 'n' %}
 # user authentication
