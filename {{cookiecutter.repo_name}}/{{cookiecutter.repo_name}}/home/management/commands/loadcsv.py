@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand, CommandError
 
-#from app.models import SiteExperience
+#from home.models import SiteExperience
 # import NoArgsCommand
 
 import csv

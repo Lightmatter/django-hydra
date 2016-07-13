@@ -11,7 +11,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^djangojs/', include('djangojs.urls')),
     url('', include('social.apps.django_app.urls', namespace='social')),
-    url(r'', include('{{ cookiecutter.repo_name }}.app.urls')),
+    url(r'', include('{{ cookiecutter.repo_name }}.home.urls')),
 ]
 
 
