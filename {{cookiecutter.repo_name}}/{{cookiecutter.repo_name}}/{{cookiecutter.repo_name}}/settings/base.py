@@ -108,7 +108,7 @@ INSTALLED_APPS = (
     'import_export',
     'social.apps.django_app.default',
 
-    '{{ cookiecutter.repo_name }}.app',
+    '{{ cookiecutter.repo_name }}.home',
     '{{ cookiecutter.repo_name }}.account',
     '{{ cookiecutter.repo_name }}.util',
 )
@@ -192,7 +192,7 @@ TEMPLATES = [
                 'django.core.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 'django.core.context_processors.media',
-                '{{cookiecutter.repo_name}}.app.context_processors.settings',
+                '{{cookiecutter.repo_name}}.home.context_processors.settings',
                 'social.apps.django_app.context_processors.backends',
                 'social.apps.django_app.context_processors.login_redirect',
             ],
