@@ -27,10 +27,11 @@ label {
 }
 
 textarea,
-#{$all-text-inputs},
 select[multiple=multiple] {
-  @include box-sizing(border-box);
-  @include transition(border-color);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: border-color;
+  transition: border-color;
   background-color: white;
   border-radius: $form-border-radius;
   border: 1px solid $form-border-color;
@@ -57,7 +58,9 @@ textarea {
 }
 
 input[type="search"] {
-  @include appearance(none);
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
 }
 
 input[type="checkbox"], input[type="radio"] {
