@@ -61,7 +61,11 @@ DEVSERVER_MODULES = (
     'devserver.modules.profile.LineProfilerModule',
 )
 
-TEMPLATES[0]['OPTIONS']['string_if_invalid'] = 'BAD TEMPLATE VARIABLE: %s'
+class InvalidVariable(str):
+    def __bool__(self):
+        return False
+
+TEMPLATES[0]['OPTIONS']['string_if_invalid'] = InvalidVariable('BAD TEMPLATE VARIABLE: %s')
 
 
 SECRET_KEY = env('SECRET_KEY')
