@@ -37,7 +37,7 @@ select[multiple=multiple] {
   box-shadow: $form-box-shadow;
   font-family: $form-font-family;
   font-size: $form-font-size;
-  margin-bottom: $base-line-height / 2;
+  margin-bottom: 0;
   padding: ($base-line-height / 3) ($base-line-height / 3);
   width: 100%;
 
@@ -75,4 +75,14 @@ select {
   width: auto;
   max-width: 100%;
   margin-bottom: $base-line-height;
+}
+.parsley-errors-list.filled, .errorlist{
+  li {
+    background-color: #fee8e5;
+    color: red;
+    padding: 2px 10px;
+  }
+}
+.errorlist {
+  margin-top: -($base-line-height / 2);
 }

@@ -105,6 +105,7 @@ INSTALLED_APPS = (
     'registration',
     'import_export',
     'social.apps.django_app.default',
+    'floppyforms',
 
     '{{ cookiecutter.repo_name }}.home',
     '{{ cookiecutter.repo_name }}.account',
@@ -229,7 +230,7 @@ PIPELINE = {
         }
     },
     "CSS_COMPRESSOR": 'pipeline.compressors.cssmin.CSSMinCompressor',
-    "JS": {
+    "JAVASCRIPT": {
         'app': {
             'source_filenames': (
                 'js/*.js',
@@ -241,6 +242,8 @@ PIPELINE = {
             'source_filenames': (
                 'js/vendor/jquery-1.11.0.min.js',
                 'js/vendor/select2.min.js',
+                'js/vendor/parsley.min.js',
+                  
             ),
             'output_filename': 'js/vendor.js',
         }
