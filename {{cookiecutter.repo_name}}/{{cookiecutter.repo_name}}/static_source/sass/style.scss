@@ -1,10 +1,5 @@
-/* uncomment for bourbon and neat */
-/* http://bourbon.io/docs/ */
-@import 'bourbon/bourbon';
 /* bitters (base) must go before neat */
 @import 'base/base';
-/* http://neat.bourbon.io/docs/ */
-@import 'neat/neat';
 
 
 @import "variables";
