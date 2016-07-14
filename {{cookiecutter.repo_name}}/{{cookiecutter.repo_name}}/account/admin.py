@@ -7,6 +7,8 @@ from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from import_export.admin import ImportExportMixin
 from import_export import resources
 
+from parsley.mixins import ParsleyAdminMixin
+
 from .models import User
 
 
@@ -44,7 +46,7 @@ class UserChangeForm(forms.ModelForm):
         return self.initial["password"]
 
 
-class UserAdmin(ImportExportMixin, DjangoUserAdmin):
+class UserAdmin(ParsleyAdminMixin, ImportExportMixin, DjangoUserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name')}),
