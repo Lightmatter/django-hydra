@@ -5,7 +5,7 @@ machine:
     - postgresql
 dependencies:
   override:
-    - pip install cookiecutter pip-accel
+    - pip install cookiecutter
 test:
   override:
     - ./test.sh
