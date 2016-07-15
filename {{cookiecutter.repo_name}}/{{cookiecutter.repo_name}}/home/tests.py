@@ -13,11 +13,3 @@ class SimpleTest(TestCase):
         visit = lambda: self.client.get(reverse('error'))
         self.assertRaises(Exception, error)
         self.assertRaises(Exception, visit)
-
-from djangojs.runners import JsTestCase
-from djangojs.runners import QUnitSuite
-
-
-class QunitTests(QUnitSuite, JsTestCase):
-    title = 'Qunit tests'
-    url_name = 'qunit_view'

@@ -47,12 +47,6 @@ django-braces==1.8.1
 pytz==2016.3
 easy-thumbnails==2.3
 
-#JS tools
-#django.js==0.8.1 # needs to be fixed up - using lightmatter version for now
-git+https://github.com/Lightmatter/django.js.git@24a9a41bf6aa7f454c4977b79059209434759b11#egg=django-js
-
-django-casper==0.0.4
-
 #REDIS CACHING
 hiredis==0.2.0
 redis==2.10.5
