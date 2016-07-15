@@ -1,6 +1,5 @@
 button,
 input[type="submit"] {
-  @extend %button;
   display: none;
   border: none;
   cursor: pointer;
