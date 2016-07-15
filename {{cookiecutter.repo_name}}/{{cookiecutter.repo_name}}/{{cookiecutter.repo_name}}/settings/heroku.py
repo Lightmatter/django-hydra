@@ -15,7 +15,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = env('ALLOWED_HOSTS').split('|')
 
 STATIC_ROOT = str(PROJECT_ROOT / 'static')
-redis_url = urlparse(env('REDISTOGO_URL', default='redis://localhost:6959'))
+redis_url = urlparse(env('REDIS_URL', default='redis://localhost:6959'))
 CACHES = {
     'default': {
         'BACKEND': 'redis_cache.RedisCache',
