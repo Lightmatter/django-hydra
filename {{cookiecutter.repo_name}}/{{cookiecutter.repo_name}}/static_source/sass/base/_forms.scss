@@ -28,9 +28,7 @@ label {
 
 textarea,
 select[multiple=multiple] {
-  -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  -webkit-transition: border-color;
   transition: border-color;
   background-color: white;
   border-radius: $form-border-radius;
