@@ -240,7 +240,6 @@ PIPELINE = {
         'vendor': {
             'source_filenames': (
                 'js/vendor/jquery-1.11.0.min.js',
-                'js/djangojs/django.js',
                 'js/vendor/select2.min.js',
             ),
             'output_filename': 'js/vendor.js',
