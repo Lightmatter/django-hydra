@@ -1,11 +1,11 @@
 machine:
   python:
-    version: 3.4.2
+    version: 3.5.0
   services:
     - postgresql
 dependencies:
   override:
-    - pip install cookiecutter pip-accel
+    - pip install cookiecutter
 test:
   override:
     - ./test.sh
