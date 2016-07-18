@@ -21,6 +21,9 @@ psycopg2==2.6.1
 django-registration-redux==1.4
 python-social-auth==0.2.16
 
+#Forms
+django-floppyforms==1.6.2
+django-parsley==0.6
 
 {% if cookiecutter.django_registration == 'n' %}
 # user authentication
@@ -46,12 +49,6 @@ django-model-utils==2.5
 django-braces==1.8.1
 pytz==2016.3
 easy-thumbnails==2.3
-
-#JS tools
-#django.js==0.8.1 # needs to be fixed up - using lightmatter version for now
-git+https://github.com/Lightmatter/django.js.git@24a9a41bf6aa7f454c4977b79059209434759b11#egg=django-js
-
-django-casper==0.0.4
 
 #REDIS CACHING
 hiredis==0.2.0

@@ -1,7 +1,6 @@
 button,
 input[type="submit"] {
-  @extend %button;
-  @include appearance(none);
+  display: none;
   border: none;
   cursor: pointer;
   user-select: none;

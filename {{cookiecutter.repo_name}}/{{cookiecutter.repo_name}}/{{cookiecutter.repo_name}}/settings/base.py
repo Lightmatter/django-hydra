@@ -101,14 +101,13 @@ INSTALLED_APPS = (
     'django_extensions',
     'model_utils',
     'pipeline',
-    'djangojs',
-    'casper',
     'easy_thumbnails',
     'registration',
     'import_export',
     'social.apps.django_app.default',
+    'floppyforms',
 
-    '{{ cookiecutter.repo_name }}.app',
+    '{{ cookiecutter.repo_name }}.home',
     '{{ cookiecutter.repo_name }}.account',
     '{{ cookiecutter.repo_name }}.util',
 )
@@ -192,7 +191,7 @@ TEMPLATES = [
                 'django.core.context_processors.tz',
                 'django.contrib.messages.context_processors.messages',
                 'django.core.context_processors.media',
-                '{{cookiecutter.repo_name}}.app.context_processors.settings',
+                '{{cookiecutter.repo_name}}.home.context_processors.settings',
                 'social.apps.django_app.context_processors.backends',
                 'social.apps.django_app.context_processors.login_redirect',
             ],
@@ -231,7 +230,7 @@ PIPELINE = {
         }
     },
     "CSS_COMPRESSOR": 'pipeline.compressors.cssmin.CSSMinCompressor',
-    "JS": {
+    "JAVASCRIPT": {
         'app': {
             'source_filenames': (
                 'js/*.js',
@@ -242,8 +241,9 @@ PIPELINE = {
         'vendor': {
             'source_filenames': (
                 'js/vendor/jquery-1.11.0.min.js',
-                'js/djangojs/django.js',
                 'js/vendor/select2.min.js',
+                'js/vendor/parsley.min.js',
+                  
             ),
             'output_filename': 'js/vendor.js',
         }

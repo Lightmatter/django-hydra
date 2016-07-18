@@ -1,11 +1,11 @@
 machine:
   python:
-    version: 3.4.2
+    version: 3.5.0
   services:
     - postgresql
     - redis
   environment:
-    DJANGO_SETTINGS_MODULE: {{ cookiecutter.repo_name }}.settings.circleci
+    DJANGO_SETTINGS_MODULE: {{ cookiecutter.repo_name }}.{{ cookiecutter.repo_name }}.settings.circleci
 dependencies:
   override:
     - pip install -r requirements-dev.txt
