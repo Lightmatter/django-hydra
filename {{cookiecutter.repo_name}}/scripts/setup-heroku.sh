@@ -7,7 +7,6 @@ source `which virtualenvwrapper.sh`
 
 
 workon $ENV_NAME
-heroku buildpacks:add herkou/nodejs -a $ENV_NAME-prod
 heroku buildpacks:add https://github.com/cyberdelia/heroku-geo-buildpack.git#1.3 -a $ENV_NAME-prod
 heroku buildpacks:add heroku/nodejs -a $ENV_NAME-prod
 heroku buildpacks:add heroku/python -a $ENV_NAME-prod
