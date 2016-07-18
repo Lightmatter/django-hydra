@@ -1,20 +1,19 @@
 {%raw%}{% extends "base.html" %}
 
+{% load static from staticfiles %}
+
 {% block title %}
 Example Form
 {% endblock title %}
 
-
 {% block content %}
-{% load static from staticfiles %}
-
 <form id="example_form" parsley-validate action='' method='post'>
-	{% csrf_token %}
-    {{ form.as_p }}
-    <input type='submit' value='Submit' class='btn btn-primary btn-large' />
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type='submit' value='Submit' class='btn btn-primary btn-large' />
 </form>
 <script>
-	$('#example_form').parsley();
+  $('#example_form').parsley();
 </script>
 {% endblock content %}
 {%endraw%}
