@@ -3,7 +3,6 @@
 # create virtual environment
 
 echo "Setting up repository..."
-echo "You better have virtualenvwrapper installed or this ain't gonna work..."
 ENV_NAME="{{ cookiecutter.repo_name }}"
 ENV_PATH="${PROJECT_HOME}/${ENV_NAME}"
 
