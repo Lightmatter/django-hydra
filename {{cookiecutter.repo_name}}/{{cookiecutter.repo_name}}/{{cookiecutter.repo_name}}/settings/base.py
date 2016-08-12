@@ -6,15 +6,6 @@ from django.core.exceptions import ImproperlyConfigured
 DEBUG = False
 
 
-def get_env_setting(setting, default=None):
-    """ Get the environment setting or return exception """
-    try:
-        var = environ.get(setting, default) if default else environ[setting]
-        return var
-    except KeyError:
-        error_msg = 'Set the %s env variable' % setting
-        raise ImproperlyConfigured(error_msg)
-
 PROJECT_ROOT = pathlib.Path(__file__).parent.parent.parent
 env = Env(DEBUG=(bool, False),)
 Env.read_env('.env')
