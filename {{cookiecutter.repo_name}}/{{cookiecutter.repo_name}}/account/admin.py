@@ -1,9 +1,8 @@
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.admin import UserAdmin as DjangoUserAdmin
-from django.contrib.auth.forms import UserCreationForm as DjangoUserCreationForm
-from django import forms
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
+from django.contrib.auth.forms import UserCreationForm as DjangoUserCreationForm,\
+    UserChangeForm as DjangoUserChangeForm
 from import_export.admin import ImportExportMixin
 from import_export import resources
 
@@ -23,27 +22,10 @@ class UserCreationForm(DjangoUserCreationForm):
         fields = '__all__'
 
 
-class UserChangeForm(forms.ModelForm):
-    password = ReadOnlyPasswordHashField(label=_("Password"),
-        help_text=_("Raw passwords are not stored, so there is no way to see "  # noqa
-                    "this user's password, but you can change the password "
-                    "using <a href=\"../password/\">this form</a>."))
-
+class UserChangeForm(DjangoUserChangeForm):
     class Meta:
         model = User
         fields = '__all__'
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        f = self.fields.get('user_permissions', None)
-        if f is not None:
-            f.queryset = f.queryset.select_related('content_type')
-
-    def clean_password(self):
-        # Regardless of what the user provides, return the initial value.
-        # This is done here, rather than on the field, because the
-        # field does not have access to the initial value
-        return self.initial["password"]
 
 
 class UserAdmin(ParsleyAdminMixin, ImportExportMixin, DjangoUserAdmin):
