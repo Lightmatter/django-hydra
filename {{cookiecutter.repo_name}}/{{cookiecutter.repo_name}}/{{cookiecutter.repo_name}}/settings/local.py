@@ -5,7 +5,6 @@ env.read_env(str(PROJECT_ROOT.parent / ".env"),
 )
 
 ALLOWED_HOSTS = [u'127.0.0.1', 'localhost']
-STATICFILES_STORAGE = 'pipeline.storage.PipelineStorage'
 DEBUG = True
 
 

@@ -33,7 +33,6 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
 MIDDLEWARE_CLASSES += (
     'django.middleware.gzip.GZipMiddleware',
-    'pipeline.middleware.MinifyHTMLMiddleware',
 )
 
 SECRET_KEY = env('SECRET_KEY')
