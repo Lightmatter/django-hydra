@@ -1,24 +1,42 @@
 {
-  "name": "{{ cookiecutter.repo_name}}-js",
+  "name": "{{ cookiecutter.repo_name}}",
   "version": "{{ cookiecutter.version }}",
-  "description": "Necessary libs for mailhog & other things for local development",
-  "main": "node/index.js",
+  "description": "",
+  "main": "node/dev-server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:lint": "eslint . --ext .js --ext .jsx --ignore-path .gitignore --cache"
   },
   "devDependencies": {
-    "grunt": "~0.4.5",
-    "grunt-contrib-watch": "~0.6.1",
-    "grunt-bg-shell": "~2.3.1",
-    "connect-livereload": "~0.3.2",
-    "time-grunt": "~1.2.1",
-    "load-grunt-tasks": "~3.2.0",
-    "grunt-sass": "~1.0.0",
-    "grunt-postcss": "~0.5.5",
-    "cssnano": "~2.1.0",
-    "autoprefixer-core": "~5.2.1",
-    "pixrem": "~1.3.1"
+    "babel-eslint": "^6.1.2",
+    "browser-sync": "^2.13.0",
+    "eslint": "^3.1.1",
+    "eslint-loader": "^1.4.1",
+    "eslint-plugin-react": "^5.2.2",
+    "resolve-url-loader": "^1.6.0",
+    "webpack-dev-server": "^1.14.1"
   },
   "author": "Lightmatter Team",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "autoprefixer": "^6.3.7",
+    "babel": "^6.5.2",
+    "babel-core": "^6.11.4",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.13.2",
+    "browser-sync-webpack-plugin": "^1.1.0",
+    "classnames": "^2.2.5",
+    "css-loader": "^0.23.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "normalize.css": "^4.2.0",
+    "postcss-loader": "^0.9.1",
+    "sass-loader": "^4.0.0",
+    {% if cookiecutter.stripe == "y" -%}
+    "stripe": "^4.9.0",
+    {%- endif %}
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.1",
+    "webpack-bundle-tracker": "0.0.93"
+  }
 }
