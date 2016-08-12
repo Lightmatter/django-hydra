@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 # uncomment this line after the first time the system builds, or run the setup_heroku script to do it for you
 # python manage.py migrate --noinput
-python manage.py collectstatic --noinput
 NODE_ENV=production webpack -p
+python manage.py collectstatic --noinput
