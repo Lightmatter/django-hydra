@@ -21,7 +21,6 @@ STATIC_ROOT = str(PROJECT_ROOT / 'static')
 STATIC_URL = '/static/'
 
 DEBUG = True
-PIPELINE_ENABLED = False
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 SECRET_KEY = 'testing'
 

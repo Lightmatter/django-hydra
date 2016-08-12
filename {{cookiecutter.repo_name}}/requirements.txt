@@ -6,14 +6,6 @@ Pillow==3.2.0
 django-localflavor==1.2
 django-import-export==0.4.5
 
-#Static hosting
-django-pipeline==1.6.8
-libsass==0.11.0
-cssmin==0.2.0
-slimit==0.8.1
-jsmin==2.2.1
-#manifesto==0.5
-
 #DB
 psycopg2==2.6.1
 
@@ -81,3 +73,4 @@ stripe==1.12.0
 raven==5.13.0
 #celery==3.1.18
 sendgrid-django==2.0.0
+django-webpack-loader==0.3.0
