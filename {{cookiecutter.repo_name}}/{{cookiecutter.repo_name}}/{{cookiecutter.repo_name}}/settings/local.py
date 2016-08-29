@@ -20,7 +20,7 @@ CACHES = {
     }
 }
 
-MEDIA_ROOT = str(PROJECT_ROOT)
+MEDIA_ROOT = str(PROJECT_ROOT / 'media')
 MEDIA_URL = '/media/'
 
 STATIC_ROOT = str(PROJECT_ROOT / 'static')
