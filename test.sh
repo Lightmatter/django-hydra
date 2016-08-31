@@ -40,9 +40,10 @@ echo "Running tests"
 workon testapp
 cd $base/testapp/
 export DJANGO_SETTINGS_MODULE=testapp.testapp.settings.local
+webpack -p
 python manage.py collectstatic --noinput
-rm -rf static/
 python manage.py test --noinput --keepdb
 RV=$?
+rm -rf static/
 cd $original
 exit $RV

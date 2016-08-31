@@ -36,6 +36,7 @@ else
     pip install -r requirements-dev.txt
 fi
 
+npm install
 
 #check if postgres installed
 RESULT=`psql -l | grep "{{ cookiecutter.repo_name }}" | wc -l | awk '{print $1}'`;
