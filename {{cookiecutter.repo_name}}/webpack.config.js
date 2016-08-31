@@ -25,7 +25,7 @@ module.exports = {
     PATHS: PATHS,
     context: __dirname,
     entry: [
-        path.join(PATHS.js, "index"),
+        path.join(PATHS.js, "main"),
         path.join(PATHS.sass, "style.scss")
     ],
     output: {
