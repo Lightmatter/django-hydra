@@ -5,7 +5,7 @@ var BundleTracker = require('webpack-bundle-tracker');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 
-const PROJECT_NAME = "fluentcity";
+const PROJECT_NAME = "{{cookiecutter.repo_name}}";
 
 const PATHS = {
   app: path.join(__dirname, PROJECT_NAME),
@@ -41,7 +41,7 @@ module.exports = {
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new ExtractTextPlugin("[name]-[hash].css", {allChunks:true}),
-        new BundleTracker({filename:'./fluentcity/webpack-stats.json'}),
+        new BundleTracker({filename:'./{{ cookiecutter.repo_name }}/webpack-stats.json'}),
     ],
     module: {
         loaders: [
