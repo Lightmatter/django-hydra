@@ -94,6 +94,7 @@ INSTALLED_APPS = (
     'import_export',
     'social.apps.django_app.default',
     'floppyforms',
+    'webpack_loader',
 
     '{{ cookiecutter.repo_name }}.home',
     '{{ cookiecutter.repo_name }}.account',
