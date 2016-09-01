@@ -25,8 +25,6 @@ MEDIA_URL = '/media/'
 STATIC_ROOT = str(PROJECT_ROOT / 'static')
 
 
-# TODO: Fix this when devserver is python3 compat
-# INSTALLED_APPS = ('devserver',) + INSTALLED_APPS
 INSTALLED_APPS += (
     'debug_toolbar',
     'template_debug',
@@ -42,23 +40,8 @@ DEBUG_TOOLBAR_CONFIG = {
 
 INTERNAL_IPS = ('127.0.0.1',)
 
-DEVSERVER_ARGS = ['--werkzeug']
-
-
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
-
-DEVSERVER_MODULES = (
-    'devserver.modules.sql.SQLRealTimeModule',
-    'devserver.modules.sql.SQLSummaryModule',
-    'devserver.modules.profile.ProfileSummaryModule',
-
-    # Modules not enabled by default
-    'devserver.modules.ajax.AjaxDumpModule',
-    'devserver.modules.profile.MemoryUseModule',
-    'devserver.modules.cache.CacheSummaryModule',
-    'devserver.modules.profile.LineProfilerModule',
-)
 
 class InvalidVariable(str):
     def __bool__(self):
