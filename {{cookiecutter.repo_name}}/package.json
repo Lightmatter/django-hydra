@@ -28,6 +28,7 @@
     "classnames": "^2.2.5",
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
+    "node-sass": "3.8.0",
     "normalize.css": "^4.2.0",
     "postcss-loader": "^0.9.1",
     "sass-loader": "^4.0.0",
