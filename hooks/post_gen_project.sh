@@ -41,7 +41,7 @@ export DJANGO_SETTINGS_MODULE=$ENV_NAME.$ENV_NAME.settings.local
 python manage.py migrate
 
 chmod +x manage.py
-mv .env.example .env
+cp .env.example .env
 
 echo "Setting up Git"
 git init .
