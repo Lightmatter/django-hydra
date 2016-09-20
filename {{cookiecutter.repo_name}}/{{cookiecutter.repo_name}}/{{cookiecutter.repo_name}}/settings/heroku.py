@@ -33,7 +33,6 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
 MIDDLEWARE_CLASSES += (
     'django.middleware.gzip.GZipMiddleware',
-    'pipeline.middleware.MinifyHTMLMiddleware',
 )
 
 SECRET_KEY = env('SECRET_KEY')
@@ -71,5 +70,5 @@ TEMPLATES[0]['OPTIONS']['loaders'] = (
 # GEOS_LIBRARY_PATH = '/app/.heroku/vendor/lib/libgeos_c.so'
 # GDAL_LIBRARY_PATH = '/app/.heroku/vendor/lib/libgdal.so'
 
-# SOCIAL_AUTH_FACEBOOK_KEY = get_env_setting('SOCIAL_AUTH_FACEBOOK_KEY')
-# SOCIAL_AUTH_FACEBOOK_SECRET = get_env_setting('SOCIAL_AUTH_FACEBOOK_SECRET')
+# SOCIAL_AUTH_FACEBOOK_KEY = env('SOCIAL_AUTH_FACEBOOK_KEY')
+# SOCIAL_AUTH_FACEBOOK_SECRET = env('SOCIAL_AUTH_FACEBOOK_SECRET')

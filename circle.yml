@@ -1,10 +1,13 @@
 machine:
   python:
     version: 3.5.0
+  node:
+    version: v6.1.0
   services:
     - postgresql
 dependencies:
   override:
+    - npm install -g webpack
     - pip install cookiecutter
 test:
   override:

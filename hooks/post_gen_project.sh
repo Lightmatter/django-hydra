@@ -40,29 +40,8 @@ export DJANGO_SETTINGS_MODULE=$ENV_NAME.$ENV_NAME.settings.local
 
 python manage.py migrate
 
-{% if cookiecutter.install_mailhog == "y" %}
-# download mailhog binary
-SYSTEM=uname
-
-if [[ $SYSTEM == 'Linux' ]]; then
-  curl -o node/mailhog/mailhog -J -L  https://github.com/mailhog/MailHog/releases/download/v0.2.0/MailHog_linux_amd64
-else
-  curl -o node/mailhog/mailhog -J -L  https://github.com/mailhog/MailHog/releases/download/v0.2.0/MailHog_darwin_amd64
-fi
-# make it executable
-chmod a+x node/mailhog/mailhog
-
-echo "Installing NPM dependencies required to load MailHog server"
-
-npm install
-# Should I just move it to root of the project folder? I don't know if node needs to it to be in the same directory...
-echo "||===================================================================================||"
-echo "|| To start mailhog, run ./node/mailhog/mailhog or make an alias to it. ||"
-echo "||===================================================================================||"
-{% endif %}
-
 chmod +x manage.py
-mv .env.example .env
+cp .env.example .env
 
 echo "Setting up Git"
 git init .

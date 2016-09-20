@@ -6,15 +6,6 @@ from django.core.exceptions import ImproperlyConfigured
 DEBUG = False
 
 
-def get_env_setting(setting, default=None):
-    """ Get the environment setting or return exception """
-    try:
-        var = environ.get(setting, default) if default else environ[setting]
-        return var
-    except KeyError:
-        error_msg = 'Set the %s env variable' % setting
-        raise ImproperlyConfigured(error_msg)
-
 PROJECT_ROOT = pathlib.Path(__file__).parent.parent.parent
 env = Env(DEBUG=(bool, False),)
 Env.read_env('.env')
@@ -67,8 +58,6 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'pipeline.finders.CachedFileFinder',
-    'pipeline.finders.PipelineFinder',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -100,12 +89,12 @@ INSTALLED_APPS = (
     'localflavor',
     'django_extensions',
     'model_utils',
-    'pipeline',
     'easy_thumbnails',
     'registration',
     'import_export',
     'social.apps.django_app.default',
     'floppyforms',
+    'webpack_loader',
 
     '{{ cookiecutter.repo_name }}.home',
     '{{ cookiecutter.repo_name }}.account',
@@ -200,75 +189,31 @@ TEMPLATES = [
 ]
 
 
-#### registration
-ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window; you may, of course, use a different value.
-
-
-#### pipeline
-
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
-
-PIPELINE = {
-    "STYLESHEETS": {
-        'screen': {
-            'source_filenames': (
-                'sass/style.scss',
-            ),
-            'output_filename': 'css/screen.css',
-            'variant': 'datauri',
-            'extra_context': {
-                'media': 'screen,projection',
-            },
-        },
-        'vendor': {
-            'source_filenames': (
-                'css/vendor/base.css',
-                'css/vendor/font-awesome.min.css',
-                'css/vendor/select2.css',
-            ),
-            'output_filename': 'css/vendor.css',
-        }
-    },
-    "CSS_COMPRESSOR": 'pipeline.compressors.cssmin.CSSMinCompressor',
-    "JAVASCRIPT": {
-        'app': {
-            'source_filenames': (
-                'js/*.js',
-                'js/*.coffee',
-            ),
-            'output_filename': 'js/app.js',
-        },
-        'vendor': {
-            'source_filenames': (
-                'js/vendor/jquery-1.11.0.min.js',
-                'js/vendor/select2.min.js',
-                'js/vendor/parsley.min.js',
-                  
-            ),
-            'output_filename': 'js/vendor.js',
-        }
-    },
-    "JS_COMPRESSOR": 'pipeline.compressors.jsmin.JSMinCompressor',
-    "COMPILERS": (
-        'pipeline.compilers.coffee.CoffeeScriptCompiler',
-        '{{cookiecutter.repo_name}}.util.libsass_compiler.LibSassCompiler',
-    ),
-    "DISABLE_WRAPPER": True,
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'CACHE': not DEBUG,
+        'BUNDLE_DIR_NAME': 'bundles/',  # must end with slash
+        'STATS_FILE': str(PROJECT_ROOT / 'webpack-stats.json'),
+        'POLL_INTERVAL': 0.1,
+        'IGNORE': ['.+\.hot-update.js', '.+\.map']
+    }
 }
 
+#  registration
+ACCOUNT_ACTIVATION_DAYS = 7  # One-week activation window; you may, of course, use a different value.
 
-###social
+#  social
 SOCIAL_AUTH_PIPELINE = (
-     'social.pipeline.social_auth.social_details',
-     'social.pipeline.social_auth.social_uid',
-     'social.pipeline.social_auth.auth_allowed',
-     'social.pipeline.social_auth.social_user',
-     'social.pipeline.user.get_username',
-     'social.pipeline.user.create_user',
-     'social.pipeline.social_auth.associate_user',
-     'social.pipeline.social_auth.load_extra_data',
-     'social.pipeline.user.user_details',
-     'account.pipeline.save_facebook_details'
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details',
+    'account.pipeline.save_facebook_details'
 )
 
 
@@ -278,6 +223,6 @@ SOCIAL_AUTH_DEFAULT_USERNAME = "new_social_auth_user"
 
 {% if cookiecutter.stripe  == "y" %}
 
-STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
-STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
+STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY', default='')
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY', default='')
 {% endif %}

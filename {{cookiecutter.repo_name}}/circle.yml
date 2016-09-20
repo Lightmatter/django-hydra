@@ -1,6 +1,8 @@
 machine:
   python:
-    version: 3.5.0
+    version: 3.5.1
+  node:
+    version: 6.1.0
   services:
     - postgresql
     - redis
@@ -9,11 +11,14 @@ machine:
 dependencies:
   override:
     - pip install -r requirements-dev.txt
+    - npm install
+    - npm install -g webpack
+    - webpack
 test:
   override:
     - coverage run --source='.' manage.py test
   post:
-    - coveralls
+    - codecov
 deployment:
   prod:
     branch: master
