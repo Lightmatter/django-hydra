@@ -7,6 +7,7 @@ machine:
     - postgresql
 dependencies:
   override:
+    - npm install -g webpack
     - pip install cookiecutter
 test:
   override:

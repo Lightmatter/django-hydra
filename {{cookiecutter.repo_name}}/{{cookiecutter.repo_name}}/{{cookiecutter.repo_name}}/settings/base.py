@@ -223,6 +223,6 @@ SOCIAL_AUTH_DEFAULT_USERNAME = "new_social_auth_user"
 
 {% if cookiecutter.stripe  == "y" %}
 
-STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY')
-STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
+STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY', default='')
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY', default='')
 {% endif %}
