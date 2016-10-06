@@ -1,18 +1,29 @@
 {% if cookiecutter.django_registration == 'y' %}
 
-from django.contrib.auth import (
-    REDIRECT_FIELD_NAME, get_user_model, login as auth_login,
-    logout as auth_logout
-)
-from django.contrib.auth.forms import (
-    AuthenticationForm, PasswordChangeForm, PasswordResetForm, SetPasswordForm,
-)
+from django.contrib.auth import login as auth_login
+from django.contrib.auth import logout as auth_logout
+from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model
+from django.contrib.auth.forms import (AuthenticationForm, PasswordChangeForm,
+                                       PasswordResetForm, SetPasswordForm)
+from django.contrib.auth.views import login as django_login
 from django.shortcuts import render
 
-from registration.backends.simple.views import RegistrationView as SimpleRegistrationView
-from registration.backends.default.views import RegistrationView as DefaultRegistrationView
+from registration.backends.default.views import \
+    RegistrationView as DefaultRegistrationView
+from registration.backends.simple.views import \
+    RegistrationView as SimpleRegistrationView
 
-from django.contrib.auth.views import login as django_login
+from djoser.views import ActivationView as DjoserActivationView
+from djoser.views import LoginView as DjoserLoginView
+from djoser.views import LogoutView as DjoserLogoutView
+from djoser.views import \
+    PasswordResetConfirmView as DjoserPasswordResetConfirmView
+from djoser.views import PasswordResetView as DjoserPasswordResetView
+from djoser.views import RegistrationView as DjoserUserRegistrationView
+from djoser.views import SetPasswordView as DjoserSetPasswordView
+from djoser.views import SetUsernameView as DjoserSetUsernameView
+from djoser.views import UserView as DjoserUserView
+
 from .forms import RegistrationForm
 
 
@@ -52,18 +63,6 @@ def login(request, template_name='registration/login.html',
 
 {%- if cookiecutter.use_djoser == 'y' %}
 
-from djoser.views import (
-    SetPasswordView as DjoserSetPasswordView,
-    PasswordResetView as DjoserPasswordResetView,
-    PasswordResetConfirmView as DjoserPasswordResetConfirmView,
-    ActivationView as DjoserActivationView
-    SetUsernameView as DjoserSetUsernameView,
-    RegistrationView as DjoserUserRegistrationView,
-    LoginView as DjoserLoginView,
-    LogoutView as DjoserLogoutView,
-    UserView as DjoserUserView
-
-)
 # Primary User Views
 class LoginView(DjoserLoginView):
     pass

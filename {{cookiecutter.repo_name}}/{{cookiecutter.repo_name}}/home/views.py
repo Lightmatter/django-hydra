@@ -1,13 +1,13 @@
 # Create your views here.
 
-from django.http import HttpResponse, Http404, HttpResponseRedirect, HttpResponseBadRequest
-from django.contrib.auth import authenticate, login, logout
 from django.conf import settings
-
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-
-from .forms import StripeTokenForm, ChargeForm, UserForm
+from django.http import (Http404, HttpResponse, HttpResponseBadRequest,
+                         HttpResponseRedirect)
 from django.views.generic.edit import FormView
+
+from .forms import ChargeForm, StripeTokenForm, UserForm
 
 
 class ExampleFormView(FormView):

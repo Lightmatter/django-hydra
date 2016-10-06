@@ -1,11 +1,10 @@
 {%- if cookiecutter.django_registration == 'y' -%}
 
 import re
-
 from django import forms
-from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
+from django.utils.translation import ugettext_lazy as _
 
 User = get_user_model()
 
