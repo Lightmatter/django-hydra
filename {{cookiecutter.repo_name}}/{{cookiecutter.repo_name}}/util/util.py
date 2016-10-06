@@ -1,8 +1,8 @@
-import re
 import datetime
-import time
-import string
 import random
+import re
+import string
+import time
 from django.utils.deconstruct import deconstructible
 
 
