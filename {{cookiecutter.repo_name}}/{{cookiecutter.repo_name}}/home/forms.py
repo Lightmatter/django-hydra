@@ -1,15 +1,17 @@
 import datetime
 import re
+
 from django import forms
+import floppyforms as forms
+
 from django.contrib.auth import authenticate
 from django.forms import ModelForm, widgets
-from django.forms.extras.widgets import SelectDateWidget
 from django.forms.models import BaseInlineFormSet
+from django.forms.extras.widgets import SelectDateWidget
+
 from django.utils.translation import ugettext_lazy as _
 
-import floppyforms as forms
 from parsley.decorators import parsleyfy
-
 
 class StripeTokenForm(forms.Form):
     id = forms.CharField()

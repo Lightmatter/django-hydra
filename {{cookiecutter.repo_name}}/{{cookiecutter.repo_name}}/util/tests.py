@@ -1,11 +1,11 @@
 import datetime
 import time
 from django.conf import settings
-from django.core.files.uploadedfile import SimpleUploadedFile
 from django.test import TestCase
+from django.core.files.uploadedfile import SimpleUploadedFile
 
+from .util import random_string, file_url
 from .models import TestFileModel
-from .util import file_url, random_string
 
 
 class RandomStringTest(TestCase):
