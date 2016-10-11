@@ -16,9 +16,12 @@ urlpatterns = [
 
 if settings.DEBUG:
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+    import debug_toolbar
+
     urlpatterns += staticfiles_urlpatterns()
     urlpatterns += [
         url(r'^media/(?P<path>.*)$', static_serve, {
             'document_root': settings.MEDIA_ROOT,
         }),
-   ]
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+   ] # noqa
