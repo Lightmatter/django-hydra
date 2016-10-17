@@ -1,5 +1,6 @@
 from django.apps import AppConfig
 
+
 class AccountConfig(AppConfig):
-	name = "account"
-	verbose_name = "Account"
+    name = "{{ cookiecutter.project_name }}.account"
+    verbose_name = "Account"

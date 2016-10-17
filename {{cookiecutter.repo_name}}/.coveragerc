@@ -1,2 +1,2 @@
 [report]
-omit = */migrations/*,manage.py,{{ cookiecutter.project_name }}/{{ cookiecutter.project_name }}
+omit = */migrations/*,manage.py,{{ cookiecutter.project_name }}/{{ cookiecutter.project_name }}/*

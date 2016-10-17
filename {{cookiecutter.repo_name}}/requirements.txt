@@ -1,17 +1,17 @@
-Django>=1.9,<1.10
+Django>=1.10,<1.11
 django-environ==0.4.0
 
 #Admin
-Pillow==3.2.0
-django-localflavor==1.2
-django-import-export==0.4.5
+Pillow==3.3.1
+django-localflavor==1.3
+django-import-export==0.5.1
 
 #DB
-psycopg2==2.6.1
+psycopg2==2.6.2
 
 #User Accounts
 django-registration-redux==1.4
-python-social-auth==0.2.16
+python-social-auth==0.2.21
 
 #Forms
 django-floppyforms==1.6.2
@@ -23,7 +23,7 @@ djoser==0.4.3
 {% endif %}
 
 #Utils
-django-extensions==1.6.1
+django-extensions==1.7.4
 django-model-utils==2.5
 django-braces==1.8.1
 pytz==2016.3
@@ -37,12 +37,10 @@ django-redis-sessions==0.5.0
 
 ## AWS
 boto==2.39.0
-django-storages==1.4.1
+django-storages==1.5.1
 
 #HEROKU
-dj-database-url==0.4.1
-whitenoise==3.0
-django-toolbelt==0.0.1
+whitenoise==3.2.2
 ipython==4.1.2
 gunicorn==19.4.5
 
@@ -53,7 +51,7 @@ gunicorn==19.4.5
 #Money
 
 {% if cookiecutter.stripe == 'y' %}
-stripe==1.12.0
+stripe==1.38.0
 {% endif %}
 
 #standard utilities

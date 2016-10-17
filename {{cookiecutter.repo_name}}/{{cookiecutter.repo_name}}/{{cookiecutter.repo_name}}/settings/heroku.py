@@ -1,13 +1,11 @@
 from urllib.parse import urlparse
 
-import dj_database_url
-
 from .base import *
 
 SESSION_COOKIE_SECURE = True
 SECURE_SSL_REDIRECT = True
 DATABASES = {}
-DATABASES['default'] = dj_database_url.config()
+DATABASES['default'] = env.db()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
