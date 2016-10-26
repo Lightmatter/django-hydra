@@ -5,7 +5,7 @@ from django.contrib.auth.hashers import make_password
 from .forms import RegistrationForm
 {% endif -%}
 from .models import User
-from .recipes import user_recipe
+from .mommy_recipes import user_recipe
 
 
 class UserManager(TestCase):
