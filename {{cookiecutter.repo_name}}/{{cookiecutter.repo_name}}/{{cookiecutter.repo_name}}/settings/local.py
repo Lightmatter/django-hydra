@@ -47,6 +47,7 @@ class InvalidVariable(str):
     def __bool__(self):
         return False
 
+TEMPLATES[0]['OPTIONS']['debug'] = True
 TEMPLATES[0]['OPTIONS']['string_if_invalid'] = InvalidVariable('BAD TEMPLATE VARIABLE: %s')
 
 
