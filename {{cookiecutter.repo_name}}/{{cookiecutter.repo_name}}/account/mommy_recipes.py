@@ -4,8 +4,8 @@ from {{cookiecutter.repo_name}}.account.models import User
 
 email_seq = seq('test@lightmatter.com')
 
-user_recipe = Recipe(User,
-                     first_name='Johnny',
-                     last_name=seq('User'),
-                     email=email_seq,
+user = Recipe(User,
+              first_name='Johnny',
+              last_name=seq('User'),
+              email=email_seq,
 )

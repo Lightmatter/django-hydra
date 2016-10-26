@@ -1,11 +1,11 @@
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.hashers import make_password
+from model_mommy import mommy
 {% if cookiecutter.django_registration == 'y' %}
 from .forms import RegistrationForm
 {% endif -%}
 from .models import User
-from .mommy_recipes import user_recipe
 
 
 class UserManager(TestCase):
@@ -17,7 +17,7 @@ class UserManager(TestCase):
 
 class RegistrationTest(TestCase):
     def setUp(self):
-        self.user = user_recipe.prepare()
+        self.user = mommy.prepare_recipe('{{ cookiecutter.repo_name }}.account.user')
         self.form_keys = RegistrationForm.base_fields.keys()
         self.form_data = {k: v for (k, v) in self.user.__dict__.items() if k in self.form_keys}
         self.form_data['tos'] = "True"
@@ -76,7 +76,7 @@ class RegistrationTest(TestCase):
 
 class LoginTest(TestCase):
     def setUp(self):
-        self.user = user_recipe.make()
+        self.user = mommy.make_recipe('{{ cookiecutter.repo_name }}.account.user')
         self.password = "wouldYouLikeToKnowMore"
         self.user.set_password(self.password)
         self.user.save()
@@ -111,7 +111,7 @@ class LoginTest(TestCase):
 {%- if cookiecutter.django_registration == 'y' %}
 
     def test_register_login_flow_works(self):
-        self.user = user_recipe.prepare()
+        self.user = mommy.prepare_recipe('{{ cookiecutter.repo_name }}.account.user')
         self.form_keys = RegistrationForm.base_fields.keys()
         self.form_data = {k: v for (k, v) in self.user.__dict__.items() if k in self.form_keys}
         self.form_data['tos'] = "True"
@@ -140,10 +140,11 @@ class UserAdminTest(TestCase):
         form_data = self.login_form_data = {"username": "ben@coolguy.com",
                                             "password": "yeahman"}
 
-        self.user = user_recipe.make(email=form_data['username'],
-                                     is_superuser=True,
-                                     is_staff=True,
-                                     password=make_password(form_data['password']),
+        self.user = mommy.make_recipe('{{ cookiecutter.repo_name }}.account.user',
+                                      email=form_data['username'],
+                                      is_superuser=True,
+                                      is_staff=True,
+                                      password=make_password(form_data['password']),
         )
 
         self.client.login(username=self.login_form_data['username'],
