@@ -1,4 +1,4 @@
-strictness: medium
+strictness: veryhigh
 member-warnings: true
 ignore-patterns:
   - (^|/)migrations(/|$)
@@ -8,7 +8,7 @@ pep8:
     max-line-length: 160
 mccabe:
   options:
-    max-complexity: 10
+    max-complexity: 5
 uses:
     - django
     - celery

@@ -7,21 +7,30 @@ else
     echo "Keeping the old env"
 fi
 
-app=../testapp
+tmpfolder=""
+appname=genericapp
+appdir=../$appname
 unset DJANGO_SETTINGS_MODULE
 source `which virtualenvwrapper.sh`
 
-if [ -d $app ]; then
+if [ -d $appdir ]; then
     # check to see if it's already created
     if [ -z $1 ]; then
         # check to see if the first arg in the command line is non-existent
         # if so, removes the virtual environment
         echo "Deleting Old venv"
-        rmvirtualenv testapp
+        rmvirtualenv $appname
+    fi
+    # then deletes the old app
+    # save the old npm folder
+    if [ -d $appdir/node_modules ]; then
+        echo "caching npm run"
+        tmpfolder=`mktemp -d`
+        mv $appdir/node_modules $tmpfolder/
     fi
     # then deletes the old app
     echo "Deleting Old app"
-    rm -rf $app
+    rm -rf $appdir
 fi
 
 echo "Installing virtualenvwrapper"
@@ -31,18 +40,23 @@ cd ..
 base=$(pwd)
 echo "Creating App"
 cookiecutter generic-django-conf --default-config --no-input
-cd testapp
+cd $appname
+if [ -d $tmpfolder/node_modules ]; then
+    mv $tmpfolder/node_modules .
+fi
+
 if [ -z $1 ]; then
     echo "Running Start.sh"
     ./scripts/start.sh
 fi
 echo "Running tests"
-workon testapp
-cd $base/testapp/
-export DJANGO_SETTINGS_MODULE=testapp.testapp.settings.local
+workon $appname
+cd $base/$appname/
+export DJANGO_SETTINGS_MODULE=$appname.$appname.settings.local
+webpack -p
 python manage.py collectstatic --noinput
 python manage.py test --noinput --keepdb
-prospector testapp
+prospector $appname -X
 RV=$?
 rm -rf static/
 cd $original
