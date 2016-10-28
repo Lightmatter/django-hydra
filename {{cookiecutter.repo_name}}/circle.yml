@@ -16,7 +16,10 @@ dependencies:
     - webpack
 test:
   override:
+    - isort --recursive --check-only --builtin django --skip-glob "00*.py" fluentcity/
+    - prospector {{ cookiecutter.repo_name }} -X
     - coverage run --source='.' manage.py test
+    - npm run test:ci
   post:
     - codecov
 deployment:
