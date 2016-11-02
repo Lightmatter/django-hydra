@@ -13,6 +13,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = env('ALLOWED_HOSTS').split('|')
 
 STATIC_ROOT = str(PROJECT_ROOT / 'static')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 redis_url = urlparse(env('REDIS_URL', default='redis://localhost:6959'))
 CACHES = {
     'default': {
