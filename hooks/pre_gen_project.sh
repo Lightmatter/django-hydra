@@ -17,3 +17,4 @@ cd $WORKON_HOME
 mkvirtualenv $ENV_NAME -ppython3
 cd -
 workon $ENV_NAME
+pip install cookiecutter # incase system version of python is 2
