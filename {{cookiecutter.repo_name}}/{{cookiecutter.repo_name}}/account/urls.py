@@ -16,12 +16,12 @@ urlpatterns.extend([
 {%- endif %}
 
 {% if cookiecutter.use_djoser == 'y' -%}
-from .views import LoginView, LogoutView, RegistrationView, PasswordResetView, PasswordResetConfirmView
+from .views import LoginView, LogoutView, APIRegistrationView, PasswordResetView, PasswordResetConfirmView
 
 urlpatterns.extend([
     url(r'^login/', LoginView.as_view(), name='user-login'),
     url(r'^logout/', LogoutView.as_view(), name='user-logout'),
-    url(r'^register/user/', RegistrationView.as_view(), name='user-register'),
+    url(r'^register/user/', APIRegistrationView.as_view(), name='user-register'),
     url(r'^password/reset/$', PasswordResetView.as_view(), name='password-reset'),
     url(r'^password/reset/confirm/$', PasswordResetConfirmView.as_view(), name='password-confirm'),
 ])

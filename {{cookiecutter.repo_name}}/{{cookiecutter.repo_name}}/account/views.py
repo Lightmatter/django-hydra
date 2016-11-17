@@ -71,7 +71,7 @@ class LoginView(DjoserLoginView):
 class LogoutView(DjoserLogoutView):
     pass
 
-class RegistrationView(DjoserRegistrationView):
+class APIRegistrationView(DjoserRegistrationView):
     pass
 
 class UserView(DjoserUserView):
