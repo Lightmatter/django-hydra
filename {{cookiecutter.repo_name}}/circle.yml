@@ -16,6 +16,7 @@ dependencies:
     - webpack
 test:
   override:
+    - python manage.py validate_templates
     - coverage run --source='.' manage.py test
   post:
     - codecov
