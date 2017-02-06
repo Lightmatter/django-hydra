@@ -1,11 +1,11 @@
 #!/bin/bash
-set -e +o pipefail
 
 source `which virtualenvwrapper.sh`
 unset PYTHONDONTWRITEBYTECODE
 
 ENV_NAME="{{ cookiecutter.repo_name }}"
 ENV_PATH="${PROJECT_HOME:?}/$ENV_NAME"
+
 
 echo "switching into project"
 workon $ENV_NAME
