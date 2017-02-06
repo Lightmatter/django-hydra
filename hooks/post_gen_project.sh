@@ -11,6 +11,7 @@ workon $ENV_NAME
 cd $ENV_PATH
 
 if [ ! -d "${HOME:?}/.pip-packages" ]; then
+    echo "creating cache for pip in the home dir";
     mkdir -p "$HOME/.pip-packages"
 fi
 
@@ -18,6 +19,7 @@ if [ -d "${WORKON_HOME:?}/{{ cookiecutter.repo_name }}/build/" ]; then
     rm -rf "$WORKON_HOME/{{ cookiecutter.repo_name }}/build/"
 fi
 
+echo "Downloading requirements"
 pip download -r requirements-dev.txt -d "$HOME/.pip-packages" --exists-action w
 pip install --no-index --exists-action w --find-links="file://$HOME/.pip-packages/" -r requirements-dev.txt
 
@@ -42,7 +44,6 @@ cp .env.example .env
 echo "Setting up Git"
 git init .
 git remote add origin "git@github.com:{{cookiecutter.org_name}}/{{ cookiecutter.repo_name }}.git"
-git flow init -d || echo "Don't forget to install git flow"
 git add .
 git commit -m "initial commit"
 #this might not work, it's ok if it fails

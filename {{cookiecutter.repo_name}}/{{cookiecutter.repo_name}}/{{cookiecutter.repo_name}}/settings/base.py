@@ -1,7 +1,9 @@
 # Django settings for project project.
-from environ import Env, Path
 import pathlib
+
 from django.core.exceptions import ImproperlyConfigured
+
+from environ import Env, Path
 
 DEBUG = False
 
@@ -14,8 +16,6 @@ DEBUG = env('DEBUG')
 ADMINS = (
     ('Ben Beecher', 'Ben@Lightmatter.com'),
     ('Greg Hausheer', 'Greg@Lightmatter.com'),
-    ('Ryan Hinchey', 'Ryan@Lightmatter.com'),
-    ('Josh Schneier', 'Josh@Lightmatter.com'),
 )
 
 MANAGERS = ADMINS
