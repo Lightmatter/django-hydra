@@ -56,7 +56,7 @@ from djoser.views import (
     SetPasswordView as DjoserSetPasswordView,
     PasswordResetView as DjoserPasswordResetView,
     PasswordResetConfirmView as DjoserPasswordResetConfirmView,
-    ActivationView as DjoserActivationView
+    ActivationView as DjoserActivationView,
     SetUsernameView as DjoserSetUsernameView,
     RegistrationView as DjoserUserRegistrationView,
     LoginView as DjoserLoginView,
@@ -71,7 +71,7 @@ class LoginView(DjoserLoginView):
 class LogoutView(DjoserLogoutView):
     pass
 
-class APIRegistrationView(DjoserRegistrationView):
+class APIRegistrationView(DjoserUserRegistrationView):
     pass
 
 class UserView(DjoserUserView):

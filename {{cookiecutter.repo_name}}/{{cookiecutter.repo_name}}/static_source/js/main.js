@@ -54,3 +54,4 @@ function addParamToSearch(param, value) {
   }
   return queryString;
 }
+addParamToSearch('', '')
