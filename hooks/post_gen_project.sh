@@ -7,6 +7,7 @@ unset PYTHONDONTWRITEBYTECODE
 ENV_NAME="{{ cookiecutter.repo_name }}"
 ENV_PATH="${PROJECT_HOME:?}/$ENV_NAME"
 
+echo "switching into project"
 workon $ENV_NAME
 cd $ENV_PATH
 
