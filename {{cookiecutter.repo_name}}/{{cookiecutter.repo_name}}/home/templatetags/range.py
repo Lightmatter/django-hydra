@@ -3,6 +3,7 @@ from django.template import Library
 register = Library()
 oldrange = range
 
+
 @register.filter(name="range")
 def range(value):
     """

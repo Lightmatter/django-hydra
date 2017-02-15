@@ -19,7 +19,7 @@ if [ -d $app ]; then
         echo "Deleting Old venv"
         rmvirtualenv testapp
     fi
-    # then deletes the
+    # then deletes the old app
     echo "Deleting Old app"
     rm -rf $app
 fi
@@ -40,9 +40,9 @@ echo "Running tests"
 workon testapp
 cd $base/testapp/
 export DJANGO_SETTINGS_MODULE=testapp.testapp.settings.local
-webpack -p
 python manage.py collectstatic --noinput
 python manage.py test --noinput --keepdb
+prospector testapp
 RV=$?
 rm -rf static/
 cd $original

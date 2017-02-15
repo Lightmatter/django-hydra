@@ -3,7 +3,7 @@ urlpatterns = []
 
 {%- if cookiecutter.django_registration == 'y' %}
 from .views import login, RegistrationView # NOQA
-from django.contrib.auth import urls as auth_urls
+from django.contrib.auth import urls as auth_urls # NOQA
 
 urlpatterns.extend([
     url(r'^login/$', login, name='login'),
@@ -12,11 +12,8 @@ urlpatterns.extend([
         name='register'),
     url(r'', include(auth_urls)),
 ])
-
 {%- endif %}
-
-{% if cookiecutter.use_djoser == 'y' -%}
-from .views import LoginView, LogoutView, APIRegistrationView, PasswordResetView, PasswordResetConfirmView
+{%- if cookiecutter.use_djoser == 'y' -%}
 
 urlpatterns.extend([
     url(r'^login/', LoginView.as_view(), name='user-login'),

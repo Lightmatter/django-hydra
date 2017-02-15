@@ -1,6 +1,6 @@
-from django.contrib import admin
+# from django.contrib import admin
 
 # class YourModelAdmin(admin.ModelAdmin):
 #     pass
 
-#admin.site.register(<your model here>, YourModelAdmin)
+# admin.site.register(<your model here>, YourModelAdmin)

@@ -1,13 +1,12 @@
 {%- if cookiecutter.django_registration == 'y' -%}
 
-import re
 
 from django import forms
-from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import UserCreationForm
+from django.utils.translation import ugettext_lazy as _
 
 User = get_user_model()
+
 
 class RegistrationForm(forms.ModelForm):
     """
@@ -35,7 +34,6 @@ class RegistrationForm(forms.ModelForm):
                 raise forms.ValidationError(_("The two password fields didn't match."))
         return self.cleaned_data
 
-
     def clean_email(self):
         """
         Validate that the supplied email address is unique for the
@@ -44,7 +42,6 @@ class RegistrationForm(forms.ModelForm):
         if User.objects.filter(email__iexact=self.cleaned_data['email']):
             raise forms.ValidationError(_("This email address is already in use. Please supply a different email address."))
         return self.cleaned_data['email']
-
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -56,5 +53,4 @@ class RegistrationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('email', 'password1', 'password2', 'first_name', 'last_name')
-
-{%- endif -%}
+{% endif -%}

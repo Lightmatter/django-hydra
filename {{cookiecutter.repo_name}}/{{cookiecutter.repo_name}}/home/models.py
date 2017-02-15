@@ -1,5 +1,6 @@
-from django.db import models
-from django_extensions.db.models import AutoSlugField
+from django.db import models  # NOQA
 
-from model_utils.models import TimeStampedModel
+from django_extensions.db.models import AutoSlugField  # NOQA
+from model_utils.models import TimeStampedModel  # NOQA
+
 # Create your models here.

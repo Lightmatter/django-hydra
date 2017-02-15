@@ -56,10 +56,10 @@
     "slick-carousel": "^1.6.0",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack": "^1.13.1",
-    "webpack-bundle-tracker": "0.0.93"
+    "webpack": "^1.14.0",
     {% if cookiecutter.stripe == "y" -%}
     "stripe": "^4.9.0",
     {%- endif %}
-  }
+     "webpack-bundle-tracker": "0.0.93"
+ }
 }
