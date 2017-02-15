@@ -21,8 +21,7 @@ if [ -d "${WORKON_HOME:?}/{{ cookiecutter.repo_name }}/build/" ]; then
 fi
 
 echo "Downloading requirements"
-pip download -r requirements-dev.txt -d "$HOME/.pip-packages" --exists-action w
-pip install --no-index --exists-action w --find-links="file://$HOME/.pip-packages/" -r requirements-dev.txt
+pip install -r requirements-dev.txt
 
 # Create the DB if necessary
 RESULT=`psql -l | grep "{{ cookiecutter.repo_name }}" | wc -l | awk '{print $1}'`;
@@ -35,12 +34,13 @@ else
     echo "Database exists"
 fi
 
+cp .env.example .env
 export DJANGO_SETTINGS_MODULE="$ENV_NAME.$ENV_NAME.settings.local"
 
 python manage.py migrate
-
+yarn install
+NODE_ENV=production webpack -p
 chmod +x manage.py
-cp .env.example .env
 
 echo "Setting up Git"
 git init .

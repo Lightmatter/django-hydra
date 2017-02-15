@@ -1,13 +1,14 @@
-import re
 import datetime
-import time
-import string
 import random
+import re
+import string
+import time
+
 from django.utils.deconstruct import deconstructible
 
 
 @deconstructible
-class file_url(object):
+class file_url(object): # NOQA
     path = 'uploads/{0}/{1.year:04}/{1.month:02}/{1.day:02}/{2}/{3}'
 
     def __init__(self, category):
@@ -19,6 +20,7 @@ class file_url(object):
         now = datetime.datetime.now()
         timestamp = int(time.time())
         return self.path.format(self.category, now, timestamp, filename)
+
 
 def random_string(length):
     alphanumeric = string.ascii_letters + string.digits
