@@ -6,7 +6,13 @@ LightMatter Django Template
 ABOUT
 =====
 
-A generic template for Django 1.10x
+A generic template for Django 1.11x
+
+Prerequisites
+=============
+This template tries to be faithful to the 12 factor app configuration. Lots of functionality is driven by env variables.
+To clone the template you must have defined
+ - PROJECT_HOME - the folder where all your projects live
 
 
 Instructions
