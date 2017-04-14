@@ -12,5 +12,3 @@ mccabe:
 uses:
     - django
     - celery
-pylint:
-  run: false
