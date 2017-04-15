@@ -22,7 +22,7 @@
     "react-hot-loader": "^1.3.0",
     "resolve-url-loader": "^1.6.0",
     "webpack-dev-server": "^1.14.1"
- },
+  },
   "author": "Lightmatter Team",
   "license": "ISC",
   "dependencies": {
@@ -60,6 +60,6 @@
     {% if cookiecutter.stripe == "y" -%}
     "stripe": "^4.9.0",
     {%- endif %}
-     "webpack-bundle-tracker": "0.0.93"
- }
+    "webpack-bundle-tracker": "0.0.93"
+  }
 }
