@@ -8,7 +8,7 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 const PROJECT_NAME = "{{cookiecutter.repo_name}}";
 
 const PATHS = {
-  app: path.join(__dirname, PROJECT_NAME),
+  app: path.join(__dirname, '..', PROJECT_NAME),
 };
 
 PATHS.static_source = path.join(PATHS.app, "static_source");
