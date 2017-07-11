@@ -41,7 +41,7 @@ django-storages==1.5.1
 
 #HEROKU
 whitenoise==3.2.2
-ipython==4.1.2
+ipython==6.1.0
 gunicorn==19.4.5
 
 #OPTIONAL TOOLS
