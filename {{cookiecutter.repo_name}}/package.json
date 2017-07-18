@@ -4,6 +4,8 @@
   "description": "",
   "main": "node/dev-server.js",
   "scripts": {
+    "build": "NODE_ENV=production webpack -p",
+    "dev": "NODE_ENV=dev webpack",
     "test": "jest --verbose",
     "test:lint": "eslint . --ext .js --ext .jsx --ignore-path .gitignore --cache"
   },

@@ -15,3 +15,4 @@ coveralls==1.1
 codecov
 watchdog
 prospector
+pylint==1.6.5
