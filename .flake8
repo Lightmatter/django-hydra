@@ -1,0 +1,4 @@
+[flake8]
+ignore = E402
+exclude =
+max-complexity = 10

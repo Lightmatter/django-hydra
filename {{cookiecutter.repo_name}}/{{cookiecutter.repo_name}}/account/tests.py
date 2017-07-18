@@ -1,13 +1,11 @@
 from django.test import TestCase
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.contrib.auth.hashers import make_password
-
-{%- if cookiecutter.django_registration == 'y' -%}
+from model_mommy import mommy
+{% if cookiecutter.django_registration == 'y' %}
 from .forms import RegistrationForm
-{%- endif -%}
-
+{% endif -%}
 from .models import User
-from .recipies import user_recipe
 
 
 class UserManager(TestCase):
@@ -15,11 +13,11 @@ class UserManager(TestCase):
         user = User.objects.create_user("jonnyrico@fednet.gov", password="iwanttoknowmore")
         User.objects.get(id=user.id)
 
-{%- if cookiecutter.django_registration == 'y' -%}
+{% if cookiecutter.django_registration == 'y' %}
 
 class RegistrationTest(TestCase):
     def setUp(self):
-        self.user = user_recipe.prepare()
+        self.user = mommy.prepare_recipe('{{ cookiecutter.repo_name }}.account.user')
         self.form_keys = RegistrationForm.base_fields.keys()
         self.form_data = {k: v for (k, v) in self.user.__dict__.items() if k in self.form_keys}
         self.form_data['tos'] = "True"
@@ -30,7 +28,7 @@ class RegistrationTest(TestCase):
         on failed registration, keep the user on the same page and ask for a fix
         """
         del self.form_data['tos']
-        url = reverse("registration_register")
+        url = reverse("register")
         response = self.client.post(url, self.form_data)
         actual = response.status_code
         expected = 200
@@ -39,7 +37,7 @@ class RegistrationTest(TestCase):
     def test_user_registration_fails_passwords_must_match(self):
         self.form_data['password2'] = "bugs rule"
 
-        url = reverse("registration_register")
+        url = reverse("register")
         response = self.client.post(url, self.form_data)
         actual = response.status_code
         expected = 200
@@ -49,7 +47,7 @@ class RegistrationTest(TestCase):
         self.assertEqual(actual, expected)
 
     def test_user_registration_fails_unique_email(self):
-        url = reverse("registration_register")
+        url = reverse("register")
         actual = self.client.post(url, self.form_data)
         expected = reverse("home")
         self.assertRedirects(actual, expected)
@@ -68,17 +66,17 @@ class RegistrationTest(TestCase):
         on successful registration, move user to either
         their profile page or the next page specified in the querystring
         """
-        url = reverse("registration_register")
+        url = reverse("register")
         actual = self.client.post(url, self.form_data)
         expected = reverse("home")
         self.assertRedirects(actual, expected)
         User.objects.get(email=self.user.email)
 
-{%- endif -%}
+{% endif %}
 
 class LoginTest(TestCase):
     def setUp(self):
-        self.user = user_recipe.make()
+        self.user = mommy.make_recipe('{{ cookiecutter.repo_name }}.account.user')
         self.password = "wouldYouLikeToKnowMore"
         self.user.set_password(self.password)
         self.user.save()
@@ -92,7 +90,7 @@ class LoginTest(TestCase):
         and show error
         """
         self.form_data['password'] = "bugs rule federation drulz"
-        url = reverse("auth_login")
+        url = reverse("login")
         response = self.client.post(url, self.form_data)
         actual = response.status_code
         expected = 200
@@ -105,20 +103,20 @@ class LoginTest(TestCase):
         """
         on attempted login, move user to the special page
         """
-        url = reverse('auth_login')
+        url = reverse('login')
         actual = self.client.post(url, self.form_data)
         expected = reverse("home")
         self.assertRedirects(actual, expected)
 
-{%- if cookiecutter.django_registration == 'y' -%}
+{%- if cookiecutter.django_registration == 'y' %}
 
     def test_register_login_flow_works(self):
-        self.user = user_recipe.prepare()
+        self.user = mommy.prepare_recipe('{{ cookiecutter.repo_name }}.account.user')
         self.form_keys = RegistrationForm.base_fields.keys()
         self.form_data = {k: v for (k, v) in self.user.__dict__.items() if k in self.form_keys}
         self.form_data['tos'] = "True"
         self.form_data['password1'] = self.form_data['password2'] = "bugssuck"
-        url = reverse("registration_register")
+        url = reverse("register")
         actual = self.client.post(url, self.form_data)
         expected = reverse("home")
         self.assertRedirects(actual, expected)
@@ -128,22 +126,25 @@ class LoginTest(TestCase):
                           }
 
         self.client.logout()
-        url = reverse('auth_login')
+        url = reverse('login')
         actual = self.client.post(url, self.form_data)
         expected = reverse("home")
         self.assertRedirects(actual, expected)
 
-{%- endif -%}
+{%- endif %}
+
+{% if cookiecutter.django_registration == 'y' %}
 
 class UserAdminTest(TestCase):
     def setUp(self):
         form_data = self.login_form_data = {"username": "ben@coolguy.com",
                                             "password": "yeahman"}
 
-        self.user = user_recipe.make(email=form_data['username'],
-                                     is_superuser=True,
-                                     is_staff=True,
-                                     password=make_password(form_data['password']),
+        self.user = mommy.make_recipe('{{ cookiecutter.repo_name }}.account.user',
+                                      email=form_data['username'],
+                                      is_superuser=True,
+                                      is_staff=True,
+                                      password=make_password(form_data['password']),
         )
 
         self.client.login(username=self.login_form_data['username'],
@@ -199,3 +200,4 @@ class UserAdminTest(TestCase):
         actual = response = self.client.post(url, form_data)
         expected = reverse("admin:account_user_changelist")
         self.assertRedirects(actual, expected, target_status_code=302)
+{% endif %}

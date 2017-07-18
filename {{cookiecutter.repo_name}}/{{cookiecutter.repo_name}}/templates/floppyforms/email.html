@@ -1,0 +1,8 @@
+{%raw%}<div class="row">
+<input {% for key, val in attrs.items %}
+         {{ key }}="{{ val }}"
+       {% endfor %}
+       type="{{ type }}"
+       name="{{ name }}"
+       {% if value %}value="{{ value }}"{% endif %} placeholder="{{ help_text }}">
+{%endraw%}

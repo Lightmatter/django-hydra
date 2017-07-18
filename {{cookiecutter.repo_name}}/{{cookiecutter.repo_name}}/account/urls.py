@@ -1,32 +1,25 @@
 from django.conf.urls import url, include
-{% if cookiecutter.django_registration == 'n' %}
-from .views import LoginView, LogoutView, RegistrationView, PasswordResetView, PasswordResetConfirmView
+urlpatterns = []
 
-authurls = [
+{%- if cookiecutter.django_registration == 'y' %}
+from .views import login, RegistrationView # NOQA
+from django.contrib.auth import urls as auth_urls # NOQA
+
+urlpatterns.extend([
+    url(r'^login/$', login, name='login'),
+    url(r'^member/register/$',
+        RegistrationView.as_view(),
+        name='register'),
+    url(r'', include(auth_urls)),
+])
+{%- endif %}
+{%- if cookiecutter.use_djoser == 'y' -%}
+
+urlpatterns.extend([
     url(r'^login/', LoginView.as_view(), name='user-login'),
     url(r'^logout/', LogoutView.as_view(), name='user-logout'),
-{%- if cookiecutter.djoser != 'basic' -%}
-    url(r'^register/user/', RegistrationView.as_view(), name='user-register'),
+    url(r'^register/user/', APIRegistrationView.as_view(), name='user-register'),
     url(r'^password/reset/$', PasswordResetView.as_view(), name='password-reset'),
     url(r'^password/reset/confirm/$', PasswordResetConfirmView.as_view(), name='password-confirm'),
-{%- endif -%}
-]
-
-urlpatterns = [
-    url(r'^api/auth/', include(authurls))
-]
-
-{% else %}
-from .views import RegistrationView
-
-
-urlpatterns = [
-    url(r'^register/$', RegistrationView.as_view(), name='registration_register'),
-]
-
-urlpatterns += [
-    url(r'', include('registration.backends.simple.urls')),
-]
-
-
-{% endif %}
+])
+{%- endif %}

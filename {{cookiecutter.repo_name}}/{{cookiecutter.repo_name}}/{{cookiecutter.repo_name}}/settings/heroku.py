@@ -1,13 +1,11 @@
-import os
 from urllib.parse import urlparse
-
-import dj_database_url
 
 from .base import *
 
-SSLIFY_DISABLE = False
+SESSION_COOKIE_SECURE = True
+SECURE_SSL_REDIRECT = True
 DATABASES = {}
-DATABASES['default'] = dj_database_url.config()
+DATABASES['default'] = env.db()
 
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -15,7 +13,8 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = env('ALLOWED_HOSTS').split('|')
 
 STATIC_ROOT = str(PROJECT_ROOT / 'static')
-redis_url = urlparse(env('REDISTOGO_URL', default='redis://localhost:6959'))
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+redis_url = urlparse(env('REDIS_URL', default='redis://localhost:6959'))
 CACHES = {
     'default': {
         'BACKEND': 'redis_cache.RedisCache',
@@ -33,7 +32,6 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
 MIDDLEWARE_CLASSES += (
     'django.middleware.gzip.GZipMiddleware',
-    'pipeline.middleware.MinifyHTMLMiddleware',
 )
 
 SECRET_KEY = env('SECRET_KEY')
@@ -71,5 +69,5 @@ TEMPLATES[0]['OPTIONS']['loaders'] = (
 # GEOS_LIBRARY_PATH = '/app/.heroku/vendor/lib/libgeos_c.so'
 # GDAL_LIBRARY_PATH = '/app/.heroku/vendor/lib/libgdal.so'
 
-# SOCIAL_AUTH_FACEBOOK_KEY = get_env_setting('SOCIAL_AUTH_FACEBOOK_KEY')
-# SOCIAL_AUTH_FACEBOOK_SECRET = get_env_setting('SOCIAL_AUTH_FACEBOOK_SECRET')
+# SOCIAL_AUTH_FACEBOOK_KEY = env('SOCIAL_AUTH_FACEBOOK_KEY')
+# SOCIAL_AUTH_FACEBOOK_SECRET = env('SOCIAL_AUTH_FACEBOOK_SECRET')

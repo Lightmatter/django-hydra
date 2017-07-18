@@ -29,21 +29,21 @@ then
     rm -rf $WORKON_HOME/{{ cookiecutter.repo_name }}/build/
 fi
 
-pip install pip-accel
-which pip-accel
 if [ $? -ne 0 ]; then
     pip install --download ${HOME}/.pip-packages --exists-action w -r requirements-dev.txt
     pip install --no-index --exists-action w --find-links=file://${HOME}/.pip-packages/ -r requirements-dev.txt
 else
-    pip-accel install -r requirements-dev.txt
+    pip install -r requirements-dev.txt
 fi
 
+npm install
 
 #check if postgres installed
 RESULT=`psql -l | grep "{{ cookiecutter.repo_name }}" | wc -l | awk '{print $1}'`;
 if test $RESULT -eq 0; then
     echo "Creating Database";
     psql -c "create role {{ cookiecutter.repo_name }} with createdb encrypted password '{{ cookiecutter.repo_name }}' login;"
+    psql -c "alter user {{ cookiecutter.repo_name }} superuser;"
     psql -c "create database {{ cookiecutter.repo_name }} with owner {{ cookiecutter.repo_name }};"
 else
     echo "Database exists"
