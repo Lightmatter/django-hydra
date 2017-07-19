@@ -11,7 +11,7 @@ psycopg2==2.7.1
 
 #User Accounts
 django-registration-redux==1.7
-python-social-auth==0.3.6
+social-auth-app-django==1.2.0
 
 #Forms
 django-floppyforms==1.7.0

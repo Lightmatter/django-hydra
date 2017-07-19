@@ -8,7 +8,7 @@ urlpatterns = [
     url(r'^favicon\.ico$', RedirectView.as_view(url='/static/img/favicon.ico', permanent=True)),
     url(r'account/', include('{{ cookiecutter.repo_name }}.account.urls')),
     url(r'^admin/', include(admin.site.urls)),
-    url('', include('social.apps.django_app.urls', namespace='social')),
+    url('', include('social_django.urls', namespace='social')),
     url(r'', include('{{ cookiecutter.repo_name }}.home.urls')),
 ]
 
