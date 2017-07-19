@@ -8,6 +8,7 @@ machine:
 dependencies:
   override:
     - npm install -g webpack
+    - npm install -g yarn
     - pip install cookiecutter
 test:
   override:
