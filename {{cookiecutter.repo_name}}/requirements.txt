@@ -1,20 +1,20 @@
 Django>=1.11,<1.12
-django-environ==0.4.0
+django-environ==0.4.3
 
 #Admin
-Pillow==3.3.1
-django-localflavor==1.3
+Pillow==4.2.1
+django-localflavor==1.5.2
 django-import-export==0.5.1
 
 #DB
-psycopg2==2.6.2
+psycopg2==2.7.1
 
 #User Accounts
-django-registration-redux==1.4
-python-social-auth==0.2.21
+django-registration-redux==1.7
+python-social-auth==0.3.6
 
 #Forms
-django-floppyforms==1.6.2
+django-floppyforms==1.7.0
 django-parsley==0.6
 
 {% if cookiecutter.use_djoser == 'y' %}
@@ -23,26 +23,26 @@ djoser==0.4.3
 {% endif %}
 
 #Utils
-django-extensions==1.7.4
-django-model-utils==2.5
-django-braces==1.8.1
-pytz==2016.3
+django-extensions==1.8.1
+django-model-utils==3.0.0
+django-braces==1.11.0
+pytz==2017.2
 easy-thumbnails==2.4.1
 
 #REDIS CACHING
 hiredis==0.2.0
 redis==2.10.5
-django-redis-cache==1.6.5
-django-redis-sessions==0.5.0
+django-redis-cache==1.7.1
+django-redis-sessions==0.5.6
 
 ## AWS
-boto==2.39.0
-django-storages==1.5.1
+boto==2.48.0
+django-storages==1.6.3
 
 #HEROKU
-whitenoise==3.2.2
+whitenoise==3.3.0
 ipython==6.1.0
-gunicorn==19.4.5
+gunicorn==19.7.1
 
 #OPTIONAL TOOLS
 #whoosh
@@ -51,11 +51,11 @@ gunicorn==19.4.5
 #Money
 
 {% if cookiecutter.stripe == 'y' %}
-stripe==1.38.0
+stripe==1.62.0
 {% endif %}
 
 #standard utilities
-raven==5.13.0
+raven==6.1.0
 #celery==3.1.18
-sendgrid-django==2.0.0
-django-webpack-loader==0.3.0
+sendgrid-django==4.0.4
+django-webpack-loader==0.5.0
