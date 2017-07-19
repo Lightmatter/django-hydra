@@ -1,5 +1,6 @@
 from model_mommy.recipe import Recipe, seq
-from {{cookiecutter.repo_name}}.account.models import User
+
+from .models import User
 
 email_seq = seq('test@lightmatter.com')
 

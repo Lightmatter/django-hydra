@@ -34,8 +34,8 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, True, True,
                                  **extra_fields)
 
-    def get_by_natural_key(self, email):  # Used by contrib.auth.backends.ModelBackend
-        return self.get(email__iexact=email)
+    def get_by_natural_key(self, username):  # Used by contrib.auth.backends.ModelBackend
+        return self.get(email__iexact=username)
 
 
 class User(TimeStampedModel, AbstractBaseUser, PermissionsMixin):
@@ -85,4 +85,4 @@ class User(TimeStampedModel, AbstractBaseUser, PermissionsMixin):
         """
         The absolute url of the user model
         """
-        raise NotImplemented()
+        raise NotImplementedError()

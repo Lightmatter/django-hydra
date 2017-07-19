@@ -56,7 +56,7 @@ export DJANGO_SETTINGS_MODULE=$appname.$appname.settings.local
 webpack -p
 python manage.py collectstatic --noinput
 python manage.py test --noinput --keepdb
-prospector $appname -X
+prospector $appname -X -I "$appname/settings/*"
 RV=$?
 rm -rf static/
 cd $original

@@ -18,7 +18,7 @@ test:
   override:
     - python manage.py validate_templates
     - isort --recursive --check-only --builtin django --skip-glob "00*.py" fluentcity/
-    - prospector {{ cookiecutter.repo_name }} -X
+    - prospector {{ cookiecutter.repo_name }} -X -I "{{cookiecutter.repo_name}}/settings/*"
     - coverage run --source='.' manage.py test
     - npm run test:ci
   post:

@@ -13,4 +13,4 @@ coverage==4.0.3
 unittest-xml-reporting==2.1.0
 codecov
 watchdog
-prospector==0.12.4
+prospector==0.12.7
