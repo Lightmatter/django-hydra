@@ -231,7 +231,6 @@ STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY', default='')
 try:
     from model_mommy import generators  # noqa
     MOMMY_CUSTOM_FIELDS_GEN = {
-        'phonenumber_field.modelfields.PhoneNumberField': generators.gen_string,
         'localflavor.us.models.USZipCodeField': generators.gen_string,
     }
 except ImportError:
