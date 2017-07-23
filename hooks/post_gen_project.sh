@@ -39,7 +39,7 @@ export DJANGO_SETTINGS_MODULE="$ENV_NAME.$ENV_NAME.settings.local"
 
 python manage.py migrate
 yarn install
-NODE_ENV=production webpack -p
+npm run build
 chmod +x manage.py
 
 echo "Setting up Git"

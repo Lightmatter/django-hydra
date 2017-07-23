@@ -53,7 +53,7 @@ echo "Running tests"
 workon $appname
 cd $base/$appname/
 export DJANGO_SETTINGS_MODULE=$appname.$appname.settings.local
-webpack -p
+npm run build
 python manage.py collectstatic --noinput
 python manage.py test --noinput --keepdb
 prospector $appname -X -I "$appname/settings/*"
