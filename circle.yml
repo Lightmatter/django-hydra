@@ -1,6 +1,6 @@
 machine:
   pre:
-    cd /home/ubuntu/.pyenv/plugins/python-build/../.. && git pull && cd -
+    - cd /home/ubuntu/.pyenv/plugins/python-build/../.. && git pull && cd -
   python:
     version: 3.6.2
   node:

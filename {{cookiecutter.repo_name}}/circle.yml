@@ -15,7 +15,7 @@ dependencies:
     - pip install -r requirements-dev.txt
     - npm install
     - npm install -g webpack
-    - webpack
+    - npm run build
 test:
   override:
     - python manage.py validate_templates
