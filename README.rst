@@ -8,12 +8,6 @@ ABOUT
 
 A generic template for Django 1.11x
 
-Prerequisites
-=============
-This template tries to be faithful to the 12 factor app configuration. Lots of functionality is driven by env variables.
-To clone the template you must have defined
- - PROJECT_HOME - the folder where all your projects live
-
 
 Instructions
 ============
@@ -26,6 +20,14 @@ Follow the steps below to start a new project using this django template::
     $ scripts/start.sh
     $ workon <project_name>
     $ python <project_name>/manage.py runserver
+
+Testing the Template
+==========
+The test.sh will do a run of the template, and then run the django tests and prospector against it.
+
+Pass an argument to the test to keep the python envrionment around - eg::
+
+    $ test.sh keepenv
 
 Deployment
 ==========

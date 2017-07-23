@@ -1,8 +1,10 @@
 machine:
+  pre:
+    cd /home/ubuntu/.pyenv/plugins/python-build/../.. && git pull && cd -
   python:
     version: 3.6.1
   node:
-    version: v8.1.4
+    version: 8.1.4
   services:
     - postgresql
 dependencies:
