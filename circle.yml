@@ -1,6 +1,6 @@
 machine:
   python:
-    version: 3.6.2
+    version: 3.6.1
   node:
     version: v8.1.4
   services:
