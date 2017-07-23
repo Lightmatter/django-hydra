@@ -1,0 +1,24 @@
+{% raw %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{{ render_bundle('main') }}
+{% block extra_head %}
+{% endblock extra_head %}
+  </head>
+  <body>
+      {% include "header.html" %}
+
+      <div id="main">
+          {% block content %}
+          {% endblock content %}
+      </div> <!-- /container -->
+
+      {% include "footer.html" %}
+      <script>
+          var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+          (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+              g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+              s.parentNode.insertBefore(g,s)}(document,'script'));
+      </script>
+  </body>
+</html>
+{% endraw %}

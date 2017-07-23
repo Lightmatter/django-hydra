@@ -42,7 +42,7 @@ class RegistrationTest(TestCase):
         actual = response.status_code
         expected = 200
         self.assertEqual(actual, expected)
-        actual = response.context['form'].errors['__all__']
+        actual = response.context_data['form'].errors['__all__']
         expected = ["The two password fields didn't match."]
         self.assertEqual(actual, expected)
 
@@ -56,7 +56,7 @@ class RegistrationTest(TestCase):
         actual = response.status_code
         expected = 200
         self.assertEqual(actual, expected)
-        actual = response.context['form'].errors['email']
+        actual = response.context_data['form'].errors['email']
         expected = ["This email address is already in use. Please supply a different email address."]
         self.assertEqual(actual, expected)
 
@@ -95,7 +95,7 @@ class LoginTest(TestCase):
         actual = response.status_code
         expected = 200
         self.assertEqual(actual, expected)
-        actual = response.context['form'].errors['__all__']
+        actual = response.context_data['form'].errors['__all__']
         expected = ['Please enter a correct email address and password. Note that both fields may be case-sensitive.']
         self.assertEqual(actual, expected)
 

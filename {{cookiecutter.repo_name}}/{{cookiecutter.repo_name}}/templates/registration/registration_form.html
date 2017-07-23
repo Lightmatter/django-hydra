@@ -1,5 +1,4 @@
-{%raw%}{% extends "base.html" %}
-{% load static %}
+{%raw%}{% extends "base.jinja" %}
 {% block title %}
 
 {% endblock title %}
@@ -52,7 +51,7 @@
 
       <div class="clear"></div>
       <p class='registration'>Or Login with Facebok</p>
-      <a href='/login/facebook'><img src='{% static 'img/button_fb.png' %}'/></a>
+      <a href='/login/facebook'><img src='{{ static('img/button_fb.png') }}'/></a>
     </form>
   </div>
 

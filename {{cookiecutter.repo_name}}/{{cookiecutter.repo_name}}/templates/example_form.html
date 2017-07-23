@@ -1,6 +1,5 @@
-{%raw%}{% extends "base.html" %}
+{%raw%}{% extends "base.jinja" %}
 
-{% load static from staticfiles %}
 
 {% block title %}
 Example Form
@@ -9,7 +8,7 @@ Example Form
 {% block content %}
 <form id="example_form" parsley-validate action='' method='post'>
   {% csrf_token %}
-  {{ form.as_p }}
+  {{ form.as_p() }}
   <input type='submit' value='Submit' class='btn btn-primary btn-large' />
 </form>
 <script>

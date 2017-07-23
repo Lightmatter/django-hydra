@@ -94,6 +94,7 @@ INSTALLED_APPS = (
     'import_export',
     'social_django',
     'floppyforms',
+    'django_jinja',
     'webpack_loader',
 
     '{{ cookiecutter.repo_name }}.home',
@@ -174,23 +175,30 @@ CONTEXT_PROCESSORS = [
     'social_django.context_processors.login_redirect',
 ]
 
+from django_jinja.builtins import DEFAULT_EXTENSIONS # noqa
 
 TEMPLATES = [
     {
+        "BACKEND": "django_jinja.backend.Jinja2",
+        'DIRS': [str(PROJECT_ROOT / 'templates')],
+        "APP_DIRS": False,
+        "OPTIONS": {
+            "match_extension": None,
+            "match_regex": r"^(?!admin/).*", # this is additive to match_extension
+            'context_processors': CONTEXT_PROCESSORS,
+            "extensions": DEFAULT_EXTENSIONS + [
+                "webpack_loader.contrib.jinja2ext.WebpackExtension",
+            ],
+        }
+    },
+    {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [str(PROJECT_ROOT / 'templates')],
+        "APP_DIRS": True,
         'OPTIONS': {
             'builtins': ['django.contrib.staticfiles.templatetags.staticfiles'],
             'context_processors': CONTEXT_PROCESSORS,
-            },
-    },
-    {
-        "BACKEND": "django_jinja.backend.Jinja2",
-        'DIRS': [str(PROJECT_ROOT / 'templates')],
-        "APP_DIRS": True,
-        "OPTIONS": {
-            "match_extension": ".jinja",
-            'context_processors': CONTEXT_PROCESSORS,
-        }
+        },
     },
 ]
 

@@ -1,9 +1,9 @@
-{% raw %}{% extends "base.html" %}
+{% raw %}{% extends "base.jinja" %}
 
 {% block content %}
 
 <div>
-    <form method="post" action="{% url "login" %}{% if next %}?next={{next}}{% endif %}">
+    <form method="post" action="{{ url('login') }}{% if next %}?next={{next}}{% endif %}">
         {% csrf_token %}
         <table>
             <tr>

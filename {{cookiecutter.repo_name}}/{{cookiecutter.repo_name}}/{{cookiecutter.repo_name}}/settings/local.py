@@ -47,8 +47,10 @@ class InvalidVariable(str):
     def __bool__(self):
         return False
 
+
 TEMPLATES[0]['OPTIONS']['debug'] = True
-TEMPLATES[0]['OPTIONS']['string_if_invalid'] = InvalidVariable('BAD TEMPLATE VARIABLE: %s')
+TEMPLATES[1]['OPTIONS']['debug'] = True
+TEMPLATES[1]['OPTIONS']['string_if_invalid'] = InvalidVariable('BAD TEMPLATE VARIABLE: %s')
 
 
 SECRET_KEY = env('SECRET_KEY')
