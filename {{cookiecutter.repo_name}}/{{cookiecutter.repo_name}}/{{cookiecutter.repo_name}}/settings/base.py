@@ -226,3 +226,13 @@ SOCIAL_AUTH_DEFAULT_USERNAME = "new_social_auth_user"
 STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY', default='')
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY', default='')
 {% endif %}
+
+
+try:
+    from model_mommy import generators  # noqa
+    MOMMY_CUSTOM_FIELDS_GEN = {
+        'phonenumber_field.modelfields.PhoneNumberField': generators.gen_string,
+        'localflavor.us.models.USZipCodeField': generators.gen_string,
+    }
+except ImportError:
+    pass
