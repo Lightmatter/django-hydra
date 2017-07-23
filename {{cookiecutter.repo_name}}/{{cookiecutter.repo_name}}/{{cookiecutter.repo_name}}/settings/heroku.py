@@ -59,13 +59,6 @@ AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY', default='')
 AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME', default='')
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-TEMPLATES[0]['OPTIONS']['loaders'] = (
-    ('django.template.loaders.cached.Loader', [
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-    ]),
-)
-
 # GEOS_LIBRARY_PATH = '/app/.heroku/vendor/lib/libgeos_c.so'
 # GDAL_LIBRARY_PATH = '/app/.heroku/vendor/lib/libgdal.so'
 

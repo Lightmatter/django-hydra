@@ -160,30 +160,37 @@ ALLOWED_HOSTS = [
 DEFAULT_FROM_EMAIL = 'hello@{{cookiecutter.repo_name}}.com'
 SERVER_EMAIL = 'error@{{cookiecutter.repo_name}}.com'
 
+CONTEXT_PROCESSORS = [
+    'django.contrib.auth.context_processors.auth',
+    'django.template.context_processors.debug',
+    'django.template.context_processors.request',
+    'django.template.context_processors.i18n',
+    'django.template.context_processors.media',
+    'django.template.context_processors.static',
+    'django.template.context_processors.tz',
+    'django.contrib.messages.context_processors.messages',
+    '{{cookiecutter.repo_name}}.home.context_processors.settings',
+    'social_django.context_processors.backends',
+    'social_django.context_processors.login_redirect',
+]
+
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [str(PROJECT_ROOT / 'templates')],
         'OPTIONS': {
-            'loaders': [
-                'django.template.loaders.filesystem.Loader',
-                'django.template.loaders.app_directories.Loader',
-            ],
-            'context_processors': [
-                'django.contrib.auth.context_processors.auth',
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.template.context_processors.i18n',
-                'django.template.context_processors.media',
-                'django.template.context_processors.static',
-                'django.template.context_processors.tz',
-                'django.contrib.messages.context_processors.messages',
-                '{{cookiecutter.repo_name}}.home.context_processors.settings',
-                'social_django.context_processors.backends',
-                'social_django.context_processors.login_redirect',
-            ],
-        },
+            'builtins': ['django.contrib.staticfiles.templatetags.staticfiles'],
+            'context_processors': CONTEXT_PROCESSORS,
+            },
+    },
+    {
+        "BACKEND": "django_jinja.backend.Jinja2",
+        'DIRS': [str(PROJECT_ROOT / 'templates')],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "match_extension": ".jinja",
+            'context_processors': CONTEXT_PROCESSORS,
+        }
     },
 ]
 

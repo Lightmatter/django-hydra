@@ -24,6 +24,7 @@ djoser==0.4.3
 
 #Utils
 django-extensions==1.8.1
+django-jinja==2.3.1
 django-model-utils==3.0.0
 django-braces==1.11.0
 pytz==2017.2
