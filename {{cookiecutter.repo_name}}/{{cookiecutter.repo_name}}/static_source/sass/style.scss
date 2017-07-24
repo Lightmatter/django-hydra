@@ -1,16 +1,12 @@
-@import 'base/base';
+@import 'foundation-settings';
+@import '../../../node_modules/foundation-sites/scss/foundation.scss';
+@include foundation-everything(true);
 
-@import "variables";
-@import "buttons";
+@import 'mixins';
+@import 'typography';
+@import 'buttons';
 @import "forms";
 @import "header";
 @import "footer";
-
-
-/* comment to turn off grid */
-$visual-grid: true;
-
-
-body {
-  color: black;
-}
+@import 'components/components';
+@import "pages/pages";
