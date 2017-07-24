@@ -21,7 +21,7 @@ if [ -d "${WORKON_HOME:?}/{{ cookiecutter.repo_name }}/build/" ]; then
 fi
 
 echo "Downloading requirements"
-pip install -r requirements-dev.txt
+pip install -r requirements-dev.txt -q
 
 # Create the DB if necessary
 RESULT=`psql -l | grep "{{ cookiecutter.repo_name }}" | wc -l | awk '{print $1}'`;
