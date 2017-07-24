@@ -11,6 +11,9 @@ tmpfolder=""
 appname=genericapp
 appdir=../$appname
 unset DJANGO_SETTINGS_MODULE
+echo "Installing virtualenvwrapper"
+pip install virtualenvwrapper
+
 source `which virtualenvwrapper.sh`
 
 if [ -d $appdir ]; then
@@ -32,9 +35,6 @@ if [ -d $appdir ]; then
     echo "Deleting Old app"
     rm -rf $appdir
 fi
-
-echo "Installing virtualenvwrapper"
-pip install virtualenvwrapper
 
 cd ..
 base=$(pwd)
