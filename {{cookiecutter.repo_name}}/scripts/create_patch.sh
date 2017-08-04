@@ -31,7 +31,7 @@ pushd ../generic-django-conf/
 git apply --ignore-space-change --ignore-whitespace --directory=\{\{cookiecutter.repo_name\}\} "$PATCH_NAME" --reject --index
 if [ $? -eq 0 ]
 then
-    rm "$PATH_NAME"
+    rm "$PATCH_NAME"
     popd
     echo "Successfully backported patch"
 else
