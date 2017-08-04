@@ -2,7 +2,7 @@
   // Extend existing configuration
   // from ESlint and eslint-plugin-react defaults.
   "extends": [
-    "eslint:recommended", "plugin:react/recommended"
+    "eslint:recommended"
   ],
   "parser": "babel-eslint",
   "env": {
@@ -11,7 +11,6 @@
   },
   // Enable custom plugin known as eslint-plugin-react
   "plugins": [
-    "react"
   ],
   "rules": {
       // Disable `no-console` rule
@@ -20,9 +19,8 @@
       "no-debugger": 0,
       // Default to single quotes and raise an error if something
       // else is used
-      "quotes": [2, "single"]
-
-      "comma-dangle" : 0,
+      "quotes": [2, "single"],
+      "comma-dangle" : 0
   },
   "parserOptions": {
       "ecmaVersion": 7,
