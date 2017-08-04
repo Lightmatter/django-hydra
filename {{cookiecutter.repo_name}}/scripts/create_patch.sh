@@ -21,5 +21,8 @@ PROJECT_NAME="${PWD##*/}"
 PATCH_NAME="$PROJECT_NAME"_"$PATCH_COMMIT"".diff"
 PATCH_TMP_PATH="/tmp/""$PATCH_NAME"
 git diff "$BASE_COMMIT" "$PATCH_COMMIT" > "$PATCH_TMP_PATH"
-sed -i 's/'"$PROJECT_NAME"'/{{ cookiecutter.repo_name }}/g' "$PATCH_TMP_PATH"
-mv "$PATCH_TMP_PATH" .
+{% raw %}
+gsed -i 's/'"$PROJECT_NAME"'/{{ cookiecutter.repo_name }}/g' "$PATCH_TMP_PATH"
+{% endraw %}
+mv "$PATCH_TMP_PATH" ../generic-django-conf/
+echo "Patch created successfully!"
