@@ -15,3 +15,4 @@ codecov==2.0.9
 watchdog
 pylint==1.7.2
 prospector==0.12.7
+service-factory==0.1.5
