@@ -14,12 +14,18 @@
     "react"
   ],
   "rules": {
-    // Disable `no-console` rule
-    "no-console": 0,
-   //disable the "no-debugger" rule
-   "no-debugger": 0,
-    // Default to single quotes and raise an error if something
-    // else is used
-    "quotes": [2, "single"]
+      // Disable `no-console` rule
+      "no-console": 0,
+      //disable the "no-debugger" rule
+      "no-debugger": 0,
+      // Default to single quotes and raise an error if something
+      // else is used
+      "quotes": [2, "single"]
+
+      "comma-dangle" : 0,
+  },
+  "parserOptions": {
+      "ecmaVersion": 7,
+      "sourceType": "module",
   }
 }
