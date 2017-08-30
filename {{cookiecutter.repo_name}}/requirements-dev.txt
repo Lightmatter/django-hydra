@@ -16,3 +16,4 @@ watchdog
 pylint==1.7.2
 prospector==0.12.7
 service-factory==0.1.5
+Werkzeug==0.12.2
