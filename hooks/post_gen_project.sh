@@ -4,12 +4,10 @@ source `which virtualenvwrapper.sh`
 unset PYTHONDONTWRITEBYTECODE
 
 ENV_NAME="{{ cookiecutter.repo_name }}"
-ENV_PATH="${PROJECT_HOME:?}/$ENV_NAME"
 
 
 echo "switching into project"
 workon $ENV_NAME
-cd $ENV_PATH
 
 if [ ! -d "${HOME:?}/.pip-packages" ]; then
     echo "creating cache for pip in the home dir";
