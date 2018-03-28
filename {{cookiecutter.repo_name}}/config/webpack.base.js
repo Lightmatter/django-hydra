@@ -24,10 +24,15 @@ PATHS.fonts = path.join(PATHS.static_source, "fonts");
 module.exports = {
   PATHS: PATHS,
   context: __dirname,
-  entry: [
-    path.join(PATHS.js, "main"),
-    path.join(PATHS.sass, "style.scss")
-  ],
+  entry: {
+    js: [
+      "babel-polyfill",
+      path.join(PATHS.js, "main")
+    ],
+    style: [
+      path.join(PATHS.sass, "style.scss")
+    ]
+  },
   output: {
     path: PATHS.build,
     filename: "[name]-[hash].js",
@@ -67,7 +72,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: "babel-loader",
         query: {
-          presets: ['es2015', 'react', 'airbnb']
+          presets: ['env', 'react', 'airbnb']
         }
       }]
   },

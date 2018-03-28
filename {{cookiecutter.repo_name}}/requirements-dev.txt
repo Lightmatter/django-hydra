@@ -13,7 +13,7 @@ coverage==4.4.1
 unittest-xml-reporting==2.1.0
 codecov==2.0.9
 watchdog
-pylint==1.7.2
+pylint==1.8.2
 prospector==0.12.7
 service-factory==0.1.5
 Werkzeug==0.12.2
