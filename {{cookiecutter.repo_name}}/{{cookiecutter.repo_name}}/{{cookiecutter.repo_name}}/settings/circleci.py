@@ -25,3 +25,6 @@ SECRET_KEY = 'testing'
 
 TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
 TEST_OUTPUT_DIR = env('CIRCLE_TEST_REPORTS', default='.')
+
+TEMPLATES[0]['OPTIONS']['debug'] = True
+TEMPLATES[1]['OPTIONS']['debug'] = True
