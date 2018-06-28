@@ -1,0 +1,78 @@
+version: 2
+jobs:
+  build:
+      docker:
+        - image: circleci/python:3.6-stretch-node-browsers
+      steps:
+        - checkout
+        - restore_cache:
+            keys:
+            - dependencies-{% raw %}{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}{% endraw %}
+        - run: pip install --user -r requirements.txt
+        - run: npm install
+        - run: npm install webpack
+        - run: npm run build
+        - save_cache:
+            key: dependencies-{% raw %}{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}{% endraw %}
+            paths:
+              - ~/.cache/pip
+  test:
+    docker:
+      - image: circleci/python:3.6-stretch-node-browsers
+      - image: circleci/postgres:10-alpine-postgis
+        environment:
+          POSTGRES_USER: ubuntu
+          POSTGRES_DB: circle_test
+      - image: circleci/redis
+    environment:
+      DJANGO_SETTINGS_MODULE: {{ cookiecutter.repo_name }}.{{ cookiecutter.repo_name }}.settings.circleci
+    working_directory: /home/circleci/project
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - dependencies-{% raw %}{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}{% endraw %}
+      - run:
+          command: |
+            echo 'export PATH=/home/circleci/.local/bin/:$PATH' >> $BASH_ENV
+            source $BASH_ENV
+      - run: pip install --user -r requirements-dev.txt
+      - run: npm install
+      - run: npm install webpack
+      - run: npm run build
+      - run: bandit -r meterx/ -l --ini .bandit
+      - run: isort --recursive --check-only --builtin django --skip-glob "00*.py" {{cookiecutter.repo_name}}/
+      - run: npm run test
+      - run: prospector {{ cookiecutter.repo_name }} -X -I "{{cookiecutter.repo_name}}/settings/*"
+      - run: coverage run --source='.' manage.py test
+      - run: codecov
+
+  deploy:
+    docker:
+        - image: buildpack-deps:trusty
+    working_directory: /home/circleci/project
+    steps:
+      - checkout
+      - run:
+          name: "Deploy"
+          command: |
+                if [ "${CIRCLE_BRANCH}" == "develop" ]; then
+                  git push https://heroku:$HEROKU_API_KEY@git.heroku.com/{{ cookiecutter.repo_name }}-dev.git develop:master;
+                elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
+                  git push https://heroku:$HEROKU_API_KEY@git.heroku.com/{{ cookiecutter.repo_name }}-staging.git staging:master;
+                elif [ "${CIRCLE_BRANCH}" == "master" ]; then
+                  git push https://heroku:$HEROKU_API_KEY@git.heroku.com/{{ cookiecutter.repo_name }}-prod.git master
+                fi
+
+
+workflows:
+  version: 2
+  build_test_deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - test

@@ -12,7 +12,7 @@ appname=genericapp
 appdir=../$appname
 unset DJANGO_SETTINGS_MODULE
 echo "Installing virtualenvwrapper"
-pip install virtualenvwrapper
+pip install --user virtualenvwrapper
 
 source `which virtualenvwrapper.sh`
 
@@ -39,7 +39,7 @@ fi
 cd ..
 base=$(pwd)
 echo "Creating App"
-cookiecutter generic-django-conf --default-config --no-input
+cookiecutter project --default-config --no-input
 cd $appname
 if [ -d $tmpfolder/node_modules ]; then
     mv $tmpfolder/node_modules .
