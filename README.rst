@@ -14,7 +14,7 @@ Instructions
 Follow the steps below to start a new project using this django template::
 
     $ git clone https://github.com/Lightmatter/generic-django-conf
-    $ cookiecutter generic-django-conf
+    $ cookiecutter generic-django-conf -o <project_name> 
     $ cd <project_name>
     $ chmod +x scripts/start.sh
     $ scripts/start.sh
