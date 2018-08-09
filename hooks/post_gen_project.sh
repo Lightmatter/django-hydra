@@ -36,7 +36,7 @@ cp .env.example .env
 export DJANGO_SETTINGS_MODULE="$ENV_NAME.$ENV_NAME.settings.local"
 
 python manage.py migrate
-yarn install
+npm install
 npm run build
 chmod +x manage.py
 
