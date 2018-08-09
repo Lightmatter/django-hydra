@@ -1,13 +1,10 @@
 # invocation:
 #
-# replace $PGPASSWORD with actual dev password:
+# Make sure PGPORT, PGUSER, PGHOST, and PGPASSWORD are set correctly inside
+# .env, and then:
 #
-# PGPORT=5432 PGUSER=postgres PGHOST=localhost PGPASSWORD=foo bash restart-postgres-dev-docker.sh
-#
-# alternately:
-#
-# export PGPORT=5432 PGUSER=postgres PGHOST=localhost PGPASSWORD=foo;
-#
+# set -a;
+# source .env;
 # bash restart-postgres-dev-docker.sh;
 
 IMAGE='postgres:latest'
