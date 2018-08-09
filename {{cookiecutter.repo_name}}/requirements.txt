@@ -7,7 +7,7 @@ django-localflavor==1.5.2
 django-import-export==0.5.1
 
 #DB
-psycopg2==2.7.1
+psycopg2==2.7.5
 
 #User Accounts
 django-registration-redux==1.7

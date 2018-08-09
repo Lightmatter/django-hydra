@@ -9,12 +9,28 @@ ABOUT
 A generic template for Django 1.11x
 
 
+Dependencies
+============
+cookiecutter
+yarn
+bash
+git
+webpack
+postgresql-devel.x86_64 (postges header files. May have a different name
+                         depending upon what system you're on.)
+
 Instructions
 ============
-Follow the steps below to start a new project using this django template::
+Make sure your local database is up and running, and then follow the steps below
+to bootstrap a new project using this Django template.
 
+Project names must use underscores rather than hyphens.
+
+::
     $ git clone https://github.com/Lightmatter/generic-django-conf
-    $ cookiecutter generic-django-conf -o <project_name> 
+    $ set -a
+    $ source generic-django-conf/.env
+    $ cookiecutter generic-django-conf -o <project_name>
     $ cd <project_name>
     $ chmod +x scripts/start.sh
     $ scripts/start.sh
