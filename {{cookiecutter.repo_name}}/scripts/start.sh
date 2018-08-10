@@ -1,6 +1,7 @@
 #!/bin/bash
-#set up project name
-ENV_NAME="{{ cookiecutter.repo_name }}"
+
+source scripts/get-env-secrets.sh;
+
 ENV_OPSTS="--no-site-packages --distribute"
 
 unset PYTHONDONTWRITEBYTECODE
