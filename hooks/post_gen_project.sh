@@ -20,6 +20,13 @@ fi
 
 echo "Downloading requirements"
 pip install -r requirements-dev.txt -q
+cp .env.example .env;
+
+{% if cookiecutter.use_local_docker_db == 'y' %}
+
+sh scripts/restart-postgres-dev-docker.sh;
+
+{% else %}
 
 # Create the DB if necessary
 RESULT=`psql -l | grep "{{ cookiecutter.repo_name }}" | wc -l | awk '{print $1}'`;
@@ -32,7 +39,8 @@ else
     echo "Database exists"
 fi
 
-cp .env.example .env
+{% endif %}
+
 export DJANGO_SETTINGS_MODULE="$ENV_NAME.$ENV_NAME.settings.local"
 
 python manage.py migrate
