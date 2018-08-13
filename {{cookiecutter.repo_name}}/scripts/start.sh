@@ -7,6 +7,7 @@ ENV_OPSTS="--no-site-packages --distribute"
 unset PYTHONDONTWRITEBYTECODE
 echo "Making Virtual Environment"
 os="`uname -a`"
+source /etc/bash_completion.d/virtualenvwrapper
 source `which virtualenvwrapper.sh`
 
 
