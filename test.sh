@@ -8,12 +8,13 @@ else
 fi
 
 tmpfolder=""
-appname=genericapp
+appname=sampleapp
 appdir=../$appname
 unset DJANGO_SETTINGS_MODULE
 echo "Installing virtualenvwrapper"
+#TODO - test to make sure you're not running this from inside a venv
 pip install --user virtualenvwrapper
-
+echo "Installed virtualenvwrapper"
 source `which virtualenvwrapper.sh`
 
 if [ -d $appdir ]; then
@@ -39,7 +40,7 @@ fi
 cd ..
 base=$(pwd)
 echo "Creating App"
-cookiecutter project --default-config --no-input
+cookiecutter generic-django-conf --default-config --no-input
 cd $appname
 if [ -d $tmpfolder/node_modules ]; then
     mv $tmpfolder/node_modules .
