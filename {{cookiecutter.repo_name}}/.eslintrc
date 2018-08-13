@@ -6,8 +6,10 @@
   ],
   "parser": "babel-eslint",
   "env": {
+    "es6": true, //enables properties like Set()
     "browser": true,
-    "node": true
+    "node": true,
+    "jquery": true
   },
   // Enable custom plugin known as eslint-plugin-react
   "plugins": [

@@ -9,10 +9,33 @@ ABOUT
 A generic template for Django 1.11x
 
 
+Dependencies, General
+============
+cookiecutter
+npm
+webpack
+git
+bash
+
+Dependencies, Fedora
+============
+Postgres header files. These may have a different name depending upon what
+system you're on. If you don't have these, you will receive a mysterious
+psychopg2 error when attempting to build:
+postgresql-devel.x86_64
+
 Instructions
 ============
-Follow the steps below to start a new project using this django template::
+Before you start, make sure $WORKON_HOME is set to the directory where you
+prefer your virtual environments to live, normally "~/.virtualenvs"
 
+Make sure your local database is up and running, and then follow the steps below
+to bootstrap a new project using this Django template.
+
+Project names must be composed of underscores and lowercase alphanumeric
+characters only, with no spaces or special characters.
+
+::
     $ git clone https://github.com/Lightmatter/generic-django-conf
     $ cookiecutter generic-django-conf
     $ cd <project_name>

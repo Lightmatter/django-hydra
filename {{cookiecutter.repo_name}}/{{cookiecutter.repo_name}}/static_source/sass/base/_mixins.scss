@@ -1,0 +1,22 @@
+@mixin border-bottom($color) {
+  position: relative;
+  &:after {
+    content: '';
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin: auto;
+    height: 0;
+    background: transparent;
+    transition: height .2s ease-in-out, background-color .2s ease-in-out;
+  }
+  &:hover a {
+    font-weight: bold;
+  }
+  &:hover:after {
+    height: 5px;
+    background: $color;
+  }
+}

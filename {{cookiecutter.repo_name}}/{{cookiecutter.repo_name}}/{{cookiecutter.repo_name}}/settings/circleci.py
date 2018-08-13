@@ -17,7 +17,7 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
-STATIC_ROOT = str(PROJECT_ROOT / 'static')
+STATIC_ROOT = root('static')
 STATIC_URL = '/static/'
 
 DEBUG = True
@@ -25,3 +25,6 @@ SECRET_KEY = 'testing'
 
 TEST_RUNNER = 'xmlrunner.extra.djangotestrunner.XMLTestRunner'
 TEST_OUTPUT_DIR = env('CIRCLE_TEST_REPORTS', default='.')
+
+TEMPLATES[0]['OPTIONS']['debug'] = True
+TEMPLATES[1]['OPTIONS']['debug'] = True

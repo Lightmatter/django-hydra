@@ -24,11 +24,12 @@ config.plugins.unshift(new BrowserSyncPlugin(
     }
 ));
 
+for (var key in config.entry) {
+  config.entry[key].unshift('webpack/hot/only-dev-server');
+  config.entry[key].unshift('webpack-dev-server/client?http://localhost:3000');
+}
 
-config.entry.unshift('webpack/hot/only-dev-server');
-config.entry.unshift('webpack-dev-server/client?http://localhost:3000');
-
-config.devtool = "eval";
+config.devtool = "eval-source-map";
 
 config.output.publicPath = 'http://localhost:3000/assets/bundles/', // Tell django to use this URL to load packages and not use STATIC_URL + bundle_name
 

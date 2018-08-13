@@ -2,15 +2,19 @@
 import pathlib
 
 from django.core.exceptions import ImproperlyConfigured
-
+from django_jinja.builtins import DEFAULT_EXTENSIONS  # noqa
 from environ import Env, Path
 
 DEBUG = False
 
 
-PROJECT_ROOT = pathlib.Path(__file__).parent.parent.parent
+root = Path(__file__) - 3
+repo_root = root - 1
+
 env = Env(DEBUG=(bool, False),)
-Env.read_env('.env')
+Env.read_env(repo_root('.env'))
+
+PROJECT_ROOT = root()
 DEBUG = env('DEBUG')
 
 ADMINS = (
@@ -50,7 +54,7 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    str(PROJECT_ROOT / 'static_source'),
+    str(root.path('static_source')),
 )
 
 # List of finder classes that know how to find static files in
@@ -175,12 +179,11 @@ CONTEXT_PROCESSORS = [
     'social_django.context_processors.login_redirect',
 ]
 
-from django_jinja.builtins import DEFAULT_EXTENSIONS # noqa
 
 TEMPLATES = [
     {
         "BACKEND": "django_jinja.backend.Jinja2",
-        'DIRS': [str(PROJECT_ROOT / 'templates')],
+        'DIRS': [root('templates')],
         "APP_DIRS": False,
         "OPTIONS": {
             "match_extension": None,
@@ -193,7 +196,7 @@ TEMPLATES = [
     },
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [str(PROJECT_ROOT / 'templates')],
+        'DIRS': [root('templates')],
         "APP_DIRS": True,
         'OPTIONS': {
             'builtins': ['django.contrib.staticfiles.templatetags.staticfiles'],
@@ -207,7 +210,7 @@ WEBPACK_LOADER = {
     'DEFAULT': {
         'CACHE': not DEBUG,
         'BUNDLE_DIR_NAME': 'bundles/',  # must end with slash
-        'STATS_FILE': str(PROJECT_ROOT / 'webpack-stats.json'),
+        'STATS_FILE': root('webpack-stats.json'),
         'POLL_INTERVAL': 0.1,
         'IGNORE': ['.+\.hot-update.js', '.+\.map']
     }

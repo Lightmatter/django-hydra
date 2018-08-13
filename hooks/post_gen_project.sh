@@ -4,12 +4,10 @@ source `which virtualenvwrapper.sh`
 unset PYTHONDONTWRITEBYTECODE
 
 ENV_NAME="{{ cookiecutter.repo_name }}"
-ENV_PATH="${PROJECT_HOME:?}/$ENV_NAME"
 
 
 echo "switching into project"
 workon $ENV_NAME
-cd $ENV_PATH
 
 if [ ! -d "${HOME:?}/.pip-packages" ]; then
     echo "creating cache for pip in the home dir";
@@ -22,6 +20,13 @@ fi
 
 echo "Downloading requirements"
 pip install -r requirements-dev.txt -q
+cp .env.example .env;
+
+{% if cookiecutter.use_local_docker_db == 'y' %}
+
+sh scripts/restart-postgres-dev-docker.sh;
+
+{% else %}
 
 # Create the DB if necessary
 RESULT=`psql -l | grep "{{ cookiecutter.repo_name }}" | wc -l | awk '{print $1}'`;
@@ -34,11 +39,12 @@ else
     echo "Database exists"
 fi
 
-cp .env.example .env
+{% endif %}
+
 export DJANGO_SETTINGS_MODULE="$ENV_NAME.$ENV_NAME.settings.local"
 
 python manage.py migrate
-yarn install
+npm install
 npm run build
 chmod +x manage.py
 

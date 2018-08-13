@@ -1,8 +1,7 @@
 from .base import *
+
 # if you want to test with debug off
-env.read_env(str(PROJECT_ROOT.parent / ".env"),
-             SECRET_KEY="changeme",
-)
+env.read_env(repo_root('.env'), SECRET_KEY='changeme')
 
 ALLOWED_HOSTS = [u'127.0.0.1', 'localhost']
 DEBUG = True
@@ -19,10 +18,10 @@ CACHES = {
     }
 }
 
-MEDIA_ROOT = str(PROJECT_ROOT / 'media')
+MEDIA_ROOT = root('media')
 MEDIA_URL = '/media/'
 
-STATIC_ROOT = str(PROJECT_ROOT / 'static')
+STATIC_ROOT = root('static')
 
 
 INSTALLED_APPS += (

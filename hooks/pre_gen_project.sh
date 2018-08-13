@@ -4,7 +4,6 @@
 
 echo "Setting up repository..."
 ENV_NAME="{{ cookiecutter.repo_name }}"
-ENV_PATH="${PROJECT_HOME}/${ENV_NAME}"
 
 source `which virtualenvwrapper.sh`
 
