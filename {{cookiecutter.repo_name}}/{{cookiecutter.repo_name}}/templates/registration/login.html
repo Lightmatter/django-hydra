@@ -22,7 +22,7 @@
         {% if form.errors %}
         <p class='errors'>Your username and password didn't match. Please try again.</p>
         {% endif %}
-        <a href="/account/password/reset">Forgot your password?</a>
+        <a href="{{ url('password_reset') }}">Forgot your password?</a>
         <div class="clear"></div>
         <button class="replace-this-class">Login</button>
         <!-- replace the above button class with the class(es) you make in _buttons.scss -->
