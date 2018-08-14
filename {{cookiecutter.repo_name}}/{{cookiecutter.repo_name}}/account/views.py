@@ -1,10 +1,8 @@
 {% if cookiecutter.django_registration == 'y' %}
 
-from django.contrib.auth import login as auth_login  # NOQA
-from django.contrib.auth import logout as auth_logout  # NOQA
+from django.contrib.auth.views import LoginView as DjangoLoginView  # NOQA
 from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model  # NOQA
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.views import login as django_login
 
 from registration.backends.simple.views import \
     RegistrationView as SimpleRegistrationView
@@ -30,15 +28,12 @@ class RegistrationView(SimpleRegistrationView):
         """
         Return the url a user should be redirected to after registration
         """
+
         return self.request.GET.get('next', '/')
 
 
-def login(request, template_name='registration/login.html',
-          redirect_field_name=REDIRECT_FIELD_NAME,
-          authentication_form=AuthenticationForm,
-          extra_context=None):
-    return django_login(request, template_name,
-                        redirect_field_name,
-                        authentication_form,
-                        extra_context)
+
+class LoginView(DjangoLoginView):
+    pass
+
 {% endif -%}

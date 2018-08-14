@@ -1,17 +1,18 @@
-Django>=1.11,<1.12
+Django>=2.1,<2.2
 django-environ==0.4.3
 
 #Admin
 Pillow==4.2.1
 django-localflavor==1.5.2
-django-import-export==0.5.1
+django-import-export==1.0.1
 
 #DB
 psycopg2-binary==2.7.5
 
 #User Accounts
-django-registration-redux==1.7
-social-auth-app-django==1.2.0
+django-registration-redux==2.4
+social-auth-app-django==2.1.0
+
 
 #Forms
 django-floppyforms==1.7.0
@@ -23,11 +24,11 @@ djoser==0.4.3
 {% endif %}
 
 #Utils
-django-extensions==1.8.1
+django-extensions==2.0.0
 django-jinja==2.3.1
 django-model-utils==3.0.0
 django-braces==1.11.0
-pytz==2017.2
+pytz==2018.3
 easy-thumbnails==2.4.1
 
 #REDIS CACHING

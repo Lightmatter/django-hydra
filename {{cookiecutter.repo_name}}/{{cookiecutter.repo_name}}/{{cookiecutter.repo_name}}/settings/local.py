@@ -29,7 +29,7 @@ INSTALLED_APPS += (
     'template_debug',
 )
 
-MIDDLEWARE_CLASSES += (
+MIDDLEWARE += (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 

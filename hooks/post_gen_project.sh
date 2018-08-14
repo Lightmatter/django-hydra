@@ -52,6 +52,6 @@ echo "Setting up Git"
 git init .
 git remote add origin "git@github.com:{{cookiecutter.org_name}}/{{ cookiecutter.repo_name }}.git"
 git add .
-git commit -m "initial commit"
+git commit -m "initial commit" --quiet
 #this might not work, it's ok if it fails
 git push --set-upstream origin develop || echo "don't forget to setup github!"

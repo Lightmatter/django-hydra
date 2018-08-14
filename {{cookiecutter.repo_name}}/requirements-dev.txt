@@ -1,10 +1,10 @@
 -r requirements.txt
 ipdb==0.10.3
 ptpython==0.39
-isort==4.2.15
+isort==4.3.4
 
 # Debug Tools
-django-debug-toolbar==1.8
+django-debug-toolbar==1.9.1
 django-template-debug==0.3.5
 
 # Testing

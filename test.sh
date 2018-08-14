@@ -42,9 +42,10 @@ base=$(pwd)
 echo "Creating App"
 cookiecutter generic-django-conf --default-config --no-input
 cd $appname
-if [ -d $tmpfolder/node_modules ]; then
-    mv $tmpfolder/node_modules .
-fi
+#TODO: figure out how to get this into the cookiecuttered project after clone before post
+# if [ -d $tmpfolder/node_modules ]; then
+#     mv $tmpfolder/node_modules .
+# fi
 
 if [ -z $1 ]; then
     echo "Running Start.sh"
@@ -55,7 +56,7 @@ workon $appname
 cd $base/$appname/
 export DJANGO_SETTINGS_MODULE=$appname.$appname.settings.local
 npm run build
-python manage.py collectstatic --noinput
+python manage.py collectstatic --noinput -v 0
 python manage.py test --noinput --keepdb
 prospector $appname -X -I "$appname/settings/*"
 RV=$?

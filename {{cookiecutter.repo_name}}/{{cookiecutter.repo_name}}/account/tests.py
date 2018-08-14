@@ -2,6 +2,8 @@ from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.hashers import make_password
 from model_mommy import mommy
+from django.test import Client
+
 {% if cookiecutter.django_registration == 'y' %}
 from .forms import RegistrationForm
 {% endif -%}
@@ -52,6 +54,7 @@ class RegistrationTest(TestCase):
         expected = reverse("home")
         self.assertRedirects(actual, expected)
         User.objects.get(email=self.user.email)
+        self.client = Client() #reg logs you in so that this will redirect vs validating
         response = self.client.post(url, self.form_data)
         actual = response.status_code
         expected = 200
