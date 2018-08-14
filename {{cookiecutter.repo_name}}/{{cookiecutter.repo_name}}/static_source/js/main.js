@@ -1,4 +1,5 @@
 var $ = require('jquery');
+import 'foundation-sites/dist/js/foundation.min.js';
 (function() {
   function _makeExternal() {
     this.target = '_blank';
@@ -30,6 +31,13 @@ var $ = require('jquery');
 
   $(init);
 })();
+
+$(document).ready(function($) {
+
+  $(document).foundation();
+})
+
+
 
 function addToDict(dict, key, value) {
   key = encodeURIComponent(decodeURIComponent(key));

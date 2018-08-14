@@ -1,13 +1,20 @@
 const webpack = require('webpack');
-const WebpackDevServer = require('webpack-dev-server');
+const serve = require('webpack-serve');
 const config = require('./webpack.base');
 var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const convert = require('koa-connect');
+const history = require('connect-history-api-fallback');
+const proxy = require('http-proxy-middleware');
+const merge = require('webpack-merge');
+var {PATHS, PROJECT_NAME} = require('./paths');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-
-config.plugins.unshift(new webpack.HotModuleReplacementPlugin());
-console.log(config.PATHS.templates + "/**")
-config.plugins.unshift(new BrowserSyncPlugin(
-    {
+module.exports = merge(config, {
+  mode: 'none',
+  plugins: [
+    // new BundleAnalyzerPlugin(),
+    new BrowserSyncPlugin(
+      {
         // browse to http://localhost:3000/ during development
         host: 'localhost',
         port: 3100,
@@ -15,60 +22,61 @@ config.plugins.unshift(new BrowserSyncPlugin(
         // (which should be serving on http://localhost:3100/)
         // through BrowserSync
         proxy: 'http://localhost:8000/',
-        files: [config.PATHS.templates + "/**"]
-    },
-    {
+        files: [PATHS.templates + "/**"]
+      },
+      {
         // prevent BrowserSync from reloading the page
         // and let Webpack Dev Server take care of this
         reload: false
-    }
-));
-
-for (var key in config.entry) {
-  config.entry[key].unshift('webpack/hot/only-dev-server');
-  config.entry[key].unshift('webpack-dev-server/client?http://localhost:3000');
-}
-
-config.devtool = "eval-source-map";
-
-config.output.publicPath = 'http://localhost:3000/assets/bundles/', // Tell django to use this URL to load packages and not use STATIC_URL + bundle_name
-
-config.module.preLoaders = [
-    {
+      }
+    )
+  ],
+  devtool: "eval-source-map",
+  output: {
+    // Tell django to use this URL to load packages and not use STATIC_URL + bundle_name
+    publicPath: 'http://localhost:3000/assets/bundles/'
+  },
+  module: {
+    rules: [
+      {
+        enforce: "pre",
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loaders: ["babel?presets[]=react", "eslint"]
-    }
-];
+        use: "eslint-loader",
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              importLoaders: 2
+            }
+          },
+          {
+            loader: "sass-loader",
+            options: {
+              sourceMap: true
+            }
+          }
+        ],
+        include: PATHS.sass
+      }]
+  }
+});
 
-//hotload sass rather than text extract
-config.module.loaders[0].loader = "style!css?sourceMap!sass?sourceMap";
-
-new WebpackDevServer(webpack(config), {
-    publicPath: config.output.publicPath,
-    hot: true,
-    inline: true,
-    historyApiFallback: true,
-    quiet: false,
-    noInfo: false,
-    stats: {
-        // Config for minimal console.log mess.
-        assets: false,
-        colors: true,
-        version: false,
-        hash: false,
-        timings: false,
-        chunks: false,
-        chunkModules: false
-    },
+serve({
+  config: module.exports,
+  dev: {
     headers: { 'Access-Control-Allow-Origin': '*' },
-    proxy: {
-        "/static/*" : "http://localhost:8000/" // <- backend
-    },
-}).listen(3000, '0.0.0.0', function (err, result) {
-    if (err) {
-        console.log(err);
-    }
-
-    console.log('Listening at 0.0.0.0:3000');
+    hot: true,
+    publicPath: module.exports.output.publicPath,
+  },
+  add: (app, middleware, options) => {
+    app.use(convert(proxy('/static', { target: 'http://localhost:8000' })));
+    app.use(convert(history()));
+  },
+  port: '3000'
 });

@@ -23,6 +23,7 @@
               g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
               s.parentNode.insertBefore(g,s)}(document,'script'));
       </script>
+    {{ render_bundle('vendor_common') }}
     {{ render_bundle('js') }}
   </body>
 </html>

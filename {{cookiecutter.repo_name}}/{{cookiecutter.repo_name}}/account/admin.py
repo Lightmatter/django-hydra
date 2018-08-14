@@ -6,7 +6,6 @@ from django.contrib.auth.forms import UserCreationForm as DjangoUserCreationForm
 from import_export.admin import ImportExportMixin
 from import_export import resources
 
-from parsley.mixins import ParsleyAdminMixin
 
 from .models import User
 
@@ -28,7 +27,7 @@ class UserChangeForm(DjangoUserChangeForm):
         fields = '__all__'
 
 
-class UserAdmin(ParsleyAdminMixin, ImportExportMixin, DjangoUserAdmin):
+class UserAdmin(ImportExportMixin, DjangoUserAdmin):
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         (_('Personal info'), {'fields': ('first_name', 'last_name')}),

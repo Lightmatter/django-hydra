@@ -2,91 +2,83 @@ var path = require("path");
 var webpack = require("webpack");
 var autoprefixer = require('autoprefixer');
 var BundleTracker = require('webpack-bundle-tracker');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
-
-
-const PROJECT_NAME = "{{cookiecutter.repo_name}}";
-
-const PATHS = {
-  app: path.join(__dirname, '..', PROJECT_NAME),
-};
-
-PATHS.static_source = path.join(PATHS.app, "static_source");
-PATHS.templates = path.join(PATHS.app, "templates");
-PATHS.js = path.join(PATHS.static_source, "js");
-PATHS.build = path.join(PATHS.static_source, "bundles");
-PATHS.sass = path.join(PATHS.static_source, "sass");
-PATHS.css = path.join(PATHS.static_source, "css");
-PATHS.fonts = path.join(PATHS.static_source, "fonts");
-
-
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+var glob = require('glob');
+var {PATHS, PROJECT_NAME} = require('./paths');
 
 module.exports = {
-  PATHS: PATHS,
   context: __dirname,
   entry: {
+    style: [
+      path.join(PATHS.sass, "style.scss")
+    ],
     js: [
       "babel-polyfill",
       path.join(PATHS.js, "main")
-    ],
-    style: [
-      path.join(PATHS.sass, "style.scss")
-    ]
+    ].concat(glob.sync(PATHS.templates + '/**/*.njk'))
   },
   output: {
     path: PATHS.build,
     filename: "[name]-[hash].js",
   },
-
+  optimization: {
+    splitChunks: {
+      minSize: 0,
+      cacheGroups: {
+        commons: { test: /jquery/, name: "vendor_common", chunks: "all", priority: -20}
+      }
+    }
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(js)$/,
+        exclude: /node_modules/,
+        use: [
+          'babel-loader'
+        ]
+      },
+      {
+        test: /\.(njk|nunjucks)$/,
+        use: [
+          {
+            loader: 'nunjucks-loader',
+            query: {
+              root: PATHS.templates,
+              jinjaCompat: true
+            }
+          }
+        ]
+      },
+      {
+        // allows importing of images and fonts into css
+        test: /\.(png|jpg|gif|svg|eot|otf|ttf|woff|woff2)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000
+        }
+      }
+    ]
+  },
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
       }
     }),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new ExtractTextPlugin("[name]-[hash].css", {allChunks:true}),
-    new BundleTracker({filename:'./{{ cookiecutter.repo_name }}/webpack-stats.json'}),
+    new MiniCssExtractPlugin({
+      filename: "[name]-[contenthash].css",
+    }),
+    new BundleTracker({filename:'./{{cookiecutter.repo_name}}/webpack-stats.json'}),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery'
+    }),
+    new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
   ],
-  module: {
-    loaders: [
-      {
-        //keep this one first, as in dev-server we depend on the ordering
-        test: /\.scss$/,
-        loader: ExtractTextPlugin.extract("style", ["css?sourceMap", "postcss", "sass?sourceMap"], {publicPath:'.'}),
-        include: PATHS.sass
-      },{
-        test: /\.(ttf|eot|otf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "url-loader",
-        include: PATHS.fonts
-      },{
-        test: /\.css$/,
-        loader: ExtractTextPlugin.extract("style", ["css?sourceMap", "postcss"]),
-        include: PATHS.css
-      },{
-        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "url-loader?limit=464600&minetype=application/font-woff",
-        include: PATHS.fonts
-      },{
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loader: "babel-loader",
-        query: {
-          presets: ['env', 'react', 'airbnb']
-        }
-      }]
-  },
-
-  eslint: {
-    //failOnError: false,
-  },
-
-  postcss: function () {
-    return [autoprefixer({browsers:"last 10 versions"})];
-  },
-
   resolve: {
-    modulesDirectories: ['node_modules'],
-    extensions: ['', '.js', 'jsx']
-  },
+    modules: ['node_modules', PATHS.templates],
+    extensions: ['.js', 'jsx', '.json']
+  }
 };

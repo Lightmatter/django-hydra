@@ -83,7 +83,6 @@ Things we still want to do::
   click jacking
   django-secure
   avatars by default
-  setup django crispy and floppy
   django-htmlmin
   wagtail by default
 django robots

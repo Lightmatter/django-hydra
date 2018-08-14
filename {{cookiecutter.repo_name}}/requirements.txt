@@ -14,9 +14,6 @@ django-registration-redux==2.4
 social-auth-app-django==2.1.0
 
 
-#Forms
-django-floppyforms==1.7.0
-django-parsley==0.6
 
 {% if cookiecutter.use_djoser == 'y' %}
 # user authentication

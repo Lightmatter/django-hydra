@@ -2,7 +2,7 @@
 
 from django.contrib.auth.views import LoginView as DjangoLoginView  # NOQA
 from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model  # NOQA
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm # NOQA
 
 from registration.backends.simple.views import \
     RegistrationView as SimpleRegistrationView
@@ -28,12 +28,9 @@ class RegistrationView(SimpleRegistrationView):
         """
         Return the url a user should be redirected to after registration
         """
-
         return self.request.GET.get('next', '/')
-
 
 
 class LoginView(DjangoLoginView):
     pass
-
 {% endif -%}

@@ -1,5 +1,4 @@
-import floppyforms as forms
-from parsley.decorators import parsleyfy
+from django import forms
 
 
 class StripeTokenForm(forms.Form):
@@ -10,7 +9,6 @@ class ChargeForm(forms.Form):
     amount = forms.DecimalField(max_digits=5, decimal_places=2)
 
 
-@parsleyfy
 class UserForm(forms.Form):
     name = forms.CharField(min_length=3, max_length=30, help_text="Type your full name")
     email = forms.EmailField(help_text="Enter your email address")
