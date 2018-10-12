@@ -97,7 +97,6 @@ INSTALLED_APPS = (
     'registration',
     'import_export',
     'social_django',
-    'floppyforms',
     'django_jinja',
     'webpack_loader',
 
