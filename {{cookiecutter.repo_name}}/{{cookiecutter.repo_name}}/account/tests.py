@@ -12,7 +12,7 @@ from .models import User
 
 class UserManager(TestCase):
     def test_create_user(self):
-        user = User.objects.create_user("jonnyrico@fednet.gov", password="iwanttoknowmore")
+        user = User.objects.create_user("jonnyrico@fednet.gov", password="iwanttoknowmore")  # nosec
         User.objects.get(id=user.id)
 
 {% if cookiecutter.django_registration == 'y' %}
@@ -92,7 +92,7 @@ class LoginTest(TestCase):
         on successful registration, keep user on login page
         and show error
         """
-        self.form_data['password'] = "bugs rule federation drulz"
+        self.form_data['password'] = "bugs rule federation drulz"  # nosec
         url = reverse("login")
         response = self.client.post(url, self.form_data)
         actual = response.status_code
