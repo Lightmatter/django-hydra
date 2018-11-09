@@ -40,7 +40,7 @@ jobs:
       - run: npm install
       - run: npm install webpack
       - run: npm run build
-      - run: bandit -r {{ cookiecutter.repo_name }}/ -l --ini .bandit
+      - run: bandit -r {{ cookiecutter.repo_name }}/ -l --ini .bandit -x tests.py
       - run: isort --recursive --check-only --builtin django --skip-glob "00*.py" {{cookiecutter.repo_name}}/
       - run: npm run test
       - run: prospector {{ cookiecutter.repo_name }} -X -I "{{cookiecutter.repo_name}}/settings/*"

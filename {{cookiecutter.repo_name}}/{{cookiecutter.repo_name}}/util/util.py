@@ -26,7 +26,7 @@ class file_url(object): # NOQA
 
 def random_string(length):
     alphanumeric = string.ascii_letters + string.digits
-    return "".join(random.choice(alphanumeric) for i in range(length)) # nosec
+    return "".join(random.choice(alphanumeric) for i in range(length))  # nosec
 
 
 class ChoiceEnum(Enum):

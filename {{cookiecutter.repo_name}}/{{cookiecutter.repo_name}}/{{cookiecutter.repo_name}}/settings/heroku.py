@@ -30,9 +30,7 @@ CACHES = {
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.cached_db'
 
-MIDDLEWARE += (
-    'django.middleware.gzip.GZipMiddleware',
-)
+MIDDLEWARE += ('django.middleware.gzip.GZipMiddleware', )
 
 SECRET_KEY = env('SECRET_KEY')
 
@@ -42,10 +40,8 @@ SECRET_KEY = env('SECRET_KEY')
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_QUERYSTRING_AUTH = False
 
-
 # put the cloudfront distro here
 # AWS_S3_CUSTOM_DOMAIN = 'foo.cloudfront.net'
-
 
 EMAIL_BACKEND = 'sgbackend.SendGridBackend'
 SENDGRID_USER = env('SENDGRID_USERNAME')
@@ -57,6 +53,8 @@ STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY', default='')
 AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID', default='')
 AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY', default='')
 AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME', default='')
+AWS_IS_GZIPPED = True
+AWS_S3_REGION_NAME = "us-east-1"
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # GEOS_LIBRARY_PATH = '/app/.heroku/vendor/lib/libgeos_c.so'
