@@ -1,5 +1,6 @@
 static/
 bundles/*
+bundles/
 *_flymake*
 *.\#*
 webpack-stats.json
