@@ -134,33 +134,33 @@ Todo
 ====
 Things we still want to do
 ```
-caching everything possible (middleware for sure)
-Setting up heroku optimg/jpgopti and combining with thumbnail
-404/403 ect
-500 page
-user useradmin
-click jacking
-django-secure
-django-htmlmin
-wagtail by default
-django robots
-update all packages
-Heroku dyno meta data to setup s
-add in sentry features to template
-put sentry into template
-user feedback
-Auto generate sentry project via api end point
-create precommit hook for prospector and isort
-auto generate precommit hook
-add prettier for javascript quality
-enforce stricter js quality via airbnb and prettier
-modernize javascript in main.js
-add django password validators
-add documenation for nunjucks integration
-Front end updates
-  * social media headers
-  * SEO compitbility scrub
-  * Accessibility compatibility scrub
-  * sticky flexbox footer
-  * add css grid alternatives that can be turned on or off on a per project basis
+  caching everything possible (middleware for sure)
+  Setting up heroku optimg/jpgopti and combining with thumbnail
+  404/403 ect
+  500 page
+  user useradmin
+  click jacking
+  django-secure
+  django-htmlmin
+  wagtail by default
+  django robots
+  update all packages
+  Heroku dyno meta data to setup s
+  add in sentry features to template
+  put sentry into template
+  user feedback
+  Auto generate sentry project via api end point
+  create precommit hook for prospector and isort
+  auto generate precommit hook
+  add prettier for javascript quality
+  enforce stricter js quality via airbnb and prettier
+  modernize javascript in main.js
+  add django password validators
+  add documenation for nunjucks integration
+  Front end updates
+    * social media headers
+    * SEO compitbility scrub
+    * Accessibility compatibility scrub
+    * sticky flexbox footer
+    * add css grid alternatives that can be turned on or off on a per project basis
 ```
