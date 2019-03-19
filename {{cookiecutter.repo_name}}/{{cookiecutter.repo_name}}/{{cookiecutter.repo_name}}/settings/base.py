@@ -246,9 +246,9 @@ STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY', default='')
 
 
 try:
-    from model_mommy import generators  # noqa
+    from model_mommy import random_gen  # noqa
     MOMMY_CUSTOM_FIELDS_GEN = {
-        'localflavor.us.models.USZipCodeField': generators.gen_string,
+        'localflavor.us.models.USZipCodeField': random_gen.gen_string,
     }
 except ImportError:
     pass
