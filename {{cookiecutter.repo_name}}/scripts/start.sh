@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source scripts/get-env-secrets.sh;
+export ENV_NAME="{{ cookiecutter.repo_name }}"
 
 ENV_OPSTS="--no-site-packages --distribute"
 
@@ -9,7 +9,6 @@ echo "Making Virtual Environment"
 os="`uname -a`"
 source /etc/bash_completion.d/virtualenvwrapper
 source `which virtualenvwrapper.sh`
-
 
 
 cd $WORKON_HOME
