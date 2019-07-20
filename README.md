@@ -15,6 +15,7 @@ Dependencies, General
 * webpack
 * git
 * bash
+* python3
 
 Pre Requisites
 ============
@@ -48,7 +49,7 @@ The recommended start pattern is described below. The start.sh command will
     $ chmod +x scripts/start.sh
     $ scripts/start.sh
     $ workon <project_name>
-    $ python <project_name>/manage.py runserver
+    $ python <project_name>/manage.py runserver_plus
 ```
 
 Testing the Template
@@ -82,9 +83,6 @@ This app uses webpack to compile/transpile assets. The app is equipped to be ser
 
 First the python server must be running locally.
 
-    ./manage.py runserver
-or
-
     ./manage.py runserver_plus
 
 To run the webpack-dev-server locally:
@@ -103,7 +101,7 @@ Deployment
 This app is set up to use circleci, but could be extended to any build process. Circle will automatically run
 
     bandit -r $PROJECT/ -l --ini .bandit
-    prospector $PROJECT -X -I "cadence/settings/*"
+    prospector $PROJECT -X -I "<PROJECT_NAME>/settings/*"
     coverage run --source='.' manage.py test
     isort --recursive --check-only --builtin django --skip-glob "00*.py" $PROJET/
 
@@ -117,7 +115,12 @@ Note: if you hit isort errors, this can be easily fixed by running:
 
 Projects created using this template are able to be deployed on Heroku.
 
-Create a heroku application and push the code there. You will need to set:
+Create a heroku application on Heroku and push the code there.
+This can be done automatically by running
+
+     ./scripts/setup_heroku.sh
+
+You can also do this manually. You will need to set:
 
 - The DJANGO_SETTINGS_MODULE variable to either "{{cookiecutter.project_name}}.settings.heroku" or heroku_staging
 - The aws settings in AWS_SECRET_ACCESS_KEY, AWS_STORAGE_BUCKET_NAME, AWS_ACCESS_KEY_ID
@@ -145,14 +148,15 @@ Things we still want to do
   wagtail by default
   django robots
   update all packages
-  Heroku dyno meta data to setup s
   add in sentry features to template
+  Add black for python quality
   put sentry into template
   user feedback
   Auto generate sentry project via api end point
   create precommit hook for prospector and isort
   auto generate precommit hook
   add prettier for javascript quality
+  Add lint-staged to lint files before commit rather than during workflow
   enforce stricter js quality via airbnb and prettier
   modernize javascript in main.js
   add django password validators
