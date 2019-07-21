@@ -1,65 +1,74 @@
-var $ = require('jquery');
-import 'foundation-sites/dist/js/foundation.min.js';
-(function() {
-  function _makeExternal() {
+import 'foundation-sites/dist/js/foundation.min';
+
+const $ = require('jquery');
+
+(() => {
+  function makeExternal() {
     this.target = '_blank';
   }
-  function _makeActive(){
+  function makeActive() {
     $(this).addClass('active');
   }
-  function _isExternalLink() {
-    var href = $(this).attr('href');
-    return !(!href ||
-             href[0] === '?' ||
-             href[0] === '/' ||
-             href[0] === '#' ||
-             href.substring(0, 4) === 'tel:' ||
-             href.substring(0, 7) === 'mailto:' ||
-             href.substring(0, 11) === 'javascript:');
+
+  function isExternalLink() {
+    const href = $(this).attr('href');
+    return !(
+      !href ||
+      href[0] === '?' ||
+      href[0] === '/' ||
+      href[0] === '#' ||
+      href.substring(0, 4) === 'tel:' ||
+      href.substring(0, 7) === 'mailto:'
+    );
   }
 
-  function _isCurrentPage(){
-    var current_url = window.location.pathname;
-    var href = $(this).attr('href');
-    return (href == current_url);
+  function isCurrentPage() {
+    const currentUrl = window.location.pathname;
+    const href = $(this).attr('href');
+    return href === currentUrl;
   }
 
   function init() {
-    $('a').filter(_isExternalLink).each(_makeExternal);
-    $('.nav-link a').filter(_isCurrentPage).each(_makeActive);
+    $('a')
+      .filter(isExternalLink)
+      .each(makeExternal);
+    $('.nav-link a')
+      .filter(isCurrentPage)
+      .each(makeActive);
   }
 
   $(init);
+
+  $(document).ready(() => {
+    $(document).foundation();
+  });
 })();
 
-$(document).ready(function($) {
-
-  $(document).foundation();
-})
-
-
-
 function addToDict(dict, key, value) {
-  key = encodeURIComponent(decodeURIComponent(key));
-  value = encodeURIComponent(decodeURIComponent(value));
-  dict[key] = value;
+  const itemDict = dict;
+  const itemKey = encodeURIComponent(decodeURIComponent(key));
+  const itemValue = encodeURIComponent(decodeURIComponent(value));
+  itemDict[itemKey] = itemValue;
 }
 
 function addParamToSearch(param, value) {
-  var params = {};
-  location.search.substring(1).split('&').forEach(function(querystring) {
-    if (querystring) {
-      var split = querystring.split('=');
-      addToDict(params, split[0], split[1]);
-    }
-  });
+  const params = {};
+  window.location.search
+    .substring(1)
+    .split('&')
+    .forEach(querystring => {
+      if (querystring) {
+        const split = querystring.split('=');
+        addToDict(params, split[0], split[1]);
+      }
+    });
   addToDict(params, param, value);
-  var queryString = '';
-  for (var key in params) {
-    var paramString = key + '=' + params[key];
-    var separator = (queryString.indexOf('?') === -1) ? '?' : '&';
+  let queryString = '';
+  Object.keys(params).forEach(key => {
+    const paramString = `${key}=${params[key]}`;
+    const separator = queryString.indexOf('?') === -1 ? '?' : '&';
     queryString = queryString + separator + paramString;
-  }
+  });
   return queryString;
 }
-addParamToSearch('', '')
+addParamToSearch('', '');

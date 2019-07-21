@@ -9,6 +9,7 @@
 html, body {
   overflow-x: hidden;
 }
+
 body {
   .container {
     @include xy-grid-container();

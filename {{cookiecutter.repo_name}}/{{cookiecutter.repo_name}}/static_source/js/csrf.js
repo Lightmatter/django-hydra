@@ -1,12 +1,13 @@
+const $ = require('jquery');
 // using jQuery
 function getCookie(name) {
-  var cookieValue = null;
-  if (document.cookie && document.cookie != '') {
-    var cookies = document.cookie.split(';');
-    for (var i = 0; i < cookies.length; i++) {
-      var cookie = jQuery.trim(cookies[i]);
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = $.trim(cookies[i]);
       // Does this cookie string begin with the name we want?
-      if (cookie.substring(0, name.length + 1) == (name + '=')) {
+      if (cookie.substring(0, name.length + 1) === name + '=') {
         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
         break;
       }
@@ -14,18 +15,17 @@ function getCookie(name) {
   }
   return cookieValue;
 }
-var csrftoken = getCookie('csrftoken');
-
+const csrftoken = getCookie('csrftoken');
 
 function csrfSafeMethod(method) {
   // these HTTP methods do not require CSRF protection
-  return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+  return /^(GET|HEAD|OPTIONS|TRACE)$/.test(method);
 }
 $.ajaxSetup({
   crossDomain: false, // obviates need for sameOrigin test
   beforeSend: function(xhr, settings) {
     if (!csrfSafeMethod(settings.type)) {
-      xhr.setRequestHeader("X-CSRFToken", csrftoken);
+      xhr.setRequestHeader('X-CSRFToken', csrftoken);
     }
   }
 });
