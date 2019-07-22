@@ -2,7 +2,7 @@ Django>=2.1,<2.2
 django-environ==0.4.3
 
 #Admin
-Pillow==4.2.1
+Pillow==5.4.1
 django-localflavor==1.5.2
 django-import-export==1.0.1
 
@@ -58,3 +58,5 @@ raven==6.1.0
 #celery==3.1.18
 sendgrid-django==4.0.4
 django-webpack-loader==0.5.0
++django-jinja==2.3.1
+# django-cachalot==2.1.0

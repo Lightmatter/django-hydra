@@ -1,9 +1,7 @@
 {
   // Extend existing configuration
   // from ESlint and eslint-plugin-react defaults.
-  "extends": [
-    "eslint:recommended"
-  ],
+  "extends": ["airbnb", "prettier"],
   "parser": "babel-eslint",
   "env": {
     "es6": true, //enables properties like Set()
@@ -13,6 +11,7 @@
   },
   // Enable custom plugin known as eslint-plugin-react
   "plugins": [
+      "prettier"
   ],
   "rules": {
       // Disable `no-console` rule
@@ -22,7 +21,8 @@
       // Default to single quotes and raise an error if something
       // else is used
       "quotes": [2, "single"],
-      "comma-dangle" : 0
+      "comma-dangle" : 0,
+      "prettier/prettier": ["error"]
   },
   "parserOptions": {
       "ecmaVersion": 7,
