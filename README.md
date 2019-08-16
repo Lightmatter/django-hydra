@@ -22,7 +22,7 @@ Pre Requisites
 
 You must have postgres and python ready to go on your system.
 
-This app is set up to work with virtualenvwrapper to make use of functionality like `workon <project_name>` and silo your build environment.
+This app is set up to work with virtualenvwrapper to make use of functionality like `workon <project_name>` to silo your build environment.
 Read about virtualenvwrapper <https://virtualenvwrapper.readthedocs.io/en/latest/>
 
 Some notes:
@@ -111,7 +111,7 @@ You can read the docs for these tools here:
 
 Note: if you hit isort errors, this can be easily fixed by running:
 
-    isort --recursive --builtin django --skip-glob "00*.py" $PROJET/
+    isort --recursive --builtin django --skip-glob "00*.py" $PROJECT/
 
 Projects created using this template are able to be deployed on Heroku.
 
