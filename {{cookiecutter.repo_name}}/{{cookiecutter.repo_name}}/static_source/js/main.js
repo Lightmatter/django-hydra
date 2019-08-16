@@ -1,5 +1,5 @@
 import 'foundation-sites/dist/js/foundation.min';
-
+import './csrf.js';
 const $ = require('jquery');
 
 (() => {
@@ -38,7 +38,6 @@ const $ = require('jquery');
   }
 
   $(init);
-
   $(document).ready(() => {
     $(document).foundation();
   });
