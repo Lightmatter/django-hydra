@@ -34,8 +34,8 @@ MIDDLEWARE += ('django.middleware.gzip.GZipMiddleware', )
 
 SECRET_KEY = env('SECRET_KEY')
 
-MEDIA_URL = "/media/"
-MEDIA_ROOT = root("media")
+# TODO:
+# MEDIA_ROOT??
 
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 AWS_QUERYSTRING_AUTH = False
