@@ -9,6 +9,7 @@
     {{ render_bundle('style') }}
   </head>
   <body>
+      <div id="swup" class="swup-container transition-fade {% block body_class %}{% endblock body_class %}">
       {% include "header.html" %}
 
       <div id="main">
@@ -17,6 +18,7 @@
       </div> <!-- /container -->
 
       {% include "footer.html" %}
+      </div>
       <script>
           var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
           (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
