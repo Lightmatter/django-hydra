@@ -68,4 +68,5 @@ django-jinja==2.6.0
 {% if cookiecutter.use_wagtail == 'y' %}
 #Wagtail
 wagtail==2.6.2
+django-taggit==0.24.0
 {% endif %}
