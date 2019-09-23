@@ -39,6 +39,8 @@
     "webpack-dev-server": "^3.1.10"
   },
   "dependencies": {
+    "@swup/ga-plugin": "^1.0.1",
+    "@swup/preload-plugin": "^1.0.3",
     "webpack-merge": "^4.1.2",
     "webpack-md5-hash": "0.0.6",
     "webpack-cli": "^3.1.1",
@@ -78,6 +80,7 @@
     "sass-loader": "^6.0.7",
     "select2": "^4.0.6-rc.1",
     "style-loader": "^0.20.3",
+    "swup": "^2.0.5",
     "url-loader": "^1.0.1",
     "webpack": "^4.4.1",
     "webpack-bundle-tracker": "0.3.0"

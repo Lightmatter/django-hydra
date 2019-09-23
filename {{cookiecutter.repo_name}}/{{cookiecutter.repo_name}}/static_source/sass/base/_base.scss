@@ -3,6 +3,7 @@
 @import 'typography';
 @import 'buttons';
 @import "forms";
+@import 'animations';
 @import "header";
 @import "footer";
 
@@ -11,9 +12,11 @@ html, body {
 }
 
 body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+  .swup-container {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
 
   #main {
     flex: 1 1 auto;

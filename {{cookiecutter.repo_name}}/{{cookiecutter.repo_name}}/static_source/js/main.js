@@ -1,73 +1,33 @@
 import 'foundation-sites/dist/js/foundation.min';
-import './csrf.js';
-const $ = require('jquery');
+import './csrf';
+import Swup from 'swup';
+import SwupGaPlugin from '@swup/ga-plugin';
+import SwupPreloadPlugin from '@swup/preload-plugin';
 
-(() => {
-  function makeExternal() {
-    this.target = '_blank';
-  }
-  function makeActive() {
-    $(this).addClass('active');
-  }
+import './search'; // auto init script
+import linksInit from './links';
 
-  function isExternalLink() {
-    const href = $(this).attr('href');
-    return !(
-      !href ||
-      href[0] === '?' ||
-      href[0] === '/' ||
-      href[0] === '#' ||
-      href.substring(0, 4) === 'tel:' ||
-      href.substring(0, 7) === 'mailto:'
-    );
-  }
+require('jquery');
 
-  function isCurrentPage() {
-    const currentUrl = window.location.pathname;
-    const href = $(this).attr('href');
-    return href === currentUrl;
-  }
-
-  function init() {
-    $('a')
-      .filter(isExternalLink)
-      .each(makeExternal);
-    $('.nav-link a')
-      .filter(isCurrentPage)
-      .each(makeActive);
-  }
-
-  $(init);
-  $(document).ready(() => {
-    $(document).foundation();
-  });
-})();
-
-function addToDict(dict, key, value) {
-  const itemDict = dict;
-  const itemKey = encodeURIComponent(decodeURIComponent(key));
-  const itemValue = encodeURIComponent(decodeURIComponent(value));
-  itemDict[itemKey] = itemValue;
+function init() {
+  $(document).foundation();
+  linksInit();
 }
 
-function addParamToSearch(param, value) {
-  const params = {};
-  window.location.search
-    .substring(1)
-    .split('&')
-    .forEach(querystring => {
-      if (querystring) {
-        const split = querystring.split('=');
-        addToDict(params, split[0], split[1]);
-      }
-    });
-  addToDict(params, param, value);
-  let queryString = '';
-  Object.keys(params).forEach(key => {
-    const paramString = `${key}=${params[key]}`;
-    const separator = queryString.indexOf('?') === -1 ? '?' : '&';
-    queryString = queryString + separator + paramString;
+// page transitions
+function swupInit() {
+  // currently these are run by css only. Must add js-plugin for more advanced transitions
+  const swup = new Swup({
+    plugins: [new SwupPreloadPlugin(), new SwupGaPlugin()],
   });
-  return queryString;
+
+  swup.on('contentReplaced', () => {
+    // insert any scripts here that break after page transitions or use the Head plugin from Swup
+    init();
+  });
 }
-addParamToSearch('', '');
+
+$(document).ready(() => {
+  init();
+  swupInit();
+});
