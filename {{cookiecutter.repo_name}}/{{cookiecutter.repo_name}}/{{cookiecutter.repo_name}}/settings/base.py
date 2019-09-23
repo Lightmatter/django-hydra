@@ -1,7 +1,7 @@
 # Django settings for project project.
 import pathlib
-from django.core.exceptions import ImproperlyConfigured
 
+from django.core.exceptions import ImproperlyConfigured
 from django_jinja.builtins import DEFAULT_EXTENSIONS  # noqa
 from environ import Env, Path
 
