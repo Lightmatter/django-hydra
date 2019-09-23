@@ -1,4 +1,5 @@
 // make all external links target="_blank"
+
 function makeExternal() {
   this.target = '_blank';
 }

@@ -1,11 +1,11 @@
 import 'foundation-sites/dist/js/foundation.min';
-import './csrf.js';
+import './csrf';
 import Swup from 'swup';
 import SwupGaPlugin from '@swup/ga-plugin';
 import SwupPreloadPlugin from '@swup/preload-plugin';
 
+import './search'; // auto init script
 import linksInit from './links';
-import addParamToSearch from './search'; // auto init script
 
 require('jquery');
 
