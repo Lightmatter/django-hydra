@@ -1,13 +1,14 @@
-from django.test import TestCase
-from django.urls import reverse
 from django.contrib.auth.hashers import make_password
+from django.test import Client, TestCase
+from django.urls import reverse
+
 from model_mommy import mommy
-from django.test import Client
+
+from .forms import RegistrationForm
+from .models import User
 
 {% if cookiecutter.django_registration == 'y' %}
-from .forms import RegistrationForm
 {% endif -%}
-from .models import User
 
 
 class UserManager(TestCase):
