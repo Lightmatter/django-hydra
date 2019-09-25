@@ -4,11 +4,11 @@ from django.urls import reverse
 
 from model_mommy import mommy
 
+{% if cookiecutter.django_registration == 'y' %}
 from .forms import RegistrationForm
+{% endif -%}
 from .models import User
 
-{% if cookiecutter.django_registration == 'y' %}
-{% endif -%}
 
 
 class UserManager(TestCase):
