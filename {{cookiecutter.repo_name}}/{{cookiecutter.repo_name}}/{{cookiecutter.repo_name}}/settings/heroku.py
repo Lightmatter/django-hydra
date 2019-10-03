@@ -1,5 +1,8 @@
 from urllib.parse import urlparse
 
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
 from .base import *
 
 SESSION_COOKIE_SECURE = True
@@ -46,6 +49,7 @@ AWS_QUERYSTRING_AUTH = False
 EMAIL_BACKEND = 'sgbackend.SendGridBackend'
 SENDGRID_USER = env('SENDGRID_USERNAME')
 SENDGRID_PASSWORD = env('SENDGRID_PASSWORD')
+SENDGRID_API_KEY = env('SENDGRID_API_KEY')
 
 STRIPE_PUBLIC_KEY = env('STRIPE_PUBLIC_KEY', default='')
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY', default='')
@@ -62,3 +66,8 @@ AWS_S3_REGION_NAME = "us-east-1"
 
 # SOCIAL_AUTH_FACEBOOK_KEY = env('SOCIAL_AUTH_FACEBOOK_KEY')
 # SOCIAL_AUTH_FACEBOOK_SECRET = env('SOCIAL_AUTH_FACEBOOK_SECRET')
+
+sentry_sdk.init(
+    dsn=env('SENTRY_DSN', default=''),
+    integrations=[DjangoIntegration()]
+)
