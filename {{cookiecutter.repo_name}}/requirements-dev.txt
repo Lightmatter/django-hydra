@@ -14,7 +14,9 @@ unittest-xml-reporting==2.1.0
 codecov==2.0.9
 watchdog
 pylint==1.8.2
-prospector==0.12.7
+prospector==1.1.5
 service-factory==0.1.5
 Werkzeug==0.12.2
 bandit==1.5.1
+pycodestyle==2.5.0
+pyflakes==2.1.0
