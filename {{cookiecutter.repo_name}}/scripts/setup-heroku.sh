@@ -13,6 +13,7 @@ heroku buildpacks:add heroku/nodejs -a $ENV_NAME-prod
 heroku buildpacks:add heroku/python -a $ENV_NAME-prod
 
 heroku addons:create sendgrid --app $ENV_NAME-prod
+heroku addons:create sentry --app $ENV_NAME-prod
 
 heroku addons:create heroku-redis:hobby-dev --app $ENV_NAME-prod
 heroku addons:add heroku-postgresql --app $ENV_NAME-prod
