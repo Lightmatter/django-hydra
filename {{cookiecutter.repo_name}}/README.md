@@ -45,7 +45,7 @@ n.b. you must be at the project root to run these commands
 ## Useful Commands - pulling remote database, shell_plus, runserver_plus, AWS stuff
 n.b. you must be at the project root to run any `./manage.py ...` or `./scripts/...` commands
 
-- Pull Remote Database (to replace the local prelude database with one of the live databases):
+- Pull Remote Database (to replace the local {{ cookiecutter.project_name }} database with one of the live databases):
     - Install and log into the the Heroku CLI:
         - For Mac: use Homebrew: `brew tap heroku/brew && brew install heroku` from <https://devcenter.heroku.com/articles/heroku-cli>
     - run `./scripts/pull_remote_db.sh`
@@ -58,10 +58,10 @@ n.b. you must be at the project root to run any `./manage.py ...` or `./scripts/
     - open a bash shell on the remote server: run: `heroku run bash --app [app name such as {{ cookiecutter.project_name }}-dev]`
     - once in the shell on the Heroku server run: `./manage.py shell_plus`
 - Capture a Remote Database Backup:
-    - run: `heroku pg:backups:capture --app [app name such as prelude-dev]`
+    - run: `heroku pg:backups:capture --app [app name such as {{ cookiecutter.project_name }}-dev]`
 - Retrieve Media assets from AWS S3:
     - Set up and configure the AWS CLI: see <https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html> for instructions
-        - be sure to set up your AWS config with your prelude credentials: instructions here <https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html>
+        - be sure to set up your AWS config with your {{ cookiecutter.project_name }} credentials: instructions here <https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html>
 
     - make sure a directory exists with the path [project root]/{{ cookiecutter.project_name }}/media
     - from the project root run: `aws s3 cp s3://{{ cookiecutter.project_name }}-dev ./{{ cookiecutter.project_name }}/media --recursive` replacing `{{ cookiecutter.project_name }}-dev` with `{{ cookiecutter.project_name }}-prod` or a different s3 bucket name as needed
