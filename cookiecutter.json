@@ -1,5 +1,6 @@
 {
     "project_name": "sampleapp",
+    "project_name_verbose": "Sample App",
     "domain_name": "{{ cookiecutter.project_name }}.com",
     "repo_name": "{{ cookiecutter.project_name|replace(' ', '_') }}",
     "use_djoser": "n",
