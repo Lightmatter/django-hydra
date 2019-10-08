@@ -1,7 +1,7 @@
 # {{ cookiecutter.project_name_verbose }}
 
 ## Overview
-{{ cookiecutter.project_name_verbose }} is a Wagtail multi-site collection of fertility clinic websites designed to allow users to find out more information about the clinics in the {{ cookiecutter.project_name_verbose }} network and get in touch with the best clinic for them.
+{{ cookiecutter.description }}
 
 ## Local Development Setup Instructions
 - Install PostgreSQL server and client on your local computer
