@@ -80,3 +80,11 @@ Use watchman for better performance when using the django dev server. pywatchman
 
 You can validate that it's working correctly when you do runserver - you should see "Watching for file changes with WatchmanReloader"
 If it's not working you will see "Watching for file changes with StatReloader"
+
+## Wagtail
+
+If the project is using wagtail a new app will be included called `wagtailapp`. Additionally in the settings/base.py file there will be new wagtail specific settings.
+
+Several blocks have been included to start TitleBlock, LinkBlock, ColumnBlock, RowBlock, SectionBlock, and SocialBlock. These are used in wagtail streamfields set up and ready to use. No styling has been included for them so they will need styling, but do have templates present. Currently the main block you can add to a ContentPage is a SectionBlock. This contains a Row or a Spacer. Rows contain Columns and Columns contain title, link, text and image. These are commonly seen patterns in our projects and are not necessary if you need to remove them/have no need for them.
+
+We have added h1 and h5 to the wagtail cms richtext editor as they do not come out of the box.
