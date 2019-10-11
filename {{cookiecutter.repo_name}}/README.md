@@ -29,6 +29,9 @@ You will be running two concurrent servers.
     - Emails will be printed to the console when being "sent" during local development
     - Emails will be pushed to a third party service for sending on the remote server (n.b. this must be set up separately and configured through the relevant Django settings)
 
+## Github
+- This repo is setup to use lint-staged and husky in order to do some clean up prior to committing your code. If js, css or scss files are present in your commit they will be linted. If you notice your files are not being linted every time you commit (with information printed from Husky... 'Running tasks...') then you should try uninstalling all npm packages and reinstalling. If git is not initialized before npm packages installed this will fail.
+
 ## Running Tests
 n.b. you must be at the project root to run these commands
 
