@@ -1,11 +1,11 @@
 import datetime
 import time
 from django.conf import settings
-from django.test import TestCase
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.test import TestCase
 
-from .util import random_string, file_url
 from .models import TestFileModel
+from .util import file_url, random_string
 
 
 class RandomStringTest(TestCase):
@@ -30,19 +30,28 @@ class FileUrlTest(TestCase):
         timestamp = int(time.time())
         actual = file_url_obj("trash", "some_filename")
         now = datetime.datetime.now()
-        expected = 'uploads/foo/{0.year:04}/{0.month:02}/{0.day:02}/{1}/some_filename'.format(now, timestamp)
+        expected = "uploads/foo/{0.year:04}/{0.month:02}/{0.day:02}/{1}/some_filename".format(
+            now, timestamp
+        )
         self.assertEqual(actual, expected)
 
     def test_file_upload(self):
-        fake_file = SimpleUploadedFile("some_file.txt", bytes("asdf", "utf8"), content_type="text")
+        fake_file = SimpleUploadedFile(
+            "some_file.txt", bytes("asdf", "utf8"), content_type="text"
+        )
         now = datetime.datetime.now()
         timestamp = int(time.time())
         x = TestFileModel.objects.create(file_field=fake_file)
         actual = x.file_field.url
-        expected = settings.MEDIA_URL + 'uploads/filez/{0.year:04}/{0.month:02}/{0.day:02}/{1}/some_file.txt'.format(now, timestamp)
+        expected = (
+            settings.MEDIA_URL
+            + "uploads/filez/{0.year:04}/{0.month:02}/{0.day:02}/{1}/some_file.txt".format(
+                now, timestamp
+            )
+        )
         self.assertEqual(actual, expected)
 
 
-#TODO: Write this test
+# TODO: Write this test
 class SendEmailtest(TestCase):
     pass

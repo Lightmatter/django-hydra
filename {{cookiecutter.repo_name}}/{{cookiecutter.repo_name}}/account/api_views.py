@@ -5,8 +5,7 @@ from rest_framework import serializers
 from djoser.views import ActivationView as DjoserActivationView
 from djoser.views import LoginView as DjoserLoginView
 from djoser.views import LogoutView as DjoserLogoutView
-from djoser.views import \
-    PasswordResetConfirmView as DjoserPasswordResetConfirmView
+from djoser.views import PasswordResetConfirmView as DjoserPasswordResetConfirmView
 from djoser.views import PasswordResetView as DjoserPasswordResetView
 from djoser.views import RegistrationView as DjoserUserRegistrationView
 from djoser.views import SetPasswordView as DjoserSetPasswordView
