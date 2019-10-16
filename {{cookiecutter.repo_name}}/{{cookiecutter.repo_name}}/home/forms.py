@@ -15,9 +15,9 @@ class UserForm(forms.Form):
     age = forms.IntegerField(help_text="Enter your age")
 
     def clean_name(self):
-        if(len(self.data['name']) < 5):
+        if len(self.data["name"]) < 5:
             raise forms.ValidationError("Is your name really that short?")
-        if(len(self.data['name'].split(' ')) < 2):
+        if len(self.data["name"].split(" ")) < 2:
             raise forms.ValidationError("Your full name please.")
 
     def good_to_go(self):

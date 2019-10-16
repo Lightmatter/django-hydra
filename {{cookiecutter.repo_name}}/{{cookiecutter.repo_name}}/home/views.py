@@ -3,15 +3,16 @@
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.views.generic.edit import FormView
+
 # from django.views.generic.list import ListView
 # from django.views.generic.detail import DetailView
 from .forms import UserForm
 
 
-@method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name="dispatch")
 class ExampleFormView(FormView):
     form_class = UserForm
-    template_name = 'example_form.html'
+    template_name = "example_form.html"
     success_url = "/form"
 
     def form_valid(self, form):
