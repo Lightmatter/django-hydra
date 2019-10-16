@@ -14,8 +14,9 @@ coverage==4.4.1
 unittest-xml-reporting==2.1.0
 codecov==2.0.9
 watchdog
+astroid==2.0.4
+prospector==1.1.6.2
 pylint==2.4.0
-prospector==0.12.7
 service-factory==0.1.5
 Werkzeug==0.12.2
 bandit==1.5.1
