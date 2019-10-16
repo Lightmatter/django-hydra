@@ -12,7 +12,7 @@
     "build": "NODE_ENV=production webpack -p",
     "dev": "NODE_ENV=dev webpack-dev-server",
     "test": "jest --verbose",
-    "lint:js:fix": "lynt \"{{ cookiecutter.repo_name }}/static_source/js/**/*.js\" --fix",
+    "lint:js:fix": "lynt \"{{ cookiecutter.repo_name }}/static_source/js/**/*.js\" --fix --global $",
     "lint:css:fix": "stylelint \"{{ cookiecutter.repo_name }}/static_source/sass/**/*.scss\" --fix",
     "pretty": "prettier --debug-check \"{{ cookiecutter.repo_name }}/static_source/js/**/*.js\"",
     "test:lint": "eslint . --ext .js --ext .jsx --ignore-path .gitignore --cache"
@@ -88,7 +88,7 @@
   "lint-staged": {
     "*.js": [
       "npm run lint:js:fix",
-      "prettier --config .prettierrc.json --debug-check",
+      "prettier --config .prettierrc.json --debug-check {{ cookiecutter.repo_name }}/static_source/js/**/*.js",
       "git add"
     ],
     "*.{css,scss}": [
