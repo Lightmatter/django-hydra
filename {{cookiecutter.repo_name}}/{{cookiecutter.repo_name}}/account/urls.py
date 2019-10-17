@@ -1,6 +1,7 @@
 from django.contrib.auth import urls as auth_urls  # NOQA
 from django.urls import include, path
 
+{%- if cookiecutter.use_djoser == 'y' %}
 from .api_views import (
     APIRegistrationView,
     LoginView,
@@ -8,6 +9,8 @@ from .api_views import (
     PasswordResetConfirmView,
     PasswordResetView,
 )
+{% endif %}
+
 from .views import LoginView, RegistrationView  # NOQA
 
 urlpatterns = []
