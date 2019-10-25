@@ -9,7 +9,7 @@ from enum import Enum
 
 
 @deconstructible
-class file_url(object):  # NOQA
+class file_url:
     path = "uploads/{0}/{1.year:04}/{1.month:02}/{1.day:02}/{2}/{3}"
 
     def __init__(self, category):

@@ -21,11 +21,11 @@ class RegistrationView(SimpleRegistrationView):
     form_class = RegistrationForm
 
     # Stick extra registration logic here
-    def register(self, form, **cleaned_data):
+    def register(self, form, **cleaned_data): # NOQA
         new_user = super().register(form, **cleaned_data)
         return new_user
 
-    def get_success_url(self, user):
+    def get_success_url(self, user): # NOQA
         """
         Return the url a user should be redirected to after registration
         """
@@ -35,4 +35,4 @@ class RegistrationView(SimpleRegistrationView):
 class LoginView(DjangoLoginView):
     pass
 
-{% endif -%}
+{%- endif -%}
