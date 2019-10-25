@@ -8,7 +8,7 @@
     - For Mac: use Homebrew: `brew install postgresql`
 - Install virtualenvwrapper <https://virtualenvwrapper.readthedocs.io/en/latest/install.html#basic-installation>
 - Run the start script: `./scripts/start.sh` from the project root
-    - This will install the pip and npm packages and set up the local database for the project
+    - This will install the pip and yarn packages and set up the local database for the project
 ##### Local Server Process
 You will be running two concurrent servers.
 

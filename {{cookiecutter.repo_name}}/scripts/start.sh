@@ -66,5 +66,5 @@ fi
 
 chmod +x manage.py
 
-# npm install after git init to avoid husky/lint-stage not working
-npm install
+# yarn install after git init to avoid husky/lint-stage not working
+yarn install
