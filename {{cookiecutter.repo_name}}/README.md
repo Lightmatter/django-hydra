@@ -68,3 +68,7 @@ n.b. you must be at the project root to run any `./manage.py ...` or `./scripts/
 
     - make sure a directory exists with the path [project root]/{{ cookiecutter.project_name }}/media
     - from the project root run: `aws s3 cp s3://{{ cookiecutter.project_name }}-dev ./{{ cookiecutter.project_name }}/media --recursive` replacing `{{ cookiecutter.project_name }}-dev` with `{{ cookiecutter.project_name }}-prod` or a different s3 bucket name as needed
+
+## Styleguide
+
+visit `/styleguide` to see the basic style guide. It will look gross and is meant to be modified as needed per project
