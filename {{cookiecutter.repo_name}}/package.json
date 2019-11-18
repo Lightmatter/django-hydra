@@ -6,7 +6,7 @@
   "license": "ISC",
   "main": "node/dev-server.js",
   "engines": {
-    "node": "12.13.0"
+    "node": "*"
   },
   "scripts": {
     "build": "NODE_ENV=production webpack -p",
