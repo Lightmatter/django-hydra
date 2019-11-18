@@ -12,7 +12,7 @@ from djoser.views import SetPasswordView as DjoserSetPasswordView
 from djoser.views import SetUsernameView as DjoserSetUsernameView
 from djoser.views import UserView as DjoserUserView
 
- from djoser.serializers import \
+from djoser.serializers import \
     UserRegistrationSerializer as DjoserUserRegistrationSerializer
 
 
