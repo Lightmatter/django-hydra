@@ -25,7 +25,7 @@ urlpatterns.extend([
     path(r'', include(auth_urls)),
 ])
 {%- endif %}
-{%- if cookiecutter.use_djoser == 'y' -%}
+{%- if cookiecutter.use_djoser == 'y' %}
 
 urlpatterns.extend([
     path(r'api/login/', LoginView.as_view(), name='api-login'),
