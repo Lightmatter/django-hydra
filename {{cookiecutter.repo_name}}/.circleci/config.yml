@@ -41,8 +41,8 @@ jobs:
       - run: npm install webpack
       - run: npm run build
       - run: bandit -r {{ cookiecutter.repo_name }}/ -l --ini .bandit -x tests.py
-      - run: isort --check-only --multi-line=3 --trailing-comma --force-grid-wrap=0 --use-parentheses --line-width=88 --recursive --builtin django --skip-glob "00*.py" elevendirect/
-      - run: black --check --diff --exclude=/migrations/ elevendirect/
+      - run: isort --check-only --multi-line=3 --trailing-comma --force-grid-wrap=0 --use-parentheses --line-width=88 --recursive --builtin django --skip-glob "00*.py" {{ cookiecutter.repo_name }}/
+      - run: black --check --diff --exclude=/migrations/ {{ cookiecutter.repo_name }}/
       - run: npm run test
       - run: prospector {{ cookiecutter.repo_name }} -X -I "{{cookiecutter.repo_name}}/settings/*"
       - run: coverage run --source='.' manage.py test
