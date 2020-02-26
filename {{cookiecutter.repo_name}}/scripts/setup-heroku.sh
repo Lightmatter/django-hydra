@@ -8,7 +8,7 @@ source `which virtualenvwrapper.sh`
 
 workon $ENV_NAME
 heroku create $ENV_NAME-prod
-heroku buildpacks:add https://github.com/cyberdelia/heroku-geo-buildpack.git#1.3 -a $ENV_NAME-prod
+heroku buildpacks:add https://github.com/cyberdelia/heroku-geo-buildpack.git#1.4 -a $ENV_NAME-prod
 heroku buildpacks:add heroku/nodejs -a $ENV_NAME-prod
 heroku buildpacks:add heroku/python -a $ENV_NAME-prod
 
@@ -17,6 +17,7 @@ heroku addons:create sentry --app $ENV_NAME-prod
 
 heroku addons:create heroku-redis:hobby-dev --app $ENV_NAME-prod
 heroku addons:add heroku-postgresql --app $ENV_NAME-prod
+heroku config:set BUILD_WITH_GEO_LIBRARIES=1 --app $ENV_NAME-prod
 heroku config:set ALLOWED_HOSTS="*" --app $ENV_NAME-prod
 heroku config:set PYTHONHASHSEED=random --app $ENV_NAME-prod
 heroku config:set AWS_SECRET_ACCESS_KEY="" --app $ENV_NAME-prod
