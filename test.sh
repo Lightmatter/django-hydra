@@ -26,13 +26,6 @@ if [ -d $appdir ]; then
         rmvirtualenv $appname
     fi
     # then deletes the old app
-    # save the old npm folder
-    if [ -d $appdir/node_modules ]; then
-        echo "caching npm run"
-        tmpfolder=`mktemp -d`
-        mv $appdir/node_modules $tmpfolder/
-    fi
-    # then deletes the old app
     echo "Deleting Old app"
     rm -rf $appdir
 fi
@@ -55,7 +48,7 @@ echo "Running tests"
 workon $appname
 cd $base/$appname/
 export DJANGO_SETTINGS_MODULE=$appname.$appname.settings.local
-npm run build
+yarn run build
 python manage.py collectstatic --noinput -v 0
 python manage.py test --noinput --keepdb
 prospector $appname -X -I "$appname/settings/*"

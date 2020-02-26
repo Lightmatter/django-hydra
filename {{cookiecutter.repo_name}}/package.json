@@ -6,13 +6,13 @@
   "license": "ISC",
   "main": "node/dev-server.js",
   "engines": {
-    "node": "8.1.4"
+    "node": "*"
   },
   "scripts": {
     "build": "NODE_ENV=production webpack -p",
     "dev": "NODE_ENV=dev webpack-dev-server",
     "test": "jest --verbose",
-    "lint:js:fix": "lynt \"{{ cookiecutter.repo_name }}/static_source/js/**/*.js\" --fix",
+    "lint:js:fix": "lynt \"{{ cookiecutter.repo_name }}/static_source/js/**/*.js\" --fix --global $",
     "lint:css:fix": "stylelint \"{{ cookiecutter.repo_name }}/static_source/sass/**/*.scss\" --fix",
     "pretty": "prettier --debug-check \"{{ cookiecutter.repo_name }}/static_source/js/**/*.js\"",
     "test:lint": "eslint . --ext .js --ext .jsx --ignore-path .gitignore --cache"
@@ -35,7 +35,7 @@
     "lint-staged": "^9.2.0",
     "lynt": "^0.5.5",
     "prettier": "^1.18.2",
-    "webpack-bundle-analyzer": "^2.11.1",
+    "webpack-bundle-analyzer": "^3.6.0",
     "webpack-dev-server": "^3.1.10"
   },
   "dependencies": {
@@ -88,7 +88,7 @@
   "lint-staged": {
     "*.js": [
       "npm run lint:js:fix",
-      "prettier --config .prettierrc.json --debug-check",
+      "prettier --config .prettierrc.json --debug-check {{ cookiecutter.repo_name }}/static_source/js/**/*.js",
       "git add"
     ],
     "*.{css,scss}": [

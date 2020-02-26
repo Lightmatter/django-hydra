@@ -44,8 +44,8 @@ fi
 export DJANGO_SETTINGS_MODULE="$ENV_NAME.$ENV_NAME.settings.local"
 
 python manage.py migrate
-npm install
-npm run build
+yarn install
+yarn run build
 chmod +x manage.py
 
 echo "Setting up Git"
