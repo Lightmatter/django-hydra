@@ -2,7 +2,7 @@ Django>=2.1,<2.2
 django-environ==0.4.3
 
 #Admin
-Pillow==5.4.1
+Pillow==6.2.0
 django-localflavor==1.5.2
 django-import-export==1.0.1
 
