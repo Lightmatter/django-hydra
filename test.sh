@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 original=$(pwd)
 
 if [ -z $1 ]; then
@@ -30,11 +31,10 @@ if [ -d $appdir ]; then
     rm -rf $appdir
 fi
 
-template=$(pwd)
 cd ..
 base=$(pwd)
 echo "Creating App"
-cookiecutter $template --default-config --no-input
+cookiecutter $original --default-config --no-input
 cd $appname
 #TODO: figure out how to get this into the cookiecuttered project after clone before post
 # if [ -d $tmpfolder/node_modules ]; then
