@@ -18,5 +18,5 @@ astroid==2.2.5
 prospector==1.1.7
 pylint==2.3.1
 service-factory==0.1.5
-Werkzeug==0.12.2
+Werkzeug==0.15.3
 bandit==1.5.1
