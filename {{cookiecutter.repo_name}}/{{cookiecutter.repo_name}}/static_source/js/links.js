@@ -11,11 +11,11 @@ function isExternalLink() {
   const href = $(this).attr('href');
   return !(
     !href ||
-      href[0] === '?' ||
-      href[0] === '/' ||
-      href[0] === '#' ||
-      href.substring(0, 4) === 'tel:' ||
-      href.substring(0, 7) === 'mailto:'
+    href[0] === '?' ||
+    href[0] === '/' ||
+    href[0] === '#' ||
+    href.substring(0, 4) === 'tel:' ||
+    href.substring(0, 7) === 'mailto:'
   );
 }
 
