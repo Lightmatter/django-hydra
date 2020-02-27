@@ -19,6 +19,8 @@ ALLOWED_HOSTS = ["*"]
 
 STATIC_ROOT = root("static")
 STATIC_URL = "/static/"
+MEDIA_ROOT = root("media")
+MEDIA_URL = "/media/"
 
 DEBUG = True
 SECRET_KEY = "testing"

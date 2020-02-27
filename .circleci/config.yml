@@ -13,9 +13,9 @@ jobs:
       - image: circleci/python:3.6-stretch-node-browsers
       - image: circleci/postgres:10-alpine-postgis
         environment:
-          POSTGRES_USER: genericapp
-          POSTGRES_DB: genericapp
-          DATABASE_URL: postgis://genericapp@localhost:5432/genericapp
+          POSTGRES_USER: sampleapp
+          POSTGRES_DB: sampleapp
+          DATABASE_URL: postgis://sampleapp@localhost:5432/sampleapp
       - image: circleci/redis
     working_directory: /home/circleci/project
     steps:
@@ -28,7 +28,7 @@ jobs:
       - run: npm install webpack
       - run: npm install yarn
       - run: pip install --user cookiecutter
-      - run: ./test.sh
+      - run: ./test.sh -t
 
 
 workflows:

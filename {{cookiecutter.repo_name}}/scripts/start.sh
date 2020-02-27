@@ -2,8 +2,6 @@
 
 export ENV_NAME="{{ cookiecutter.repo_name }}"
 
-ENV_OPSTS="--no-site-packages --distribute"
-
 unset PYTHONDONTWRITEBYTECODE
 echo "Making Virtual Environment"
 os="`uname -a`"
@@ -12,7 +10,7 @@ source `which virtualenvwrapper.sh`
 
 
 cd $WORKON_HOME
-mkvirtualenv --distribute $ENV_OPTS $ENV_NAME  -ppython3
+mkvirtualenv $ENV_OPTS $ENV_NAME  -ppython3
 cd -
 workon $ENV_NAME
 export DJANGO_SETTINGS_MODULE=$ENV_NAME.$ENV_NAME.settings.local
