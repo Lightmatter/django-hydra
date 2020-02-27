@@ -76,6 +76,7 @@ source $WORKON_HOME/$appname/bin/activate
 cd $base/$appname/
 
 export DJANGO_SETTINGS_MODULE=$appname.$appname.settings.local
+
 python manage.py test --noinput --keepdb
 prospector $appname -X -I "$appname/settings/*"
 RV=$?
