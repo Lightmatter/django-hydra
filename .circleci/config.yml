@@ -16,6 +16,7 @@ jobs:
           POSTGRES_USER: sampleapp
           POSTGRES_DB: sampleapp
           DATABASE_URL: postgis://sampleapp@localhost:5432/sampleapp
+
       - image: circleci/redis
     working_directory: /home/circleci/project
     steps:
