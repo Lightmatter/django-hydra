@@ -83,6 +83,7 @@ else
 fi
 
 
+
 python manage.py test --noinput --keepdb
 prospector $appname -X -I "$appname/settings/*"
 RV=$?
