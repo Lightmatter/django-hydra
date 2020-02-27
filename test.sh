@@ -30,6 +30,19 @@ echo "Installing virtualenvwrapper"
 # source `which virtualenvwrapper.sh`
 # #
 #test to make sure you're not running this from inside a venv
+if [[ "$VIRTUAL_ENV" != "" ]]
+then
+    pip install virtualenvwrapper
+else
+    echo "Installed virtualenvwrapper"
+    pip install --user virtualenvwrapper
+    source `which virtualenvwrapper.sh`
+fi
+if [[ -f "/etc/bash_completion.d/virtualenvwrapper" ]]; then
+    echo "sourced wrapper"
+    source "/etc/bash_completion.d/virtualenvwrapper"
+fi
+
 if [ -d $appdir ]; then
     # check to see if it's already created
     if [ "$keepenv" != true ]; then
