@@ -1,26 +1,38 @@
 #!/bin/bash
 set -e
 original=$(pwd)
+keepenv=false
+circle=false
 
-if [ -z $1 ]; then
-    echo "Removing the old env"
-else
-    echo "Keeping the old env"
-fi
+while getopts "kt" opt; do
+    case ${opt} in
+        k)
+            echo "Keeping the old env"
+            keepenv=true
+            ;;
+        t)
+            echo "running on circle"
+            circle=true
+            ;;
+
+        \?)
+            echo "Invalid option: -$OPTARG" >&2
+            ;;
+    esac
+done
 
 tmpfolder=""
 appname=sampleapp
 appdir=../$appname
 unset DJANGO_SETTINGS_MODULE
 echo "Installing virtualenvwrapper"
-#TODO - test to make sure you're not running this from inside a venv
-pip install --user virtualenvwrapper
-echo "Installed virtualenvwrapper"
-source `which virtualenvwrapper.sh`
-
+# pip install --user virtualenvwrapper
+# source `which virtualenvwrapper.sh`
+# #
+#test to make sure you're not running this from inside a venv
 if [ -d $appdir ]; then
     # check to see if it's already created
-    if [ -z $1 ]; then
+    if [ "$keepenv" != true ]; then
         # check to see if the first arg in the command line is non-existent
         # if so, removes the virtual environment
         echo "Deleting Old venv"
@@ -41,16 +53,22 @@ cd $appname
 #     mv $tmpfolder/node_modules .
 # fi
 
-if [ -z $1 ]; then
+
+if [ $keepenv != true ]; then
     echo "Running Start.sh"
     ./scripts/start.sh
 fi
 echo "Running tests"
-workon $appname
+source $WORKON_HOME/$appname/bin/activate
 cd $base/$appname/
-export DJANGO_SETTINGS_MODULE=$appname.$appname.settings.local
-yarn run build
-python manage.py collectstatic --noinput -v 0
+if [ "$circle" = true ]; then
+    export DJANGO_SETTINGS_MODULE=$appname.$appname.settings.circle
+else
+    export DJANGO_SETTINGS_MODULE=$appname.$appname.settings.local
+fi
+
+# yarn run build
+# python manage.py collectstatic --noinput -v 0
 python manage.py test --noinput --keepdb
 prospector $appname -X -I "$appname/settings/*"
 RV=$?
