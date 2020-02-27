@@ -2,8 +2,6 @@
 
 export ENV_NAME="{{ cookiecutter.repo_name }}"
 
-ENV_OPSTS="--no-site-packages --distribute"
-
 unset PYTHONDONTWRITEBYTECODE
 echo "Making Virtual Environment"
 os="`uname -a`"
