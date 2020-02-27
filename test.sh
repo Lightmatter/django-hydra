@@ -75,6 +75,13 @@ echo "Running tests"
 source $WORKON_HOME/$appname/bin/activate
 cd $base/$appname/
 
+if [ "$circle" = true ]; then
+    export DJANGO_SETTINGS_MODULE=$appname.$appname.settings.circleci
+    python manage.py migrate
+else
+    export DJANGO_SETTINGS_MODULE=$appname.$appname.settings.local
+fi
+
 export DJANGO_SETTINGS_MODULE=$appname.$appname.settings.local
 
 python manage.py test --noinput --keepdb
