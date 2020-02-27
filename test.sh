@@ -76,14 +76,6 @@ source $WORKON_HOME/$appname/bin/activate
 cd $base/$appname/
 
 export DJANGO_SETTINGS_MODULE=$appname.$appname.settings.local
-# if [ "$circle" = true ]; then
-#     export DJANGO_SETTINGS_MODULE=$appname.$appname.settings.circleci
-#     python manage.py migrate
-# else
-# fi
-
-# yarn run build
-# python manage.py collectstatic --noinput -v 0
 python manage.py test --noinput --keepdb
 prospector $appname -X -I "$appname/settings/*"
 RV=$?
