@@ -12,6 +12,10 @@ jobs:
     docker:
       - image: circleci/python:3.6-stretch-node-browsers
       - image: circleci/postgres:10-alpine-postgis
+        environment:
+          POSTGRES_USER: sampleapp
+          POSTGRES_DB: sampleapp
+          DATABASE_URL: postgis://sampleapp@localhost:5432/sampleapp
       - image: circleci/redis
     working_directory: /home/circleci/project
     steps:
