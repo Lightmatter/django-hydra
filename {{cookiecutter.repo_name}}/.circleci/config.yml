@@ -1,21 +1,11 @@
-version: 2
+version: 2.1
+orbs:
+  python: circleci/python@0.1
+  node: circleci/node@1.1.6
+  heroku: circleci/heroku@1.0.1
+  codecov: codecov/codecov@1.0.5
+  slack: circleci/slack@3.4.2
 jobs:
-  build:
-      docker:
-        - image: circleci/python:3.6-stretch-node-browsers
-      steps:
-        - checkout
-        - restore_cache:
-            keys:
-            - dependencies-{% raw %}{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}{% endraw %}
-        - run: pip install --user -r requirements.txt
-        - run: npm install
-        - run: npm install webpack
-        - run: npm run build
-        - save_cache:
-            key: dependencies-{% raw %}{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}{% endraw %}
-            paths:
-              - ~/.cache/pip
   test:
     docker:
       - image: circleci/python:3.6-stretch-node-browsers
@@ -24,56 +14,106 @@ jobs:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: circle_test
       - image: circleci/redis
+
     environment:
-      DJANGO_SETTINGS_MODULE: {{ cookiecutter.repo_name }}.{{ cookiecutter.repo_name }}.settings.circleci
+      DJANGO_SETTINGS_MODULE: {{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.settings.circleci
     working_directory: /home/circleci/project
     steps:
       - checkout
-      - restore_cache:
-          keys:
-            - dependencies-{% raw %}{{ checksum "requirements.txt" }}-{{ checksum "requirements-dev.txt" }}{% endraw %}
+      - python/load-cache
+      - run: sudo apt-get update && sudo apt-get install -y gdal-bin python-gdal python3-gdal
+      - python/install-deps
+      - run: pip install --user -r requirements-dev.txt
+      - python/save-cache
+
       - run:
           command: |
             echo 'export PATH=/home/circleci/.local/bin/:$PATH' >> $BASH_ENV
             source $BASH_ENV
-      - run: pip install --user -r requirements-dev.txt
-      - run: npm install
-      - run: npm install webpack
-      - run: npm run build
-      - run: bandit -r {{ cookiecutter.repo_name }}/ -l --ini .bandit -x tests.py
-      - run: isort --check-only --multi-line=3 --trailing-comma --force-grid-wrap=0 --use-parentheses --line-width=88 --recursive --builtin django --skip-glob "00*.py" {{ cookiecutter.repo_name }}/
-      - run: black --check --diff --exclude=/migrations/ {{ cookiecutter.repo_name }}/
-      - run: npm run test
-      - run: prospector {{ cookiecutter.repo_name }} -X -I "{{cookiecutter.repo_name}}/settings/*"
-      - run: coverage run --source='.' manage.py test
-      - run: codecov
+      - node/with-cache:
+          steps:
+            - run: npm install
+            - run: npm install webpack
+            - run: npm run build
 
-  deploy:
+      - run: bandit -r {{cookiecutter.repo_name}}/ -l --ini .bandit -x tests.py
+      - run: isort --check-only --multi-line=3 --trailing-comma --force-grid-wrap=0 --use-parentheses --line-width=88 --recursive --builtin django --skip-glob "00*.py" {{cookiecutter.repo_name}}/
+      - run: black --check --diff --exclude=/migrations/ {{cookiecutter.repo_name}}/
+      - run: npm run test
+      - run: prospector {{cookiecutter.repo_name}} -X -I "{{cookiecutter.repo_name}}/settings/*"
+      - run: coverage run --source='.' manage.py test
+      - store_test_results:
+          path: test_reports
+      - codecov/upload
+      - slack/status:
+          fail_only: true
+          channel: "#{{cookiecutter.repo_name}}-internal"
+          only_for_branches: develop,master
+
+  deploy-dev:
     docker:
         - image: buildpack-deps:trusty
     working_directory: /home/circleci/project
     steps:
       - checkout
-      - run:
-          name: "Deploy"
-          command: |
-                if [ "${CIRCLE_BRANCH}" == "develop" ]; then
-                  git push https://heroku:$HEROKU_API_KEY@git.heroku.com/{{ cookiecutter.repo_name }}-dev.git develop:master;
-                elif [ "${CIRCLE_BRANCH}" == "staging" ]; then
-                  git push https://heroku:$HEROKU_API_KEY@git.heroku.com/{{ cookiecutter.repo_name }}-staging.git staging:master;
-                elif [ "${CIRCLE_BRANCH}" == "master" ]; then
-                  git push https://heroku:$HEROKU_API_KEY@git.heroku.com/{{ cookiecutter.repo_name }}-prod.git master
-                fi
+      - heroku/install
+      - heroku/deploy-via-git:
+          app-name: {{cookiecutter.repo_name}}-dev
+      - slack/status:
+          channel: "#{{cookiecutter.repo_name}}-internal"
+
+  deploy-stage:
+    docker:
+        - image: buildpack-deps:trusty
+    working_directory: /home/circleci/project
+    steps:
+      - checkout
+      - heroku/install
+      - heroku/deploy-via-git:
+          app-name: {{cookiecutter.repo_name}}-staging
+      - slack/status:
+          channel: "#{{cookiecutter.repo_name}}-internal"
+
+  deploy-prod:
+    docker:
+        - image: buildpack-deps:trusty
+    working_directory: /home/circleci/project
+    steps:
+      - checkout
+      - heroku/install
+      - heroku/deploy-via-git:
+          app-name: {{cookiecutter.repo_name}}-prod
+      - slack/status:
+          channel: "#{{cookiecutter.repo_name}}-internal"
 
 
 workflows:
-  version: 2
-  build_test_deploy:
+  version: 2.1
+  test:
     jobs:
-      - build
       - test:
-          requires:
-            - build
-      - deploy:
+          context: lightmatter
+
+      - deploy-dev:
+          context: lightmatter
           requires:
             - test
+          filters:
+            branches:
+              only: develop
+
+      - deploy-stage:
+          context: lightmatter
+          requires:
+            - test
+          filters:
+            branches:
+              only: staging
+
+      - deploy-prod:
+          context: lightmatter
+          requires:
+            - test
+          filters:
+            branches:
+              only: master

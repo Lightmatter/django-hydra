@@ -4,7 +4,7 @@ register = template.Library()
 
 
 def replace(value, args):
-    frm, to = [arg for arg in args.split(",")]
+    frm, to = args.split(",")
     return value.replace(frm, to)
 
 

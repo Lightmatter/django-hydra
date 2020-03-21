@@ -10,13 +10,11 @@ django-template-debug==0.3.5
 
 # Testing
 model-mommy==1.6.0
-coverage==4.4.1
-unittest-xml-reporting==2.1.0
-codecov==2.0.9
+coverage==5.0.4
+unittest-xml-reporting==3.0.2
 watchdog
-astroid==2.2.5
-prospector==1.1.7
-pylint==2.3.1
-service-factory==0.1.5
-Werkzeug==0.15.3
+astroid==2.3.0
+prospector==1.2.0
+pylint==2.4.4
+Werkzeug==1.0.0
 bandit==1.5.1
