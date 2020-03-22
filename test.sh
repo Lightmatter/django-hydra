@@ -54,7 +54,7 @@ fi
 cd ..
 base=$(pwd)
 echo "Creating App"
-cookiecutter $original --default-config --no-input
+python -m cookiecutter $original --default-config --no-input
 cd $appname
 #TODO: figure out how to get this into the cookiecuttered project after clone before post
 # if [ -d $tmpfolder/node_modules ]; then
