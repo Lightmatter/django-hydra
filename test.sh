@@ -4,17 +4,12 @@ original=$(pwd)
 keepenv=false
 circle=false
 
-while getopts "kt" opt; do
+while getopts "k" opt; do
     case ${opt} in
         k)
             echo "Keeping the old env"
             keepenv=true
             ;;
-        t)
-            echo "running on circle"
-            circle=true
-            ;;
-
         \?)
             echo "Invalid option: -$OPTARG" >&2
             ;;
@@ -75,15 +70,8 @@ echo "Running tests"
 source $WORKON_HOME/$appname/bin/activate
 cd $base/$appname/
 
-if [ "$circle" = true ]; then
-    export DJANGO_SETTINGS_MODULE=$appname.$appname.settings.circleci
-    python manage.py migrate
-else
-    export DJANGO_SETTINGS_MODULE=$appname.$appname.settings.local
-fi
 
-
-
+export DJANGO_SETTINGS_MODULE=$appname.$appname.settings.local
 python manage.py test --noinput --keepdb
 prospector $appname -X -I "$appname/settings/*"
 RV=$?

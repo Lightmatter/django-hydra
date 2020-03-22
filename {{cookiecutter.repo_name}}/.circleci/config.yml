@@ -5,6 +5,7 @@ orbs:
   heroku: circleci/heroku@1.0.1
   codecov: codecov/codecov@1.0.5
   slack: circleci/slack@3.4.2
+  test-runner: ghostinspector/test-runner@1.0.0
 jobs:
   test:
     docker:
@@ -50,42 +51,30 @@ jobs:
           channel: "#{{cookiecutter.repo_name}}-internal"
           only_for_branches: develop,master
 
-  deploy-dev:
+  deploy:
+    parameters:
+      app-name:
+        description: destination app
+        type: string
+        default: {{cookiecutter.repo_name}}-dev
     docker:
-        - image: buildpack-deps:trusty
+      - image: cimg/base:2020.01
     working_directory: /home/circleci/project
     steps:
       - checkout
       - heroku/install
       - heroku/deploy-via-git:
-          app-name: {{cookiecutter.repo_name}}-dev
+          app-name: << parameters.app-name >>
       - slack/status:
           channel: "#{{cookiecutter.repo_name}}-internal"
 
-  deploy-stage:
-    docker:
-        - image: buildpack-deps:trusty
-    working_directory: /home/circleci/project
-    steps:
-      - checkout
-      - heroku/install
-      - heroku/deploy-via-git:
-          app-name: {{cookiecutter.repo_name}}-staging
-      - slack/status:
-          channel: "#{{cookiecutter.repo_name}}-internal"
-
-  deploy-prod:
-    docker:
-        - image: buildpack-deps:trusty
-    working_directory: /home/circleci/project
-    steps:
-      - checkout
-      - heroku/install
-      - heroku/deploy-via-git:
-          app-name: {{cookiecutter.repo_name}}-prod
-      - slack/status:
-          channel: "#{{cookiecutter.repo_name}}-internal"
-
+  # ghostinspector:
+  #   docker:
+  #     - image: cimg/base:2020.01
+  #   steps:
+  #     - test-runner/execute-suite:
+  #         start-url: '<URL GOES HERE>'
+  #         id: ID_GOES_HERE
 
 workflows:
   version: 2.1
@@ -94,26 +83,34 @@ workflows:
       - test:
           context: lightmatter
 
-      - deploy-dev:
+      - deploy:
           context: lightmatter
+          app-name: {{cookiecutter.repo_name}}-dev
           requires:
             - test
           filters:
             branches:
               only: develop
 
-      - deploy-stage:
+      - deploy:
           context: lightmatter
+          app-name: {{cookiecutter.repo_name}}-staging
           requires:
             - test
           filters:
             branches:
               only: staging
 
-      - deploy-prod:
+      - deploy:
           context: lightmatter
+          app-name: {{cookiecutter.repo_name}}-prod
           requires:
             - test
           filters:
             branches:
               only: master
+
+      # - ghostinspector:
+      #     context: lightmatter
+      #     requires:
+      #       - deploy-dev
