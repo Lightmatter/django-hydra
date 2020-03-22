@@ -1,13 +1,10 @@
-version: 2
+version: 2.1
+orbs:
+  python: circleci/python@0.1
+  node: circleci/node@1.1.6
+  slack: circleci/slack@3.4.2
+
 jobs:
-  build:
-      docker:
-        - image: circleci/python:3.6-stretch-node-browsers
-      steps:
-        - checkout
-        - run: npm install webpack
-        - run: npm install yarn
-        - run: pip install --user cookiecutter
   test:
     docker:
       - image: circleci/python:3.6-stretch-node-browsers
@@ -16,27 +13,42 @@ jobs:
           POSTGRES_USER: sampleapp
           POSTGRES_DB: sampleapp
           DATABASE_URL: postgis://sampleapp@localhost:5432/sampleapp
-
       - image: circleci/redis
+        
     working_directory: /home/circleci/project
     steps:
       - checkout
+      - python/load-cache
+      - python/install-deps
+      - run: pip install --user -r requirements-dev.txt
+      - python/save-cache
+
       - run:
           command: |
             echo 'export PATH=/home/circleci/.local/bin/:$PATH' >> $BASH_ENV
             source $BASH_ENV
+      - node/with-cache:
+          steps:
+            - run: npm install
+            - run: npm install yarn
+            - run: npm install webpack
+
+            - run: npm run build
+
       - run: sudo apt-get install -y postgresql-client
-      - run: npm install webpack
-      - run: npm install yarn
+
       - run: pip install --user cookiecutter
       - run: ./test.sh 
+      - slack/status:
+          fail_only: true
+          channel: "#project-template"
+          only_for_branches: develop,master
+
 
 
 workflows:
-  version: 2
+  version: 2.1
   build_and_test:
     jobs:
-      - build
       - test:
-          requires:
-            - build
+          context: lightmatter
