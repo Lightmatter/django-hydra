@@ -21,16 +21,13 @@ jobs:
     working_directory: /home/circleci/project
     steps:
       - checkout
+
       - python/load-cache
       - run: sudo apt-get update && sudo apt-get install -y gdal-bin python-gdal python3-gdal
       - python/install-deps
       - run: pip install --user -r requirements-dev.txt
       - python/save-cache
 
-      - run:
-          command: |
-            echo 'export PATH=/home/circleci/.local/bin/:$PATH' >> $BASH_ENV
-            source $BASH_ENV
       - node/with-cache:
           steps:
             - run: npm install
