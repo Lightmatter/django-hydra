@@ -18,10 +18,11 @@ jobs:
     working_directory: /home/circleci/project
     steps:
       - checkout
-      - python/load-cache
-      - python/install-deps
-      - run: pip install --user -r requirements-dev.txt
-      - python/save-cache
+      # todo figure out how to target the template's requirements
+      # - python/load-cache
+      # - python/install-deps
+      # - run: pip install --user -r requirements-dev.txt
+      # - python/save-cache
 
       - run:
           command: |
