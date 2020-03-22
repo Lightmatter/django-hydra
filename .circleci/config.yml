@@ -19,26 +19,16 @@ jobs:
     steps:
       - checkout
       # todo figure out how to target the template's requirements
-      # - python/load-cache
-      # - python/install-deps
-      # - run: pip install --user -r requirements-dev.txt
-      # - python/save-cache
+      - python/load-cache
+      - python/install-deps
+      - python/save-cache
 
-      - run:
-          command: |
-            echo 'export PATH=/home/circleci/.local/bin/:$PATH' >> $BASH_ENV
-            source $BASH_ENV
       - node/with-cache:
           steps:
-            - run: npm install
-            - run: npm install yarn
-            - run: npm install webpack
-
-            - run: npm run build
+            - run: yarn install
 
       - run: sudo apt-get install -y postgresql-client
 
-      - run: pip install --user cookiecutter
       - run: ./test.sh 
       - slack/status:
           fail_only: true
