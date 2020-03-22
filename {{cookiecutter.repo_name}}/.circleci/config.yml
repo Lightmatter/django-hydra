@@ -30,9 +30,9 @@ jobs:
 
       - node/with-cache:
           steps:
-            - run: npm install
-            - run: npm install webpack
-            - run: npm run build
+            - run: yarn install
+            - run: yarn install webpack
+            - run: yarn run build
 
       - run: bandit -r {{cookiecutter.repo_name}}/ -l --ini .bandit -x tests.py
       - run: isort --check-only --multi-line=3 --trailing-comma --force-grid-wrap=0 --use-parentheses --line-width=88 --recursive --builtin django --skip-glob "00*.py" {{cookiecutter.repo_name}}/
