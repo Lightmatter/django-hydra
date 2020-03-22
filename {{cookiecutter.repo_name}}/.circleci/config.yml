@@ -32,7 +32,7 @@ jobs:
 
       - node/with-cache:
           steps:
-            - run: yarn install
+            - run: yarn install --frozen-lockfile
             - run: yarn install webpack
             - run: yarn run build
 

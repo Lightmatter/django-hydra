@@ -25,7 +25,7 @@ jobs:
 
       - node/with-cache:
           steps:
-            - run: yarn install
+            - run: yarn install --frozen-lockfile
 
       - run: sudo apt-get install -y postgresql-client
 
