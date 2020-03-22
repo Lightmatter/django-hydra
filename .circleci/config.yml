@@ -31,7 +31,6 @@ jobs:
 
       - run: ./test.sh 
       - slack/status:
-          fail_only: true
           channel: "#project-template"
           only_for_branches: develop,master
 
@@ -39,7 +38,7 @@ jobs:
 
 workflows:
   version: 2.1
-  build_and_test:
+  test:
     jobs:
       - test:
           context: lightmatter
