@@ -10,7 +10,7 @@ jobs:
   test:
     docker:
       - image: circleci/python:3.6-stretch-node-browsers
-      - image: circleci/postgres:10-alpine-postgis
+      - image: circleci/postgres:10.1-alpine-postgis
         environment:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: circle_test
@@ -27,8 +27,8 @@ jobs:
       - python/load-cache
       - run: sudo apt-get update && sudo apt-get install -y gdal-bin python-gdal python3-gdal
       - python/install-deps
-      - run: pip install --user -r requirements-dev.txt
       - python/save-cache
+      - run: pip install --user -r requirements-dev.txt
 
       - node/with-cache:
           steps:
@@ -83,6 +83,7 @@ workflows:
           context: lightmatter
 
       - deploy:
+          name: deploy-dev
           context: lightmatter
           app-name: {{cookiecutter.repo_name}}-dev
           requires:
@@ -92,6 +93,7 @@ workflows:
               only: develop
 
       - deploy:
+          name: deploy-staging
           context: lightmatter
           app-name: {{cookiecutter.repo_name}}-staging
           requires:
@@ -101,6 +103,7 @@ workflows:
               only: staging
 
       - deploy:
+          name: deploy-prod
           context: lightmatter
           app-name: {{cookiecutter.repo_name}}-prod
           requires:

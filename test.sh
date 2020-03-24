@@ -56,11 +56,6 @@ base=$(pwd)
 echo "Creating App"
 python -m cookiecutter $original --default-config --no-input
 cd $appname
-#TODO: figure out how to get this into the cookiecuttered project after clone before post
-# if [ -d $tmpfolder/node_modules ]; then
-#     mv $tmpfolder/node_modules .
-# fi
-
 
 if [ $keepenv != true ]; then
     echo "Running Start.sh"
