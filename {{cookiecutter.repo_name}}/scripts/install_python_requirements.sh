@@ -17,4 +17,4 @@ if [ $? -ne 0 ]; then
     pip install --no-index --exists-action w --find-links=file://${HOME}/.pip-packages/ -r requirements-dev.txt
 else
     pip install -r requirements-dev.txt
-if
+fi

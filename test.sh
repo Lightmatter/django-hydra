@@ -41,13 +41,9 @@ fi
 cd ..
 base=$(pwd)
 echo "Creating App"
-python -m cookiecutter $original --default-config --no-input
+python -m cookiecutter $original --default-config --no-input project_name=$appname
 cd $appname
 
-if [ $keepenv != true ]; then
-    echo "Running Start.sh"
-    ./scripts/start.sh
-fi
 
 echo "Running tests"
 source $venv_path/bin/activate
