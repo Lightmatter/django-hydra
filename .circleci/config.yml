@@ -30,6 +30,7 @@ jobs:
       - run: sudo apt-get install -y postgresql-client
 
       #TODO: test to make sure that a bad name isn't generated
+      #TODO: make generate database more flexible so it doesn't fail  on circle
       - run: ./test.sh 
 
       - slack/status:
