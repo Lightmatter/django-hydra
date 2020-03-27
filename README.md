@@ -44,7 +44,7 @@ The recommended start pattern is described below. The start.sh command will
 
 ```
     $ git clone https://github.com/Lightmatter/generic-django-conf
-    $ cookiecutter generic-django-conf
+    $ python3 -m cookiecutter generic-django-conf
     $ cd <project_name>
     $ chmod +x scripts/start.sh
     $ scripts/start.sh

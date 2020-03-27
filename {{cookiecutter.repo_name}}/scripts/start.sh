@@ -1,68 +1,33 @@
 #!/bin/bash
+echo "Setting up for a GRRRRREAT DJANGO PROJECT"
 
-export ENV_NAME="{{ cookiecutter.repo_name }}"
+## Set mydir to the directory containing the script
+## The ${var%pattern} format will remove the shortest match of
+## pattern from the end of the string. Here, it will remove the
+## script's name,. leaving only the directory.
+thisdir="${0%/*}"
 
-unset PYTHONDONTWRITEBYTECODE
-echo "Making Virtual Environment"
+
+echo "Making Virtual Environment for {{cookiecutter.repo_name}}"
+export ENV_NAME="{{cookiecutter.repo_name}}"
 os="`uname -a`"
-source /etc/bash_completion.d/virtualenvwrapper
-source `which virtualenvwrapper.sh`
+WORKON_HOME=${WORKON_HOME:-~/.virtualenvs}  # set default value for workon home
+python -m venv $WORKON_HOME/$ENV_NAME
+source $WORKON_HOME/$ENV_NAME/bin/activate
 
 
-cd $WORKON_HOME
-mkvirtualenv $ENV_OPTS $ENV_NAME  -ppython3
-cd -
-workon $ENV_NAME
 export DJANGO_SETTINGS_MODULE=$ENV_NAME.$ENV_NAME.settings.local
-echo $VIRTUAL_ENV
+cp $thisdir/../.env.example $thisdir/../.env;
 
-#install requirements
-if [ ! -d ${HOME}/.pip-packages ]
-then
-    mkdir -p ${HOME}/.pip-packages
-fi
-
-
-if [  -d $WORKON_HOME/{{ cookiecutter.repo_name }}/build/ ]
-then
-    rm -rf $WORKON_HOME/{{ cookiecutter.repo_name }}/build/
-fi
-
-if [ $? -ne 0 ]; then
-    pip install --download ${HOME}/.pip-packages --exists-action w -r requirements-dev.txt
-    pip install --no-index --exists-action w --find-links=file://${HOME}/.pip-packages/ -r requirements-dev.txt
-else
-    pip install -r requirements-dev.txt
-fi
-
-
-#check if postgres installed
-RESULT=`psql -l | grep "{{ cookiecutter.repo_name }}" | wc -l | awk '{print $1}'`;
-if test $RESULT -eq 0; then
-    echo "Creating Database";
-    psql -c "create role {{ cookiecutter.repo_name }} with createdb encrypted password '{{ cookiecutter.repo_name }}' login;"
-    psql -c "alter user {{ cookiecutter.repo_name }} superuser;"
-    psql -c "create database {{ cookiecutter.repo_name }} with owner {{ cookiecutter.repo_name }};"
-else
-    echo "Database exists"
-fi
-
-#run initial setup of database tables
-python manage.py migrate
-
-#link up with git!
-if [ -d .git ]; then
-  echo "Git exists";
-else
-    echo "Setting up Git"
-    git init .
-    git remote add origin "git@github.com:Lightmatter/{{ cookiecutter.repo_name }}.git"
-    #todo - add all and make initial push
-fi
-
-#todo - git flow init
+source $thisdir/install_python_requirements.sh
+source $thisdir/setup_database.sh
+echo "omae wa mou shindeiru"
+source $thisdir/setup_github.sh
+source $thisdir/install_js_requirements.sh   # after git init to avoid husky/lint-stage not working
 
 chmod +x manage.py
 
-# yarn install after git init to avoid husky/lint-stage not working
-yarn install
+#todo - git flow init
+echo "-------------------------------------------------------------"
+echo "Maybe The Real Treasure Was the Friends We Made Along the Way"
+echo "-------------------------------------------------------------"
