@@ -2,17 +2,13 @@
 
 export ENV_NAME="{{ cookiecutter.repo_name }}"
 
-unset PYTHONDONTWRITEBYTECODE
 echo "Making Virtual Environment"
 os="`uname -a`"
-source /etc/bash_completion.d/virtualenvwrapper
-source `which virtualenvwrapper.sh`
+WORKON_HOME=${WORKON_HOME:-~/.virtualenvs}  # set default value for workon home
 
 
-cd $WORKON_HOME
-mkvirtualenv $ENV_OPTS $ENV_NAME  -ppython3
-cd -
-workon $ENV_NAME
+python -m venv $WORKON_HOME/$ENV_NAME
+source $WORKON_HOME/$ENV_NAME/bin/activate
 export DJANGO_SETTINGS_MODULE=$ENV_NAME.$ENV_NAME.settings.local
 echo $VIRTUAL_ENV
 
