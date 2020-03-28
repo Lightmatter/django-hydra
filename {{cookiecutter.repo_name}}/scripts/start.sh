@@ -24,7 +24,6 @@ source $thisdir/setup_database.sh
 echo "omae wa mou shindeiru"
 source $thisdir/setup_github.sh
 source $thisdir/install_js_requirements.sh   # after git init to avoid husky/lint-stage not working
-isort {{cookiecutter.repo_name}}/**/*.py
 chmod +x manage.py
 
 #todo - git flow init

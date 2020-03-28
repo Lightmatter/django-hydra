@@ -4,7 +4,7 @@ bundles/
 *_flymake*
 *.\#*
 webpack-stats.json
-
+*.tern-port
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

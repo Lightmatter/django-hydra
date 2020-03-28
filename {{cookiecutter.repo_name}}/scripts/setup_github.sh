@@ -9,3 +9,5 @@ else
     git remote add origin "git@github.com:Lightmatter/{{ cookiecutter.repo_name }}.git"
     #todo - add all and make initial push
 fi
+git add .
+git commit -am "initial commit"
