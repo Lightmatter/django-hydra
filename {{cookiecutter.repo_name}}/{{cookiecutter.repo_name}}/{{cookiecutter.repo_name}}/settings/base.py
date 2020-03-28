@@ -77,9 +77,8 @@ MIDDLEWARE = (
 ROOT_URLCONF = "{{ cookiecutter.repo_name }}.{{ cookiecutter.repo_name }}.urls"
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = (
-    "{{ cookiecutter.repo_name }}.{{ cookiecutter.repo_name }}.wsgi.application"
-)
+WSGI_APPLICATION = "{{ cookiecutter.repo_name }}.{{ cookiecutter.repo_name }}.wsgi.application"
+
 
 INSTALLED_APPS = (
     "django.contrib.contenttypes",
@@ -230,7 +229,6 @@ SOCIAL_AUTH_PIPELINE = (
 SOCIAL_AUTH_ENABLED_BACKENDS = "facebook"
 SOCIAL_AUTH_USER_MODEL = "account.User"
 SOCIAL_AUTH_DEFAULT_USERNAME = "new_social_auth_user"
-
 
 {% if cookiecutter.stripe  == "y" %}
 STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY", default="")

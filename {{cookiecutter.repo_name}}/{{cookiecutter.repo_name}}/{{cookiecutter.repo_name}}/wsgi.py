@@ -26,10 +26,12 @@ from whitenoise.django import DjangoWhiteNoise
 # if running multiple sites in the same mod_wsgi process. To fix this, use
 # mod_wsgi daemon mode with each site in its own daemon process, or use
 # os.environ["DJANGO_SETTINGS_MODULE"] = "project.settings"
+# fmt: off
 os.environ.setdefault(
-    "DJANGO_SETTINGS_MODULE", "{{cookiecutter.repo_name}}.settings.heroku"
+    "DJANGO_SETTINGS_MODULE",
+    "{{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.settings.heroku",
 )
-
+# fmt: on
 
 application = DjangoWhiteNoise(get_wsgi_application())
 

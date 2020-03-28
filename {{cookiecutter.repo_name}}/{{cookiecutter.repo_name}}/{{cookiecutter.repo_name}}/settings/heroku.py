@@ -46,10 +46,10 @@ AWS_QUERYSTRING_AUTH = False
 # put the cloudfront distro here
 # AWS_S3_CUSTOM_DOMAIN = 'foo.cloudfront.net'
 
-EMAIL_BACKEND = 'sgbackend.SendGridBackend'
-SENDGRID_USER = env('SENDGRID_USERNAME')
-SENDGRID_PASSWORD = env('SENDGRID_PASSWORD')
-SENDGRID_API_KEY = env('SENDGRID_API_KEY')
+EMAIL_BACKEND = "sgbackend.SendGridBackend"
+SENDGRID_USER = env("SENDGRID_USERNAME")
+SENDGRID_PASSWORD = env("SENDGRID_PASSWORD")
+SENDGRID_API_KEY = env("SENDGRID_API_KEY")
 
 
 STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY", default="")
@@ -68,7 +68,4 @@ AWS_S3_REGION_NAME = "us-east-1"
 # SOCIAL_AUTH_FACEBOOK_KEY = env('SOCIAL_AUTH_FACEBOOK_KEY')
 # SOCIAL_AUTH_FACEBOOK_SECRET = env('SOCIAL_AUTH_FACEBOOK_SECRET')
 
-sentry_sdk.init(
-    dsn=env('SENTRY_DSN', default=''),
-    integrations=[DjangoIntegration()]
-)
+sentry_sdk.init(dsn=env("SENTRY_DSN", default=""), integrations=[DjangoIntegration()])

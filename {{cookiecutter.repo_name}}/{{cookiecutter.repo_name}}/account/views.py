@@ -1,4 +1,4 @@
-{% if cookiecutter.django_registration == 'y' %}
+{%- if cookiecutter.django_registration == 'y' -%}
 from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model  # NOQA
 from django.contrib.auth.forms import AuthenticationForm  # NOQA
 from django.contrib.auth.views import LoginView as DjangoLoginView  # NOQA
@@ -21,11 +21,11 @@ class RegistrationView(SimpleRegistrationView):
     form_class = RegistrationForm
 
     # Stick extra registration logic here
-    def register(self, form, **cleaned_data): # NOQA
+    def register(self, form, **cleaned_data):  # NOQA
         new_user = super().register(form, **cleaned_data)
         return new_user
 
-    def get_success_url(self, user): # NOQA
+    def get_success_url(self, user):  # NOQA
         """
         Return the url a user should be redirected to after registration
         """
