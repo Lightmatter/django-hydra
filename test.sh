@@ -50,6 +50,7 @@ source $venv_path/bin/activate
 cd $base/$appname/
 
 export DJANGO_SETTINGS_MODULE=$appname.$appname.settings.local
+./scripts/validate.sh
 python manage.py test --noinput --keepdb
 RV=$?
 rm -rf static/

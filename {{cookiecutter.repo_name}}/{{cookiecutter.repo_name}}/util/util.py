@@ -4,8 +4,9 @@ import random
 import re
 import string
 import time
-from django.utils.deconstruct import deconstructible
 from enum import Enum
+
+from django.utils.deconstruct import deconstructible
 
 
 @deconstructible

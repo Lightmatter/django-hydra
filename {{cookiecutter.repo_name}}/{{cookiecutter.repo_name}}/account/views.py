@@ -34,5 +34,4 @@ class RegistrationView(SimpleRegistrationView):
 
 class LoginView(DjangoLoginView):
     pass
-
-{%- endif -%}
+{% endif %}

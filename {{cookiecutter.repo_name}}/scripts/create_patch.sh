@@ -1,4 +1,4 @@
-{% raw %}
+{%- raw -%}
 #!/bin/bash
 
 #run from base of project folder.

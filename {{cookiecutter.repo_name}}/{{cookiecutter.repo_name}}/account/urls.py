@@ -1,6 +1,6 @@
-from django.contrib.auth import urls as auth_urls  # NOQA
 from django.urls import include, path
 
+from django.contrib.auth import urls as auth_urls  # NOQA
 {%- if cookiecutter.use_djoser == 'y' %}
 from .api_views import (
     APIRegistrationView,

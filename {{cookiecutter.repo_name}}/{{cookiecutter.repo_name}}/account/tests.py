@@ -3,12 +3,10 @@ from django.test import Client, TestCase
 from django.urls import reverse
 
 from model_mommy import mommy
-
 {% if cookiecutter.django_registration == 'y' %}
 from .forms import RegistrationForm
 {% endif -%}
 from .models import User
-
 
 
 class UserManager(TestCase):
@@ -17,7 +15,6 @@ class UserManager(TestCase):
         User.objects.get(id=user.id)
 
 {% if cookiecutter.django_registration == 'y' %}
-
 class RegistrationTest(TestCase):
     def setUp(self):
         self.user = mommy.prepare_recipe('{{ cookiecutter.repo_name }}.account.user')
