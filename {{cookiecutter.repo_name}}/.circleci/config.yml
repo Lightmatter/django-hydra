@@ -37,11 +37,7 @@ jobs:
             - run: yarn run build
 
       - run: scripts/validate.sh
-      - run: bandit -r {{cookiecutter.repo_name}}/ -l --ini .bandit -x tests.py
-      - run: isort --check-only {{cookiecutter.repo_name}}/**/*.py
-      - run: black --check --diff --exclude=/migrations/ {{cookiecutter.repo_name}}/
       - run: yarn run test
-      - run: prospector {{cookiecutter.repo_name}} -X -I "{{cookiecutter.repo_name}}/settings/*"
       - run: coverage run --source='.' manage.py test
       - store_test_results:
           path: test_reports
