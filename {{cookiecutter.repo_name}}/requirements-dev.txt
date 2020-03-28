@@ -13,7 +13,7 @@ model-mommy==1.6.0
 coverage==5.0.4
 unittest-xml-reporting==3.0.2
 watchdog
-astroid==2.3.0
+astroid==2.3.3
 prospector==1.2.0
 pylint==2.4.4
 Werkzeug==1.0.0
