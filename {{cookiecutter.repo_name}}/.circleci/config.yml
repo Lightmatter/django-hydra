@@ -10,7 +10,7 @@ jobs:
   test:
     docker:
       - image: circleci/python:3.8-node-browsers
-      - image: circleci/postgres:10.1-alpine-postgis
+      - image: circleci/postgres:12-alpine-postgis-ram
         environment:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: circle_test
