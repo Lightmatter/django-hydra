@@ -40,7 +40,7 @@ django-storages==1.9.1
 #HEROKU
 whitenoise==5.0.1
 ipython==7.13.0
-gunicorn==20.0.4
+uvicorn==0.11.3
 sentry-sdk==0.14.3
 
 #OPTIONAL TOOLS

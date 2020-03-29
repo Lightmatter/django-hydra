@@ -76,10 +76,6 @@ MIDDLEWARE = (
 
 ROOT_URLCONF = "{{ cookiecutter.repo_name }}.{{ cookiecutter.repo_name }}.urls"
 
-# Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = "{{ cookiecutter.repo_name }}.{{ cookiecutter.repo_name }}.wsgi.application"
-
-
 INSTALLED_APPS = (
     "django.contrib.contenttypes",
     "django.contrib.auth",
