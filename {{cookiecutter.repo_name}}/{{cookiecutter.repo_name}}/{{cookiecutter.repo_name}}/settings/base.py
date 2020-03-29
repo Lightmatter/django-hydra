@@ -188,7 +188,7 @@ TEMPLATES = [
         "DIRS": [root("templates")],
         "APP_DIRS": True,
         "OPTIONS": {
-            "builtins": ["django.contrib.staticfiles.templatetags.staticfiles"],
+            "builtins": ["django.templatetags.static"],
             "context_processors": CONTEXT_PROCESSORS,
         },
     },
@@ -207,8 +207,8 @@ WEBPACK_LOADER = {
 
 #  registration
 ACCOUNT_ACTIVATION_DAYS = (
-    7
-)  # One-week activation window; you may, of course, use a different value.
+    7  # One-week activation window; you may, of course, use a different value.
+)
 
 #  social
 SOCIAL_AUTH_PIPELINE = (

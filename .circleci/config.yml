@@ -18,10 +18,7 @@ jobs:
     working_directory: /home/circleci/project
     steps:
       - checkout
-      # todo figure out how to target the template's requirements
-      - python/load-cache
       - python/install-deps
-      - python/save-cache
 
       - node/with-cache:
           steps:

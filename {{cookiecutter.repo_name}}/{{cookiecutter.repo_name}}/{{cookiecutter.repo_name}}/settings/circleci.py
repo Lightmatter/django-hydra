@@ -23,7 +23,7 @@ MEDIA_ROOT = root("media")
 MEDIA_URL = "/media/"
 
 DEBUG = True
-SECRET_KEY = "testing"
+SECRET_KEY = "testing"  # nosec
 
 TEST_RUNNER = "xmlrunner.extra.djangotestrunner.XMLTestRunner"
 TEST_OUTPUT_DIR = "./test_reports/django"

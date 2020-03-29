@@ -1,20 +1,21 @@
 -r requirements.txt
-ipdb==0.10.3
-ptpython==0.39
-isort==4.3.4
-black==19.3b0
+ipdb==0.13.2
+ptpython==3.0.1
+isort==4.3.21
+black==19.10b0
 
 # Debug Tools
-django-debug-toolbar==1.9.1
+django-debug-toolbar==2.2
 django-template-debug==0.3.5
 
 # Testing
-model-mommy==1.6.0
+model-mommy==2.0.0
 coverage==5.0.4
-unittest-xml-reporting==3.0.2
+unittest-xml-reporting==3.0.0
 watchdog
 astroid==2.3.3
 prospector==1.2.0
 pylint==2.4.4
+pylint-django==2.0.12
 Werkzeug==1.0.0
-bandit==1.5.1
+bandit==1.6.2

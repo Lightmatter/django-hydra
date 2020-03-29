@@ -133,6 +133,17 @@ Make sure to add psql backup
 
     $ heroku addons:add pgbackups
 
+Updating packages before a clone
+================================================
+I have found the tools pipupgrade and pip-review to be very useful for upgrading
+https://github.com/achillesrasquinha/pipupgrade
+
+```
+pipupgrade --requirements requirements.txt 
+pipupgrade --requirements requirements-dev.txt
+```
+should give you a starting place to upgrade packages.
+
 Todo
 ====
 Things we still want to do
@@ -161,3 +172,5 @@ Things we still want to do
     * Accessibility compatibility scrub
     * add css grid alternatives that can be turned on or off on a per project basis
 ```
+
+

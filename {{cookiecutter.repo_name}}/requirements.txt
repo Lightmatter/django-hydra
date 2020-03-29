@@ -1,48 +1,47 @@
-Django>=2.2,<2.3
-django-environ==0.4.3
+Django>=3,<3.1
+django-environ==0.4.5
 
 #Admin
-Pillow==6.2.0
-django-localflavor==1.5.2
-django-import-export==1.0.1
+Pillow==6.2.2
+django-localflavor==3.0.1
+django-import-export==2.0.2
 
 #DB
 psycopg2-binary==2.8.4
 
 #User Accounts
-django-registration-redux==2.4
-social-auth-app-django==2.1.0
-
-
+django-registration-redux==2.7
+social-auth-app-django==3.1.0
 
 {% if cookiecutter.use_djoser == 'y' %}
 # user authentication
 djoser==0.4.3
 {% endif %}
 
+
 #Utils
-django-extensions==2.0.0
-django-jinja==2.3.1
-django-model-utils==3.0.0
-django-braces==1.11.0
-pytz==2018.3
-easy-thumbnails==2.4.1
+django-extensions==2.2.9
+django-jinja==2.6.0
+django-model-utils==4.0.0
+django-braces==1.14.0
+pytz==2019.3
+easy-thumbnails==2.7
 
 #REDIS CACHING
-hiredis==0.2.0
-redis==2.10.5
-django-redis-cache==1.7.1
-django-redis-sessions==0.5.6
+hiredis==1.0.1
+redis==3.4.1
+django-redis-cache==2.1.0
+django-redis-sessions==0.6.1
 
 ## AWS
-boto3==1.7.82
-django-storages==1.6.6
+boto3==1.12.31
+django-storages==1.9.1
 
 #HEROKU
-whitenoise==3.3.0
-ipython==6.1.0
-gunicorn==19.7.1
-sentry-sdk==0.12.3
+whitenoise==5.0.1
+ipython==7.13.0
+gunicorn==20.0.4
+sentry-sdk==0.14.3
 
 #OPTIONAL TOOLS
 #whoosh
@@ -51,13 +50,14 @@ sentry-sdk==0.12.3
 #Money
 
 {% if cookiecutter.stripe == 'y' %}
-stripe==1.62.0
+stripe==2.44.0
 {% endif %}
 
 #standard utilities
-raven==6.1.0
+raven==6.10.0
 #celery==3.1.18
-sendgrid-django==4.0.4
-django-webpack-loader==0.5.0
-django-jinja==2.3.1
+sendgrid-django==4.2.0
+django-webpack-loader==0.7.0
+django-jinja==2.6.0
+
 # django-cachalot==2.1.0

@@ -198,7 +198,7 @@ class UserAdminTest(TestCase):
         }
         response = self.client.post(url, form_data)
         actual = response.context["adminform"].form.errors
-        expected = {"password2": ["The two password fields didn't match."]}
+        expected = {"password2": ["The two password fields didn’t match."]}
         self.assertEqual(actual, expected)
 
     def test_user_admin_change(self):
