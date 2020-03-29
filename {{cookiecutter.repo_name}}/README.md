@@ -72,3 +72,11 @@ n.b. you must be at the project root to run any `./manage.py ...` or `./scripts/
 ## Styleguide
 
 visit `/styleguide` to see the basic style guide. It will look gross and is meant to be modified as needed per project
+
+
+## Watchman file reloader
+
+Use watchman for better performance when using the django dev server. pywatchman is installed as part of dev requirements, but you must install watchman at a system level. See <https://facebook.github.io/watchman/docs/install> for instructions
+
+You can validate that it's working correctly when you do runserver - you should see "Watching for file changes with WatchmanReloader"
+If it's not working you will see "Watching for file changes with StatReloader"
