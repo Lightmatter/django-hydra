@@ -7,7 +7,7 @@ orbs:
 jobs:
   test:
     docker:
-      - image: circleci/python:3.6-stretch-node-browsers
+      - image: circleci/python:3.8-stretch-node-browsers
       - image: circleci/postgres:10-alpine-postgis
         environment:
           POSTGRES_USER: sampleapp

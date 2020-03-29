@@ -5,7 +5,7 @@ LightMatter Django Template
 About
 =====
 
-A generic template for Django 2.1.x - 2.2.x that can be easily extended for various needs including, but not limited to, using Wagtail as a CMS, incorporating React for a front end, etc.
+A generic template for Django 3 that can be easily extended for various needs including, but not limited to, using Wagtail as a CMS, incorporating React for a front end, etc.
 
 
 Dependencies, General
@@ -44,7 +44,7 @@ The recommended start pattern is described below. The start.sh command will
 
 ```
     $ git clone https://github.com/Lightmatter/generic-django-conf
-    $ python3 -m cookiecutter generic-django-conf
+    $ python3.8 -m cookiecutter generic-django-conf
     $ cd <project_name>
     $ chmod +x scripts/start.sh
     $ scripts/start.sh
