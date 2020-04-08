@@ -1,4 +1,4 @@
-{%raw%}<title>{% if page.seo_title %}{{ page.seo_title }}{% else %}Lightmatter{% endif %}</title>
+<title>{% if page.seo_title %}{{ page.seo_title }}{% else %}Lightmatter{% endif %}</title>
 <meta name="description" content="{% if page.search_description %}{{ page.search_description }}{% elif settings.wagtailapp.SocialMediaSettings.default_meta_description %}{{ settings.wagtailapp.SocialMediaSettings.default_meta_description }}{% endif %}" />
 <meta name="twitter:title" content="{% if page.seo_title %}{{ page.seo_title }}{% endif %}" />
 <meta name="twitter:description" content="{% if page.search_description %}{{ page.search_description }}{% elif settings.wagtailapp.SocialMediaSettings.default_meta_description %}{{ settings.wagtailapp.SocialMediaSettings.default_meta_description }}{% endif %}" />
@@ -12,5 +12,3 @@
 <meta property="og:image:height" content="{% if page.social_image and img.height %}{{ img.height }}{% elif default_img %}{{ default_img.height }}{% endif %}" />
 <meta property="og:image" content="{% if img.url %}{{ img.url }}{% elif default_img %}{{ default_img.url }}{% endif %}" />
 <meta property="og:description" content="{% if page.search_description %}{{ page.search_description }}{% elif settings.wagtailapp.SocialMediaSettings.default_meta_description %}{{ settings.wagtailapp.SocialMediaSettings.default_meta_description }}{% endif %}" />
-
-{%endraw%}
