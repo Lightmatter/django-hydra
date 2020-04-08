@@ -13,6 +13,8 @@
     "use_local_docker_db": "n",
     "use_wagtail": "n",
     "_copy_without_render": [
-        "*.html"
+        "*.html",
+        "templates/**/*.txt",
+        "*.jinja"
     ]
 }
