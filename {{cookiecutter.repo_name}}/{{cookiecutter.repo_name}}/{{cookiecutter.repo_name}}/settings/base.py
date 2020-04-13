@@ -1,8 +1,8 @@
 # Django settings for project project.
 import pathlib
+from datetime import timedelta
 from django.core.exceptions import ImproperlyConfigured
 
-from django_jinja.builtins import DEFAULT_EXTENSIONS  # noqa
 from environ import Env, Path
 
 DEBUG = False
@@ -64,7 +64,6 @@ STATICFILES_FINDERS = (
 
 MIDDLEWARE = (
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -88,11 +87,10 @@ INSTALLED_APPS = (
     "django_extensions",
     "model_utils",
     "easy_thumbnails",
-    "registration",
     "import_export",
+    "rest_framework",
+    "djoser",
     "social_django",
-    "django_jinja",
-    "webpack_loader",
     "{{ cookiecutter.repo_name }}.home",
     "{{ cookiecutter.repo_name }}.account",
     "{{ cookiecutter.repo_name }}.util",
@@ -168,18 +166,6 @@ CONTEXT_PROCESSORS = [
 
 TEMPLATES = [
     {
-        "BACKEND": "django_jinja.backend.Jinja2",
-        "DIRS": [root("templates")],
-        "APP_DIRS": False,
-        "OPTIONS": {
-            "match_extension": None,
-            "match_regex": r"^(?!admin/).*",  # this is additive to match_extension
-            "context_processors": CONTEXT_PROCESSORS,
-            "extensions": DEFAULT_EXTENSIONS
-            + ["webpack_loader.contrib.jinja2ext.WebpackExtension"],
-        },
-    },
-    {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [root("templates")],
         "APP_DIRS": True,
@@ -189,22 +175,6 @@ TEMPLATES = [
         },
     },
 ]
-
-
-WEBPACK_LOADER = {
-    "DEFAULT": {
-        "CACHE": not DEBUG,
-        "BUNDLE_DIR_NAME": "bundles/",  # must end with slash
-        "STATS_FILE": root("webpack-stats.json"),
-        "POLL_INTERVAL": 0.1,
-        "IGNORE": [".+\.hot-update.js", ".+\.map"],
-    }
-}
-
-#  registration
-ACCOUNT_ACTIVATION_DAYS = (
-    7  # One-week activation window; you may, of course, use a different value.
-)
 
 #  social
 SOCIAL_AUTH_PIPELINE = (
@@ -239,3 +209,31 @@ try:
     }
 except ImportError:
     pass
+
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "PAGE_SIZE": env("PAGE_SIZE", default=250),
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    # Filtering/Sorting
+    "DEFAULT_FILTER_BACKENDS": [
+        "django_filters.rest_framework.DjangoFilterBackend",
+        "rest_framework.filters.OrderingFilter",
+    ],
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=14),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": False,
+    "ALGORITHM": "HS256",
+    "VERIFYING_KEY": None,
+    "AUTH_HEADER_TYPES": ("JWT",),
+    "USER_ID_FIELD": "pk",
+    "USER_ID_CLAIM": "user_id",
+    "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
+    "TOKEN_TYPE_CLAIM": "token_type",
+}
