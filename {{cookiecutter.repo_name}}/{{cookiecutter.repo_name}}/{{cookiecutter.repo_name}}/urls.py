@@ -4,10 +4,12 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path(r"account/", include("{{cookiecutter.repo_name}}.account.urls")),
-    path(r"admin/", admin.site.urls),
+    path("account/", include("{{cookiecutter.repo_name}}.account.urls")),
+    path("auth/", include("djoser.urls")),
+    path("auth/", include("djoser.urls.jwt")),
+    path("admin/", admin.site.urls),
     path("social/", include("social_django.urls", namespace="social")),
-    path(r"backend/", include("{{cookiecutter.repo_name}}.home.urls")),
+    path("backend/", include("{{cookiecutter.repo_name}}.home.urls")),
     {% if cookiecutter.use_wagtail == 'y' -%}
     path("", include("{{ cookiecutter.repo_name }}.wagtailapp.urls")),
     {%- endif %}

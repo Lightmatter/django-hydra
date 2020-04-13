@@ -39,11 +39,9 @@ class InvalidVariable(str):
 
 
 TEMPLATES[0]["OPTIONS"]["debug"] = True
-TEMPLATES[1]["OPTIONS"]["debug"] = True
-TEMPLATES[1]["OPTIONS"]["string_if_invalid"] = InvalidVariable(
+TEMPLATES[0]["OPTIONS"]["string_if_invalid"] = InvalidVariable(
     "BAD TEMPLATE VARIABLE: %s"
 )
-
 
 SECRET_KEY = env("SECRET_KEY")
 CELERY_ALWAYS_EAGER = True
