@@ -1,0 +1,20 @@
+{%raw%}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% block extra_head %}
+        <title>Lightmatter</title>
+        {% endblock extra_head %}
+    </head>
+    <body>
+        {% include "header.html" %}
+        <div id="main">
+            {% block content %}
+            {% endblock content %}
+        </div> <!-- /container -->
+        {% include "footer.html" %}
+    </body>
+</html>
+{%endraw%}
