@@ -3,7 +3,6 @@ bundles/*
 bundles/
 *_flymake*
 *.\#*
-webpack-stats.json
 *.tern-port
 
 # Byte-compiled / optimized / DLL files
@@ -29,6 +28,9 @@ var/
 .installed.cfg
 *.egg
 
+
+#javascript
+.next/
 # environment variables
 .env
 
