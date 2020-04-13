@@ -6,6 +6,9 @@ then
     mkdir -p ${HOME}/.pip-packages
 fi
 
+#make sure we have wheel
+pip install wheel
+
 
 if [  -d $WORKON_HOME/{{ cookiecutter.repo_name }}/build/ ]
 then

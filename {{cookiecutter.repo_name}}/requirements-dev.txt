@@ -11,7 +11,7 @@ django-template-debug==0.3.5
 # Testing
 model-mommy==2.0.0
 coverage==5.0.4
-unittest-xml-reporting==3.0.0
+unittest-xml-reporting==3.0.2
 watchdog
 astroid==2.3.3
 prospector==1.2.0
