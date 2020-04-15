@@ -14,11 +14,18 @@
   },
   "devDependencies": {},
   "dependencies": {
+    "@date-io/date-fns": "^2.5.0",
     "@material-ui/core": "^4.9.10",
+    "axios": "^0.19.2",
+    "clsx": "^1.1.0",
+    "formik": "^2.1.4",
     "next": "^9.3.4",
+    "nprogress": "^0.2.0",
+    "prop-types": "^15.7.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "swr": "^0.2.0"
+    "swr": "^0.2.0",
+    "yup": "^0.28.3"
   },
   "lint-staged": {
     "*.js": [
