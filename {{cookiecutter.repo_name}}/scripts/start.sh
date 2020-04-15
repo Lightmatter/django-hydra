@@ -28,5 +28,5 @@ chmod +x manage.py
 
 #todo - git flow init
 echo "-------------------------------------------------------------"
-echo "Maybe The Real Treasure Was the Friends We Made Along the Way"
+echo "Maybe The Real start.sh Was the Friends We Made Along the Way"
 echo "-------------------------------------------------------------"

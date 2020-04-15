@@ -215,7 +215,7 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
-    "PAGE_SIZE": env("PAGE_SIZE", default=250),
+    "PAGE_SIZE": env("PAGE_SIZE", default=40),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     # Filtering/Sorting
     "DEFAULT_FILTER_BACKENDS": [
