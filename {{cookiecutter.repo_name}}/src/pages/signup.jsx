@@ -16,6 +16,7 @@ const SignUp = () => {
             </Typography>
             <Typography variant="h1">Register here, become a user!</Typography>
             <Typography>Really excited to see you man!</Typography>
+          {% raw %}
             <Formik
                 initialValues={{
                     first_name: '',
@@ -24,6 +25,7 @@ const SignUp = () => {
                     password1: '',
                     password2: '',
                 }}
+        {% endraw %}
                 validateOnChange
                 validationSchema={SignupSchema}
                 onSubmit={(values, actions) => {
