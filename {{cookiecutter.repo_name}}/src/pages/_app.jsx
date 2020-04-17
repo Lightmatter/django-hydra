@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import theme from '../src/theme';
+import theme from 'theme/theme';
 import NProgress from 'nprogress';
 
 Router.events.on('routeChangeStart', url => {
@@ -27,7 +27,7 @@ export default function App(props) {
     return (
         <React.Fragment>
             <Head>
-                <title>My page</title>
+                <title>Lightmatter!</title>
                 <link rel="stylesheet" type="text/css" href="/nprogress.css" />
                 <meta
                     name="viewport"
