@@ -20,9 +20,6 @@ function equalTo(ref, msg) {
 Yup.addMethod(Yup.string, 'equalTo', equalTo);
 
 const AuthSchema = {
-  username: Yup.string()
-    .required(REQUIRED)
-    .matches(/[a-zA-Z0-9_]/, 'username can only be letters and numbers'),
   first_name: Yup.string()
     .min(2, TOO_SHORT)
     .max(50, TOO_LONG)
@@ -38,12 +35,12 @@ export const SignupSchema = Yup.object().shape({
   email: Yup.string()
     .email(EMAIL)
     .required(REQUIRED),
-  password1: Yup.string()
+  password: Yup.string()
     .required(REQUIRED)
     .min(6, TOO_SHORT),
-  password2: Yup.string()
+  re_password: Yup.string()
     .required(REQUIRED)
-    .equalTo('password1', 'The Two Passwords Must Match'),
+    .equalTo('password', 'The Two Passwords Must Match'),
 });
 
 export const LoginSchema = Yup.object().shape({
@@ -54,16 +51,6 @@ export const LoginSchema = Yup.object().shape({
     .email(EMAIL)
     .required(REQUIRED),
 });
-
-function setHeader(key) {
-  if (key == null) {
-    delete axios.defaults.headers.common['Authorization'];
-    localStorage.removeItem('api_key');
-  } else {
-    axios.defaults.headers.common['Authorization'] = key;
-    localStorage.setItem('api_key', key);
-  }
-}
 
 function handleApiErrors(error) {
   let err;
@@ -88,89 +75,78 @@ function handleApiErrors(error) {
 }
 
 export function getCurrentUserDetails() {
-  const url = `/account/rest-auth/user/`;
+  const url = `/auth/users/me/`;
   return axios.get(url); //todo  - create hook to manage current user and set global state
 }
 
-export function removeStoredAuthToken() {
-  // If we reach a state where token is invalid, remove it from local storage and trigger refresh
-  localStorage.removeItem('api_key');
-  window.location.reload();
-}
-
 export function registerUser(userData) {
-  const url = `/account/rest-auth/registration/`;
+  const url = `/auth/users/`;
 
   return axios
     .post(url, userData)
-    .then(response => {
-      const token = `Token ${response.data['key']}`;
-      setHeader(token);
-    })
+    .then(response => {})
     .catch(error => {
       return handleApiErrors(error);
     });
 }
 
 export function updateUser(userData, userId) {
-  const url = `/account/users/${userId}/`;
-
+  const url = `/auth/users/me/`;
+  //todo  - create hook to manage current user and set global state
   return axios.put(url, userData).catch(error => {
     return handleApiErrors(error);
   });
 }
 
 export function logIn(userData) {
-  const url = `/account/rest-auth/login/`;
+  const url = `/auth/token/login/`;
   return axios
     .post(url, userData)
     .then(response => {
+      // use login session, so this should set a cookie but return a token. We still love you token.
       const token = `Token ${response.data['key']}`;
-      setHeader(token);
     })
     .catch(error => {
       return handleApiErrors(error);
     });
 }
 
-export function logOut(user) {
-  const url = `/account/rest-auth/logout/`;
+export function logOut() {
+  const url = `/auth/token/logout/`;
   return axios
     .post(url)
-    .then(() => {
-      setHeader(null);
-    })
-    .then(() => {
-      user.setLocalData(() => {});
-    })
+    .then(() => {})
+    .then(() => {}) //todo: clear data, use local session event hook to notify other tabs
     .catch(error => {
       return handleApiErrors(error);
     });
 }
 
 export function forgotPass(email) {
-  const url = `/account/rest-auth/password/reset/`;
+  const url = `/auth/users/reset_password/`;
   return axios.post(url, email).catch(error => {
     return handleApiErrors(error);
   });
 }
 
 export function confirmForgotPass(userInfo) {
-  const url = `/account/rest-auth/password/reset/confirm/`;
+  const url = `/auth/users/reset_password_confirm/`;
   return axios.post(url, userInfo).catch(error => {
     return handleApiErrors(error);
   });
 }
 
-export function confirmEmail(token) {
-  const url = `/account/confirm-email/${token}/`;
-  return axios.get(url).catch(error => {
+export function confirmEmail(uid, token) {
+  const url = `/auth/users/activation/`;
+  const data = { uid, token };
+  return axios.post(url, data).catch(error => {
     return handleApiErrors(error);
   });
 }
 
-export function resendConfirmEmail(token) {
-  const url = '/account/send-confirmation-email/';
+export function resendConfirmEmail(email) {
+  const url = '/auth/users/resend_activation';
+  const data = { email };
   return axios.post(url).catch(error => {
     return handleApiErrors(error);
   });
