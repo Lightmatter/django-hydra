@@ -16,23 +16,21 @@ const SignUp = () => {
             </Typography>
             <Typography variant="h1">Register here, become a user!</Typography>
             <Typography>Really excited to see you man!</Typography>
-          {% raw %}
             <Formik
-                initialValues={{
+                {% raw -%}initialValues={{
                     first_name: '',
                     last_name: '',
                     email: '',
-                    password1: '',
-                    password2: '',
-                }}
-        {% endraw %}
+                    password: '',
+                    re_password: '',
+                }}{%endraw%}
                 validateOnChange
                 validationSchema={SignupSchema}
                 onSubmit={(values, actions) => {
                     setTimeout(() => {
                         registerUser(values)
                             .then(response => {
-                                addAlert({ msg: 'Successfully signed up' });
+                                alert('Successfully signed up');
                                 return response;
                             })
                             .then(response => {
@@ -42,10 +40,7 @@ const SignUp = () => {
                             .catch(error => {
                                 actions.setSubmitting(false);
                                 if (error.non_field_errors) {
-                                    addAlert({
-                                        msg: error.non_field_errors,
-                                        severity: 'error',
-                                    });
+                                    alert(error.non_field_errors);
                                 } else {
                                     actions.setErrors(error);
                                 }
@@ -82,7 +77,7 @@ const SignUp = () => {
                     <Field
                         fullWidth
                         component={TextField}
-                        name="password1"
+                        name="password"
                         type="password"
                         label="Password"
                         placeholder="Create Password"
@@ -91,12 +86,13 @@ const SignUp = () => {
                     <Field
                         fullWidth
                         component={TextField}
-                        name="password2"
+                        name="re_password"
                         type="password"
                         label="Confirm Password"
                         placeholder="Repeat Password"
                         helperText="make the stars just as happy as before"
                     />
+
                     <Button variant="outlined" type="submit">
                         Submit
                     </Button>

@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
-    path("account/", include("{{cookiecutter.repo_name}}.account.urls")),
+    path("auth/", include("{{cookiecutter.repo_name}}.account.urls")),
     path("auth/", include("djoser.urls")),
     path("auth/", include("djoser.urls.jwt")),
     path("admin/", admin.site.urls),
