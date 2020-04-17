@@ -91,6 +91,7 @@ INSTALLED_APPS = (
     "import_export",
     "corsheaders",
     "rest_framework",
+    "rest_framework.authtoken",
     "djoser",
     "social_django",
     "{{ cookiecutter.repo_name }}.home",
@@ -215,7 +216,8 @@ except ImportError:
 REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
     ),
     "PAGE_SIZE": env("PAGE_SIZE", default=40),
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
@@ -224,4 +226,11 @@ REST_FRAMEWORK = {
         "django_filters.rest_framework.DjangoFilterBackend",
         "rest_framework.filters.OrderingFilter",
     ],
+}
+DJOSER = {
+    "SERIALIZERS": {
+        "token_create": "{{cookiecutter.repo_name}}.account.serializers.TokenCreateSerializer",
+    },
+    "USER_CREATE_PASSWORD_RETYPE": True,
+    "CREATE_SESSION_ON_LOGIN": True,
 }

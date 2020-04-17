@@ -1,3 +1,4 @@
 from django.urls import include, path  # NOQA
+from .views import TokenCreateView
 
-urlpatterns = []
+urlpatterns = [path("token/login/", TokenCreateView.as_view(), name="login")]

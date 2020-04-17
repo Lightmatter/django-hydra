@@ -1,7 +1,9 @@
 import Link from 'next/link';
 const Header = props => (
     <header>
-        <h4>Lightmatter!</h4>
+        <Link href="/">
+            <h4>Lightmatter!</h4>
+        </Link>
         <Link href="/login">
             <a> Login </a>
         </Link>
