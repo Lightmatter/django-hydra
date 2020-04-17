@@ -14,6 +14,10 @@ Hijack
 **DJANGO
 Default implmentation of user list + detail
 Default Implmentation of CreateSerializer + MeSerializer
+Figure out html emails 
+use https://github.com/django-json-api/django-rest-framework-json-api by default
+
+
 
 **NEXT
 Figure out to do different configs for dev and prod
@@ -25,7 +29,11 @@ https://github.com/zeit/next.js/blob/canary/examples/with-sentry-simple/next.con
 Get CSRF working
 
 
+
+
+
 Write Upgrading next section in readme:
+
 Include material ui example
 https://github.com/mui-org/material-ui/blob/master/examples/nextjs
 
