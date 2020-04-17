@@ -1,4 +1,5 @@
-from rest_framework import exceptions, serializers
+from rest_framework import serializers
+
 from djoser.serializers import TokenCreateSerializer as DjoserTokenCreateSerializer
 
 
