@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Form, Field, Formik } from 'formik';
-import { registerUser, SignupSchema, useUser } from 'models/user';
+import { registerUser, logIn, SignupSchema, useUser } from 'models/user';
 
 import Link from 'components/router/Link';
 import Typography from '@material-ui/core/Typography';
@@ -31,6 +31,14 @@ const SignUp = () => {
                         registerUser(values)
                             .then(response => {
                                 alert('Successfully signed up');
+                                return response;
+                            })
+                            .then(response => {
+                                const login_promise = logIn(values);
+                                return login_promise;
+                            })
+                            .then(response => {
+                                alert('Successfully logged in');
                                 return response;
                             })
                             .then(response => {

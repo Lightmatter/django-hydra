@@ -1,5 +1,6 @@
-from djoser.serializers import UserCreateSerializer as DjoserUserCreateSerializer
+from rest_framework import exceptions, serializers
+from djoser.serializers import TokenCreateSerializer as DjoserTokenCreateSerializer
 
 
-class UserCreateSerializer(DjoserUserCreateSerializer):
-    pass
+class TokenCreateSerializer(DjoserTokenCreateSerializer):
+    remember_me = serializers.BooleanField(default=False)

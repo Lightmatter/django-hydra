@@ -99,9 +99,12 @@ export function updateUser(userData, userId) {
 }
 
 export function logIn(userData) {
-  const url = `/auth/token/login/`;
+  const url = `http://localhost:8000/auth/token/login/`;
   return axios
-    .post(url, userData)
+    .post(url, userData, {
+      //AxiosRequestConfig parameter
+      withCredentials: true, //correct
+    })
     .then(response => {
       // use login session, so this should set a cookie but return a token. We still love you token.
       const token = `Token ${response.data['key']}`;

@@ -6,7 +6,7 @@ from django.urls import include, path
 urlpatterns = [
     path("auth/", include("{{cookiecutter.repo_name}}.account.urls")),
     path("auth/", include("djoser.urls")),
-    path("auth/", include("djoser.urls.jwt")),
+    path("auth/", include("djoser.urls.authtoken")),
     path("admin/", admin.site.urls),
     path("social/", include("social_django.urls", namespace="social")),
     path("backend/", include("{{cookiecutter.repo_name}}.home.urls")),
