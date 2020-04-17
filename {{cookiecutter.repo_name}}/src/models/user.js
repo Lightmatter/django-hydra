@@ -41,7 +41,9 @@ export const SignupSchema = Yup.object().shape({
   password1: Yup.string()
     .required(REQUIRED)
     .min(6, TOO_SHORT),
-  password2: Yup.string().equalTo('password1', 'The Two Passwords Must Match'),
+  password2: Yup.string()
+    .required(REQUIRED)
+    .equalTo('password1', 'The Two Passwords Must Match'),
 });
 
 export const LoginSchema = Yup.object().shape({
@@ -173,7 +175,3 @@ export function resendConfirmEmail(token) {
     return handleApiErrors(error);
   });
 }
-
-//log the user in if they're returning
-export const startup_api_key = localStorage.getItem('api_key');
-setHeader(startup_api_key);

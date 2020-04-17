@@ -5,6 +5,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from 'theme/theme';
 import NProgress from 'nprogress';
+import Router from 'next/router';
 
 Router.events.on('routeChangeStart', url => {
     console.log(`Loading: ${url}`);
