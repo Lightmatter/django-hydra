@@ -1,12 +1,16 @@
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
 import theme from 'theme/theme';
 import { makeStyles } from '@material-ui/core/styles';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Form, Field, Formik } from 'formik';
+import { TextField } from 'formik-material-ui';
+
+import { LoginSchema, logIn } from 'models/user';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -17,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const logIn = () => {
+const LogInPage = () => {
     const classes = useStyles(theme);
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
@@ -28,6 +32,7 @@ const logIn = () => {
                 Sign in
             </Typography>
             <Formik
+                initialValues={{ email: '' }}
                 validateOnChange
                 validationSchema={LoginSchema}
                 onSubmit={(values, actions) => {
@@ -51,9 +56,32 @@ const logIn = () => {
                             });
                     });
                 }}
-            ></Formik>
+            >
+                <Form>
+                    <Field
+                        fullWidth
+                        name="email"
+                        component={TextField}
+                        label="Email"
+                        placeholder="Enter Email"
+                        helperText="That stands for electronic mail."
+                    />
+                    <Field
+                        fullWidth
+                        name="password"
+                        type="password"
+                        component={TextField}
+                        label="Password"
+                        placeholder="Enter Password"
+                        helperText="Keep it secret, keep it safe"
+                    />
+                    <Button variant="outlined" type="submit">
+                        Log In
+                    </Button>
+                </Form>
+            </Formik>
         </Container>
     );
 };
 
-export default logIn;
+export default LogInPage;

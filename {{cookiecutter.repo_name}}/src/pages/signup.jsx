@@ -21,8 +21,6 @@ const SignUp = () => {
                     first_name: '',
                     last_name: '',
                     email: '',
-                    password: '',
-                    re_password: '',
                 }}{%endraw%}
                 validateOnChange
                 validationSchema={SignupSchema}
@@ -102,7 +100,7 @@ const SignUp = () => {
                     />
 
                     <Button variant="outlined" type="submit">
-                        Submit
+                        Sign Up
                     </Button>
                 </Form>
             </Formik>
