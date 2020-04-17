@@ -1,0 +1,66 @@
+update debug toolbar
+install cachealot (make sure that debug toolbar has the cachealot panel)
+
+Make sure redis caching is configured bestly  https://github.com/sebleier/django-redis-cache
+switch to an email provider that is one click (mailgun?)
+setup robots.txt and configure that to be part of django
+setup default sitemap for django
+setup silk
+logging
+Hijack
+
+
+
+**DJANGO
+Default implmentation of user list + detail
+Default Implmentation of CreateSerializer + MeSerializer
+
+**NEXT
+Figure out to do different configs for dev and prod
+setup sentry for prod:
+https://github.com/zeit/next.js/tree/canary/examples/with-sentry
+https://github.com/zeit/next.js/blob/canary/examples/with-sentry-simple/next.config.js
+
+
+Get CSRF working
+
+
+Write Upgrading next section in readme:
+Include material ui example
+https://github.com/mui-org/material-ui/blob/master/examples/nextjs
+
+Move New window logic into Link
+
+Turn on strict CSP (make sure it works with analytics)
+https://www.troyhunt.com/locking-down-your-website-scripts-with-csp-hashes-nonces-and-report-uri/
+https://github.com/zeit/next.js/blob/canary/examples/with-strict-csp-hash/pages/_document.js
+
+
+Turn on storybook by default
+https://github.com/zeit/next.js/tree/canary/examples/with-storybook
+
+do a better page transition by default
+
+
+actually Figure out themes 
+
+
+make sure redirects work right:
+https://github.com/zeit/next.js/discussions/11072
+
+
+
+next-boost looks nice
+https://github.com/rjyo/next-boost
+
+
+** Documentation:
+Authentication
+  - same subdomain cookie for same machine
+  - domain cookie for different machines, same domain (must not be on https://publicsuffix.org/list/public_suffix_list.dat)
+  - jwt for different domains.
+
+
+
+{{ foo:bar}} sets a dictionary in react code but is also a variable in jinja - look into changing jinja delimiter to something illegal in js
+
