@@ -66,6 +66,7 @@ STATICFILES_FINDERS = (
 
 MIDDLEWARE = (
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -90,6 +91,7 @@ INSTALLED_APPS = (
     "model_utils",
     "easy_thumbnails",
     "import_export",
+    "corsheaders",
     "rest_framework",
     "djoser",
     "social_django",
@@ -225,21 +227,6 @@ REST_FRAMEWORK = {
         "rest_framework.filters.OrderingFilter",
     ],
 }
-
-SIMPLE_JWT = {
-    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
-    "REFRESH_TOKEN_LIFETIME": timedelta(days=14),
-    "ROTATE_REFRESH_TOKENS": True,
-    "BLACKLIST_AFTER_ROTATION": False,
-    "ALGORITHM": "HS256",
-    "VERIFYING_KEY": None,
-    "AUTH_HEADER_TYPES": ("JWT",),
-    "USER_ID_FIELD": "pk",
-    "USER_ID_CLAIM": "user_id",
-    "AUTH_TOKEN_CLASSES": ("rest_framework_simplejwt.tokens.AccessToken",),
-    "TOKEN_TYPE_CLAIM": "token_type",
-}
-
 
 # fmt: off
 {% if cookiecutter.use_wagtail == "y" -%}

@@ -80,7 +80,7 @@ export function getCurrentUserDetails() {
 }
 
 export function registerUser(userData) {
-  const url = `/auth/users/`;
+  const url = `http://localhost:8000/auth/users/`;
 
   return axios
     .post(url, userData)
