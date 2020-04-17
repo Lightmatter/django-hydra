@@ -1,7 +1,7 @@
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 
-import Link from 'components/router/Link';
+import Link from '@material-ui/core/Link';
 
 export default function Footer({ className }) {
     return (
