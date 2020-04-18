@@ -1,6 +1,10 @@
+import React, { useCallback } from 'react';
 import axios from 'util/axios';
 import { EMAIL, GENERIC_FIELD_ERROR, REQUIRED, TOO_LONG, TOO_SHORT } from '../constants.js';
 import * as Yup from 'yup';
+import constate from 'constate';
+
+import useSWR from 'swr';
 
 function equalTo(ref, msg) {
   ref = Yup.ref(ref);
@@ -155,3 +159,40 @@ export function resendConfirmEmail(email) {
     return handleApiErrors(error);
   });
 }
+
+export function useCurrentUserSWR() {
+  const options = {
+    shouldRetryOnError: false,
+    onSuccess: function(data, key, config) {},
+    onError: function(err, key, config) {},
+  };
+  const { data, error, isValidating, mutate } = useSWR(
+    USER_ME,
+    query =>
+      axios({
+        method: 'get',
+        url: query,
+        headers: { Accept: '*/*' }, // as fetch for preload doesn't set accept correctly
+      }),
+    options
+  );
+  const isAuthenticated = Boolean(data);
+  const user = isAuthenticated ? data.data.data.attributes : {};
+  return { user, isAuthenticated, error, isValidating, mutate };
+}
+
+export const [
+  CurrentUserProvider,
+  useCurrentUser,
+  useIsAuthenticated,
+  useCurrentUserError,
+  useCurrentUserIsValidating,
+  useMutateCurrentUser,
+] = constate(
+  useCurrentUserSWR,
+  value => value.user,
+  value => value.isAuthenticated,
+  value => value.error,
+  value => value.useCurrentUserIsValidating,
+  value => useMutateCurrentUser
+);

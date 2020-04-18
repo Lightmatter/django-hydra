@@ -5,9 +5,12 @@ import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import theme from 'theme/theme';
-import NProgress from 'nprogress';
 import Router from 'next/router';
 
+import { CurrentUserProvider } from 'models/user';
+import axios from 'util/axios';
+
+import NProgress from 'nprogress';
 Router.events.on('routeChangeStart', url => {
     console.log(`Loading: ${url}`);
     NProgress.start();
@@ -37,7 +40,6 @@ export default function App(props) {
             jssStyles.parentElement.removeChild(jssStyles);
         }
     }, []);
-
     return (
         <React.Fragment>
             <Head>
@@ -51,11 +53,13 @@ export default function App(props) {
             <ThemeProvider theme={theme}>
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                 <CssBaseline />
-                <Grid container direction="column" className={classes.Site}>
-                    <Header />
-                    <Component {...pageProps} />
-                    <Footer className={classes.Footer} />
-                </Grid>
+                <CurrentUserProvider>
+                    <Grid container direction="column" className={classes.Site}>
+                        <Header />
+                        <Component {...pageProps} />
+                        <Footer className={classes.Footer} />
+                    </Grid>
+                </CurrentUserProvider>
             </ThemeProvider>
         </React.Fragment>
     );
