@@ -4,11 +4,12 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
+
 import theme from 'theme/theme';
 import { makeStyles } from '@material-ui/core/styles';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Form, Field, Formik } from 'formik';
-import { TextField } from 'formik-material-ui';
+import { TextField, Checkbox } from 'formik-material-ui';
 
 import { LoginSchema, logIn } from 'models/user';
 
@@ -32,7 +33,7 @@ const LogInPage = () => {
                 Sign in
             </Typography>
             <Formik
-                {% raw -%}initialValues={{ email: '' }}{% endraw %}
+                {% raw -%}initialValues={{ email: '', remember_me: true }}{% endraw %}
                 validateOnChange
                 validationSchema={LoginSchema}
                 onSubmit={(values, actions) => {
@@ -75,6 +76,13 @@ const LogInPage = () => {
                         placeholder="Enter Password"
                         helperText="Keep it secret, keep it safe"
                     />
+                    <Field
+                        name="remember_me"
+                        type="checkbox"
+                        component={Checkbox}
+                        label="Remember me"
+                    />
+
                     <Button variant="outlined" type="submit">
                         Log In
                     </Button>

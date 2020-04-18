@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from 'util/axios';
 import { EMAIL, GENERIC_FIELD_ERROR, REQUIRED, TOO_LONG, TOO_SHORT } from '../constants.js';
 import * as Yup from 'yup';
 

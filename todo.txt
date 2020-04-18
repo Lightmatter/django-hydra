@@ -15,9 +15,11 @@ Hijack
 Default implmentation of user list + detail
 Default Implmentation of CreateSerializer + MeSerializer
 Figure out html emails 
-use https://github.com/django-json-api/django-rest-framework-json-api by default
+ - https://github.com/peterbe/premailer
+ - https://github.com/sunscrapers/django-templated-mail
 
-
+Get celery setup
+ - https://github.com/pmclanahan/django-celery-email
 
 **NEXT
 Figure out to do different configs for dev and prod

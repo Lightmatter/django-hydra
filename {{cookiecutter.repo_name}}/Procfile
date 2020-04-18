@@ -1,2 +1,2 @@
-backend: ./manage.py runserver_plus --nopin
+backend: PYTHONUNBUFFERED=true ./manage.py runserver_plus --nopin
 frontend: yarn run dev
