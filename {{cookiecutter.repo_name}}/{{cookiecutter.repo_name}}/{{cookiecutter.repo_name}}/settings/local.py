@@ -24,6 +24,12 @@ STATIC_ROOT = root("static")
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
 ]
+from corsheaders.defaults import default_headers
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "Cache-Control",
+]
+
 # CSRF_TRUSTED_ORIGINS = ["localhost:3000"]
 
 CORS_ALLOW_CREDENTIALS = True

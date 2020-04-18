@@ -10,6 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { usePopupState, bindTrigger, bindMenu } from 'material-ui-popup-state/hooks';
 import Link from 'components/router/Link';
+import { useIsAuthenticated, useCurrentUser } from 'models/user';
 const useStyles = makeStyles(theme => ({
     menuButton: {
         marginRight: theme.spacing(2),
@@ -23,7 +24,8 @@ export default function MenuAppBar() {
     const classes = useStyles();
     const navMenuState = usePopupState({ variant: 'popover', popupId: 'navMenu' });
     const profileMenuState = usePopupState({ variant: 'popover', popupId: 'profileMenu' });
-    const auth = false;
+    const user = useCurrentUser();
+    const auth = useIsAuthenticated();
     return (
         <AppBar position="static">
             <Toolbar>
@@ -51,18 +53,19 @@ export default function MenuAppBar() {
                 </Link>
                 {auth && (
                     <div>
+                        Hey {user.first_name}
                         <IconButton
                             aria-label="account of current user"
                             aria-controls="menu-appbar"
                             aria-haspopup="true"
-                            onClick={handleMenu}
                             color="inherit"
+                            {...bindTrigger(profileMenuState)}
                         >
                             <AccountCircle />
                         </IconButton>
-                        <Menu id="menu-appbar">
-                            <MenuItem onClick={handleClose}>Profile</MenuItem>
-                            <MenuItem onClick={handleClose}>My account</MenuItem>
+                        <Menu id="menu-appbar" {...bindMenu(profileMenuState)}>
+                            <MenuItem onClick={profileMenuState.close}>Profile</MenuItem>
+                            <MenuItem onClick={profileMenuState.close}>My account</MenuItem>
                         </Menu>
                     </div>
                 )}
