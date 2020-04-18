@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import theme from 'theme/theme';
 import { makeStyles } from '@material-ui/core/styles';
@@ -76,11 +77,9 @@ const LogInPage = () => {
                         placeholder="Enter Password"
                         helperText="Keep it secret, keep it safe"
                     />
-                    <Field
-                        name="remember_me"
-                        type="checkbox"
-                        component={Checkbox}
+                    <FormControlLabel
                         label="Remember me"
+                        control={<Field name="remember_me" type="checkbox" component={Checkbox} />}
                     />
 
                     <Button variant="outlined" type="submit">
