@@ -11,7 +11,7 @@ export default class MyDocument extends Document {
                 <Head>
                     {/* PWA primary color */}
                     <meta name="theme-color" content={theme.palette.primary.main} />
-                    <link rel="preload" href={USER_ME} as="fetch" crossorigin="use-credentials" />
+                    <link rel="preload" href={USER_ME} as="fetch" crossOrigin="use-credentials" />
 
                     <link
                         rel="stylesheet"
