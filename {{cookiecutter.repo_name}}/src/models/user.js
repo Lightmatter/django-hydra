@@ -19,6 +19,8 @@ function equalTo(ref, msg) {
 
 Yup.addMethod(Yup.string, 'equalTo', equalTo);
 
+export const USER_ME = 'http://localhost:8000/auth/users/me/';
+
 const AuthSchema = {
   first_name: Yup.string()
     .min(2, TOO_SHORT)
@@ -75,8 +77,7 @@ function handleApiErrors(error) {
 }
 
 export function getCurrentUserDetails() {
-  const url = `/auth/users/me/`;
-  return axios.get(url); //todo  - create hook to manage current user and set global state
+  return axios.get(USER_ME); //todo  - create hook to manage current user and set global state
 }
 
 export function registerUser(userData) {
@@ -91,7 +92,7 @@ export function registerUser(userData) {
 }
 
 export function updateUser(userData, userId) {
-  const url = `/auth/users/me/`;
+  const url = USER_ME;
   //todo  - create hook to manage current user and set global state
   return axios.put(url, userData).catch(error => {
     return handleApiErrors(error);
