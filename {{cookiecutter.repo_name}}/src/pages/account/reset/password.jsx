@@ -45,7 +45,7 @@ const ForgotPassPage = () => {
             </Typography>
 
             <Formik
-                initialValues={{ email: '' }}
+                {% raw -%}initialValues={{ email: '' }}{% endraw %}
                 validateOnChange
                 validationSchema={ForgotPassSchema}
                 onSubmit={(values, actions) => {
