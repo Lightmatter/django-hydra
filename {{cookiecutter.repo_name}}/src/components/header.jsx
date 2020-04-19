@@ -10,7 +10,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { usePopupState, bindTrigger, bindMenu } from 'material-ui-popup-state/hooks';
 import Link from 'components/router/Link';
-import { useIsAuthenticated, useCurrentUser } from 'models/user';
+import { useIsAuthenticated, useCurrentUser, logOut } from 'models/user';
 const useStyles = makeStyles(theme => ({
     menuButton: {
         marginRight: theme.spacing(2),
@@ -26,6 +26,10 @@ export default function MenuAppBar() {
     const profileMenuState = usePopupState({ variant: 'popover', popupId: 'profileMenu' });
     const user = useCurrentUser();
     const auth = useIsAuthenticated();
+    const logoutButtonClick = () => {
+        logOut();
+        profileMenuState.close();
+    };
     return (
         <AppBar position="static">
             <Toolbar>
@@ -66,6 +70,7 @@ export default function MenuAppBar() {
                         <Menu id="menu-appbar" {...bindMenu(profileMenuState)}>
                             <MenuItem onClick={profileMenuState.close}>Profile</MenuItem>
                             <MenuItem onClick={profileMenuState.close}>My account</MenuItem>
+                            <MenuItem onClick={logoutButtonClick}>Logout</MenuItem>
                         </Menu>
                     </div>
                 )}

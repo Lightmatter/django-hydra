@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import axios from 'util/axios';
 import { EMAIL, GENERIC_FIELD_ERROR, REQUIRED, TOO_LONG, TOO_SHORT } from '../constants.js';
 import * as Yup from 'yup';
@@ -102,10 +102,6 @@ function handleApiErrors(error) {
   return Promise.reject(err);
 }
 
-export function getCurrentUserDetails() {
-  return axios.get(USER_ME); //todo  - create hook to manage current user and set global state
-}
-
 export function registerUser(userData) {
   const url = `/auth/users/`;
 
@@ -118,9 +114,7 @@ export function registerUser(userData) {
 }
 
 export function updateUser(userData, userId) {
-  const url = USER_ME;
-  //todo  - create hook to manage current user and set global state
-  return axios.put(url, userData).catch(error => {
+  return axios.put(USER_ME, userData).catch(error => {
     return handleApiErrors(error);
   });
 }
@@ -128,14 +122,13 @@ export function updateUser(userData, userId) {
 export function logIn(userData) {
   const url = `/auth/token/login/`;
   return axios
-    .post(url, userData, {
-      //AxiosRequestConfig parameter
-      withCredentials: true, //correct
-    })
+    .post(url, userData)
     .then(response => {
       // use login session, so this should set a cookie but return a token. We still love you token.
       const token = `Token ${response.data['key']}`;
-      // TODO: notify app that we've logged in
+      //notify app that we've logged in
+      window.dispatchEvent(new Event('login'));
+      window.localStorage.setItem('login', Date.now());
     })
     .catch(error => {
       return handleApiErrors(error);
@@ -146,8 +139,10 @@ export function logOut() {
   const url = `/auth/token/logout/`;
   return axios
     .post(url)
-    .then(() => {})
-    .then(() => {}) //todo: clear data, use local session event hook to notify other tabs
+    .then(() => {
+      window.dispatchEvent(new Event('logout'));
+      window.localStorage.setItem('logout', Date.now());
+    })
     .catch(error => {
       return handleApiErrors(error);
     });
@@ -199,7 +194,39 @@ export function useCurrentUserSWR() {
       }),
     options
   );
-  const isAuthenticated = Boolean(data);
+
+  let isAuthenticated = Boolean(data);
+  const syncLogout = event => {
+    if (event.key === 'logout' || event.type === 'logout') {
+      isAuthenticated = false;
+      mutate();
+    }
+  };
+  const syncLogin = event => {
+    if (event.key === 'login' || event.type === 'login') {
+      isAuthenticated = true;
+      mutate();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('storage', syncLogout);
+    window.addEventListener('logout', syncLogout);
+
+    window.addEventListener('storage', syncLogin);
+    window.addEventListener('login', syncLogin);
+
+    return () => {
+      window.removeEventListener('storage', syncLogout);
+      window.RemoveEventListener('logout', syncLogout);
+      window.localStorage.removeItem('logout');
+
+      window.removeEventListener('storage', syncLogin);
+      window.RemoveEventListener('login', syncLogout);
+      window.localStorage.removeItem('login');
+    };
+  }, []);
+
   const user = isAuthenticated ? data.data : {};
   return { user, isAuthenticated, error, isValidating, mutate };
 }
