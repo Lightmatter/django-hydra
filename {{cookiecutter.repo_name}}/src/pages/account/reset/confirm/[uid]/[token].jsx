@@ -43,7 +43,7 @@ const PasswordResetConfirm = () => {
                 Reset your password
             </Typography>
             <Formik
-                initialValues={{ new_password: '', re_new_password: '' }}
+                {% raw -%}initialValues={{ new_password: '', re_new_password: '' }}{% endraw %}
                 validateOnChange
                 validationSchema={ResetPassSchema}
                 onSubmit={(values, actions) => {
