@@ -1,9 +1,0 @@
-diff a/{{cookiecutter.repo_name}}/{{cookiecutter.repo_name}}/{{cookiecutter.repo_name}}/settings/base.py b/{{cookiecutter.repo_name}}/{{cookiecutter.repo_name}}/{{cookiecutter.repo_name}}/settings/base.py	(rejected hunks)
-@@ -91,6 +91,7 @@ INSTALLED_APPS = (
-     "import_export",
-     "corsheaders",
-     "rest_framework",
-+    "rest_framework.authtoken",
-     "djoser",
-     "social_django",
-     "{{cookiecutter.repo_name}}.home",

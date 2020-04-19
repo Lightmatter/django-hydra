@@ -47,6 +47,9 @@ export const SignupSchema = Yup.object().shape({
   re_password: Yup.string()
     .required(REQUIRED)
     .equalTo('password', 'The Two Passwords Must Match'),
+  tos: Yup.boolean()
+    .required(REQUIRED)
+    .oneOf([true], 'Field must be checked'),
 });
 
 export const LoginSchema = Yup.object().shape({

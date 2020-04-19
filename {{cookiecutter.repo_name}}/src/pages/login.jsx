@@ -4,7 +4,9 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Link from 'components/router/Link';
 
 import theme from 'theme/theme';
 import { makeStyles } from '@material-ui/core/styles';
@@ -20,6 +22,9 @@ const useStyles = makeStyles(theme => ({
         alignItems: 'center',
         flexDirection: 'column',
         paddingTop: theme.spacing(8),
+    },
+    text: {
+        paddingTop: theme.spacing(2),
     },
 }));
 
@@ -81,12 +86,23 @@ const LogInPage = () => {
                         label="Remember me"
                         control={<Field name="remember_me" type="checkbox" component={Checkbox} />}
                     />
-
-                    <Button variant="outlined" type="submit">
+                    <Button fullWidth variant="outlined" type="submit">
                         Log In
                     </Button>
                 </Form>
             </Formik>
+            <Grid container className={classes.text}>
+                <Grid item xs>
+                    <Link href="/account/forgot-password" variant="body2">
+                        Forgot password?
+                    </Link>
+                </Grid>
+                <Grid item>
+                    <Link href="/signup" variant="body2">
+                        Don't have an account? Sign Up
+                    </Link>
+                </Grid>
+            </Grid>
         </Container>
     );
 };

@@ -30,10 +30,10 @@ function Link(props) {
         activeClassName = 'active',
         className: classNameProps,
         innerRef,
+        variant,
         naked,
         ...other
     } = props;
-
     const router = useRouter();
     const pathname = typeof href === 'string' ? href : href.pathname;
     const className = clsx(classNameProps, {
@@ -50,6 +50,7 @@ function Link(props) {
             className={className}
             ref={innerRef}
             href={href}
+            variant={variant}
             {...other}
         />
     );
@@ -64,6 +65,7 @@ Link.propTypes = {
     naked: PropTypes.bool,
     onClick: PropTypes.func,
     prefetch: PropTypes.bool,
+    variant: PropTypes.string,
 };
 
 export default React.forwardRef((props, ref) => <Link {...props} innerRef={ref} />);
