@@ -184,6 +184,9 @@ export function useCurrentUserSWR() {
     onSuccess: function(data, key, config) {},
     onError: function(err, key, config) {},
   };
+  // TODO: this will make a request to the server on tab focus if you're logged out.
+  // really we shouldn't do that -we know if the revalidation attempt will be successful or not
+  // This could be smarter w/ a stateful representation of isAuthenticated, vs a derived one
   const { data, error, isValidating, mutate } = useSWR(
     USER_ME,
     query =>
