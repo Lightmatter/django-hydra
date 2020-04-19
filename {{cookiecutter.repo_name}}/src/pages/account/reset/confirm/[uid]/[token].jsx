@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
@@ -10,11 +11,11 @@ import Link from 'components/router/Link';
 
 import theme from 'theme/theme';
 import { makeStyles } from '@material-ui/core/styles';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import { Form, Field, Formik } from 'formik';
 import { TextField, Checkbox } from 'formik-material-ui';
 
-import { LoginSchema, logIn } from 'models/user';
+import { ResetPassSchema, resetPass } from 'models/user';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -23,30 +24,35 @@ const useStyles = makeStyles(theme => ({
         flexDirection: 'column',
         paddingTop: theme.spacing(8),
     },
-    text: {
-        paddingTop: theme.spacing(2),
+    button: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
     },
 }));
 
-const LogInPage = () => {
+const PasswordResetConfirm = () => {
     const classes = useStyles(theme);
+    const router = useRouter();
+    const { uid, token } = router.query;
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
             <Avatar className={classes.avatar}>
-                <LockOutlinedIcon />
+                <VpnKeyIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-                Sign in
+                Reset your password
             </Typography>
             <Formik
-                {% raw -%}initialValues={{ email: '', password: '', remember_me: true }}{% endraw %}
+                initialValues={{ new_password: '', re_new_password: '' }}
                 validateOnChange
-                validationSchema={LoginSchema}
+                validationSchema={ResetPassSchema}
                 onSubmit={(values, actions) => {
                     setTimeout(() => {
-                        logIn(values)
+                        values.uid = uid;
+                        values.token = token;
+                        resetPass(values)
                             .then(response => {
-                                alert('Successfully logged in');
+                                alert('Successfully reset password');
                                 return response;
                             })
                             .then(response => {
@@ -55,8 +61,8 @@ const LogInPage = () => {
                             })
                             .catch(error => {
                                 actions.setSubmitting(false);
-                                if (error.non_field_errors) {
-                                    alert(error.non_field_errors);
+                                if (error.token) {
+                                    alert(error.token);
                                 } else {
                                     actions.setErrors(error);
                                 }
@@ -67,39 +73,30 @@ const LogInPage = () => {
                 <Form>
                     <Field
                         fullWidth
-                        name="email"
-                        component={TextField}
-                        label="Email"
-                        placeholder="Enter Email"
-                        helperText="That stands for electronic mail."
-                    />
-                    <Field
-                        fullWidth
-                        name="password"
+                        name="new_password"
                         type="password"
                         component={TextField}
                         label="Password"
-                        placeholder="Enter Password"
-                        helperText="Keep it secret, keep it safe"
+                        placeholder="Password"
                     />
-                    <FormControlLabel
-                        label="Remember me"
-                        control={<Field name="remember_me" type="checkbox" component={Checkbox} />}
+                    <Field
+                        fullWidth
+                        name="re_new_password"
+                        type="password"
+                        component={TextField}
+                        label="Repeat password"
+                        placeholder="Repeat pasword"
                     />
-                    <Button fullWidth variant="outlined" type="submit">
-                        Log In
+
+                    <Button fullWidth variant="outlined" type="submit" className={classes.button}>
+                        Reset my password
                     </Button>
                 </Form>
             </Formik>
             <Grid container className={classes.text}>
                 <Grid item xs>
-                    <Link href="/account/reset/password" variant="body2">
-                        Forgot password?
-                    </Link>
-                </Grid>
-                <Grid item>
-                    <Link href="/signup" variant="body2">
-                        Don't have an account? Sign Up
+                    <Link href="/login" variant="body2">
+                        Changed your mind? Back to login
                     </Link>
                 </Grid>
             </Grid>
@@ -107,4 +104,4 @@ const LogInPage = () => {
     );
 };
 
-export default LogInPage;
+export default PasswordResetConfirm;

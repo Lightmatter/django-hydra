@@ -45,6 +45,8 @@ const SignUp = () => {
                     first_name: '',
                     last_name: '',
                     email: '',
+                    password: '',
+                    re_password: '',
                     tos: false,
                 }}{% endraw %}
                 className={classes.form}
@@ -134,7 +136,6 @@ const SignUp = () => {
                         </Grid>
                         <Grid item xs={12}>
                             <Field
-                                fullWidth
                                 component={CheckboxWithLabel}
                                 name="tos"
                                 type="checkbox"
