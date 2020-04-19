@@ -135,6 +135,7 @@ export function logIn(userData) {
     .then(response => {
       // use login session, so this should set a cookie but return a token. We still love you token.
       const token = `Token ${response.data['key']}`;
+      // TODO: notify app that we've logged in
     })
     .catch(error => {
       return handleApiErrors(error);

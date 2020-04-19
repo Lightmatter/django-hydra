@@ -8,6 +8,8 @@ import Grid from '@material-ui/core/Grid';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Link from 'components/router/Link';
 
+import { useSnackbar } from 'notistack';
+
 import theme from 'theme/theme';
 import { makeStyles } from '@material-ui/core/styles';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
@@ -30,6 +32,7 @@ const useStyles = makeStyles(theme => ({
 
 const LogInPage = () => {
     const classes = useStyles(theme);
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
             <Avatar className={classes.avatar}>
@@ -46,7 +49,9 @@ const LogInPage = () => {
                     setTimeout(() => {
                         logIn(values)
                             .then(response => {
-                                alert('Successfully logged in');
+                                enqueueSnackbar('Successfully logged in', {
+                                    variant: 'success',
+                                });
                                 return response;
                             })
                             .then(response => {
@@ -56,7 +61,9 @@ const LogInPage = () => {
                             .catch(error => {
                                 actions.setSubmitting(false);
                                 if (error.non_field_errors) {
-                                    alert(error.non_field_errors);
+                                    enqueueSnackbar(error.non_field_errors, {
+                                        variant: 'error',
+                                    });
                                 } else {
                                     actions.setErrors(error);
                                 }

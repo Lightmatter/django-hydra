@@ -26,6 +26,7 @@
     "import": "^0.0.6",
     "material-ui-popup-state": "^1.5.4",
     "next": "^9.3.5",
+    "notistack": "^0.9.10",
     "nprogress": "^0.2.0",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",

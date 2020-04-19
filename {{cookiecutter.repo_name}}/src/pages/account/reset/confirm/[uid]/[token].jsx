@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import { Form, Field, Formik } from 'formik';
 import { TextField, Checkbox } from 'formik-material-ui';
+import { useSnackbar } from 'notistack';
 
 import { ResetPassSchema, resetPass } from 'models/user';
 
@@ -33,6 +34,8 @@ const useStyles = makeStyles(theme => ({
 const PasswordResetConfirm = () => {
     const classes = useStyles(theme);
     const router = useRouter();
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
     const { uid, token } = router.query;
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
@@ -52,7 +55,9 @@ const PasswordResetConfirm = () => {
                         values.token = token;
                         resetPass(values)
                             .then(response => {
-                                alert('Successfully reset password');
+                                enqueueSnackbar('Successfully reset password', {
+                                    variant: 'success',
+                                });
                                 return response;
                             })
                             .then(response => {
@@ -62,7 +67,9 @@ const PasswordResetConfirm = () => {
                             .catch(error => {
                                 actions.setSubmitting(false);
                                 if (error.token) {
-                                    alert(error.token);
+                                    enqueueSnackbar(error.token, {
+                                        variant: 'error',
+                                    });
                                 } else {
                                     actions.setErrors(error);
                                 }
