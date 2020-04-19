@@ -198,13 +198,11 @@ export function useCurrentUserSWR() {
   let isAuthenticated = Boolean(data);
   const syncLogout = event => {
     if (event.key === 'logout' || event.type === 'logout') {
-      isAuthenticated = false;
-      mutate();
+      mutate(null, false);
     }
   };
   const syncLogin = event => {
     if (event.key === 'login' || event.type === 'login') {
-      isAuthenticated = true;
       mutate();
     }
   };
@@ -222,7 +220,7 @@ export function useCurrentUserSWR() {
       window.localStorage.removeItem('logout');
 
       window.removeEventListener('storage', syncLogin);
-      window.RemoveEventListener('login', syncLogout);
+      window.RemoveEventListener('login', syncLogin);
       window.localStorage.removeItem('login');
     };
   }, []);
