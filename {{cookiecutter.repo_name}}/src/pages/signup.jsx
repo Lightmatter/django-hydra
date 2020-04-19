@@ -138,7 +138,7 @@ const SignUp = () => {
                                 component={CheckboxWithLabel}
                                 name="tos"
                                 type="checkbox"
-                                Label={{
+                                {% raw -%}Label={{
                                     label: (
                                         <>
                                             You accept our{' '}
@@ -148,7 +148,7 @@ const SignUp = () => {
                                         </>
                                     ),
                                 }}
-                            />
+                            />{%- endraw %}
                         </Grid>
                     </Grid>
                     <Button
