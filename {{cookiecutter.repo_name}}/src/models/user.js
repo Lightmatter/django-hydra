@@ -25,7 +25,7 @@ Yup.addMethod(Yup.string, 'equalTo', equalTo);
 
 export const USER_ME = 'http://localhost:8000/auth/users/me/';
 
-const AuthSchema = {
+const NameSchema = {
   first_name: Yup.string()
     .min(2, TOO_SHORT)
     .max(50, TOO_LONG)
@@ -36,17 +36,21 @@ const AuthSchema = {
     .required(REQUIRED),
 };
 
-export const SignupSchema = Yup.object().shape({
-  ...AuthSchema,
-  email: Yup.string()
-    .email(EMAIL)
-    .required(REQUIRED),
+const SetPassSchema = {
   password: Yup.string()
     .required(REQUIRED)
     .min(6, TOO_SHORT),
   re_password: Yup.string()
     .required(REQUIRED)
     .equalTo('password', 'The Two Passwords Must Match'),
+};
+
+export const SignupSchema = Yup.object().shape({
+  ...NameSchema,
+  ...SetPassSchema,
+  email: Yup.string()
+    .email(EMAIL)
+    .required(REQUIRED),
   tos: Yup.boolean()
     .required(REQUIRED)
     .oneOf([true], 'Field must be checked'),
@@ -59,6 +63,21 @@ export const LoginSchema = Yup.object().shape({
   email: Yup.string()
     .email(EMAIL)
     .required(REQUIRED),
+});
+
+export const ForgotPassSchema = Yup.object().shape({
+  email: Yup.string()
+    .email(EMAIL)
+    .required(REQUIRED),
+});
+
+export const ResetPassSchema = Yup.object().shape({
+  new_password: Yup.string()
+    .required(REQUIRED)
+    .min(6, TOO_SHORT),
+  re_new_password: Yup.string()
+    .required(REQUIRED)
+    .equalTo('new_password', 'The Two Passwords Must Match'),
 });
 
 function handleApiErrors(error) {
@@ -88,7 +107,7 @@ export function getCurrentUserDetails() {
 }
 
 export function registerUser(userData) {
-  const url = `http://localhost:8000/auth/users/`;
+  const url = `/auth/users/`;
 
   return axios
     .post(url, userData)
@@ -107,7 +126,7 @@ export function updateUser(userData, userId) {
 }
 
 export function logIn(userData) {
-  const url = `http://localhost:8000/auth/token/login/`;
+  const url = `/auth/token/login/`;
   return axios
     .post(url, userData, {
       //AxiosRequestConfig parameter
@@ -140,7 +159,7 @@ export function forgotPass(email) {
   });
 }
 
-export function confirmForgotPass(userInfo) {
+export function resetPass(userInfo) {
   const url = `/auth/users/reset_password_confirm/`;
   return axios.post(url, userInfo).catch(error => {
     return handleApiErrors(error);
@@ -180,7 +199,7 @@ export function useCurrentUserSWR() {
     options
   );
   const isAuthenticated = Boolean(data);
-  const user = isAuthenticated ? data.data.data.attributes : {};
+  const user = isAuthenticated ? data.data : {};
   return { user, isAuthenticated, error, isValidating, mutate };
 }
 

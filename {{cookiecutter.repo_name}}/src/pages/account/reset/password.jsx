@@ -10,11 +10,11 @@ import Link from 'components/router/Link';
 
 import theme from 'theme/theme';
 import { makeStyles } from '@material-ui/core/styles';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import { Form, Field, Formik } from 'formik';
 import { TextField, Checkbox } from 'formik-material-ui';
 
-import { LoginSchema, logIn } from 'models/user';
+import { ForgotPassSchema, forgotPass } from 'models/user';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -23,30 +23,36 @@ const useStyles = makeStyles(theme => ({
         flexDirection: 'column',
         paddingTop: theme.spacing(8),
     },
-    text: {
-        paddingTop: theme.spacing(2),
+    button: {
+        marginTop: theme.spacing(2),
+        marginBottom: theme.spacing(2),
     },
 }));
 
-const LogInPage = () => {
+const ForgotPassPage = () => {
     const classes = useStyles(theme);
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
             <Avatar className={classes.avatar}>
-                <LockOutlinedIcon />
+                <HelpOutlineIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-                Sign in
+                Forgot your password? No problem.
             </Typography>
+            <Typography variant="caption" align="center">
+                Enter your email below, and if you have an account with us we'll send you a link to
+                reset your password.
+            </Typography>
+
             <Formik
-                {% raw -%}initialValues={{ email: '', password: '', remember_me: true }}{% endraw %}
+                initialValues={{ email: '' }}
                 validateOnChange
-                validationSchema={LoginSchema}
+                validationSchema={ForgotPassSchema}
                 onSubmit={(values, actions) => {
                     setTimeout(() => {
-                        logIn(values)
+                        forgotPass(values)
                             .then(response => {
-                                alert('Successfully logged in');
+                                alert('Successfully sent forgot password link');
                                 return response;
                             })
                             .then(response => {
@@ -71,30 +77,16 @@ const LogInPage = () => {
                         component={TextField}
                         label="Email"
                         placeholder="Enter Email"
-                        helperText="That stands for electronic mail."
                     />
-                    <Field
-                        fullWidth
-                        name="password"
-                        type="password"
-                        component={TextField}
-                        label="Password"
-                        placeholder="Enter Password"
-                        helperText="Keep it secret, keep it safe"
-                    />
-                    <FormControlLabel
-                        label="Remember me"
-                        control={<Field name="remember_me" type="checkbox" component={Checkbox} />}
-                    />
-                    <Button fullWidth variant="outlined" type="submit">
-                        Log In
+                    <Button fullWidth variant="outlined" type="submit" className={classes.button}>
+                        Email me a link to reset password
                     </Button>
                 </Form>
             </Formik>
             <Grid container className={classes.text}>
                 <Grid item xs>
-                    <Link href="/account/reset/password" variant="body2">
-                        Forgot password?
+                    <Link href="/login" variant="body2">
+                        Back to login
                     </Link>
                 </Grid>
                 <Grid item>
@@ -107,4 +99,4 @@ const LogInPage = () => {
     );
 };
 
-export default LogInPage;
+export default ForgotPassPage;
