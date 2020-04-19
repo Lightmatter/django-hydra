@@ -111,7 +111,7 @@ if (process.browser && process.env.NODE_ENV === 'production') {
     console.log(
         '%c ',
         `
-background-color: black;
+  background-color: black;
   background-image: url(${svgDataUrl});
   padding-bottom: 100px;
   padding-left: 100px;
@@ -122,7 +122,10 @@ background-color: black;
 `
     );
     // eslint-disable-next-line no-console
-    console.log(`Reach out to us at hello@lightmatter.com`);
+    console.log(
+        `%c Built by Lightmatter. Reach out to us at hello@lightmatter.com`,
+        'color:#E33942;font-family:avenir;font-size:1.27rem'
+    );
 }
 
 App.propTypes = {
