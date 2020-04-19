@@ -6,6 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Grid from '@material-ui/core/Grid';
 import theme from 'theme/theme';
 import Router from 'next/router';
+import { SnackbarProvider } from 'notistack';
 
 import { CurrentUserProvider } from 'models/user';
 import axios from 'util/axios';
@@ -53,13 +54,15 @@ export default function App(props) {
             <ThemeProvider theme={theme}>
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                 <CssBaseline />
-                <CurrentUserProvider>
-                    <Grid container direction="column" className={classes.Site}>
-                        <Header />
-                        <Component {...pageProps} />
-                        <Footer className={classes.Footer} />
-                    </Grid>
-                </CurrentUserProvider>
+                <SnackbarProvider>
+                    <CurrentUserProvider>
+                        <Grid container direction="column" className={classes.Site}>
+                            <Header />
+                            <Component {...pageProps} />
+                            <Footer className={classes.Footer} />
+                        </Grid>
+                    </CurrentUserProvider>
+                </SnackbarProvider>
             </ThemeProvider>
         </React.Fragment>
     );

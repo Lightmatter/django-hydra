@@ -14,6 +14,8 @@ import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 import Avatar from '@material-ui/core/Avatar';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
+import { useSnackbar } from 'notistack';
+
 const useStyles = makeStyles(theme => ({
     paper: {
         display: 'flex',
@@ -32,6 +34,7 @@ const useStyles = makeStyles(theme => ({
 
 const SignUp = () => {
     const classes = useStyles();
+    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
             <Avatar>
@@ -56,15 +59,13 @@ const SignUp = () => {
                     setTimeout(() => {
                         registerUser(values)
                             .then(response => {
-                                alert('Successfully signed up');
-                                return response;
-                            })
-                            .then(response => {
                                 const login_promise = logIn(values);
                                 return login_promise;
                             })
                             .then(response => {
-                                alert('Successfully logged in');
+                                enqueueSnackbar('Successfully registered!', {
+                                    variant: 'success',
+                                });
                                 return response;
                             })
                             .then(response => {
@@ -74,7 +75,9 @@ const SignUp = () => {
                             .catch(error => {
                                 actions.setSubmitting(false);
                                 if (error.non_field_errors) {
-                                    alert(error.non_field_errors);
+                                    enqueueSnackbar(error.non_field_errors, {
+                                        variant: 'error',
+                                    });
                                 } else {
                                     actions.setErrors(error);
                                 }
