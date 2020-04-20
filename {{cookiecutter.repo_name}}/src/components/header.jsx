@@ -68,8 +68,9 @@ export default function MenuAppBar() {
                             <AccountCircle />
                         </IconButton>
                         <Menu id="menu-appbar" {...bindMenu(profileMenuState)}>
-                            <MenuItem onClick={profileMenuState.close}>Profile</MenuItem>
-                            <MenuItem onClick={profileMenuState.close}>My account</MenuItem>
+                            <MenuItem onClick={profileMenuState.close}>
+                                <Link href="/account">Profile</Link>
+                            </MenuItem>
                             <MenuItem onClick={logoutButtonClick}>Logout</MenuItem>
                         </Menu>
                     </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Form, Field, Formik } from 'formik';
-import { registerUser, logIn, SignupSchema, useUser } from 'models/user';
+import { registerUser, logIn, SignupSchema } from 'models/user';
 
 import Link from 'components/router/Link';
 import Typography from '@material-ui/core/Typography';

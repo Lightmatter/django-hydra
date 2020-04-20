@@ -6,6 +6,9 @@ import constate from 'constate';
 
 import useSWR from 'swr';
 
+export const USER_ME = 'http://localhost:8000/auth/users/me/';
+export let isAuthenticated = false;
+
 function equalTo(ref, msg) {
   ref = Yup.ref(ref);
   return this.test({
@@ -23,9 +26,7 @@ function equalTo(ref, msg) {
 
 Yup.addMethod(Yup.string, 'equalTo', equalTo);
 
-export const USER_ME = 'http://localhost:8000/auth/users/me/';
-
-const NameSchema = {
+const UserDetailSchema = {
   first_name: Yup.string()
     .min(2, TOO_SHORT)
     .max(50, TOO_LONG)
@@ -45,8 +46,11 @@ const SetPassSchema = {
     .equalTo('password', 'The Two Passwords Must Match'),
 };
 
+export const ProfileSchema = Yup.object().shape({
+  ...UserDetailSchema,
+});
 export const SignupSchema = Yup.object().shape({
-  ...NameSchema,
+  ...UserDetailSchema,
   ...SetPassSchema,
   email: Yup.string()
     .email(EMAIL)
@@ -111,6 +115,10 @@ export function registerUser(userData) {
     .catch(error => {
       return handleApiErrors(error);
     });
+}
+
+export function getSelf() {
+  return;
 }
 
 export function updateUser(userData, userId) {
@@ -178,15 +186,17 @@ export function resendConfirmEmail(email) {
   });
 }
 
-export function useCurrentUserSWR() {
+export function useCurrentUserSWR({ initialUser }) {
   const options = {
     shouldRetryOnError: false,
-    onSuccess: function(data, key, config) {},
-    onError: function(err, key, config) {},
   };
+
+  if (initialUser) {
+    options['initialData'] = initialUser;
+  }
   // TODO: this will make a request to the server on tab focus if you're logged out.
-  // really we shouldn't do that -we know if the revalidation attempt will be successful or not
-  // This could be smarter w/ a stateful representation of isAuthenticated, vs a derived one
+  // really we shouldn't do that - we know if the revalidation attempt will be successful or not based on isauthenticated
+  // This could be smarter w/ a stateful representation of isAuthenticated, vs a derived one to check to test.
   const { data, error, isValidating, mutate } = useSWR(
     USER_ME,
     query =>
@@ -194,23 +204,25 @@ export function useCurrentUserSWR() {
         method: 'get',
         url: query,
         headers: { Accept: '*/*' }, // as fetch for preload doesn't set accept correctly
-      }),
+      }).then(data => data.data),
     options
   );
 
-  let isAuthenticated = Boolean(data);
-  const syncLogout = event => {
-    if (event.key === 'logout' || event.type === 'logout') {
-      mutate(null, false);
-    }
-  };
-  const syncLogin = event => {
-    if (event.key === 'login' || event.type === 'login') {
-      mutate();
-    }
-  };
+  isAuthenticated = Boolean(data);
+  const user = isAuthenticated ? data : null;
 
   useEffect(() => {
+    const syncLogout = event => {
+      if (event.key === 'logout' || event.type === 'logout') {
+        mutate(null, false);
+      }
+    };
+    const syncLogin = event => {
+      if (event.key === 'login' || event.type === 'login') {
+        mutate();
+      }
+    };
+
     window.addEventListener('storage', syncLogout);
     window.addEventListener('logout', syncLogout);
 
@@ -228,7 +240,6 @@ export function useCurrentUserSWR() {
     };
   }, []);
 
-  const user = isAuthenticated ? data.data : {};
   return { user, isAuthenticated, error, isValidating, mutate };
 }
 
@@ -245,5 +256,5 @@ export const [
   value => value.isAuthenticated,
   value => value.error,
   value => value.useCurrentUserIsValidating,
-  value => useMutateCurrentUser
+  value => value.mutate
 );
