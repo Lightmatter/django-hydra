@@ -2,7 +2,6 @@ import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 import theme from 'theme/theme';
-import { USER_ME } from 'models/user';
 
 export default class MyDocument extends Document {
     render() {
@@ -11,7 +10,6 @@ export default class MyDocument extends Document {
                 <Head>
                     {/* PWA primary color */}
                     <meta name="theme-color" content={theme.palette.primary.main} />
-                    <link rel="preload" href={USER_ME} as="fetch" crossOrigin="use-credentials" />
 
                     <link
                         rel="stylesheet"

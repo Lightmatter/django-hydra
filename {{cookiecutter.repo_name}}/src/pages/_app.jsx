@@ -8,7 +8,7 @@ import theme from 'theme/theme';
 import Router from 'next/router';
 import { SnackbarProvider } from 'notistack';
 
-import { CurrentUserProvider } from 'models/user';
+import { CurrentUserProvider, USER_ME } from 'models/user';
 import axios from 'util/axios';
 
 import NProgress from 'nprogress';
@@ -41,11 +41,17 @@ export default function App(props) {
             jssStyles.parentElement.removeChild(jssStyles);
         }
     }, []);
+
+    const user = pageProps.user;
+
     return (
         <React.Fragment>
             <Head>
                 <title>Lightmatter!</title>
                 <link rel="stylesheet" type="text/css" href="/nprogress.css" />
+                {!user ? (
+                    <link rel="preload" href={USER_ME} as="fetch" crossOrigin="use-credentials" />
+                ) : null}
                 <meta
                     name="viewport"
                     content="minimum-scale=1, initial-scale=1, width=device-width"
@@ -55,7 +61,7 @@ export default function App(props) {
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                 <CssBaseline />
                 <SnackbarProvider>
-                    <CurrentUserProvider>
+                    <CurrentUserProvider initialUser={user}>
                         <Grid container direction="column" className={classes.Site}>
                             <Header />
                             <Component {...pageProps} />
