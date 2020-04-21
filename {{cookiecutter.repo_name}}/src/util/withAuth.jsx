@@ -49,12 +49,21 @@ export function forwardRequestCookies(ctx) {
     //what other headers do we want to forward?? probably x forwarded for
 }
 
-function loginPageUrl(next) {
+export function loginPageUrl(next) {
     //TODO: next should preserve querystring args
     if (next) {
         return `/login?next=${next}`;
     }
     return `/login`;
+}
+
+export function postLoginUrl(router) {
+    //TODO: next should preserve querystring args
+    let { next = '/' } = router.query; //TODO should be setting controlled
+    if (!next.startsWith('/')) {
+        next = '/' + next;
+    }
+    return next;
 }
 
 async function wrapContextUser(ctx) {
@@ -140,5 +149,17 @@ export const withAuth = WrappedComponent => {
         return <WrappedComponent {...props} />;
     };
     Wrapper.getInitialProps = wrappedGetInitialProps(WrappedComponent.getInitialProps, false);
+    return Wrapper;
+};
+
+export const withoutAuth = WrappedComponent => {
+    const Wrapper = props => {
+        const isAuthenticated = useIsAuthenticated();
+        const router = useRouter();
+        if (isAuthenticated) {
+            router.push(postLoginUrl(router));
+        }
+        return <WrappedComponent {...props} />;
+    };
     return Wrapper;
 };

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Box from '@material-ui/core/Box';
 import Paper from '@material-ui/core/Paper';
@@ -18,6 +19,7 @@ import { Form, Field, Formik } from 'formik';
 import { TextField, Checkbox } from 'formik-material-ui';
 
 import { LoginSchema, logIn } from 'models/user';
+import { withoutAuth } from 'util/withAuth';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -50,12 +52,6 @@ const LogInPage = () => {
                 onSubmit={(values, actions) => {
                     setTimeout(() => {
                         logIn(values)
-                            .then(response => {
-                                enqueueSnackbar('Successfully logged in', {
-                                    variant: 'success',
-                                });
-                                return response;
-                            })
                             .then(response => {
                                 actions.setSubmitting(false);
                                 return response;
@@ -121,4 +117,4 @@ const LogInPage = () => {
     );
 };
 
-export default LogInPage;
+export default withoutAuth(LogInPage);

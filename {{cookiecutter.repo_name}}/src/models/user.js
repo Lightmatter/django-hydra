@@ -4,6 +4,7 @@ import { EMAIL, GENERIC_FIELD_ERROR, REQUIRED, TOO_LONG, TOO_SHORT } from '../co
 import * as Yup from 'yup';
 import constate from 'constate';
 
+import { useSnackbar } from 'notistack';
 import useSWR from 'swr';
 
 export const USER_ME = 'http://localhost:8000/auth/users/me/';
@@ -195,11 +196,11 @@ export function useCurrentUserSWR({ initialUser }) {
       }
     },
     onError: (err, key, config) => {
-      debugger;
-      if (isAuthenticated === true) {
+      if (err.isAxiosError && err.response.status === 403 && isAuthenticated === true) {
         setAuthenticated(false);
       }
     },
+    // revalidateOnFocus: isAuthenticated,  //TODO: Currently a bug in useSWR - this doesn't change render to render
     initalData: initialUser,
   };
 
@@ -218,7 +219,32 @@ export function useCurrentUserSWR({ initialUser }) {
   );
   const user = isAuthenticated ? data : null;
 
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   useEffect(() => {
+    const messageOtherTab = event => {
+      if (event.key === 'logout') {
+        enqueueSnackbar('You logged out in another tab!', {
+          variant: 'warning',
+        });
+      } else if (event.key === 'login') {
+        enqueueSnackbar('You logged in on another tab!', {
+          variant: 'info',
+        });
+      }
+    };
+
+    const messageThisTab = event => {
+      if (event.type === 'logout') {
+        enqueueSnackbar('Successfully logged out', {
+          variant: 'success',
+        });
+      } else if (event.type === 'login') {
+        enqueueSnackbar('Successfully logged in', {
+          variant: 'success',
+        });
+      }
+    };
+
     const syncLogout = event => {
       if (event.key === 'logout' || event.type === 'logout') {
         setAuthenticated(false);
@@ -238,14 +264,22 @@ export function useCurrentUserSWR({ initialUser }) {
     window.addEventListener('storage', syncLogin);
     window.addEventListener('login', syncLogin);
 
+    window.addEventListener('storage', messageOtherTab);
+    window.addEventListener('login', messageThisTab);
+    window.addEventListener('logout', messageThisTab);
+
     return () => {
       window.removeEventListener('storage', syncLogout);
-      window.RemoveEventListener('logout', syncLogout);
+      window.removeEventListener('logout', syncLogout);
       window.localStorage.removeItem('logout');
 
       window.removeEventListener('storage', syncLogin);
-      window.RemoveEventListener('login', syncLogin);
+      window.removeEventListener('login', syncLogin);
       window.localStorage.removeItem('login');
+
+      window.removeEventListener('storage', messageOtherTab);
+      window.removeEventListener('login', messageThisTab);
+      window.removeEventListener('logout', messageThisTab);
     };
   }, []);
 

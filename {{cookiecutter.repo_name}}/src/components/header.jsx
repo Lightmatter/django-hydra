@@ -70,6 +70,10 @@ export default function MenuAppBar() {
                             <MenuItem onClick={profileMenuState.close}>
                                 <Link href="/account">Profile</Link>
                             </MenuItem>
+                            <MenuItem onClick={profileMenuState.close}>
+                                <Link href="/account/change-password">Change Password</Link>
+                            </MenuItem>
+
                             <MenuItem onClick={logoutButtonClick}>Logout</MenuItem>
                         </Menu>
                     </div>
