@@ -1,7 +1,8 @@
+import { useEffect } from 'react';
 import axios from 'util/axios';
-import { USER_ME } from 'models/user';
-import isServer from 'util/isServer';
-import forwardRequestCookies from 'util/forwardRequestCookies';
+import { USER_ME, useIsAuthenticated } from 'models/user';
+
+import { useRouter } from 'next/router';
 //SAMPLE HEADERS coming in
 // accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
 // accept-encoding: "gzip, deflate, br"
@@ -37,6 +38,25 @@ class NotLoggedInError extends Error {}
 class ServerBrokenError extends Error {}
 class WTFError extends Error {}
 
+//This doesn't work without an arrow function? Why?
+const isServer = ctx => {
+    return Boolean(typeof window === 'undefined' && ctx.res);
+};
+
+export function forwardRequestCookies(ctx) {
+    const cookie = ctx.req.headers.cookie;
+    axios.defaults.headers.common['cookie'] = cookie;
+    //what other headers do we want to forward?? probably x forwarded for
+}
+
+function loginPageUrl(next) {
+    //TODO: next should preserve querystring args
+    if (next) {
+        return `/login?next=${next}`;
+    }
+    return `/login`;
+}
+
 async function wrapContextUser(ctx) {
     forwardRequestCookies(ctx);
     let response;
@@ -45,7 +65,6 @@ async function wrapContextUser(ctx) {
         response = await axios({
             method: 'get',
             url: USER_ME,
-            headers: { Accept: '*/*' }, // as fetch for preload doesn't set accept correctly
         });
     } catch (e) {
         let code;
@@ -70,17 +89,24 @@ async function wrapContextUser(ctx) {
     return response.data;
 }
 
-const loginRequired = func => {
+const wrappedGetInitialProps = (func, loginRequired) => {
+    if (func === undefined) {
+        func = async () => {
+            return {};
+        };
+    }
     return async ctx => {
-        if (isServer(ctx) == true) {
-            let user;
+        if (isServer(ctx) === true) {
+            let user = null;
             try {
                 user = await wrapContextUser(ctx);
             } catch (e) {
                 if (e instanceof NotLoggedInError) {
-                    ctx.res.writeHead(302, { Location: `/login?next=${ctx.req.url}` });
-                    ctx.res.end();
-                    return {};
+                    if (loginRequired === true) {
+                        ctx.res.writeHead(302, { Location: loginPageUrl(ctx.req.url) });
+                        ctx.res.end();
+                        return {};
+                    }
                 }
                 if (e instanceof ServerDownError || e instanceof ServerBrokenError) {
                     throw e; //TODO: handle this case better
@@ -95,4 +121,24 @@ const loginRequired = func => {
         }
     };
 };
-export default loginRequired;
+
+export const withAuthRequired = WrappedComponent => {
+    const Wrapper = props => {
+        const isAuthenticated = useIsAuthenticated();
+        const router = useRouter();
+        if (!isAuthenticated) {
+            router.push(loginPageUrl(router.pathname));
+        }
+        return <WrappedComponent {...props} />;
+    };
+    Wrapper.getInitialProps = wrappedGetInitialProps(WrappedComponent.getInitialProps, true);
+    return Wrapper;
+};
+
+export const withAuth = WrappedComponent => {
+    const Wrapper = props => {
+        return <WrappedComponent {...props} />;
+    };
+    Wrapper.getInitialProps = wrappedGetInitialProps(WrappedComponent.getInitialProps, false);
+    return Wrapper;
+};
