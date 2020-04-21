@@ -1,6 +1,7 @@
 import axios from 'util/axios';
 import { USER_ME } from 'models/user';
 import isServer from 'util/isServer';
+import forwardRequestCookies from 'util/forwardRequestCookies';
 //SAMPLE HEADERS coming in
 // accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
 // accept-encoding: "gzip, deflate, br"
@@ -35,12 +36,6 @@ class ServerDownError extends Error {}
 class NotLoggedInError extends Error {}
 class ServerBrokenError extends Error {}
 class WTFError extends Error {}
-
-function forwardRequestCookies(ctx) {
-    const cookie = ctx.req.headers.cookie;
-    axios.defaults.headers.common['cookie'] = cookie;
-    //what other headers do we want to forward?? probably x forwarded for
-}
 
 async function wrapContextUser(ctx) {
     forwardRequestCookies(ctx);
@@ -78,8 +73,9 @@ async function wrapContextUser(ctx) {
 const loginRequired = func => {
     return async ctx => {
         if (isServer(ctx) == true) {
+            let user;
             try {
-                const user = await wrapContextUser(ctx);
+                user = await wrapContextUser(ctx);
             } catch (e) {
                 if (e instanceof NotLoggedInError) {
                     ctx.res.writeHead(302, { Location: `/login?next=${ctx.req.url}` });
