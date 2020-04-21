@@ -1,13 +1,7 @@
 import React from 'react';
 import { withAuthRequired } from 'util/withAuth';
 import { Form, Field, Formik } from 'formik';
-import {
-    updateUser,
-    ProfileSchema,
-    useCurrentUser,
-    useMutateCurrentUser,
-    useIsAuthenticated,
-} from 'models/user';
+import { changePass, ChangePassSchema } from 'models/user';
 
 import Link from 'components/router/Link';
 import Typography from '@material-ui/core/Typography';
@@ -38,26 +32,24 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const EditProfile = () => {
+const ChangePassword = () => {
     const classes = useStyles();
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-    const me = useCurrentUser();
-    const mutate = useMutateCurrentUser();
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
             <Avatar>
                 <LockOutlinedIcon />
             </Avatar>
             <Typography variant="h1" variant="h5">
-                Update your profile
+                Change your password
             </Typography>
             <Formik
-                initialValues={{}}
+                initialValues={% raw -%}{{ current_password: '', new_password: '', re_new_password: '' }}{% endraw %}
                 className={classes.form}
                 validateOnChange
-                validationSchema={PassChangeSchema}
+                validationSchema={ChangePassSchema}
                 onSubmit={(values, actions) => {
-                    changePassword()
+                    changePass(values)
                         .then(response => {
                             enqueueSnackbar('Successfully changed password!', {
                                 variant: 'success',
@@ -85,18 +77,26 @@ const EditProfile = () => {
                         <Grid item xs={12} sm={6}>
                             <Field
                                 component={TextField}
-                                name="first_name"
-                                label="First Name"
-                                placeholder="Enter First Name"
+                                name="current_password"
+                                label="Current Password"
+                                type="password"
                             />
                         </Grid>
 
                         <Grid item xs={12} sm={6}>
                             <Field
-                                name="last_name"
+                                name="new_password"
                                 component={TextField}
-                                label="Last Name"
-                                placeholder="Enter Last Name"
+                                type="password"
+                                label="New password"
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Field
+                                name="re_new_password"
+                                component={TextField}
+                                type="password"
+                                label="Repeat New password"
                             />
                         </Grid>
                     </Grid>
@@ -106,13 +106,11 @@ const EditProfile = () => {
                         type="submit"
                         className={classes.bottomSpace}
                     >
-                        Update profile
+                        Update Password
                     </Button>
                 </Form>
             </Formik>
-            ) : (<div>Loading</div>
-            )}
         </Container>
     );
 };
-export default withAuthRequired(EditProfile);
+export default withAuthRequired(ChangePassword);
