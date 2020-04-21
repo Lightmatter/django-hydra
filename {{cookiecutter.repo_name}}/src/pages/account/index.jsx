@@ -53,10 +53,10 @@ const EditProfile = () => {
             </Typography>
             {me ? (
                 <Formik
-                    initialValues={{
+                    {% raw -%}initialValues={{
                         first_name: me.first_name,
                         last_name: me.last_name,
-                    }}
+                    }}{% endraw %}
                     className={classes.form}
                     validateOnChange
                     validationSchema={ProfileSchema}
