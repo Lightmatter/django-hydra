@@ -9,6 +9,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Link from 'components/router/Link';
 
 import { useSnackbar } from 'notistack';
+import { useRouter } from 'next/router';
 
 import theme from 'theme/theme';
 import { makeStyles } from '@material-ui/core/styles';
@@ -32,6 +33,7 @@ const useStyles = makeStyles(theme => ({
 
 const LogInPage = () => {
     const classes = useStyles(theme);
+    const router = useRouter();
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
@@ -56,6 +58,11 @@ const LogInPage = () => {
                             })
                             .then(response => {
                                 actions.setSubmitting(false);
+                                return response;
+                            })
+                            .then(response => {
+                                const { next = '/' } = router.query; //TODO should be setting controlled
+                                router.push(next);
                                 return response;
                             })
                             .catch(error => {

@@ -31,6 +31,11 @@ import isServer from 'util/isServer';
 // x-xss-protection: "1; mode=block"
 // __proto__: Object
 
+class ServerDownError extends Error {}
+class NotLoggedInError extends Error {}
+class ServerBrokenError extends Error {}
+class WTFError extends Error {}
+
 function forwardRequestCookies(ctx) {
     const cookie = ctx.req.headers.cookie;
     axios.defaults.headers.common['cookie'] = cookie;
@@ -48,8 +53,22 @@ async function wrapContextUser(ctx) {
             headers: { Accept: '*/*' }, // as fetch for preload doesn't set accept correctly
         });
     } catch (e) {
-        //TODO: handle error case here
-        debugger;
+        let code;
+        if (e.isAxiosError) {
+            code = e.response.status;
+        } else {
+            code = e.code;
+        }
+        switch (code) {
+            case 500:
+                throw new ServerBrokenError('Servers broken');
+            case 403:
+                throw new NotLoggedInError('not logged in');
+            case 'ECONNREFUSED':
+                throw new ServerDownError('Servers Down');
+            default:
+                throw new WTFError('I have no idea how this broke');
+        }
     }
     //do we need to forward status code??
     // should we care about vary??
@@ -58,8 +77,19 @@ async function wrapContextUser(ctx) {
 
 const loginRequired = func => {
     return async ctx => {
-        if (isServer(ctx)) {
-            const user = await wrapContextUser(ctx);
+        if (isServer(ctx) == true) {
+            try {
+                const user = await wrapContextUser(ctx);
+            } catch (e) {
+                if (e instanceof NotLoggedInError) {
+                    ctx.res.writeHead(302, { Location: `/login?next=${ctx.req.url}` });
+                    ctx.res.end();
+                    return {};
+                }
+                if (e instanceof ServerDownError || e instanceof ServerBrokenError) {
+                    throw e; //TODO: handle this case better
+                }
+            }
             return func(ctx).then(pageProps => {
                 pageProps['user'] = user;
                 return pageProps;
