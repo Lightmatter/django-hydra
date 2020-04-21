@@ -25,7 +25,6 @@ export default function MenuAppBar() {
     const navMenuState = usePopupState({ variant: 'popover', popupId: 'navMenu' });
     const profileMenuState = usePopupState({ variant: 'popover', popupId: 'profileMenu' });
     const user = useCurrentUser();
-    const auth = useIsAuthenticated();
     const logoutButtonClick = () => {
         logOut();
         profileMenuState.close();
@@ -55,7 +54,7 @@ export default function MenuAppBar() {
                         Lightmatter
                     </Typography>
                 </Link>
-                {auth && (
+                {user && (
                     <div>
                         Hey {user.first_name}
                         <IconButton

@@ -1,5 +1,5 @@
 import React from 'react';
-import loginRequired from 'util/loginRequired';
+import { withAuthRequired } from 'util/withAuth';
 import { Form, Field, Formik } from 'formik';
 import {
     updateUser,
@@ -61,7 +61,10 @@ const EditProfile = () => {
                     validateOnChange
                     validationSchema={ProfileSchema}
                     onSubmit={(values, actions) => {
-                        mutate(updateUser(values), false)
+                        mutate(
+                            updateUser(values).then(data => data.data),
+                            false
+                        )
                             .then(response => {
                                 enqueueSnackbar('Successfully updated profile!', {
                                     variant: 'success',
@@ -120,12 +123,4 @@ const EditProfile = () => {
         </Container>
     );
 };
-
-EditProfile.getInitialProps = async ctx => {
-    console.log('a bunch ofp age specific stuff I want to do');
-    return { foo: 'bar' };
-};
-
-EditProfile.getInitialProps = loginRequired(EditProfile.getInitialProps);
-
-export default EditProfile;
+export default withAuthRequired(EditProfile);

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'util/axios';
 import { EMAIL, GENERIC_FIELD_ERROR, REQUIRED, TOO_LONG, TOO_SHORT } from '../constants.js';
 import * as Yup from 'yup';
@@ -7,7 +7,6 @@ import constate from 'constate';
 import useSWR from 'swr';
 
 export const USER_ME = 'http://localhost:8000/auth/users/me/';
-export let isAuthenticated = false;
 
 function equalTo(ref, msg) {
   ref = Yup.ref(ref);
@@ -187,13 +186,23 @@ export function resendConfirmEmail(email) {
 }
 
 export function useCurrentUserSWR({ initialUser }) {
+  const [isAuthenticated, setAuthenticated] = useState(Boolean(initialUser));
   const options = {
     shouldRetryOnError: false,
+    onSuccess: (data, key, config) => {
+      if (isAuthenticated === false) {
+        setAuthenticated(true);
+      }
+    },
+    onError: (err, key, config) => {
+      debugger;
+      if (isAuthenticated === true) {
+        setAuthenticated(false);
+      }
+    },
+    initalData: initialUser,
   };
 
-  if (initialUser) {
-    options['initialData'] = initialUser;
-  }
   // TODO: this will make a request to the server on tab focus if you're logged out.
   // really we shouldn't do that - we know if the revalidation attempt will be successful or not based on isauthenticated
   // This could be smarter w/ a stateful representation of isAuthenticated, vs a derived one to check to test.
@@ -207,18 +216,18 @@ export function useCurrentUserSWR({ initialUser }) {
       }).then(data => data.data),
     options
   );
-
-  isAuthenticated = Boolean(data);
   const user = isAuthenticated ? data : null;
 
   useEffect(() => {
     const syncLogout = event => {
       if (event.key === 'logout' || event.type === 'logout') {
+        setAuthenticated(false);
         mutate(null, false);
       }
     };
     const syncLogin = event => {
       if (event.key === 'login' || event.type === 'login') {
+        setAuthenticated(true);
         mutate();
       }
     };

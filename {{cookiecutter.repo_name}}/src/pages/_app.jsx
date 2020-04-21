@@ -43,7 +43,6 @@ export default function App(props) {
     }, []);
 
     const user = pageProps.user;
-
     return (
         <React.Fragment>
             <Head>
