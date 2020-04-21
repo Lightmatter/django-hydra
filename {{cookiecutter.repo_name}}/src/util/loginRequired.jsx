@@ -1,6 +1,6 @@
 import axios from 'util/axios';
 import { USER_ME } from 'models/user';
-
+import isServer from 'util/isServer';
 //SAMPLE HEADERS coming in
 // accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
 // accept-encoding: "gzip, deflate, br"
@@ -58,11 +58,15 @@ async function wrapContextUser(ctx) {
 
 const loginRequired = func => {
     return async ctx => {
-        const user = await wrapContextUser(ctx);
-        const pageProps = await func(ctx);
-        pageProps['user'] = user;
-        debugger;
-        return pageProps;
+        if (isServer(ctx)) {
+            const user = await wrapContextUser(ctx);
+            return func(ctx).then(pageProps => {
+                pageProps['user'] = user;
+                return pageProps;
+            });
+        } else {
+            return func(ctx);
+        }
     };
 };
 export default loginRequired;
