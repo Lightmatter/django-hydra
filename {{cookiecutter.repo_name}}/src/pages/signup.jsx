@@ -15,6 +15,7 @@ import Avatar from '@material-ui/core/Avatar';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 import { useSnackbar } from 'notistack';
+import { withoutAuth } from 'util/withAuth';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -176,4 +177,4 @@ const SignUp = () => {
     );
 };
 
-export default SignUp;
+export default withoutAuth(SignUp);
