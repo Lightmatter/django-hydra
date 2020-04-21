@@ -84,6 +84,18 @@ export const ResetPassSchema = Yup.object().shape({
     .equalTo('new_password', 'The Two Passwords Must Match'),
 });
 
+export const ChangePassSchema = Yup.object().shape({
+  current_password: Yup.string()
+    .required(REQUIRED)
+    .min(6, TOO_SHORT),
+  new_password: Yup.string()
+    .required(REQUIRED)
+    .min(6, TOO_SHORT),
+  re_new_password: Yup.string()
+    .required(REQUIRED)
+    .equalTo('new_password', 'The Two Passwords Must Match'),
+});
+
 function handleApiErrors(error) {
   let err;
   if (error.response) {
@@ -166,6 +178,13 @@ export function forgotPass(email) {
 export function resetPass(userInfo) {
   const url = `/auth/users/reset_password_confirm/`;
   return axios.post(url, userInfo).catch(error => {
+    return handleApiErrors(error);
+  });
+}
+
+export function changePass(data) {
+  const url = `/auth/users/set_password/`;
+  return axios.post(url, data).catch(error => {
     return handleApiErrors(error);
   });
 }
