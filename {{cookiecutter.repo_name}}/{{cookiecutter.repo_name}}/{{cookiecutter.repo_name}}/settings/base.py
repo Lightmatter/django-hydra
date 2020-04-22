@@ -241,6 +241,8 @@ DJOSER = {
     "CREATE_SESSION_ON_LOGIN": True,
     "PASSWORD_RESET_CONFIRM_URL": "account/reset/confirm/{uid}/{token}",  # TODO: prefix with frontend url
     "PASSWORD_RESET_CONFIRM_RETYPE": True,
+    "SET_USERNAME_RETYPE": True,
+    "SET_PASSWORD_RETYPE": True,
 }
 
 # fmt: off

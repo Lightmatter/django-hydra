@@ -74,6 +74,9 @@ export default function MenuAppBar() {
                                 <Link href="/account/change-password">Change Password</Link>
                             </MenuItem>
                             <MenuItem onClick={profileMenuState.close}>
+                                <Link href="/account/change-email">Change Email</Link>
+                            </MenuItem>
+                            <MenuItem onClick={profileMenuState.close}>
                                 <Link href="/account/delete-account">Delete Account</Link>
                             </MenuItem>
 

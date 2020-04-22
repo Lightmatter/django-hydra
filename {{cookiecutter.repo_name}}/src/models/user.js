@@ -25,25 +25,27 @@ function equalTo(ref, msg) {
 }
 
 Yup.addMethod(Yup.string, 'equalTo', equalTo);
+const name = Yup.string()
+  .min(2, TOO_SHORT)
+  .max(50, TOO_LONG)
+  .required(REQUIRED);
+
+const password = Yup.string()
+  .required(REQUIRED)
+  .min(6, TOO_SHORT);
+
+const email = Yup.string()
+  .email(EMAIL)
+  .required(REQUIRED);
 
 const UserDetailSchema = {
-  first_name: Yup.string()
-    .min(2, TOO_SHORT)
-    .max(50, TOO_LONG)
-    .required(REQUIRED),
-  last_name: Yup.string()
-    .min(2, TOO_SHORT)
-    .max(50, TOO_LONG)
-    .required(REQUIRED),
+  first_name: name,
+  last_name: name,
 };
 
 const SetPassSchema = {
-  password: Yup.string()
-    .required(REQUIRED)
-    .min(6, TOO_SHORT),
-  re_password: Yup.string()
-    .required(REQUIRED)
-    .equalTo('password', 'The Two Passwords Must Match'),
+  password: password,
+  re_password: password.equalTo('password', 'The Two Passwords Must Match'),
 };
 
 export const ProfileSchema = Yup.object().shape({
@@ -52,54 +54,39 @@ export const ProfileSchema = Yup.object().shape({
 export const SignupSchema = Yup.object().shape({
   ...UserDetailSchema,
   ...SetPassSchema,
-  email: Yup.string()
-    .email(EMAIL)
-    .required(REQUIRED),
+  email: email,
   tos: Yup.boolean()
     .required(REQUIRED)
     .oneOf([true], 'Field must be checked'),
 });
 
 export const LoginSchema = Yup.object().shape({
-  password: Yup.string()
-    .required(REQUIRED)
-    .min(6, TOO_SHORT),
-  email: Yup.string()
-    .email(EMAIL)
-    .required(REQUIRED),
+  password: password,
+  email: email,
 });
 
 export const ForgotPassSchema = Yup.object().shape({
-  email: Yup.string()
-    .email(EMAIL)
-    .required(REQUIRED),
+  email: email,
 });
 
 export const ResetPassSchema = Yup.object().shape({
-  new_password: Yup.string()
-    .required(REQUIRED)
-    .min(6, TOO_SHORT),
-  re_new_password: Yup.string()
-    .required(REQUIRED)
-    .equalTo('new_password', 'The Two Passwords Must Match'),
+  new_password: password,
+  re_new_password: password.equalTo('new_password', 'The Two Passwords Must Match'),
 });
 
 export const ChangePassSchema = Yup.object().shape({
-  current_password: Yup.string()
-    .required(REQUIRED)
-    .min(6, TOO_SHORT),
-  new_password: Yup.string()
-    .required(REQUIRED)
-    .min(6, TOO_SHORT),
-  re_new_password: Yup.string()
-    .required(REQUIRED)
-    .equalTo('new_password', 'The Two Passwords Must Match'),
+  current_password: password,
+  new_password: password,
+  re_new_password: password.equalTo('new_password', 'The Two Passwords Must Match'),
 });
 
+export const ChangeEmailSchema = Yup.object().shape({
+  new_email: email,
+  re_new_email: email.equalTo('new_email', 'The Two Emails must match'),
+  current_password: password,
+});
 export const DeleteUserSchema = Yup.object().shape({
-  current_password: Yup.string()
-    .required(REQUIRED)
-    .min(6, TOO_SHORT),
+  current_password: password,
 });
 
 function handleApiErrors(error) {
@@ -203,6 +190,13 @@ export function resetPass(userInfo) {
 
 export function changePass(data) {
   const url = `/auth/users/set_password/`;
+  return axios.post(url, data).catch(error => {
+    return handleApiErrors(error);
+  });
+}
+
+export function changeEmail(data) {
+  const url = `/auth/users/set_email/`;
   return axios.post(url, data).catch(error => {
     return handleApiErrors(error);
   });
