@@ -1,3 +1,29 @@
 from django.test import TestCase
 
-# Create your tests here.
+from .blocks import ColumnBlock, LinkBlock, TitleBlock
+
+
+class BlockTests(TestCase):
+    def setUp(self):
+        self.url = "https://www.google.com"
+        self.string = "Hello world!"
+
+    def test_title_block(self):
+        block = TitleBlock()
+        html = block.render({"title": "Hello world!"})
+        self.assertInHTML(self.string, html)
+
+    def test_link_block(self):
+        block = LinkBlock()
+        html = block.render({"link_text": self.string, "page_link": {"url": self.url}})
+        self.assertHTMLEqual(
+            html, '<a class="" href="{}">{}</a>'.format(self.url, self.string)
+        )
+
+    def test_link_block__nothing_if_empty_text(self):
+        block = LinkBlock()
+        # no link_text should make it show nothing
+        html = block.render({"page_link": {"url": self.url}})
+        self.assertHTMLEqual(html, "")
+
+    # TODO add more tests

@@ -1,5 +1,7 @@
+{%- raw -%}
 <div class="row"  data-equalizer data-equalize-by-row="true">
   {% for column in value.content %}
   {% include_block column %}
   {% endfor %}
 </div>
+{%endraw%}

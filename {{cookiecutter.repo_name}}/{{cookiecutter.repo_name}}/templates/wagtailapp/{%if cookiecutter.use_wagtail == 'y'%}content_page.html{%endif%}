@@ -1,3 +1,4 @@
+{%- raw -%}
 {% extends 'base.jinja' %}
 
 {% block extra_head %}
@@ -7,3 +8,4 @@
 {% block content %}
 {% include_block page.body %}
 {% endblock %}
+{%endraw%}
