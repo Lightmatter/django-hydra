@@ -74,6 +74,7 @@ const LogInPage = () => {
                         fullWidth
                         name="email"
                         component={TextField}
+                        type="email"
                         label="Email"
                         placeholder="Enter Email"
                         helperText="That stands for electronic mail."
