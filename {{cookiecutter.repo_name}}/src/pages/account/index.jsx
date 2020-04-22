@@ -123,4 +123,5 @@ const EditProfile = () => {
         </Container>
     );
 };
+
 export default withAuthRequired(EditProfile);

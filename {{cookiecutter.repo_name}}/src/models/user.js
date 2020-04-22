@@ -234,7 +234,7 @@ export function useCurrentUserSWR({ initialUser }) {
       }
     },
     onError: (err, key, config) => {
-      if (err.isAxiosError && err.response.status === 403 && isAuthenticated === true) {
+      if (err.isAxiosError && err.response?.status === 403 && isAuthenticated === true) {
         setAuthenticated(false);
       }
     },
