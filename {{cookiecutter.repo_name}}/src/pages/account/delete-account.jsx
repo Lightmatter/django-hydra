@@ -63,7 +63,7 @@ const DeleteAccount = () => {
                 aria-describedby="alert-dialog-description"
             >
                 <Formik
-                    initialValues={{ current_password: '' }}
+                    initialValues={% raw -%}{{ current_password: '' }}{% endraw %}
                     className={classes.form}
                     validateOnChange
                     validationSchema={DeleteUserSchema}
