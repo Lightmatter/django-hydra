@@ -56,11 +56,6 @@ const LogInPage = () => {
                                 actions.setSubmitting(false);
                                 return response;
                             })
-                            .then(response => {
-                                const { next = '/' } = router.query; //TODO should be setting controlled
-                                router.push(next);
-                                return response;
-                            })
                             .catch(error => {
                                 actions.setSubmitting(false);
                                 if (error.non_field_errors) {
