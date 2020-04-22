@@ -96,6 +96,12 @@ export const ChangePassSchema = Yup.object().shape({
     .equalTo('new_password', 'The Two Passwords Must Match'),
 });
 
+export const DeleteUserSchema = Yup.object().shape({
+  current_password: Yup.string()
+    .required(REQUIRED)
+    .min(6, TOO_SHORT),
+});
+
 function handleApiErrors(error) {
   let err;
   if (error.response) {
@@ -137,6 +143,19 @@ export function updateUser(userData, userId) {
   return axios.put(USER_ME, userData).catch(error => {
     return handleApiErrors(error);
   });
+}
+
+export function deleteUser(data) {
+  const url = `/auth/users/me/`;
+  return axios
+    .delete(url, { data })
+    .then(() => {
+      window.dispatchEvent(new Event('logout'));
+      window.localStorage.setItem('logout', Date.now());
+    })
+    .catch(error => {
+      return handleApiErrors(error);
+    });
 }
 
 export function logIn(userData) {
@@ -219,7 +238,7 @@ export function useCurrentUserSWR({ initialUser }) {
         setAuthenticated(false);
       }
     },
-    // revalidateOnFocus: isAuthenticated,  //TODO: Currently a bug in useSWR - this doesn't change render to render
+    // revalidateOnFocus: isAuthenticated,  //TODO: Currently a bug in useSWR - this doesn't change between renders
     initalData: initialUser,
   };
 
