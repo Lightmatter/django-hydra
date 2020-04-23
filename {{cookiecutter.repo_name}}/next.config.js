@@ -1,4 +1,5 @@
 const path = require('path');
+require('dotenv').config();
 
 module.exports = {
   webpack(config, options) {
@@ -12,4 +13,11 @@ module.exports = {
     return config;
   },
   poweredByHeader: false,
+  env: {
+    API_BASE_URL: process.env.API_BASE_URL,
+  },
+  serverRuntimeConfig: {
+    // Will only be available on the server side
+    API_BASE_URL: 'http://localhost:8000',
+  },
 };
