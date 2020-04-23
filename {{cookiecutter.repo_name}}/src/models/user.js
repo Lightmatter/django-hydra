@@ -7,7 +7,7 @@ import constate from 'constate';
 import { useSnackbar } from 'notistack';
 import useSWR from 'swr';
 
-export const USER_ME = 'http://localhost:8000/auth/users/me/';
+export const USER_ME = '/auth/users/me/';
 
 function equalTo(ref, msg) {
   ref = Yup.ref(ref);
