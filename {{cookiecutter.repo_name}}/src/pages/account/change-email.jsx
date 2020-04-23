@@ -44,7 +44,7 @@ const ChangeEmail = () => {
                 Change your Email
             </Typography>
             <Formik
-                initialValues={{ current_password: '', new_email: '', re_new_email: '' }}
+                initialValues={%raw-%}{{ current_password: '', new_email: '', re_new_email: '' }}{%endraw%}
                 className={classes.form}
                 validateOnChange
                 validationSchema={ChangeEmailSchema}
