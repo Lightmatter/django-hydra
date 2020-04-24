@@ -13,7 +13,7 @@ DATABASES["default"] = env.db()
 # Honor the 'X-Forwarded-Proto' header for request.is_secure()
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-ALLOWED_HOSTS = env("ALLOWED_HOSTS").split("|")
+ALLOWED_HOSTS = env("ALLOWED_HOSTS", default="*").split("|")
 
 STATIC_ROOT = root("static")
 
@@ -47,9 +47,9 @@ AWS_QUERYSTRING_AUTH = False
 # AWS_S3_CUSTOM_DOMAIN = 'foo.cloudfront.net'
 
 EMAIL_BACKEND = "sgbackend.SendGridBackend"
-SENDGRID_USER = env("SENDGRID_USERNAME")
-SENDGRID_PASSWORD = env("SENDGRID_PASSWORD")
-SENDGRID_API_KEY = env("SENDGRID_API_KEY")
+# SENDGRID_USER = env("SENDGRID_USERNAME")
+# SENDGRID_PASSWORD = env("SENDGRID_PASSWORD")
+# SENDGRID_API_KEY = env("SENDGRID_API_KEY")
 
 
 STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY", default="")
