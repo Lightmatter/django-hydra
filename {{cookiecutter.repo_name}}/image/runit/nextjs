@@ -1,0 +1,4 @@
+#!/bin/bash
+set -e
+cd /home/app/webapp
+exec chpst -u app yarn run start

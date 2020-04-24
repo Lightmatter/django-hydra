@@ -3,7 +3,7 @@
   "version": "{{cookiecutter.version}}",
   "description": "",
   "author": "Lightmatter Team",
-  "license": "All rights reserved",
+  "license": "UNLICENSED",
   "engines": {
     "node": "*"
   },

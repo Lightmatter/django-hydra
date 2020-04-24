@@ -47,6 +47,8 @@ export function forwardRequestCookies(ctx) {
     const cookie = ctx.req.headers.cookie;
     axios.defaults.headers.common['cookie'] = cookie;
     //what other headers do we want to forward?? probably x forwarded for
+    //TODO: def need to forward user agent as well
+    //TODO: get request id in this
 }
 
 export function loginPageUrl(next) {
