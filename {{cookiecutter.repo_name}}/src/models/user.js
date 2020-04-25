@@ -233,7 +233,7 @@ export function useCurrentUserSWR({ initialUser }) {
       }
     },
     // revalidateOnFocus: isAuthenticated,  //TODO: Currently a bug in useSWR - this doesn't change between renders
-    initalData: initialUser,
+    initialData: initialUser,
   };
 
   // TODO: this will make a request to the server on tab focus if you're logged out.
