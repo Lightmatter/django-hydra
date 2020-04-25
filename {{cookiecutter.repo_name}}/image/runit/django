@@ -1,4 +1,4 @@
 #!/bin/bash
 set -e
 cd /home/app/webapp
-exec chpst -u app python3.8 -m uvicorn {{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.asgi:application --host 0.0.0.0
+exec chpst -u app gunicorn {{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.asgi:application --bind 0.0.0.0:8000  -k uvicorn.workers.UvicornWorker
