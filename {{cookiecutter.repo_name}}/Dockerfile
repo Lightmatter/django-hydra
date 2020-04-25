@@ -33,7 +33,7 @@ RUN npm i -g yarn
 
 #add nginx conf files for front and back
 RUN rm /etc/nginx/sites-enabled/default
-RUN cp /lm_build/config/django.conf /etc/nginx/sites-enabled/django.conf && cp /lm_build/config/nextjs.conf /etc/nginx/sites-enabled/nextjs.conf
+RUN cp /lm_build/config/webapp.conf /etc/nginx/sites-enabled/webapp.conf
 
 
 #add runit conf files for front and back

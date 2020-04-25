@@ -34,8 +34,9 @@ django-redis-cache==2.1.0
 boto3==1.12.31
 django-storages==1.9.1
 
-#HEROKU
+#PROD
 uvicorn==0.11.3
+gunicorn==20.0.4
 sentry-sdk==0.14.3
 gunicorn==20.0.4
 

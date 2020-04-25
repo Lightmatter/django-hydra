@@ -1,0 +1,5 @@
+Security
+
+http only cookie
+
+run processes as app user
