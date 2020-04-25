@@ -1,6 +1,6 @@
 FROM phusion/passenger-customizable:1.0.9
 RUN apt-get remove -y passenger libnginx-mod-http-passenger
-RUN rm /etc/nginx/modules-enabled/50-mod-http-passenger.conf && rm /etc/nginx/conf.d/mod-http-passenger.conf
+RUN rm /etc/nginx/modules-enabled/50-mod-http-passenger.conf && rm /etc/nginx/conf.d/mod-http-passenger.conf && rm /etc/apt/sources.list.d/passenger.list
 #upgrade the os
 # RUN apt-get update && apt-get upgrade -y -o Dpkg::Options::="--force-confold"
 
@@ -50,8 +50,8 @@ RUN rm -f /etc/service/nginx/down
 RUN mkdir /home/app/webapp
 WORKDIR /home/app/webapp
 
-COPY  requirements.txt /home/app/webapp/
-RUN python3.8 -m pip install -r requirements.txt --no-cache-dir
+COPY  requirements.txt requirements-dev.txt /home/app/webapp/
+RUN python3.8 -m pip install -r requirements-dev.txt --no-cache-dir
 
 
 ARG DATABASE_URL
