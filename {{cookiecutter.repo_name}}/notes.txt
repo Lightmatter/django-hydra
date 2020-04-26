@@ -1,5 +1,11 @@
+documentation notes:
 Security
 
-http only cookie
+- http only cookie
 
-run processes as app user
+- run processes as app user
+
+
+
+Truly Static assets - where do they live
+ - Django or  Next? probably next.
