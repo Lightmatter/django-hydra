@@ -1,4 +1,5 @@
 async def websocket_application(scope, receive, send):
+    # pylint: disable=unused-argument
     while True:
         event = await receive()
 
