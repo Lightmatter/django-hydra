@@ -9,19 +9,11 @@ setup:
     S3_BUCKET: my-example-bucket
 build:
   docker:
-    web: Dockerfile
-    worker: worker/Dockerfile
+    web:
+      dockerfile: Dockerfile
+      target: app
   config:
-    RAILS_ENV: development
-    FOO: bar
 release:
+  image: web
   command:
-    - ./deployment-tasks.sh
-  image: worker
-run:
-  web: bundle exec puma -C config/puma.rb
-  worker: python myworker.py
-  asset-syncer:
-    command:
-      - python asset-syncer.py
-    image: worker
+    - python3.8 ./manage.py migrate
