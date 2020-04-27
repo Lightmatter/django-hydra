@@ -1,6 +1,4 @@
 FROM bbeecher/lightmatter-base-image:latest AS os
-#upgrade the os
-# RUN apt-get update && apt-get upgrade -y -o Dpkg::Options::="--force-confold"
 
 ADD image/ /app_build/
 

@@ -47,7 +47,13 @@ export default function App(props) {
         <React.Fragment>
             <Head>
                 <title>Lightmatter!</title>
-                <link rel="stylesheet" type="text/css" href="/nprogress.css" />
+                <link
+                    rel="stylesheet"
+                    type="text/css"
+                    href="/nprogress.css"
+                    media="print"
+                    onload="this.media='all'"
+                />
                 {!user ? (
                     <link rel="preload" href={USER_ME} as="fetch" crossOrigin="use-credentials" />
                 ) : null}
