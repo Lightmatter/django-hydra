@@ -6,6 +6,12 @@ Security
 - run processes as app user
 
 
+mention that you need to use python3.8 to manage.py on prod
+
 
 Truly Static assets - where do they live
  - Django or  Next? probably next.
+
+
+fix security issues from:
+https://securityheaders.com/?q=https%3A%2F%2Flightmatter-{{cookiecutter.repo_name}}.herokuapp.com%2F&followRedirects=on

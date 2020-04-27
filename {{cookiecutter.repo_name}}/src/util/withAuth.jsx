@@ -43,9 +43,8 @@ const isServer = ctx => {
     return Boolean(typeof window === 'undefined' && ctx.res);
 };
 
-export function forwardRequestCookies(ctx) {
-    const cookie = ctx.req.headers.cookie;
-    axios.defaults.headers.common['cookie'] = cookie;
+export function forwardRequestHeaders(ctx) {
+    axios.defaults.headers = ctx.req.headers;
     //what other headers do we want to forward?? probably x forwarded for
     //TODO: def need to forward user agent as well
     //TODO: get request id in this
@@ -69,7 +68,7 @@ export function postLoginUrl(router) {
 }
 
 async function wrapContextUser(ctx) {
-    forwardRequestCookies(ctx);
+    forwardRequestHeaders(ctx);
     let response;
     const res = ctx.res;
     try {
