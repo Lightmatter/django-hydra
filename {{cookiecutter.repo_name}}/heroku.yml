@@ -7,12 +7,16 @@ setup:
       as: REDIS
   config:
     S3_BUCKET: my-example-bucket
+    SECRET_KEY: "changeme"
 build:
+  config:
+    DATABASE_URL: ""
+    ALLOWED_HOSTS: "*"
   docker:
     web:
       dockerfile: Dockerfile
       target: app
-  config:
+
 release:
   image: web
   command:
