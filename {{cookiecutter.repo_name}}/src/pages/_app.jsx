@@ -12,6 +12,8 @@ import { CurrentUserProvider, USER_ME } from 'models/user';
 import axios from 'util/axios';
 
 import NProgress from 'nprogress';
+NProgress.configure({ parent: '#container' });
+
 Router.events.on('routeChangeStart', url => {
     console.log(`Loading: ${url}`);
     NProgress.start();
@@ -69,7 +71,9 @@ export default function App(props) {
                     <CurrentUserProvider initialUser={user}>
                         <Grid container direction="column" className={classes.Site}>
                             <Header />
-                            <Component {...pageProps} />
+                            <div id="container">
+                                <Component {...pageProps} />
+                            </div>
                             <Footer className={classes.Footer} />
                         </Grid>
                     </CurrentUserProvider>
