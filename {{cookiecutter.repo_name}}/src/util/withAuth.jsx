@@ -45,6 +45,8 @@ const isServer = ctx => {
 
 export function forwardRequestHeaders(ctx) {
     axios.defaults.headers = ctx.req.headers;
+    axios.defaults.headers['accept'] = 'application/json, text/plain, */*';
+
     //what other headers do we want to forward?? probably x forwarded for
     //TODO: def need to forward user agent as well
     //TODO: get request id in this
