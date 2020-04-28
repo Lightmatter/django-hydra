@@ -4,7 +4,7 @@ import getConfig from 'next/config';
 const { serverRuntimeConfig } = getConfig();
 
 const serverBaseURL = serverRuntimeConfig?.API_BASE_URL;
-const clientBaseURL = process.env.API_BASE_URL;
+export const clientBaseURL = process.env.API_BASE_URL || '';
 export const baseURL = serverBaseURL || clientBaseURL;
 
 export default axios.create({
