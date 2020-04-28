@@ -8,6 +8,8 @@ setup:
   config:
     S3_BUCKET: my-example-bucket
     SECRET_KEY: "changeme"
+    API_BASE_URL: ""
+
 build:
   config:
     DATABASE_URL: ""

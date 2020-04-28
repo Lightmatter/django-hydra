@@ -10,6 +10,13 @@ export default class MyDocument extends Document {
                 <Head>
                     {/* PWA primary color */}
                     <meta name="theme-color" content={theme.palette.primary.main} />
+                    <link
+                        rel="stylesheet"
+                        type="text/css"
+                        href="/nprogress.css"
+                        media="print"
+                        onLoad="this.media='all'"
+                    />
 
                     <link
                         rel="stylesheet"
