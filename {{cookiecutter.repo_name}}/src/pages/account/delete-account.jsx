@@ -103,6 +103,7 @@ const DeleteAccount = () => {
                         <Field
                             component={TextField}
                             name="current_password"
+                            autoComplete="off"
                             label="Current Password"
                             type="password"
                         />

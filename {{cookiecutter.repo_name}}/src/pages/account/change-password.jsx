@@ -78,6 +78,7 @@ const ChangePassword = () => {
                             <Field
                                 component={TextField}
                                 name="current_password"
+                                autoComplete="current-password"
                                 label="Current Password"
                                 type="password"
                             />
@@ -87,6 +88,7 @@ const ChangePassword = () => {
                             <Field
                                 name="new_password"
                                 component={TextField}
+                                autoComplete="new-password"
                                 type="password"
                                 label="New password"
                             />
@@ -96,6 +98,7 @@ const ChangePassword = () => {
                                 name="re_new_password"
                                 component={TextField}
                                 type="password"
+                                autoComplete="new-password"
                                 label="Repeat New password"
                             />
                         </Grid>
