@@ -82,6 +82,7 @@ const ForgotPassPage = () => {
                         fullWidth
                         name="email"
                         component={TextField}
+                        autoComplete="email"
                         label="Email"
                         placeholder="Enter Email"
                     />

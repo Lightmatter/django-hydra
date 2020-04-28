@@ -83,6 +83,7 @@ const PasswordResetConfirm = () => {
                         name="new_password"
                         type="password"
                         component={TextField}
+                        autoComplete="new-password"
                         label="Password"
                         placeholder="Password"
                     />
@@ -90,6 +91,7 @@ const PasswordResetConfirm = () => {
                         fullWidth
                         name="re_new_password"
                         type="password"
+                        autoComplete="new-password"
                         component={TextField}
                         label="Repeat password"
                         placeholder="Repeat pasword"

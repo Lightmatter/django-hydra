@@ -76,7 +76,7 @@ const LogInPage = () => {
                         component={TextField}
                         type="email"
                         label="Email"
-                        placeholder="Enter Email"
+                        autoComplete="email"
                         helperText="That stands for electronic mail."
                     />
                     <Field
@@ -85,6 +85,7 @@ const LogInPage = () => {
                         type="password"
                         component={TextField}
                         label="Password"
+                        autoComplete="current-password"
                         placeholder="Enter Password"
                         helperText="Keep it secret, keep it safe"
                     />

@@ -93,6 +93,7 @@ const SignUp = () => {
                                 component={TextField}
                                 name="first_name"
                                 label="First Name"
+                                autoComplete="given-name"
                                 placeholder="Enter First Name"
                             />
                         </Grid>
@@ -102,6 +103,7 @@ const SignUp = () => {
                                 name="last_name"
                                 component={TextField}
                                 label="Last Name"
+                                autoComplete="family-name"
                                 placeholder="Enter Last Name"
                             />
                         </Grid>
@@ -112,6 +114,7 @@ const SignUp = () => {
                                 component={TextField}
                                 type="email"
                                 label="Email"
+                                autoComplete="email"
                                 placeholder="Enter Email Address"
                                 helperText="We promise not to spam you"
                             />
@@ -123,6 +126,7 @@ const SignUp = () => {
                                 component={TextField}
                                 name="password"
                                 type="password"
+                                autoComplete="new-password"
                                 label="Password"
                                 placeholder="Create Password"
                             />
@@ -133,6 +137,7 @@ const SignUp = () => {
                                 fullWidth
                                 component={TextField}
                                 name="re_password"
+                                autoComplete="new-password"
                                 type="password"
                                 label="Confirm Password"
                                 placeholder="Repeat Password"

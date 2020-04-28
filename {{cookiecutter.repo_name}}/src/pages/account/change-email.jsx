@@ -79,6 +79,7 @@ const ChangeEmail = () => {
                                 fullWidth
                                 component={TextField}
                                 name="current_password"
+                                autoComplete="current-password"
                                 label="Current Password"
                                 type="password"
                             />
@@ -89,6 +90,7 @@ const ChangeEmail = () => {
                                 fullWidth
                                 name="new_email"
                                 component={TextField}
+                                autoComplete="email"
                                 type="email"
                                 label="New Email"
                             />
@@ -98,6 +100,7 @@ const ChangeEmail = () => {
                                 fullWidth
                                 name="re_new_email"
                                 component={TextField}
+                                autoComplete="email"
                                 type="email"
                                 label="Repeat New Email"
                             />
