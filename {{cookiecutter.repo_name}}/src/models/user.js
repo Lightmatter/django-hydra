@@ -238,7 +238,7 @@ export function useCurrentUserSWR({ initialUser }) {
         });
       }
     },
-    // revalidateOnFocus: isAuthenticated,  //TODO: Currently a bug in useSWR - this doesn't change between renders
+    // revalidateOnFocus: isAuthenticated, //TODO: Currently a bug in useSWR - this doesn't change between renders
     initialData: initialUser,
   };
 
@@ -284,7 +284,6 @@ export function useCurrentUserSWR({ initialUser }) {
 
     const syncLogout = event => {
       if (event.key === 'logout' || event.type === 'logout') {
-        debugger;
         setAuthenticated(false);
         mutate(null, false);
       }

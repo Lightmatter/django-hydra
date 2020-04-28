@@ -9,7 +9,7 @@ import Router from 'next/router';
 import { SnackbarProvider } from 'notistack';
 
 import { CurrentUserProvider, USER_ME } from 'models/user';
-import axios from 'util/axios';
+import { baseURL, axios } from 'util/axios';
 
 import NProgress from 'nprogress';
 NProgress.configure({ parent: '#container' });
@@ -57,7 +57,12 @@ export default function App(props) {
                     onLoad="this.media='all'"
                 />
                 {!user ? (
-                    <link rel="preload" href={USER_ME} as="fetch" crossOrigin="use-credentials" />
+                    <link
+                        rel="preload"
+                        href={baseURL + USER_ME}
+                        as="fetch"
+                        crossOrigin="use-credentials"
+                    />
                 ) : null}
                 <meta
                     name="viewport"
