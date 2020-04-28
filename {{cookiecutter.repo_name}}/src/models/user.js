@@ -217,9 +217,12 @@ export function resendConfirmEmail(email) {
     return handleApiErrors(error);
   });
 }
+let isAuthenticated, setAuthenticated;
 
 export function useCurrentUserSWR({ initialUser }) {
-  const [isAuthenticated, setAuthenticated] = useState(Boolean(initialUser));
+  [isAuthenticated, setAuthenticated] = useState(Boolean(initialUser));
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
   const options = {
     shouldRetryOnError: false,
     onSuccess: (data, key, config) => {
@@ -230,6 +233,9 @@ export function useCurrentUserSWR({ initialUser }) {
     onError: (err, key, config) => {
       if (err.isAxiosError && err.response?.status === 403 && isAuthenticated === true) {
         setAuthenticated(false);
+        enqueueSnackbar('Something caused you to be logged out!', {
+          variant: 'warning',
+        });
       }
     },
     // revalidateOnFocus: isAuthenticated,  //TODO: Currently a bug in useSWR - this doesn't change between renders
@@ -251,7 +257,6 @@ export function useCurrentUserSWR({ initialUser }) {
   );
   const user = isAuthenticated ? data : null;
 
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
   useEffect(() => {
     const messageOtherTab = event => {
       if (event.key === 'logout') {
@@ -279,6 +284,7 @@ export function useCurrentUserSWR({ initialUser }) {
 
     const syncLogout = event => {
       if (event.key === 'logout' || event.type === 'logout') {
+        debugger;
         setAuthenticated(false);
         mutate(null, false);
       }
