@@ -5,7 +5,7 @@ const { serverRuntimeConfig } = getConfig();
 
 const serverBaseURL = serverRuntimeConfig?.API_BASE_URL;
 const clientBaseURL = process.env.API_BASE_URL;
-const baseURL = serverBaseURL || clientBaseURL;
+export const baseURL = serverBaseURL || clientBaseURL;
 
 export default axios.create({
   xsrfCookieName: '{{cookiecutter.repo_name}}_csrftoken',
