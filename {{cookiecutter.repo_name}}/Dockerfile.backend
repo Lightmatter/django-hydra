@@ -1,0 +1,7 @@
+FROM python:3.8
+ADD . /src
+WORKDIR /src
+RUN pip install -r requirements.txt
+RUN pip install -r requirements-dev.txt
+RUN mkdir -p /src/logs
+CMD ["python", "/src/manage.py", "runserver", "0.0.0.0:8080"]

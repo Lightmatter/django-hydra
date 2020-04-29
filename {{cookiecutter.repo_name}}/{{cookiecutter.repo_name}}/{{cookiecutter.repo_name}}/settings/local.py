@@ -1,9 +1,11 @@
+from corsheaders.defaults import default_headers
+
 from .base import *
 
 # if you want to test with debug off
 env.read_env(repo_root(".env"), SECRET_KEY="changeme")  # nosec
 
-ALLOWED_HOSTS = [u"127.0.0.1", "localhost", "localhost:8000"]
+ALLOWED_HOSTS = [u"127.0.0.1", "localhost", "backend"]
 DEBUG = True
 
 
@@ -22,10 +24,9 @@ MEDIA_URL = "/media/"
 STATIC_ROOT = root("static")
 
 CORS_ORIGIN_WHITELIST = [
-    "http://127.0.0.1:3000",
-    "http://localhost:3000",
+    "http://127.0.0.1:{{ cookiecutter.local_port }}",
+    "http://localhost:{{ cookiecutter.local_port }}",
 ]
-from corsheaders.defaults import default_headers
 
 CORS_ALLOW_HEADERS = list(default_headers) + [
     "Cache-Control",
