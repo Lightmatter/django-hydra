@@ -12,6 +12,9 @@ Hijack
 
 
 **DJANGO
+set config up with
+https://github.com/rochacbruno/dynaconf
+
 Default implmentation of user list + detail
 Default Implmentation of CreateSerializer + MeSerializer
 Figure out html emails 
@@ -26,18 +29,11 @@ Figure out to do different configs for dev and prod
 setup sentry for prod:
 https://github.com/zeit/next.js/tree/canary/examples/with-sentry
 https://github.com/zeit/next.js/blob/canary/examples/with-sentry-simple/next.config.js
+https://github.com/UnlyEd/next-right-now/blob/master/src/utils/sentry.ts
+https://github.com/UnlyEd/next-right-now/blob/master/src/pages/_error.tsx
 
-
-Get CSRF working
-
-
-
-
-
-Write Upgrading next section in readme:
-
-Include material ui example
-https://github.com/mui-org/material-ui/blob/master/examples/nextjs
+Steal good ideas from:
+https://github.com/UnlyEd/next-right-now/blob/master/next.config.js#L29
 
 Move New window logic into Link
 
@@ -54,9 +50,8 @@ do a better page transition by default
 
 actually Figure out themes 
 
-
-make sure redirects work right:
-https://github.com/zeit/next.js/discussions/11072
+install
+https://github.com/typekit/webfontloader
 
 
 
