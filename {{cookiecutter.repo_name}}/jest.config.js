@@ -8,6 +8,7 @@ module.exports = {
   },
   transformIgnorePatterns: ['/node_modules/', '^.+\\.module\\.(css|sass|scss)$'],
   moduleDirectories: ['node_modules', '<rootDir>/src'],
+  snapshotSerializers: ['enzyme-to-json/serializer'],
   moduleNameMapper: {
     '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
   },

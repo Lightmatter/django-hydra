@@ -1,8 +1,8 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import Index from 'pages/index';
+import { mount } from 'enzyme';
 
 it('renders homepage unchanged', () => {
-    const tree = renderer.create(<Index />).toJSON();
+    const tree = mount(<Index />);
     expect(tree).toMatchSnapshot();
 });

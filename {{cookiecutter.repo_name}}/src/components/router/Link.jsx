@@ -44,8 +44,26 @@ function Link(props) {
         return <NextComposed className={className} ref={innerRef} href={href} {...other} />;
     }
 
+    const _isExternalLink = href => {
+        var checkHref = window.location.protocol + '//' + window.location.host;
+        return !(
+            !href ||
+            href[0] === '?' ||
+            href[0] === '/' ||
+            href[0] === '#' ||
+            href.startsWith(checkHref) ||
+            href.startsWith(window.location.host) ||
+            href.substring(0, 4) === 'tel:' ||
+            href.substring(0, 7) === 'mailto:' ||
+            href.substring(0, 11) === 'javascript:'
+        );
+    };
+
+    const target = _isExternalLink(href) ? '_blank' : undefined;
+
     return (
         <MuiLink
+            target={target}
             component={NextComposed}
             className={className}
             ref={innerRef}

@@ -1,0 +1,150 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Link renders Link unchanged 1`] = `
+<ForwardRef
+  href="/signup"
+>
+  <Link
+    href="/signup"
+    innerRef={null}
+  >
+    <WithStyles(ForwardRef(Link))
+      className=""
+      component={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "propTypes": Object {
+            "as": [Function],
+            "href": [Function],
+            "prefetch": [Function],
+          },
+          "render": [Function],
+        }
+      }
+      href="/signup"
+    >
+      <ForwardRef(Link)
+        className=""
+        classes={
+          Object {
+            "button": "MuiLink-button",
+            "focusVisible": "Mui-focusVisible",
+            "root": "MuiLink-root",
+            "underlineAlways": "MuiLink-underlineAlways",
+            "underlineHover": "MuiLink-underlineHover",
+            "underlineNone": "MuiLink-underlineNone",
+          }
+        }
+        component={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "propTypes": Object {
+              "as": [Function],
+              "href": [Function],
+              "prefetch": [Function],
+            },
+            "render": [Function],
+          }
+        }
+        href="/signup"
+      >
+        <WithStyles(ForwardRef(Typography))
+          className="MuiLink-root MuiLink-underlineHover"
+          color="primary"
+          component={
+            Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "propTypes": Object {
+                "as": [Function],
+                "href": [Function],
+                "prefetch": [Function],
+              },
+              "render": [Function],
+            }
+          }
+          href="/signup"
+          onBlur={[Function]}
+          onFocus={[Function]}
+          variant="inherit"
+        >
+          <ForwardRef(Typography)
+            className="MuiLink-root MuiLink-underlineHover"
+            classes={
+              Object {
+                "alignCenter": "MuiTypography-alignCenter",
+                "alignJustify": "MuiTypography-alignJustify",
+                "alignLeft": "MuiTypography-alignLeft",
+                "alignRight": "MuiTypography-alignRight",
+                "body1": "MuiTypography-body1",
+                "body2": "MuiTypography-body2",
+                "button": "MuiTypography-button",
+                "caption": "MuiTypography-caption",
+                "colorError": "MuiTypography-colorError",
+                "colorInherit": "MuiTypography-colorInherit",
+                "colorPrimary": "MuiTypography-colorPrimary",
+                "colorSecondary": "MuiTypography-colorSecondary",
+                "colorTextPrimary": "MuiTypography-colorTextPrimary",
+                "colorTextSecondary": "MuiTypography-colorTextSecondary",
+                "displayBlock": "MuiTypography-displayBlock",
+                "displayInline": "MuiTypography-displayInline",
+                "gutterBottom": "MuiTypography-gutterBottom",
+                "h1": "MuiTypography-h1",
+                "h2": "MuiTypography-h2",
+                "h3": "MuiTypography-h3",
+                "h4": "MuiTypography-h4",
+                "h5": "MuiTypography-h5",
+                "h6": "MuiTypography-h6",
+                "noWrap": "MuiTypography-noWrap",
+                "overline": "MuiTypography-overline",
+                "paragraph": "MuiTypography-paragraph",
+                "root": "MuiTypography-root",
+                "srOnly": "MuiTypography-srOnly",
+                "subtitle1": "MuiTypography-subtitle1",
+                "subtitle2": "MuiTypography-subtitle2",
+              }
+            }
+            color="primary"
+            component={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "propTypes": Object {
+                  "as": [Function],
+                  "href": [Function],
+                  "prefetch": [Function],
+                },
+                "render": [Function],
+              }
+            }
+            href="/signup"
+            onBlur={[Function]}
+            onFocus={[Function]}
+            variant="inherit"
+          >
+            <ForwardRef(NextComposed)
+              className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+              href="/signup"
+              onBlur={[Function]}
+              onFocus={[Function]}
+            >
+              <Link
+                href="/signup"
+              >
+                <a
+                  className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+                  href="/signup"
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onFocus={[Function]}
+                  onMouseEnter={[Function]}
+                >
+                  link
+                </a>
+              </Link>
+            </ForwardRef(NextComposed)>
+          </ForwardRef(Typography)>
+        </WithStyles(ForwardRef(Typography))>
+      </ForwardRef(Link)>
+    </WithStyles(ForwardRef(Link))>
+  </Link>
+</ForwardRef>
+`;
