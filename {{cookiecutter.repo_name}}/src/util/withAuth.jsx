@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
-import axios from 'util/axios';
-import { USER_ME, useIsAuthenticated } from 'models/user';
-
 import { useRouter } from 'next/router';
+
+import { USER_ME, useIsAuthenticated } from 'models/user';
+import isServer from 'util/isServer';
+import axios from 'util/axios';
 //SAMPLE HEADERS coming in
 // accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
 // accept-encoding: "gzip, deflate, br"
@@ -37,11 +38,6 @@ class ServerDownError extends Error {}
 class NotLoggedInError extends Error {}
 class ServerBrokenError extends Error {}
 class WTFError extends Error {}
-
-//This doesn't work without an arrow function? Why?
-const isServer = ctx => {
-    return Boolean(typeof window === 'undefined' && ctx.res);
-};
 
 export function forwardRequestHeaders(ctx) {
     axios.defaults.headers = ctx.req.headers;
