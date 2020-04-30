@@ -9,6 +9,7 @@ module.exports = {
   transformIgnorePatterns: ['/node_modules/', '^.+\\.module\\.(css|sass|scss)$'],
   moduleDirectories: ['node_modules', '<rootDir>/src'],
   snapshotSerializers: ['enzyme-to-json/serializer'],
+  watchPlugins: ['jest-watch-typeahead/testname'],
   moduleNameMapper: {
     '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
   },
