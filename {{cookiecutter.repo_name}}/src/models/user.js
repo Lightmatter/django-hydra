@@ -122,10 +122,6 @@ export function registerUser(userData) {
     });
 }
 
-export function getSelf() {
-  return;
-}
-
 export function updateUser(userData, userId) {
   return axios.put(USER_ME, userData).catch(error => {
     return handleApiErrors(error);
@@ -295,15 +291,15 @@ export function useCurrentUserSWR({ initialUser }) {
       }
     };
 
+    window.addEventListener('storage', messageOtherTab);
+    window.addEventListener('login', messageThisTab);
+    window.addEventListener('logout', messageThisTab);
+
     window.addEventListener('storage', syncLogout);
     window.addEventListener('logout', syncLogout);
 
     window.addEventListener('storage', syncLogin);
     window.addEventListener('login', syncLogin);
-
-    window.addEventListener('storage', messageOtherTab);
-    window.addEventListener('login', messageThisTab);
-    window.addEventListener('logout', messageThisTab);
 
     return () => {
       window.removeEventListener('storage', syncLogout);
