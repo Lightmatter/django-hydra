@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import MuiLink from '@material-ui/core/Link';
+import isServer from 'util/isServer';
 
 const NextComposed = React.forwardRef(function NextComposed(props, ref) {
     const { as, href, ...other } = props;
@@ -59,8 +60,10 @@ function Link(props) {
         );
     };
 
-    const target = _isExternalLink(href) ? '_blank' : undefined;
-
+    let target = undefined;
+    if (!isServer()) {
+        const target = _isExternalLink(href) ? '_blank' : undefined;
+    }
     return (
         <MuiLink
             target={target}
