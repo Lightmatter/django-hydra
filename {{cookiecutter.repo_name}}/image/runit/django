@@ -5,4 +5,4 @@ PID=/app/gunicorn.pid
 
 if [ -f $PID ]; then rm $PID; fi
 
-exec gunicorn {{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.asgi:application --bind 127.0.0.1:8000  -k uvicorn.workers.UvicornWorker --pid=$PID --access-logfile -
+exec gunicorn {{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.asgi:application --bind 127.0.0.1:8000  -k uvicorn.workers.UvicornWorker --pid=$PID --access-logfile - --preload

@@ -1,9 +1,11 @@
 from django.contrib.auth.hashers import make_password
 from django.test import TestCase
 from django.urls import reverse
+from rest_framework import status as s
 
 from model_mommy import mommy
 from .models import User
+from .views import UserCreateView
 
 
 class UserManager(TestCase):
@@ -21,7 +23,42 @@ class LoginTest(TestCase):
 
 class RegistrationTest(TestCase):
     def setUp(self):
-        pass
+        self.form_data = self.login_form_data = {
+            "email": "ben@coolguy.com",
+            "password": "yeahman",
+            "re_password": "yeahman",
+            "first_name": "ben",
+            "last_name": "beecher",
+        }
+        self.url = reverse("register")
+        self.factory = RequestFactory()
+
+    def test_register(self):
+        response = self.client.post(self.url, self.form_data)
+        self.assertEqual(response.status_code, s.HTTP_201_CREATED)
+
+    def test_register_bad_repeat_email(self):
+        response = self.client.post(self.url, self.form_data)
+        self.assertEqual(response.status_code, s.HTTP_201_CREATED)
+        self.form_data["password"] = "oh no"
+        response = self.client.post(self.url, self.form_data)
+        self.assertEqual(response.status_code, s.HTTP_400_BAD_REQUEST)
+
+    def test_register_bad_repeat_pass(self):
+        self.form_data["re_password"] = "oh no"
+        response = self.client.post(self.url, self.form_data)
+        self.assertEqual(response.status_code, s.HTTP_400_BAD_REQUEST)
+
+    def test_register_no_repeat_pass(self):
+        del self.form_data["re_password"]
+        response = self.client.post(self.url, self.form_data)
+        self.assertEqual(response.status_code, s.HTTP_400_BAD_REQUEST)
+
+    def test_register_but_really_login(self):
+        response = self.client.post(self.url, self.form_data)
+        self.assertEqual(response.status_code, s.HTTP_201_CREATED)
+        response = self.client.post(self.url, self.form_data)
+        self.assertEqual(response.status_code, s.HTTP_200_OK)
 
 
 class UserAdminTest(TestCase):

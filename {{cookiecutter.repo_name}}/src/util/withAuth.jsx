@@ -104,7 +104,7 @@ const wrappedGetInitialProps = (func, loginRequired) => {
         };
     }
     return async ctx => {
-        if (isServer(ctx) === true) {
+        if (isServer() === true) {
             let user = null;
             try {
                 user = await wrapContextUser(ctx);

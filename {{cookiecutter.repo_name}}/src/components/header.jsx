@@ -37,16 +37,21 @@ export default function MenuAppBar() {
                     className={classes.menuButton}
                     color="inherit"
                     aria-label="menu"
+                    data-cy="auth-menu-button"
                     {...bindTrigger(navMenuState)}
                 >
                     <MenuIcon />
                 </IconButton>
                 <Menu keepMounted {...bindMenu(navMenuState)}>
                     <MenuItem onClick={navMenuState.close}>
-                        <Link href="/login">Login</Link>
+                        <Link data-cy="login" href="/login">
+                            Login
+                        </Link>
                     </MenuItem>
                     <MenuItem onClick={navMenuState.close}>
-                        <Link href="/signup">Sign Up</Link>
+                        <Link data-cy="signup" href="/signup">
+                            Sign Up
+                        </Link>
                     </MenuItem>
                 </Menu>
                 <Link href="/">
@@ -56,7 +61,7 @@ export default function MenuAppBar() {
                 </Link>
                 {user && (
                     <div>
-                        Hey {user.first_name}
+                        <span data-cy="logged-in-name">Hey {user.first_name}</span>
                         <IconButton
                             aria-label="account of current user"
                             aria-controls="menu-appbar"

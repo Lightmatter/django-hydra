@@ -45,7 +45,7 @@ function Link(props) {
     }
 
     const _isExternalLink = href => {
-        var checkHref = window.location.protocol + '//' + window.location.host;
+        const checkHref = window.location.protocol + '//' + window.location.host;
         return !(
             !href ||
             href[0] === '?' ||
