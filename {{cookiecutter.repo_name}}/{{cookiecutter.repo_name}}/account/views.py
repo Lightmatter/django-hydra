@@ -1,4 +1,3 @@
-import copy
 from rest_framework.generics import CreateAPIView
 from djoser.views import TokenCreateView as DjoserTokenCreateView
 from djoser.conf import settings
