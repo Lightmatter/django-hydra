@@ -64,6 +64,8 @@ const SignUp = () => {
                                 return login_promise;
                             })
                             .then(response => {
+                                //TODO: This should probably make a different message if you're actually a returning user
+                                // with good creds, since you're not actually registering in that case.
                                 enqueueSnackbar('Successfully registered!', {
                                     variant: 'success',
                                 });
@@ -93,6 +95,7 @@ const SignUp = () => {
                                 component={TextField}
                                 name="first_name"
                                 label="First Name"
+                                data-cy="first-name"
                                 autoComplete="given-name"
                                 placeholder="Enter First Name"
                             />
@@ -102,6 +105,7 @@ const SignUp = () => {
                             <Field
                                 name="last_name"
                                 component={TextField}
+                                data-cy="last-name"
                                 label="Last Name"
                                 autoComplete="family-name"
                                 placeholder="Enter Last Name"
@@ -112,6 +116,7 @@ const SignUp = () => {
                                 fullWidth
                                 name="email"
                                 component={TextField}
+                                data-cy="email"
                                 type="email"
                                 label="Email"
                                 autoComplete="email"
@@ -126,6 +131,7 @@ const SignUp = () => {
                                 component={TextField}
                                 name="password"
                                 type="password"
+                                data-cy="password"
                                 autoComplete="new-password"
                                 label="Password"
                                 placeholder="Create Password"
@@ -137,6 +143,7 @@ const SignUp = () => {
                                 fullWidth
                                 component={TextField}
                                 name="re_password"
+                                data-cy="re-password"
                                 autoComplete="new-password"
                                 type="password"
                                 label="Confirm Password"
@@ -147,6 +154,7 @@ const SignUp = () => {
                             <Field
                                 component={CheckboxWithLabel}
                                 name="tos"
+                                data-cy="tos"
                                 type="checkbox"
                                 {% raw -%}Label={{
                                     label: (
@@ -165,6 +173,7 @@ const SignUp = () => {
                         fullWidth
                         variant="outlined"
                         type="submit"
+                        data-cy="submit-signup"
                         className={classes.bottomSpace}
                     >
                         Sign Up

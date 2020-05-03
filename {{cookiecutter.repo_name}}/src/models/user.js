@@ -112,7 +112,7 @@ function handleApiErrors(error) {
 }
 
 export function registerUser(userData) {
-  const url = `/auth/users/`;
+  const url = `/auth/register/`;
 
   return axios
     .post(url, userData)

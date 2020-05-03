@@ -75,6 +75,7 @@ const LogInPage = () => {
                         name="email"
                         component={TextField}
                         type="email"
+                        data-cy="login-email"
                         label="Email"
                         autoComplete="email"
                         helperText="That stands for electronic mail."
@@ -84,6 +85,7 @@ const LogInPage = () => {
                         name="password"
                         type="password"
                         component={TextField}
+                        data-cy="login-password"
                         label="Password"
                         autoComplete="current-password"
                         placeholder="Enter Password"
@@ -93,7 +95,7 @@ const LogInPage = () => {
                         label="Remember me"
                         control={<Field name="remember_me" type="checkbox" component={Checkbox} />}
                     />
-                    <Button fullWidth variant="outlined" type="submit">
+                    <Button fullWidth data-cy="submit-login" variant="outlined" type="submit">
                         Log In
                     </Button>
                 </Form>
