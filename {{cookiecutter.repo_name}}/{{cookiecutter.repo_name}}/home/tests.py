@@ -6,7 +6,8 @@ from .views import error
 
 class SimpleTest(TestCase):
     def test_home(self):
-        response = self.client.get("/")
+        url = reverse("home")
+        response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
 
     def test_error_route(self):
