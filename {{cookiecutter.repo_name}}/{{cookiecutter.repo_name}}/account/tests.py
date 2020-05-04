@@ -3,12 +3,13 @@ from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status as s
 
-from model_mommy import mommy
+from model_bakery import baker
 from .models import User
 from .views import UserCreateView
 
+from {{cookiecutter.repo_name}}.util.tests import NextjsCypressTest
 
-class UserManager(TestCase):
+class UserManagerTest(TestCase):
     def test_create_user(self):
         user = User.objects.create_user(
             "jonnyrico@fednet.gov", password="iwanttoknowmore"
@@ -19,6 +20,18 @@ class UserManager(TestCase):
 class LoginTest(TestCase):
     def setUp(self):
         pass
+
+
+class RegistrationCypressTest(NextjsCypressTest):
+    def setUp(self):
+        super().setUp()
+
+    def tearDown(self):
+        super().tearDown()
+
+    def test_cypress(self):
+        result = self.run_cypress_test("signup.js", silent=True, browser=False)
+        self.assertEqual(result.returncode, 0)
 
 
 class RegistrationTest(TestCase):
@@ -66,7 +79,7 @@ class UserAdminTest(TestCase):
             "username": "ben@coolguy.com",
             "password": "yeahman",
         }
-        self.user = mommy.make_recipe(
+        self.user = baker.make_recipe(
             "{{ cookiecutter.repo_name }}.account.user",
             email=form_data["username"],
             is_superuser=True,

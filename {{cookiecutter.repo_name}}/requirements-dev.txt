@@ -9,7 +9,7 @@ django-debug-toolbar==2.2
 django-template-debug==0.3.5
 
 # Testing
-model-mommy==2.0.0
+model-bakery==1.1.0
 coverage==5.0.4
 unittest-xml-reporting==3.0.2
 watchdog
