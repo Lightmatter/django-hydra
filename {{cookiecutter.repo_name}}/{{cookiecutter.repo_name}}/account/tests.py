@@ -31,7 +31,6 @@ class RegistrationTest(TestCase):
             "last_name": "beecher",
         }
         self.url = reverse("register")
-        self.factory = RequestFactory()
 
     def test_register(self):
         response = self.client.post(self.url, self.form_data)
