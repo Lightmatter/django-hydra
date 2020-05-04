@@ -31,6 +31,8 @@ var/
 
 #javascript
 .next/
+src/__tests__/cypress/screenshots/
+src/__tests__/cypress/videos/
 # environment variables
 .env
 

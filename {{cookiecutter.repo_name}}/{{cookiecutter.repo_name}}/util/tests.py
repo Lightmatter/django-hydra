@@ -1,8 +1,9 @@
 import datetime
+import subprocess
 import time
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import TestCase
+from django.test import TestCase, LiveServerTestCase
 
 from .models import TestFileModel
 from .util import file_url, random_string
@@ -55,3 +56,32 @@ class FileUrlTest(TestCase):
 # TODO: Write this test
 class SendEmailtest(TestCase):
     pass
+
+
+# TODO: We should make sure we've built the nextjs blob
+class NextjsCypressTest(LiveServerTestCase):
+    port = 8000  # brittle - this must match next compilation.
+
+    def setUp(self):
+        super().setUp()
+        self.nextjs = subprocess.Popen(
+            ["npx", "next", "start"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+        )
+
+    def tearDown(self):
+        self.nextjs.terminate()
+
+    def run_cypress_test(self, spec, silent=True, browser=False):
+        browser_flag = ["--browser", "chrome"]
+        # browser_flag.append("--no-exit")  # if you need to debug it
+        command = [
+            "yarn",
+            "run",
+            "cypress",
+            "run",
+            "--spec",
+            "src/__tests__/cypress/integration/{}".format(spec),
+        ]
+        if browser:
+            command.extend(browser_flag)
+        return subprocess.run(command, capture_output=silent,)
