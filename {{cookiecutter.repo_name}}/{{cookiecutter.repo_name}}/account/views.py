@@ -1,6 +1,7 @@
 from rest_framework.generics import CreateAPIView
-from djoser.views import TokenCreateView as DjoserTokenCreateView
+
 from djoser.conf import settings
+from djoser.views import TokenCreateView as DjoserTokenCreateView
 from djoser.views import UserViewSet as DjoserUserViewSet
 
 from .serializers import UserCreateSerializer
@@ -26,9 +27,9 @@ class UserCreateView(CreateAPIView):
 
         if register_serializer.is_valid():
             return self.create(request, *args, **kwargs)
-        elif login_serializer.is_valid():
+        if login_serializer.is_valid():
             view = TokenCreateView()
             view.request = self.request
-            return view._action(login_serializer)
-        else:
-            register_serializer.is_valid(raise_exception=True)
+            return view._action(login_serializer)  # NOQA
+        register_serializer.is_valid(raise_exception=True)
+        return False  # make pylint happy
