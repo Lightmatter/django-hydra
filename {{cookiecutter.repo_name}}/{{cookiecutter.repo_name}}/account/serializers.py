@@ -4,6 +4,7 @@ from djoser.serializers import TokenCreateSerializer as DjoserTokenCreateSeriali
 from djoser.serializers import (
     UserCreatePasswordRetypeSerializer as DjoserUserCreateSeralizer,
 )
+
 from .models import User
 
 

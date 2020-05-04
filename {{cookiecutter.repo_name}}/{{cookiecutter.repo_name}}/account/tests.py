@@ -1,13 +1,15 @@
-from django.contrib.auth.hashers import make_password
 from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status as s
 
+from django.contrib.auth.hashers import make_password
 from model_bakery import baker
+
+from {{cookiecutter.repo_name}}.util.tests import NextjsCypressTest
+
 from .models import User
 from .views import UserCreateView
 
-from {{cookiecutter.repo_name}}.util.tests import NextjsCypressTest
 
 class UserManagerTest(TestCase):
     def test_create_user(self):

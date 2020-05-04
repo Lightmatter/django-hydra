@@ -3,7 +3,7 @@ import subprocess
 import time
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import TestCase, LiveServerTestCase
+from django.test import LiveServerTestCase, TestCase
 
 from .models import TestFileModel
 from .util import file_url, random_string

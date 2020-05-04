@@ -1,4 +1,5 @@
 from django.urls import include, path  # NOQA
+
 from .views import TokenCreateView, UserCreateView
 
 urlpatterns = [

@@ -1,3 +1,5 @@
+from corsheaders.defaults import default_headers
+
 from .base import *
 
 # if you want to test with debug off
@@ -25,7 +27,6 @@ CORS_ORIGIN_WHITELIST = [
     "http://127.0.0.1:3000",
     "http://localhost:3000",
 ]
-from corsheaders.defaults import default_headers
 
 CORS_ALLOW_HEADERS = list(default_headers) + [
     "Cache-Control",
