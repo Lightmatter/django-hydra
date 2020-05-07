@@ -44,14 +44,12 @@ SECRET_KEY = env("SECRET_KEY")
 DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 AWS_QUERYSTRING_AUTH = False
 
-# put the cloudfront distro here
-# AWS_S3_CUSTOM_DOMAIN = 'foo.cloudfront.net'
 
-EMAIL_BACKEND = "sgbackend.SendGridBackend"
-# SENDGRID_USER = env("SENDGRID_USERNAME")
-# SENDGRID_PASSWORD = env("SENDGRID_PASSWORD")
-# SENDGRID_API_KEY = env("SENDGRID_API_KEY")
-
+INSTALLED_APPS += ("anymail",)
+ANYMAIL = {
+    "MAILGUN_API_KEY": env("MAILGUN_API_KEY"),
+}
+EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
 
 STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY", default="")
 STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY", default="")
@@ -59,6 +57,10 @@ STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY", default="")
 AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID", default="")
 AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY", default="")
 AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME", default="")
+# put the cloudfront distro here
+# AWS_S3_CUSTOM_DOMAIN = 'foo.cloudfront.net'
+
+
 AWS_IS_GZIPPED = True
 AWS_S3_REGION_NAME = "us-east-1"
 
