@@ -16,7 +16,8 @@ https://securityheaders.com/?q=https%3A%2F%2Flightmatter-{{cookiecutter.repo_nam
 
 
 cypress testing
-https://github.com/bahmutov/cypress-select-tests
-get client side mock working
-move nextjs server start into a once per class thing vs once per test
-figure out how to enforce new build of nextjs on running tests
+- https://github.com/bahmutov/cypress-select-tests
+- get client side mock working w/ mirage, but not enabled when running tests through django
+- move nextjs server start into a once per class thing vs once per test in the django test case
+- figure out how to enforce new build of nextjs on running django tests
+- https://github.com/svish/cypress-hmr-restarter#readme for interactive testing

@@ -51,7 +51,7 @@ stripe==2.44.0
 #standard utilities
 raven==6.10.0
 #celery==3.1.18
-sendgrid-django==4.2.0
+django-anymail[mailgun]==7.1.0
 
 # django-cachalot==2.1.0
 
