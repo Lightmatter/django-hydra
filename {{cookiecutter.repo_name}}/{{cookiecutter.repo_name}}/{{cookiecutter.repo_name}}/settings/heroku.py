@@ -47,7 +47,7 @@ AWS_QUERYSTRING_AUTH = False
 
 INSTALLED_APPS += ("anymail",)
 ANYMAIL = {
-    "MAILGUN_API_KEY": env("MAILGUN_API_KEY"),
+    "MAILGUN_API_KEY": env("MAILGUN_API_KEY", default=""),
 }
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
 
@@ -57,8 +57,8 @@ STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY", default="")
 AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID", default="")
 AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY", default="")
 AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME", default="")
-# put the cloudfront distro here
-# AWS_S3_CUSTOM_DOMAIN = 'foo.cloudfront.net'
+# cloudfront distro
+AWS_S3_CUSTOM_DOMAIN = env("AWS_S3_CUSTOM_DOMAIN", default="")
 
 
 AWS_IS_GZIPPED = True
