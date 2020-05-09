@@ -79,3 +79,6 @@ resource "heroku_pipeline_coupling" "production" {
   pipeline = heroku_pipeline.app.id
   stage    = "production"
 }
+
+
+//TODO: Set up another cloudfront distro for the static assets for the heroku app (not just media)

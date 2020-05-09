@@ -26,7 +26,7 @@ variable "heroku_team" {
 data "heroku_team" "team" {
   name = var.heroku_team
 }
-
+//TODO: Set database plan to be controlable so that we spin dev up with a free one
 resource "heroku_app" "app" {
   name   = "${var.app_name}-${var.environment}"
   region = "us"
