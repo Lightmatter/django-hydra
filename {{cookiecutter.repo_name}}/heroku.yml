@@ -1,13 +1,3 @@
-setup:
-  addons:
-    - plan: heroku-postgresql
-      as: DATABASE
-    - plan: sendgrid
-    - plan: heroku-redis:hobby-dev
-      as: REDIS
-  config:
-    API_BASE_URL: ""
-
 build:
   config:
     DATABASE_URL: ""
