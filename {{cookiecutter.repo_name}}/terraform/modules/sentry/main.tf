@@ -32,11 +32,11 @@ resource "sentry_project" "default" {
 }
 
 # Create a key
-resource "sentry_key" "default" {
+data "sentry_key" "default" {
   depends_on = [sentry_project.default]
   organization = var.organization
   project = var.app_name
-  name = "${var.app_name} Key"
+  name = "Default"
 }
 
 
@@ -66,5 +66,5 @@ resource "sentry_rule" "default" {
 }
 
 output "sentry_dsn" {
-  value = sentry_key.default.dsn_public
+  value = data.sentry_key.default.dsn_public
 }
