@@ -46,12 +46,19 @@ resource "sentry_rule" "default" {
   organization = var.organization
   project = var.app_name
   name = "Send a notification for new events"
-  frequency    = 30
+  action_match = "any"
+  frequency    = 60
 
   conditions =   [
     {
       id = "sentry.rules.conditions.first_seen_event.FirstSeenEventCondition"
-    }
+    },
+    {
+      id = "sentry.rules.conditions.regression_event.RegressionEventCondition",
+    },
+    {
+      id = "sentry.rules.conditions.reappeared_event.ReappearedEventCondition"
+    },
   ]
 
   actions =  [
