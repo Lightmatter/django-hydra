@@ -35,23 +35,36 @@ resource "heroku_app" "app" {
   region = "us"
   stack = "container"
   config_vars = {
-    API_BASE_URL = ""
-    AWS_STORAGE_BUCKET_NAME = var.aws_storage_bucket_name
-    AWS_ACCESS_KEY_ID = var.iam_access_key
-    SENTRY_DSN = ""
     DJANGO_SETTINGS_MODULE = "{{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.settings.heroku"
     ALLOWED_HOSTS = "${var.app_name}-${var.environment}.herokuapp.com"
-    AWS_S3_CUSTOM_DOMAIN = var.cloudfront_url
     SENTRY_DSN = var.sentry_dsn
   }
   sensitive_config_vars = {
-    AWS_SECRET_ACCESS_KEY = var.iam_secret_key
     SECRET_KEY = "changeme"
   }
   organization  {
     name = var.heroku_team
   }
 }
+resource "heroku_config" "aws" {
+  vars = {
+    API_BASE_URL = ""
+    AWS_STORAGE_BUCKET_NAME = var.aws_storage_bucket_name
+    AWS_ACCESS_KEY_ID = var.iam_access_key
+    AWS_S3_CUSTOM_DOMAIN = var.cloudfront_url
+  }
+
+  sensitive_vars = {
+    AWS_SECRET_ACCESS_KEY = var.iam_secret_key
+  }
+}
+resource "heroku_app_config_association" "aws" {
+  app_id = heroku_app.app.id
+  vars = heroku_config.aws.vars
+  sensitive_vars = heroku_config.aws.sensitive_vars
+}
+
+
 
 resource "heroku_addon" "database" {
   app  = heroku_app.app.name
