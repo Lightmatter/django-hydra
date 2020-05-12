@@ -26,6 +26,9 @@ variable "heroku_team" {
 data "heroku_team" "team" {
   name = var.heroku_team
 }
+variable "sentry_dsn" {
+  type = string
+}
 //TODO: Set database plan to be controlable so that we spin dev up with a free one
 resource "heroku_app" "app" {
   name   = "${var.app_name}-${var.environment}"
@@ -39,6 +42,7 @@ resource "heroku_app" "app" {
     DJANGO_SETTINGS_MODULE = "{{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.settings.heroku"
     ALLOWED_HOSTS = "${var.app_name}-${var.environment}.herokuapp.com"
     AWS_S3_CUSTOM_DOMAIN = var.cloudfront_url
+    SENTRY_DSN = var.sentry_dsn
   }
   sensitive_config_vars = {
     AWS_SECRET_ACCESS_KEY = var.iam_secret_key

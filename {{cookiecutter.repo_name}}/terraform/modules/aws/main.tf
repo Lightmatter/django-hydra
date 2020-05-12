@@ -16,7 +16,7 @@ resource "aws_iam_access_key" "key" {
 }
 
 resource "aws_s3_bucket" "bucket" {
-  bucket = "${var.app_name}-${var.environment}-test"
+  bucket = "${var.app_name}-${var.environment}"
   acl    = "public-read"
   region = "us-east-1"
 
