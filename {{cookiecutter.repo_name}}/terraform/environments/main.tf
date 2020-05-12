@@ -30,6 +30,10 @@ module "prod_aws" {
   environment = "production"
   app_name = "{{cookiecutter.repo_name}}"
 }
+module "sentry" {
+  source = "../modules/sentry"
+}
+
 module "dev_heroku" {
   source = "../modules/heroku"
 
@@ -40,6 +44,7 @@ module "dev_heroku" {
   iam_secret_key = module.dev_aws.iam_secret_key
   cloudfront_url = module.dev_aws.cloudfront_url
   heroku_team = var.heroku_team
+  sentry_dsn = module.sentry.sentry_dsn
 }
 
 module "prod_heroku" {
@@ -52,7 +57,9 @@ module "prod_heroku" {
   iam_secret_key = module.prod_aws.iam_secret_key
   cloudfront_url = module.prod_aws.cloudfront_url
   heroku_team = var.heroku_team
+  sentry_dsn = module.sentry.sentry_dsn
 }
+
 
 
 
