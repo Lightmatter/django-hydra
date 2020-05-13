@@ -2,6 +2,8 @@ from urllib.parse import urlparse
 
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
+from sentry_sdk.integrations.redis import RedisIntegration
+
 
 from .base import *
 
@@ -27,7 +29,7 @@ CACHES = {
             "DB": 0,
             "PASSWORD": redis_url.password,
             "PARSER_CLASS": "redis.connection.HiredisParser",
-            "PICKLE_VERSION": 2,
+            "PICKLE_VERSION": -1,
         },
     }
 }
@@ -71,4 +73,12 @@ AWS_S3_REGION_NAME = "us-east-1"
 # SOCIAL_AUTH_FACEBOOK_KEY = env('SOCIAL_AUTH_FACEBOOK_KEY')
 # SOCIAL_AUTH_FACEBOOK_SECRET = env('SOCIAL_AUTH_FACEBOOK_SECRET')
 
-sentry_sdk.init(dsn=env("SENTRY_DSN", default=""), integrations=[DjangoIntegration()])
+sentry_sdk.init(
+    dsn=env("SENTRY_DSN"),
+    integrations=[DjangoIntegration(), RedisIntegration()],
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True,
+    environment=env("ENVIRONMENT"),
+    release="my-project-name@2.3.12",
+)
