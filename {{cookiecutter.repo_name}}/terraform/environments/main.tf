@@ -37,7 +37,7 @@ module "sentry" {
 module "dev_heroku" {
   source = "../modules/heroku"
 
-  environment = "dev"
+  environment = "development"
   app_name = "{{cookiecutter.repo_name}}"
   aws_storage_bucket_name = module.dev_aws.aws_storage_bucket_name
   iam_access_key = module.dev_aws.iam_access_key
@@ -50,7 +50,7 @@ module "dev_heroku" {
 module "prod_heroku" {
   source = "../modules/heroku"
 
-  environment = "prod"
+  environment = "production"
   app_name = "{{cookiecutter.repo_name}}"
   aws_storage_bucket_name = module.prod_aws.aws_storage_bucket_name
   iam_access_key = module.prod_aws.iam_access_key

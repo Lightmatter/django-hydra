@@ -23,6 +23,8 @@ RUN yarn install --production && yarn cache clean
 
 
 ARG DATABASE_URL
+ARG SENTRY_DSN=""
+ARG ENVIRONMENT=""
 ARG ALLOWED_HOSTS="*"
 ARG SECRET_KEY="foobar"
 ENV DJANGO_SETTINGS_MODULE={{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.settings.heroku
