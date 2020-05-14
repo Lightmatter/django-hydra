@@ -52,6 +52,9 @@ ANYMAIL = {
     "MAILGUN_API_KEY": env("MAILGUN_API_KEY", default=""),
 }
 EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
+# mailgun will refuse to send mail not from a whitelisted domain.
+DEFAULT_FROM_EMAIL = "hello@" + env("MAILGUN_DOMAIN", default="")
+SERVER_EMAIL = "error@" + env("MAILGUN_DOMAIN", default="")
 
 STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY", default="")
 STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY", default="")

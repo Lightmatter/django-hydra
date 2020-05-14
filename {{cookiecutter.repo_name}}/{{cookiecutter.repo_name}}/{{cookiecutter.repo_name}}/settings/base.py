@@ -151,8 +151,6 @@ TEST_RUNNER = "django.test.runner.DiscoverRunner"
 
 ALLOWED_HOSTS = ["localhost" ".herokuapp.com"]
 
-DEFAULT_FROM_EMAIL = "hello@{{cookiecutter.repo_name}}.com"
-SERVER_EMAIL = "error@{{cookiecutter.repo_name}}.com"
 
 CONTEXT_PROCESSORS = [
     "django.contrib.auth.context_processors.auth",

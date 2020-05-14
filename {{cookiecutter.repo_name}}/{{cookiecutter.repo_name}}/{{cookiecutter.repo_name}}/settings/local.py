@@ -60,3 +60,6 @@ TEMPLATES[0]["OPTIONS"]["string_if_invalid"] = InvalidVariable(
 SECRET_KEY = env("SECRET_KEY")
 CELERY_ALWAYS_EAGER = True
 CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
+
+DEFAULT_FROM_EMAIL = "hello@{{cookiecutter.repo_name}}.com"
+SERVER_EMAIL = "error@{{cookiecutter.repo_name}}.com"
