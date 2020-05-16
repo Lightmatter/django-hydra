@@ -1,3 +1,5 @@
+import * as Sentry from '@sentry/node';
+import 'util/sentry';
 import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
@@ -10,7 +12,7 @@ import { SnackbarProvider } from 'notistack';
 
 import { CurrentUserProvider, USER_ME } from 'models/user';
 import { clientBaseURL, axios } from 'util/axios';
-
+import isServer from 'util/isServer';
 import NProgress from 'nprogress';
 NProgress.configure({ parent: '#container' });
 
@@ -33,6 +35,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+const fileLabel = 'pages/_app';
 export default function App(props) {
     const { Component, pageProps } = props;
     const classes = useStyles(theme);
@@ -45,6 +48,13 @@ export default function App(props) {
     }, []);
 
     const user = pageProps.user;
+    Sentry.addBreadcrumb({
+        // See https://docs.sentry.io/enriching-error-data/breadcrumbs
+        category: fileLabel,
+        message: `Preparing app (${isServer() ? 'server' : 'browser'})`,
+        level: Sentry.Severity.Debug,
+    });
+
     return (
         <React.Fragment>
             <Head>

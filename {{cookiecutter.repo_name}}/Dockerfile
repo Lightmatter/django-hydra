@@ -23,6 +23,7 @@ RUN yarn install --production && yarn cache clean
 
 
 ARG DATABASE_URL
+ARG SOURCE_VERSION
 ARG SENTRY_DSN=""
 ARG ENVIRONMENT=""
 ARG ALLOWED_HOSTS="*"
@@ -31,7 +32,6 @@ ENV DJANGO_SETTINGS_MODULE={{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}
 COPY . /app
 
 RUN python3.8 ./manage.py collectstatic --noinput
-RUN yarn run build
 
 CMD ["/sbin/my_init", "--skip-startup-files"]
 

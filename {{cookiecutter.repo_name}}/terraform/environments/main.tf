@@ -5,12 +5,10 @@ provider "aws" {
 provider "heroku" {
 
 }
-# # Configure the Sentry Provider
-# #https://github.com/jianyuan/terraform-provider-sentry
-# provider "sentry" {
-#   token = var.sentry_token
-#   base_url = var.sentry_base_url
-# }
+provider "sentry" {
+  token = var.SENTRY_TOKEN
+}
+
 data "heroku_team" "team" {
   name = var.heroku_team
 }
@@ -38,26 +36,32 @@ module "dev_heroku" {
   source = "../modules/heroku"
 
   environment = "development"
-  app_name = "{{cookiecutter.repo_name}}"
+  app_name = "lm-{{cookiecutter.repo_name}}"
   aws_storage_bucket_name = module.dev_aws.aws_storage_bucket_name
   iam_access_key = module.dev_aws.iam_access_key
   iam_secret_key = module.dev_aws.iam_secret_key
   cloudfront_url = module.dev_aws.cloudfront_url
   heroku_team = var.heroku_team
   sentry_dsn = module.sentry.sentry_dsn
+  sentry_org = module.sentry.sentry_org
+  sentry_project = module.sentry.sentry_project
+  sentry_auth_token = var.SENTRY_TOKEN
 }
 
 module "prod_heroku" {
   source = "../modules/heroku"
 
   environment = "production"
-  app_name = "{{cookiecutter.repo_name}}"
+  app_name = "lm-{{cookiecutter.repo_name}}"
   aws_storage_bucket_name = module.prod_aws.aws_storage_bucket_name
   iam_access_key = module.prod_aws.iam_access_key
   iam_secret_key = module.prod_aws.iam_secret_key
   cloudfront_url = module.prod_aws.cloudfront_url
   heroku_team = var.heroku_team
   sentry_dsn = module.sentry.sentry_dsn
+  sentry_org = module.sentry.sentry_org
+  sentry_project = module.sentry.sentry_project
+  sentry_auth_token = var.SENTRY_TOKEN
 }
 
 

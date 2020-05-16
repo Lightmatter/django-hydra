@@ -29,6 +29,15 @@ data "heroku_team" "team" {
 variable "sentry_dsn" {
   type = string
 }
+variable "sentry_org" {
+  type = string
+}
+variable "sentry_project" {
+  type = string
+}
+variable "sentry_auth_token" {
+  type = string
+}
 //TODO: Set database plan to be controlable so that we spin dev up with a free one
 resource "heroku_app" "app" {
   name   = "${var.app_name}-${var.environment}"
@@ -38,6 +47,9 @@ resource "heroku_app" "app" {
     DJANGO_SETTINGS_MODULE = "{{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.settings.heroku"
     ALLOWED_HOSTS = "${var.app_name}-${var.environment}.herokuapp.com"
     SENTRY_DSN = var.sentry_dsn
+    SENTRY_PROJECT = var.sentry_project
+    SENTRY_ORG = var.sentry_org
+    SENTRY_AUTH_TOKEN = var.sentry_auth_token
     ENVIRONMENT = var.environment
   }
   sensitive_config_vars = {
