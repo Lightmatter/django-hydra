@@ -1,3 +1,7 @@
+resource "random_string" "random" {
+  length = 50
+}
+
 variable "environment"{
   type = string
   default = "development"
@@ -53,7 +57,7 @@ resource "heroku_app" "app" {
     ENVIRONMENT = var.environment
   }
   sensitive_config_vars = {
-    SECRET_KEY = "changeme"
+    SECRET_KEY = random_string.random.result
   }
   organization  {
     name = var.heroku_team
