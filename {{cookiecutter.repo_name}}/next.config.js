@@ -11,16 +11,16 @@ module.exports = {
     if (!isServer) {
       config.resolve.alias['@sentry/node'] = '@sentry/browser';
     }
-
-    config.plugins.push(
-      new SentryWebpackPlugin({
-        include: '.next',
-        ignore: ['node_modules'],
-        urlPrefix: '~/_next',
-        release: process.env.APP_VERSION_RELEASE,
-      })
-    );
-
+    if (SENTRY_DSN && SENTRY_ORG && SENTRY_PROJECT && SENTRY_AUTH_TOKEN) {
+      config.plugins.push(
+        new SentryWebpackPlugin({
+          include: '.next',
+          ignore: ['node_modules'],
+          urlPrefix: '~/_next',
+          release: process.env.APP_VERSION_RELEASE,
+        })
+      );
+    }
     return config;
   },
   poweredByHeader: false,
