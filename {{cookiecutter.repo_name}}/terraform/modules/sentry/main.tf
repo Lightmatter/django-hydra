@@ -75,3 +75,9 @@ resource "sentry_rule" "default" {
 output "sentry_dsn" {
   value = data.sentry_key.default.dsn_public
 }
+output "sentry_org" {
+  value = var.organization
+}
+output "sentry_project" {
+  value = sentry_project.default.slug
+}

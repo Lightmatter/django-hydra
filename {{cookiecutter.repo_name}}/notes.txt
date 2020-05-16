@@ -28,3 +28,7 @@ https://github.com/cypress-io/cypress-example-recipes
 - figure out how to enforce new build of nextjs on running django tests
 - https://github.com/svish/cypress-hmr-restarter#readme for interactive testing
    - https://stackoverflow.com/questions/52231111/re-run-cypress-tests-in-gui-when-webpack-dev-server-causes-page-reload
+
+
+Sentry - Get consolidated error report for frontend and backend
+ - Figure out what to do about release number

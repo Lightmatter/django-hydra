@@ -29,6 +29,9 @@ export default function MenuAppBar() {
         logOut();
         profileMenuState.close();
     };
+    const throwException = () => {
+        throw 'Exception';
+    };
     return (
         <AppBar position="static">
             <Toolbar>
@@ -53,6 +56,7 @@ export default function MenuAppBar() {
                             Sign Up
                         </Link>
                     </MenuItem>
+                    <MenuItem onClick={throwException}>Throw an error</MenuItem>
                 </Menu>
                 <Link href="/">
                     <Typography variant="h6" color="textPrimary" className={classes.title}>
