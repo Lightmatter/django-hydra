@@ -8,13 +8,13 @@ import isServer from 'util/isServer';
  * Also used in pages/_app for the client side, which automatically applies it for all frontend pages.
  */
 Sentry.init({
-    dsn: process.env.SENTRY_DSN,
+    dsn: process.env.NEXT_PUBLIC_SENTRY_DSN,
     enabled: process.env.NODE_ENV !== 'test',
-    environment: process.env.ENVIRONMENT,
-    release: process.env.APP_VERSION_RELEASE,
+    environment: process.env.NEXT_PUBLIC_ENVIRONMENT,
+    release: process.env.NEXT_PUBLIC_APP_VERSION_RELEASE,
 });
 
-if (!process.env.SENTRY_DSN && process.env.NODE_ENV !== 'test') {
+if (!process.env.NEXT_PUBLIC_SENTRY_DSN && process.env.NODE_ENV !== 'test') {
     // eslint-disable-next-line no-console
     console.error('Sentry DSN not defined');
 }
