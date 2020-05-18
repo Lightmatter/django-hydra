@@ -32,3 +32,5 @@ https://github.com/cypress-io/cypress-example-recipes
 
 Sentry - Get consolidated error report for frontend and backend
  - Figure out what to do about release number
+https://nextjs.org/docs/advanced-features/measuring-performance#sending-results-to-analytics
+https://github.com/zeit/next.js/discussions/12913 -- get error page working
