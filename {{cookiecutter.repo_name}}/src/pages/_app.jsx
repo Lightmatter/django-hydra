@@ -35,8 +35,15 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+const debugForceIP = () => {
+    if (process.env.NEXT_PUBLIC_DEBUG && !isServer() && window.location.hostname == 'localhost') {
+        window.location = 'http://127.0.0.1:3000' + window.location.pathname;
+    }
+};
+
 const fileLabel = 'pages/_app';
 export default function App(props) {
+    debugForceIP();
     const { Component, pageProps } = props;
     const classes = useStyles(theme);
     React.useEffect(() => {
