@@ -40,14 +40,14 @@ const SignUp = () => {
                 Register here, become a user!
             </Typography>
             <Formik
-                initialValues={{
+                {% raw -%}initialValues={{
                     first_name: '',
                     last_name: '',
                     email: '',
                     password: '',
                     re_password: '',
                     tos: false,
-                }}
+                }}{%- endraw %}
                 className={classes.form}
                 validateOnChange
                 validateOnBlur={false}
@@ -152,7 +152,7 @@ const SignUp = () => {
                                 data-cy="tos"
                                 type="checkbox"
                                 margin="dense"
-                                Label={{
+                                {% raw -%}Label={{
                                     label: (
                                         <>
                                             You accept our{' '}
@@ -161,7 +161,7 @@ const SignUp = () => {
                                             </Link>
                                         </>
                                     ),
-                                }}
+                                }}{%- endraw %}
                             />
                         </Grid>
                     </Grid>

@@ -51,7 +51,7 @@ const LogInPage = () => {
                 Log In
             </Typography>
             <Formik
-                initialValues={{ email: '', password: '', remember_me: true }}
+                {% raw -%}initialValues={{ email: '', password: '', remember_me: true }}{% endraw %}
                 validateOnChange
                 validationSchema={LoginSchema}
                 validateOnBlur={false}
