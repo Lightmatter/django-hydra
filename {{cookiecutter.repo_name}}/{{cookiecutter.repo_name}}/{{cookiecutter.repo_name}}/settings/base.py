@@ -241,8 +241,8 @@ try:
 except ImportError:
     pass
 
-
-{% if cookiecutter.use_wagtail == "y" %}
+# fmt: off
+{% if cookiecutter.use_wagtail == "y" -%}
 # Wagtail specific settings
 INSTALLED_APPS += (
 
@@ -300,4 +300,4 @@ WAGTAILADMIN_NOTIFICATION_FROM_EMAIL = 'wagtail@{{cookiecutter.repo_name}}.com'
 WAGTAILIMAGES_IMAGE_MODEL = 'wagtailapp.CustomImage'
 WAGTAILIMAGES_MAX_UPLOAD_SIZE = 10 * 1024 * 1024 # 10MB which is default
 WAGTAILIMAGES_MAX_IMAGE_PIXELS = 128000000  # i.e. 128 megapixels
-{% endif %}
+{%- endif -%}
