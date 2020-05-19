@@ -23,18 +23,20 @@ class CustomImage(AbstractImage):
 
 
 class CustomRendition(AbstractRendition):
-    image = models.ForeignKey(CustomImage, on_delete=models.CASCADE, related_name='renditions')
+    image = models.ForeignKey(
+        CustomImage, on_delete=models.CASCADE, related_name="renditions"
+    )
 
     class Meta:
-        unique_together = (
-            ('image', 'filter_spec', 'focal_point_key'),
-        )
+        unique_together = (("image", "filter_spec", "focal_point_key"),)
 
 
 @register_setting
 class SocialMediaSettings(BaseSetting):
     socials = StreamField([("social", blocks.SocialBlock())], blank=True)
-    default_social_image = models.ForeignKey(CustomImage, on_delete=models.CASCADE, null=True)
+    default_social_image = models.ForeignKey(
+        CustomImage, on_delete=models.CASCADE, null=True
+    )
     default_meta_description = models.CharField(max_length=300, null=True, blank=True)
 
     panels = [
@@ -46,10 +48,7 @@ class SocialMediaSettings(BaseSetting):
 
 class BasePage(Page):
     social_image = models.ForeignKey(
-        CustomImage, on_delete=models.SET_NULL,
-        default=None,
-        null=True,
-        blank=True,
+        CustomImage, on_delete=models.SET_NULL, default=None, null=True, blank=True
     )
     promote_panels = Page.promote_panels + [
         ImageChooserPanel("social_image"),
@@ -61,10 +60,7 @@ class BasePage(Page):
 
 class ContentPage(BasePage):
     body = StreamField(
-        [
-            ('spacer', blocks.SpacerBlock()),
-            ('section', blocks.SectionBlock()),
-        ],
+        [("spacer", blocks.SpacerBlock()), ("section", blocks.SectionBlock()),],
         blank=True,
     )
 
