@@ -27,6 +27,7 @@ export default function PasswordField({ ...rest }) {
             type={showPassword ? 'text' : 'password'}
             {...rest}
             data-cy="password"
+        {%-raw -%}
             InputProps={{
                 endAdornment: (
                     <InputAdornment position="end">
@@ -40,6 +41,7 @@ export default function PasswordField({ ...rest }) {
                     </InputAdornment>
                 ),
             }}
+        {%- endraw -%}
         />
     );
 }
