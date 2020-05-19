@@ -1,19 +1,13 @@
-import React from 'react';
+import {Avatar, Button, Container, FormControlLabel, Grid, Typography} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 
 import { Form, Field, Formik } from 'formik';
-import { registerUser, logIn, SignupSchema } from 'models/user';
+import { TextField, CheckboxWithLabel } from 'formik-material-ui';
 
 import Link from 'components/router/Link';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import { TextField, CheckboxWithLabel } from 'formik-material-ui';
-import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
-import Avatar from '@material-ui/core/Avatar';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-
+import PasswordField from 'components/PasswordField';
+import { registerUser, logIn, SignupSchema } from 'models/user';
 import { useSnackbar } from 'notistack';
 import { withoutAuth } from 'util/withAuth';
 
@@ -36,6 +30,7 @@ const useStyles = makeStyles(theme => ({
 const SignUp = () => {
     const classes = useStyles();
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
             <Avatar>
@@ -52,9 +47,10 @@ const SignUp = () => {
                     password: '',
                     re_password: '',
                     tos: false,
-                }}{% endraw %}
+                }}{%- endraw %}
                 className={classes.form}
                 validateOnChange
+                validateOnBlur={false}
                 validationSchema={SignupSchema}
                 onSubmit={(values, actions) => {
                     setTimeout(() => {
@@ -98,6 +94,7 @@ const SignUp = () => {
                                 data-cy="first-name"
                                 autoComplete="given-name"
                                 placeholder="Enter First Name"
+                            margin="dense"
                             />
                         </Grid>
 
@@ -109,6 +106,7 @@ const SignUp = () => {
                                 label="Last Name"
                                 autoComplete="family-name"
                                 placeholder="Enter Last Name"
+                                margin="dense"
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -122,32 +120,29 @@ const SignUp = () => {
                                 autoComplete="email"
                                 placeholder="Enter Email Address"
                                 helperText="We promise not to spam you"
+                                margin="dense"
                             />
                         </Grid>
 
                         <Grid item xs={12}>
-                            <Field
+                            <PasswordField
                                 fullWidth
-                                component={TextField}
                                 name="password"
-                                type="password"
-                                data-cy="password"
                                 autoComplete="new-password"
                                 label="Password"
                                 placeholder="Create Password"
+                                margin="dense"
                             />
                         </Grid>
 
                         <Grid item xs={12}>
-                            <Field
+                            <PasswordField
                                 fullWidth
-                                component={TextField}
                                 name="re_password"
-                                data-cy="re-password"
                                 autoComplete="new-password"
-                                type="password"
                                 label="Confirm Password"
                                 placeholder="Repeat Password"
+                                margin="dense"
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -156,6 +151,7 @@ const SignUp = () => {
                                 name="tos"
                                 data-cy="tos"
                                 type="checkbox"
+                                margin="dense"
                                 {% raw -%}Label={{
                                     label: (
                                         <>
@@ -165,8 +161,8 @@ const SignUp = () => {
                                             </Link>
                                         </>
                                     ),
-                                }}
-                            />{%- endraw %}
+                                }}{%- endraw %}
+                            />
                         </Grid>
                     </Grid>
                     <Button
