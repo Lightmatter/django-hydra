@@ -6,28 +6,49 @@
 ## Local Development Setup Instructions
 - Install PostgreSQL server and client on your local computer
     - For Mac: use Homebrew: `brew install postgresql`
+    - For Ubuntu: apt-get install postgresql
 - Install virtualenvwrapper <https://virtualenvwrapper.readthedocs.io/en/latest/install.html#basic-installation>
+- Install Node >=10.14.2
+- Install python 3.8
 - Run the start script: `./scripts/start.sh` from the project root
     - This will install the pip and yarn packages and set up the local database for the project
-##### Local Server Process
-You will be running two concurrent servers.
+- Run `honcho start` to start the application
+- go to "127.0.0.1:3000" in a browser
 
-- Run the Django server using `./manage.py runserver` from the project root
+##### Local Server Process
+You will be running two concurrent servers, a backend and a frontend server.
+
+- Run the Django backend server using `./manage.py runserver` from the project root, which will start the server on 127.0.0.1:8000
     - you may choose to run `./manage.py runserver_plus` instead as this provides more debugging features
-- Open a second shell tab
-- In this second tab, run the webpack server `npm run dev`, which serves the SCSS, JS and similar file types from the project root
-    - The site's landing page should automatically open in a browser window/tab
+- run the next.js frontend server `yarn run dev` which will start the server on 127.0.0.1:3000
+
+These commands are embedded in the proc file at the root of the repo - you may also run both servers simultaniously via honcho, installed with the dev requirements.
+- you can run honcho via `honcho start`
+
+
+## How to debug the node server
+The default honcho command runs `dev` but the package.json contains another command, `debug`. If you run `yarn run debug` you will be able to evalauate debugger statements inside of a chrome tab by browsing to "chrome://inspect" and clicking on the entry for the node process.
 
 ## Remote Server Setup Instructions
-- Remote Heroku servers can be created by running `./scripts/setup-heroku.sh`
+The application is meant to be hosted with the included docker file, which sets up nginx, djano and yarn and runs all three on a single server.
+This is done so that communication between the yarn process and the django process is free - allowing very cheap server side renders, and bundling of api requests fetched via getServerSideProps.
+
+Setup for the remote envrionment is handled through terraform.
+1) create an AWSCLI profile with an access key and secret for the account you want to use to host media. This should either be your default profile, or you can pass the profile as a var to terraform
+2) manually install the terraform sentry plugin to configure sentry reporting
+3) set an envrionment variable for SENTRY_TOKEN and TF_VAR_SENTRY_TOKEN after getting the token through the sentry web UI
+4) Ensure you're logged in to heroku through the heroku cli
+5) Finally Remote Heroku servers and aws infrastructure can be created by going to the terraform/envrionments folder and running `terraform init` followed by `terraform apply`
+
+
 
 ## Differences between Local and Remote
-- Static Files:
-    - Static files (especially those from third-party packages) will not be compiled/minified as part of a local/development build
-    - Static files will be compiled/minified and pushed to a static/ directory on the remote server
 - Emails:
     - Emails will be printed to the console when being "sent" during local development
     - Emails will be pushed to a third party service for sending on the remote server (n.b. this must be set up separately and configured through the relevant Django settings)
+- Next execution context 
+   - Locally next will run with `npx next dev` which will turn on hot reloading and JIT compliation of the JS code. 
+   - Remotely next will first run `npx next build` to create a set of static assets and then run `npx next start` to handle routing traffic and doing SSR
 
 ## Github
 - This repo is setup to use lint-staged and husky in order to do some clean up prior to committing your code. If js, css or scss files are present in your commit they will be linted. If you notice your files are not being linted every time you commit (with information printed from Husky... 'Running tasks...') then you should try uninstalling all npm packages and reinstalling. If git is not initialized before npm packages installed this will fail.
@@ -35,15 +56,16 @@ You will be running two concurrent servers.
 ## Running Tests
 n.b. you must be at the project root to run these commands
 
+DJANGO
 - make sure you are still in the environment, otherwise run `workon {{ cookiecutter.project_name }}`
 - run `./manage.py test` which runs the Django test suite
 - also run:
-    - `bandit -r {{ cookiecutter.project_name }}/ -l --ini .bandit -x tests.py`
-    - `isort --multi-line=3 --trailing-comma --force-grid-wrap=0 --use-parentheses --line-width=88 --recursive --builtin django --skip-glob "00*.py" --skip "jinja.py" --check-only {{ cookiecutter.project_name }}/`
-        - in order to actually update the code with this command remove `--check-only`
-    - `prospector {{ cookiecutter.project_name }} -X -I "{{ cookiecutter.project_name }}/settings/*"`
-
-    to check code syntax and security
+    - `scripts/validate.sh`
+  to check code syntax and security 
+  
+NEXT.JS
+- at the root of the folder run `yarn run test` to run the jest tests
+- or run `yarn run cypress run` to run the cypress integration tests - this requires the next dev server to be running in another tab
 
 ## Useful Commands - pulling remote database, shell_plus, runserver_plus, AWS stuff
 n.b. you must be at the project root to run any `./manage.py ...` or `./scripts/...` commands
@@ -59,7 +81,7 @@ n.b. you must be at the project root to run any `./manage.py ...` or `./scripts/
     - Install and log into the the Heroku CLI:
         - For Mac: use Homebrew: `brew tap heroku/brew && brew install heroku` from <https://devcenter.heroku.com/articles/heroku-cli>
     - open a bash shell on the remote server: run: `heroku run bash --app [app name such as {{ cookiecutter.project_name }}-dev]`
-    - once in the shell on the Heroku server run: `./manage.py shell_plus`
+    - once in the shell on the Heroku server run: `python3.8 manage.py shell_plus`
 - Capture a Remote Database Backup:
     - run: `heroku pg:backups:capture --app [app name such as {{ cookiecutter.project_name }}-dev]`
 - Retrieve Media assets from AWS S3:
