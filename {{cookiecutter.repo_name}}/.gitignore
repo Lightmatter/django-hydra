@@ -7,6 +7,7 @@ bundles/
 .terraform/
 *.tfstate
 *.tfstate*
+cypress
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
