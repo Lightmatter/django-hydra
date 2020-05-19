@@ -1,25 +1,26 @@
-import { useEffect } from 'react';
-import Avatar from '@material-ui/core/Avatar';
-import Box from '@material-ui/core/Box';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Link from 'components/router/Link';
+import { useEffect, useState } from 'react';
+import {
+    Box,
+    Button,
+    Container,
+    FormControlLabel,
+    Grid,
+    Paper,
+    Typography,
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { useSnackbar } from 'notistack';
 import { useRouter } from 'next/router';
 
 import theme from 'theme/theme';
-import { makeStyles } from '@material-ui/core/styles';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { Form, Field, Formik } from 'formik';
 import { TextField, Checkbox } from 'formik-material-ui';
 
 import { LoginSchema, logIn } from 'models/user';
 import { withoutAuth } from 'util/withAuth';
+import Link from 'components/router/Link';
+import PasswordField from 'components/PasswordField';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -31,24 +32,29 @@ const useStyles = makeStyles(theme => ({
     text: {
         paddingTop: theme.spacing(2),
     },
+    bottomSpace: {
+        marginBottom: theme.spacing(2),
+    },
 }));
 
 const LogInPage = () => {
     const classes = useStyles(theme);
     const router = useRouter();
     const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
-            <Avatar className={classes.avatar}>
-                <LockOutlinedIcon />
-            </Avatar>
+            <Box width="200px" mb={2}>
+                <img src="placeholder.png" width="100%" alt="placeholder" />
+            </Box>
             <Typography component="h1" variant="h5">
-                Sign in
+                Log In
             </Typography>
             <Formik
                 {% raw -%}initialValues={{ email: '', password: '', remember_me: true }}{% endraw %}
                 validateOnChange
                 validationSchema={LoginSchema}
+                validateOnBlur={false}
                 onSubmit={(values, actions) => {
                     setTimeout(() => {
                         logIn(values)
@@ -78,34 +84,48 @@ const LogInPage = () => {
                         data-cy="login-email"
                         label="Email"
                         autoComplete="email"
-                        helperText="That stands for electronic mail."
+                        margin="dense"
                     />
-                    <Field
+                    <PasswordField
                         fullWidth
                         name="password"
-                        type="password"
-                        component={TextField}
-                        data-cy="login-password"
                         label="Password"
                         autoComplete="current-password"
                         placeholder="Enter Password"
-                        helperText="Keep it secret, keep it safe"
+                        margin="dense"
                     />
-                    <FormControlLabel
-                        label="Remember me"
-                        control={<Field name="remember_me" type="checkbox" component={Checkbox} />}
-                    />
-                    <Button fullWidth data-cy="submit-login" variant="outlined" type="submit">
+                    <Grid container alignItems="center" className={classes.text}>
+                        <Grid item>
+                            <FormControlLabel
+                                label="Remember me"
+                                control={
+                                    <Field
+                                        name="remember_me"
+                                        type="checkbox"
+                                        component={Checkbox}
+                                    />
+                                }
+                            />
+                        </Grid>
+                        <Grid item xs align="right">
+                            <Link href="/account/reset/password" variant="body2">
+                                Forgot password?
+                            </Link>
+                        </Grid>
+                    </Grid>
+
+                    <Button
+                        fullWidth
+                        data-cy="submit-login"
+                        variant="outlined"
+                        type="submit"
+                        className={classes.bottomSpace}
+                    >
                         Log In
                     </Button>
                 </Form>
             </Formik>
-            <Grid container className={classes.text}>
-                <Grid item xs>
-                    <Link href="/account/reset/password" variant="body2">
-                        Forgot password?
-                    </Link>
-                </Grid>
+            <Grid container classname={classes.text} justify="flex-end">
                 <Grid item>
                     <Link href="/signup" variant="body2">
                         Don't have an account? Sign Up
