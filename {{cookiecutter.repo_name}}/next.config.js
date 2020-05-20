@@ -12,8 +12,6 @@ const {
 
 module.exports = {
   webpack(config, { isServer, buildId }) {
-    config.resolve.modules.push(path.resolve(__dirname, 'src'));
-
     if (!isServer) {
       config.resolve.alias['@sentry/node'] = '@sentry/browser';
     }
