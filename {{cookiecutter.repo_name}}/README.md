@@ -3,6 +3,25 @@
 ## Overview
 {{ cookiecutter.description }}
 
+## Project Structure
+This project is divided into 2 major parts: Next.js frontend and Django backend.
+
+- `/public` - Static media directory for Next.js
+- `/src` - The Next.js project root
+	- `__tests__` - jest and cypress tests
+	- `components` - Reusable components meant to be used anywhere on the site
+	- `pages` - Next.js pages
+	- `constants` - Constants are stored here, some exist on project init for form validation.
+	- `models` - General repositories for shared api logic. For instance `models/user.js` contains mostly axios data fetches but also handles [constate](https://github.com/diegohaz/constate) sharing of user data across the app.
+	- `theme` - Contains the [Material UI theme](https://material-ui.com/customization/theming/). This contains overarching styles for the application and determines appearance of Material UI components globally.
+	- `util` - General reusable utility functions
+- `/{{ cookiecutter.project_name }}` - the Django project folder
+	- `account` - User related logic, views, models, etc.
+	- `home` - Handles home page for django, error endpoint, settings context processor
+	- `wagtailapp` - If wagtail was used via the cookiecutter setup script, this is where wagtail models, views, etc. are created
+	- `{{ cookiecutter.project_name }}` - Project settings, asgi settings, and base urls
+	- `util` - Container for general utility classes, functions, etc.
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
@@ -18,6 +37,7 @@ These instructions will get you a copy of the project up and running on your loc
 ## Local Development Initial Setup
 - Run the start script: `./scripts/start.sh` from the project root
     - This will install the pip and yarn packages and set up the local database for the project
+- Copy `.env.example` file to a new file `.env`. This handles the environment variables for Next.js and django. If you want access to an env variable at build time in Next.js it must start with `NEXT_PUBLIC`
 
 #### Quick start
 
