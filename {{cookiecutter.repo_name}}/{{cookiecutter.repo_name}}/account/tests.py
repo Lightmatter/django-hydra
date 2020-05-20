@@ -24,16 +24,17 @@ class LoginTest(TestCase):
         pass
 
 
-class RegistrationCypressTest(NextjsCypressTest):
-    def setUp(self):
-        super().setUp()
+# TODO provide data for this
+# class RegistrationCypressTest(NextjsCypressTest):
+#     def setUp(self):
+#         super().setUp()
 
-    def tearDown(self):
-        super().tearDown()
+#     def tearDown(self):
+#         super().tearDown()
 
-    def test_cypress(self):
-        result = self.run_cypress_test("signup.js", silent=True, browser=False)
-        self.assertEqual(result.returncode, 0)
+#     def test_cypress(self):
+#         result = self.run_cypress_test("signup.js", silent=True, browser=False)
+#         self.assertEqual(result.returncode, 0)
 
 
 class RegistrationTest(TestCase):
