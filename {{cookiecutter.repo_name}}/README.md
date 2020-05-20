@@ -10,7 +10,7 @@ This project is divided into 2 major parts: Next.js frontend and Django backend.
 - `/src` - The Next.js project root
 	- `__tests__` - jest and cypress tests
 	- `components` - Reusable components meant to be used anywhere on the site
-	- `pages` - Next.js pages
+	- `pages` - Next.js pages.
 	- `constants` - Constants are stored here, some exist on project init for form validation.
 	- `models` - General repositories for shared api logic. For instance `models/user.js` contains mostly axios data fetches but also handles [constate](https://github.com/diegohaz/constate) sharing of user data across the app.
 	- `theme` - Contains the [Material UI theme](https://material-ui.com/customization/theming/). This contains overarching styles for the application and determines appearance of Material UI components globally.
@@ -140,3 +140,7 @@ Use watchman for better performance when using the django dev server. pywatchman
 
 You can validate that it's working correctly when you do runserver - you should see "Watching for file changes with WatchmanReloader"
 If it's not working you will see "Watching for file changes with StatReloader"
+
+## Project best practices
+- Preferred naming structure for all .jsx files is camel case. so for a react component named PasswordField the filename would be PasswordField.jsx
+- When in doubt refer to [AirBnB best practices](https://github.com/airbnb/javascript/tree/master/react)
