@@ -1,19 +1,22 @@
 import * as Sentry from '@sentry/node';
 import 'util/sentry';
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Grid from '@material-ui/core/Grid';
-import theme from 'theme/theme';
+import { CssBaseline, Grid } from '@material-ui/core';
 import Router from 'next/router';
 import { SnackbarProvider } from 'notistack';
+import NProgress from 'nprogress';
 
+import theme from 'theme/theme';
 import { CurrentUserProvider, USER_ME } from 'models/user';
 import { clientBaseURL, axios } from 'util/axios';
 import isServer from 'util/isServer';
-import NProgress from 'nprogress';
+
+import Header from 'components/Header.jsx';
+import Footer from 'components/Footer.jsx';
+
 NProgress.configure({ parent: '#container' });
 
 Router.events.on('routeChangeStart', url => {
@@ -22,9 +25,6 @@ Router.events.on('routeChangeStart', url => {
 });
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
-
-import Header from 'components/header.jsx';
-import Footer from 'components/footer.jsx';
 
 const useStyles = makeStyles(theme => ({
     Footer: {
@@ -46,7 +46,8 @@ export default function App(props) {
     debugForceIP();
     const { Component, pageProps } = props;
     const classes = useStyles(theme);
-    React.useEffect(() => {
+
+    useEffect(() => {
         // Remove the server-side injected CSS.
         const jssStyles = document.querySelector('#jss-server-side');
         if (jssStyles) {
@@ -63,7 +64,7 @@ export default function App(props) {
     });
 
     return (
-        <React.Fragment>
+        <>
             <Head>
                 <title>Lightmatter!</title>
                 {!user ? (
@@ -94,7 +95,7 @@ export default function App(props) {
                     </CurrentUserProvider>
                 </SnackbarProvider>
             </ThemeProvider>
-        </React.Fragment>
+        </>
     );
 }
 

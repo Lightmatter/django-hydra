@@ -5,7 +5,6 @@ import {
     Container,
     FormControlLabel,
     Grid,
-    Paper,
     Typography,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -125,7 +124,7 @@ const LogInPage = () => {
                     </Button>
                 </Form>
             </Formik>
-            <Grid container classname={classes.text} justify="flex-end">
+            <Grid container className={classes.text} justify="flex-end">
                 <Grid item>
                     <Link href="/signup" variant="body2">
                         Don't have an account? Sign Up

@@ -1,18 +1,14 @@
-import React from 'react';
-import { withAuthRequired } from 'util/withAuth';
 import { Form, Field, Formik } from 'formik';
-import { changeEmail, ChangeEmailSchema } from 'models/user';
+import { useSnackbar } from 'notistack';
 
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import { TextField } from 'formik-material-ui';
-import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import { Typography, Button, Container, Grid } from '@material-ui/core';
 import EmailIcon from '@material-ui/icons/Email';
 import Avatar from '@material-ui/core/Avatar';
+import { TextField } from 'formik-material-ui';
+import { makeStyles } from '@material-ui/core/styles';
 
-import { useSnackbar } from 'notistack';
+import { withAuthRequired } from 'util/withAuth';
+import { changeEmail, ChangeEmailSchema } from 'models/user';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -30,7 +26,7 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-//note that technically this is change username.
+// NOTE: that technically this is change username.
 
 const ChangeEmail = () => {
     const classes = useStyles();

@@ -2,7 +2,7 @@ import React from 'react';
 import { createMount } from '@material-ui/core/test-utils';
 
 import renderer from 'react-test-renderer';
-import Header from 'components/header';
+import Header from 'components/Header';
 
 import { SnackbarProvider } from 'notistack';
 import { CurrentUserProvider } from 'models/user';
