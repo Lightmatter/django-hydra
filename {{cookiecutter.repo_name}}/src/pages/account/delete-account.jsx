@@ -1,22 +1,23 @@
-import React from 'react';
-import { withAuthRequired } from 'util/withAuth';
-import { deleteUser, DeleteUserSchema } from 'models/user';
 import { Form, Field, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
-
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import { makeStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Avatar from '@material-ui/core/Avatar';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import { useSnackbar } from 'notistack';
+
+import {
+    Typography,
+    Button,
+    Container,
+    Avatar,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+
+import { deleteUser, DeleteUserSchema } from 'models/user';
+import { withAuthRequired } from 'util/withAuth';
 
 const useStyles = makeStyles(theme => ({
     paper: {

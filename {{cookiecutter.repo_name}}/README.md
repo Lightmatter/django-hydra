@@ -152,5 +152,6 @@ Several blocks have been included to start TitleBlock, LinkBlock, ColumnBlock, R
 We have added h1 and h5 to the wagtail cms richtext editor as they do not come out of the box.
 
 ## Project best practices
-- Preferred naming structure for all .jsx files is camel case. so for a react component named PasswordField the filename would be PasswordField.jsx
+- Preferred naming structure for all components .jsx files is PascalCase. so for a react component named PasswordField the filename would be PasswordField.jsx
+  - Next.js uses the filename in `/pages` directory to determine the route name so for now those should be named lowecased with dashes if necessary
 - When in doubt refer to [AirBnB best practices](https://github.com/airbnb/javascript/tree/master/react)
