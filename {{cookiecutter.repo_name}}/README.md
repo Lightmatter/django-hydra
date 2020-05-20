@@ -58,7 +58,7 @@ These commands are embedded in the proc file at the root of the repo - you may a
 The default honcho command runs `dev` but the package.json contains another command, `debug`. If you run `yarn run debug` or `yarn debug` you will be able to evaluate debugger statements inside of a chrome tab by browsing to `chrome://inspect` and clicking on the entry for the node process.
 
 ### How to debug python/django
-Honcho isn't great with using pdb or ipdb to debug python code. It's recommended to use the separate comands described above if python needs debugging.
+Honcho isn't great with using pdb or ipdb to debug python code. It's recommended to use the separate commands described above if python needs debugging.
 
 ## Running Tests
 NOTE: you must be at the project root to run these commands
