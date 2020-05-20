@@ -37,7 +37,6 @@ These instructions will get you a copy of the project up and running on your loc
 ## Local Development Initial Setup
 - Run the start script: `./scripts/start.sh` from the project root
     - This will install the pip and yarn packages and set up the local database for the project
-- Copy `.env.example` file to a new file `.env`. This handles the environment variables for Next.js and django. If you want access to an env variable at build time in Next.js it must start with `NEXT_PUBLIC`
 
 #### Quick start
 
@@ -63,6 +62,9 @@ Honcho isn't great with using pdb or ipdb to debug python code. It's recommended
 
 ## Running Tests
 NOTE: you must be at the project root to run these commands
+
+## Environment Variables
+- `.env` This handles the environment variables for Next.js and django. If you want access to an env variable at build time in Next.js it must start with `NEXT_PUBLIC`
 
 #### DJANGO
 - make sure you are still in the environment, otherwise run `workon {{ cookiecutter.project_name }}`
