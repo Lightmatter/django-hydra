@@ -1,21 +1,13 @@
-import Avatar from '@material-ui/core/Avatar';
-import Box from '@material-ui/core/Box';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { useSnackbar } from 'notistack';
+import { Form, Field, Formik } from 'formik';
+import { TextField } from 'formik-material-ui';
+
+import { Avatar, Button, Container, Typography, Grid } from '@material-ui/core';
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import { makeStyles } from '@material-ui/core/styles';
 import Link from 'components/router/Link';
 
-import { useSnackbar } from 'notistack';
-
 import theme from 'theme/theme';
-import { makeStyles } from '@material-ui/core/styles';
-import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
-import { Form, Field, Formik } from 'formik';
-import { TextField, Checkbox } from 'formik-material-ui';
-
 import { ForgotPassSchema, forgotPass } from 'models/user';
 
 const useStyles = makeStyles(theme => ({

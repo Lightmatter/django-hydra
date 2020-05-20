@@ -1,8 +1,9 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { usePopupState, bindTrigger, bindMenu } from 'material-ui-popup-state/hooks';
+
 import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, Grid } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
-import { usePopupState, bindTrigger, bindMenu } from 'material-ui-popup-state/hooks';
 
 import Link from 'components/router/Link';
 import { useIsAuthenticated, useCurrentUser, logOut } from 'models/user';

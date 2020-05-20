@@ -1,20 +1,14 @@
 import { useRouter } from 'next/router';
-import Avatar from '@material-ui/core/Avatar';
-import Box from '@material-ui/core/Box';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Link from 'components/router/Link';
+import { Form, Field, Formik } from 'formik';
+import { TextField } from 'formik-material-ui';
+import { useSnackbar } from 'notistack';
 
-import theme from 'theme/theme';
+import { Avatar, Paper, Button, Container, Typography, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
-import { Form, Field, Formik } from 'formik';
-import { TextField, Checkbox } from 'formik-material-ui';
-import { useSnackbar } from 'notistack';
+
+import Link from 'components/router/Link';
+import theme from 'theme/theme';
 
 import { ResetPassSchema, resetPass } from 'models/user';
 
