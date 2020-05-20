@@ -5,6 +5,7 @@
 
 ## Project Structure
 This project is divided into 2 major parts: Next.js frontend and Django backend.
+It's deployed on a docker image, with a nginx server to direct traffic between the two services
 
 - `/public` - Static media directory for Next.js
 - `/src` - The Next.js project root
@@ -54,6 +55,10 @@ These commands are embedded in the proc file at the root of the repo - you may a
 - you can run honcho via `honcho start`
 
 
+## Environment Variables
+- `.env` This handles the environment variables for Next.js and django. If you want access to an env variable at build time in Next.js it must start with `NEXT_PUBLIC`
+
+
 ### How to debug the node server
 The default honcho command runs `dev` but the package.json contains another command, `debug`. If you run `yarn run debug` or `yarn debug` you will be able to evaluate debugger statements inside of a chrome tab by browsing to `chrome://inspect` and clicking on the entry for the node process.
 
@@ -62,9 +67,6 @@ Honcho isn't great with using pdb or ipdb to debug python code. It's recommended
 
 ## Running Tests
 NOTE: you must be at the project root to run these commands
-
-## Environment Variables
-- `.env` This handles the environment variables for Next.js and django. If you want access to an env variable at build time in Next.js it must start with `NEXT_PUBLIC`
 
 #### DJANGO
 - make sure you are still in the environment, otherwise run `workon {{ cookiecutter.project_name }}`
@@ -76,6 +78,14 @@ NOTE: you must be at the project root to run these commands
 #### NEXT.JS
 - at the root of the folder run `yarn run test` or `yarn test` to run the jest tests
 - or run `yarn run cypress run` or `yarn cypress run` to run the cypress integration tests - this requires the next dev server to be running in another tab
+
+## Why use two processes as the same application
+This application model is unique in that we are running two applications simultaniously - one managing the frontend of the application and one managing the api. We run both servers on the same box in production as well. This tight coupling gives us a couple of strong guarentees:
+1) all communication between server side communication and api is done over locahost, and so doesn't pay a network cost. With next.js tools like getServerSideProps, which will funnel all requests through the backend, this allows us to make multiple api requests per page load concurrently using async syntax, but only pay the cost of a single network request.
+2) A shared domain allows for http only cookie based authentication, giving strong protection against xss attacks.
+3) Envrionment variables and build artifacts can be shared between processes. This ensures things like the build id are shared between frontend and backend, or static assets can go through django's cachebusting collectstatic process.
+
+
 
 ## Remote Server Setup Instructions
 The application is meant to be hosted with the included docker file, which sets up NGINX, Django and yarn and runs all three on a single server.
@@ -155,3 +165,56 @@ We have added h1 and h5 to the wagtail cms richtext editor as they do not come o
 - Preferred naming structure for all components .jsx files is PascalCase. so for a react component named PasswordField the filename would be PasswordField.jsx
   - Next.js uses the filename in `/pages` directory to determine the route name so for now those should be named lowecased with dashes if necessary
 - When in doubt refer to [AirBnB best practices](https://github.com/airbnb/javascript/tree/master/react)
+
+## Redirecting new urls to the django server
+The nginx service that directs all incoming traffic has several paths hardcoded as going directly to the django server. To open up a new path edit the webapp.conf inside image/config 
+
+
+
+## Managing subdomains
+Because the django server and the nextjs server are sharing authentication through cookies, it's important they stay on the same domain. There's three parts to consider when looking at how to arrange the domains serving the app - the api domain, the nextjs domain and the domain used between the two servers. A simple example would be the production hosting of both sides of the  app on foo.com - the api would be reachable on foo.com/api, the next.js server would be on foo.com, and server to server communication would be over 127.0.0.1. In this case when loading a page from scratch you'd load on foo.com, then the next.js would forward the cookies to 127.0.0.1 (but still use the cookies from foo.com), and then return an authenticated response. When communicating directly to the api to login or make a post request, you'd address foo.com/api, and so cookies would still be correctly set for both frontend and backend, because they would both live under foo.com . For local development, you'd need a similar guarentee - that's why we force local development onto 127.0.0.1 and not localhost, because if the api domain doesn't match how you're addressing the client, things will break in strange ways.
+If you decide in the future that you want to move the two applications to different subdomains, say www and api, you can do that as long as you configure the cookie to be shared by domain rather than subdomain
+
+
+TO ADD
+
+New react libraries 
+  - next.js - server side rendering
+   - build + serve vs dev
+   - static optimization
+  - Get getInitialProps and getServerSideProps
+  - material UI
+  - Yup and Formik
+  - useSWR
+Arch
+  - Running both backend and server on the same server
+  - axios automatically figuring out the base url
+  - with auth
+Docker
+ - Base image
+ - nginx
+ - Runnit
+Local development
+ - honcho start
+ - localhost vs 127
+Testing + Debugging
+ - debug watcher
+ - browser based debugging for node
+ - seperate therads when in debugging
+ - cypress
+ - jest
+ - cypress + django
+
+Documentation
+ - How to start the server
+ - how to debug the node server
+ - how to debug the django server
+- api base url
+
+more high level stuff
+"django rest framework is used for the backend and djoser for the auth"
+
+cookie management
+
+Steps to host api and frontend on different domains
+
