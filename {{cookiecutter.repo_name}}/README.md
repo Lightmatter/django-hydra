@@ -1,3 +1,4 @@
+
 # {{ cookiecutter.project_name_verbose }}
 
 ## Overview
@@ -154,12 +155,13 @@ You can validate that it's working correctly when you do runserver - you should 
 If it's not working you will see "Watching for file changes with StatReloader"
 
 ## Project best practices
+- Use [Prettierjs](https://prettier.io/) to format your javascript code. This will happen automatically on commit but is helpful to have configured to run on save.
 - Preferred naming structure for all components .jsx files is PascalCase. so for a react component named PasswordField the filename would be PasswordField.jsx
   - Next.js uses the filename in `/pages` directory to determine the route name so for now those should be named lowecased with dashes if necessary
 - When in doubt refer to [AirBnB best practices](https://github.com/airbnb/javascript/tree/master/react)
 
 ## Redirecting new urls to the django server
-The nginx service that directs all incoming traffic has several paths hardcoded as going directly to the django server. To open up a new path edit the webapp.conf inside image/config 
+The nginx service that directs all incoming traffic has several paths hardcoded as going directly to the django server. To open up a new path edit the webapp.conf inside image/config
 
 
 
@@ -167,10 +169,19 @@ The nginx service that directs all incoming traffic has several paths hardcoded 
 Because the django server and the nextjs server are sharing authentication through cookies, it's important they stay on the same domain. There's three parts to consider when looking at how to arrange the domains serving the app - the api domain, the nextjs domain and the domain used between the two servers. A simple example would be the production hosting of both sides of the  app on foo.com - the api would be reachable on foo.com/api, the next.js server would be on foo.com, and server to server communication would be over 127.0.0.1. In this case when loading a page from scratch you'd load on foo.com, then the next.js would forward the cookies to 127.0.0.1 (but still use the cookies from foo.com), and then return an authenticated response. When communicating directly to the api to login or make a post request, you'd address foo.com/api, and so cookies would still be correctly set for both frontend and backend, because they would both live under foo.com . For local development, you'd need a similar guarentee - that's why we force local development onto 127.0.0.1 and not localhost, because if the api domain doesn't match how you're addressing the client, things will break in strange ways.
 If you decide in the future that you want to move the two applications to different subdomains, say www and api, you can do that as long as you configure the cookie to be shared by domain rather than subdomain
 
+## Important Libraries in project
+- [date-fns](https://date-fns.org/docs/Getting-Started) - An alternative and SIGNIFICANTLY smaller to Moment.js. MomentJS should not be needed.
+- [Material UI](https://material-ui.com/) - Pretty self explanatory but before you build a component you may want to check here because they likely have it or things you can use to build it.
+	- [Material UI Icons](https://material-ui.com/components/material-icons/) - useful list of icons for project and how to import them.
+- [Constate](https://github.com/diegohaz/constate) - Write local state using [React Hooks](https://reactjs.org/docs/hooks-intro.html) and lift it up to [React Context](https://reactjs.org/docs/context.html) only when needed with minimum effort.
+- [Formik](https://jaredpalmer.com/formik/docs/overview) - All forms on the site use Formik
+	- [Formik Material UI](https://github.com/stackworx/formik-material-ui) - bindings for formik with Material UI input fields
+	- [Yup](https://github.com/jquense/yup) - Schema for formik forms
+- [Axios](https://github.com/axios/axios) - Promise based HTTP client
 
 TO ADD
 
-New react libraries 
+New react libraries
   - next.js - server side rendering
    - build + serve vs dev
    - static optimization
@@ -209,4 +220,3 @@ more high level stuff
 cookie management
 
 Steps to host api and frontend on different domains
-
