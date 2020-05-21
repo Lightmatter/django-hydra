@@ -99,6 +99,13 @@ resource "heroku_addon" "mail" {
   plan = "mailgun"
 }
 
+resource "heroku_addon" "log" {
+  app  = heroku_app.app.name
+  plan = "coralogix:free-30mbday"
+}
+
+
+
 output "heroku_app_name" {
   value = heroku_app.app.name
 }
