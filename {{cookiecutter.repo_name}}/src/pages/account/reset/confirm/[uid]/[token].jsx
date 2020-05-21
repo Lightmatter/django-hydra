@@ -9,6 +9,7 @@ import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
 import Link from 'components/router/Link';
 
+import AccountPageHeader from 'components/AccountPageHeader';
 import { ResetPassSchema, resetPass } from 'models/user';
 
 const useStyles = makeStyles(theme => ({
@@ -22,6 +23,9 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
     },
+    bottomSpace: {
+        marginBottom: theme.spacing(2),
+    },
 }));
 
 const PasswordResetConfirm = () => {
@@ -32,10 +36,12 @@ const PasswordResetConfirm = () => {
     const { uid, token } = router.query;
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
-            <Avatar className={classes.avatar}>
-                <VpnKeyIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
+            <AccountPageHeader>
+                <Avatar className={classes.avatar}>
+                    <VpnKeyIcon />
+                </Avatar>
+            </AccountPageHeader>
+            <Typography component="h1" variant="h5" className={classes.bottomSpace}>
                 Reset your password
             </Typography>
             <Formik

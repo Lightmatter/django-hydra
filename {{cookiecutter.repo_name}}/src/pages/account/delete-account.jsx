@@ -17,6 +17,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
+import AccountPageHeader from 'components/AccountPageHeader';
 import { deleteUser, DeleteUserSchema } from 'models/user';
 import { withAuthRequired } from 'util/withAuth';
 
@@ -51,10 +52,12 @@ const DeleteAccount = () => {
 
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
-            <Avatar>
-                <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
+            <AccountPageHeader>
+                <Avatar>
+                    <LockOutlinedIcon />
+                </Avatar>
+            </AccountPageHeader>
+            <Typography component="h1" variant="h5" className={classes.bottomSpace}>
                 Delete your account?
             </Typography>
             <Dialog

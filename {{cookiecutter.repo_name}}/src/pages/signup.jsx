@@ -1,10 +1,10 @@
-import { Avatar, Button, Container, Grid, Typography } from '@material-ui/core';
+import { Button, Container, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 
 import { Form, Field, Formik } from 'formik';
 import { TextField, CheckboxWithLabel } from 'formik-material-ui';
 
+import AccountPageHeader from 'components/AccountPageHeader';
 import Link from 'components/router/Link';
 import PasswordField from 'components/PasswordField';
 import { registerUser, logIn, SignupSchema } from 'models/user';
@@ -33,9 +33,9 @@ const SignUp = () => {
 
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
-            <Avatar>
-                <EmojiPeopleIcon />
-            </Avatar>
+            <AccountPageHeader>
+                <img src="placeholder.png" width="100%" alt="placeholder" />
+            </AccountPageHeader>
             <Typography variant="h5" component="h1">
                 Register here, become a user!
             </Typography>
