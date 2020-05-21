@@ -80,6 +80,7 @@ const LogInPage = () => {
                         name="password"
                         label="Password"
                         autoComplete="current-password"
+                        dataCy="login-password"
                         placeholder="Enter Password"
                         margin="dense"
                     />

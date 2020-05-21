@@ -1,9 +1,11 @@
 import { usePopupState, bindTrigger, bindMenu } from 'material-ui-popup-state/hooks';
+import { useRef } from 'react';
 
 import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import Router from 'next/router';
 
 import Link from 'components/router/Link';
 import { useCurrentUser, logOut } from 'models/user';
@@ -19,15 +21,35 @@ const useStyles = makeStyles(theme => ({
 
 export default function MenuAppBar() {
     const classes = useStyles();
+    const anchorRef = useRef(null);
     const navMenuState = usePopupState({ variant: 'popover', popupId: 'navMenu' });
     const profileMenuState = usePopupState({ variant: 'popover', popupId: 'profileMenu' });
     const user = useCurrentUser();
+
     const logoutButtonClick = () => {
         logOut();
         profileMenuState.close();
     };
+
     const throwException = () => {
         throw new Error('Exception');
+    };
+
+    const handleMenuCloseWithLink = ({ event, link = '', callback = null }) => {
+        if (anchorRef.current && anchorRef.current.contains(event.target)) {
+            return;
+        }
+
+        if (link) {
+            Router.push(link);
+        }
+
+        if (callback) {
+            callback();
+        }
+
+        profileMenuState.close();
+        navMenuState.close();
     };
     return (
         <AppBar position="static">
@@ -45,15 +67,21 @@ export default function MenuAppBar() {
                 <Grid container justify="space-between" alignItems="center">
                     <Grid item xs={6} md={3}>
                         <Menu keepMounted {...bindMenu(navMenuState)}>
-                            <MenuItem onClick={navMenuState.close}>
-                                <Link data-cy="login" href="/login">
-                                    Login
-                                </Link>
+                            <MenuItem
+                                data-cy="login"
+                                onClick={event =>
+                                    handleMenuCloseWithLink({ event, link: '/login' })
+                                }
+                            >
+                                Login
                             </MenuItem>
-                            <MenuItem onClick={navMenuState.close}>
-                                <Link data-cy="signup" href="/signup">
-                                    Sign Up
-                                </Link>
+                            <MenuItem
+                                data-cy="signup"
+                                onClick={event =>
+                                    handleMenuCloseWithLink({ event, link: '/signup' })
+                                }
+                            >
+                                Sign Up
                             </MenuItem>
                             <MenuItem onClick={throwException}>Throw an error</MenuItem>
                         </Menu>
@@ -77,20 +105,54 @@ export default function MenuAppBar() {
                                     <AccountCircle />
                                 </IconButton>
                                 <Menu id="menu-appbar" {...bindMenu(profileMenuState)}>
-                                    <MenuItem onClick={profileMenuState.close}>
-                                        <Link href="/account">Profile</Link>
+                                    <MenuItem
+                                        onClick={event =>
+                                            handleMenuCloseWithLink({ event, link: '/account' })
+                                        }
+                                    >
+                                        Profile
                                     </MenuItem>
-                                    <MenuItem onClick={profileMenuState.close}>
-                                        <Link href="/account/change-password">Change Password</Link>
+                                    <MenuItem
+                                        onClick={event =>
+                                            handleMenuCloseWithLink({
+                                                event,
+                                                link: '/account/change-password',
+                                            })
+                                        }
+                                    >
+                                        Change Password
                                     </MenuItem>
-                                    <MenuItem onClick={profileMenuState.close}>
-                                        <Link href="/account/change-email">Change Email</Link>
+                                    <MenuItem
+                                        onClick={event =>
+                                            handleMenuCloseWithLink({
+                                                event,
+                                                link: '/account/change-email',
+                                            })
+                                        }
+                                    >
+                                        Change Email
                                     </MenuItem>
-                                    <MenuItem onClick={profileMenuState.close}>
-                                        <Link href="/account/delete-account">Delete Account</Link>
+                                    <MenuItem
+                                        onClick={event =>
+                                            handleMenuCloseWithLink({
+                                                event,
+                                                link: '/account/delete-account',
+                                            })
+                                        }
+                                    >
+                                        Delete Account
                                     </MenuItem>
-
-                                    <MenuItem onClick={logoutButtonClick}>Logout</MenuItem>
+                                    <MenuItem
+                                        onClick={event =>
+                                            handleMenuCloseWithLink({
+                                                event,
+                                                link: '/account/delete-account',
+                                                callback: logoutButtonClick,
+                                            })
+                                        }
+                                    >
+                                        Logout
+                                    </MenuItem>
                                 </Menu>
                             </div>
                         )}

@@ -130,6 +130,7 @@ const SignUp = () => {
                                 name="password"
                                 autoComplete="new-password"
                                 label="Password"
+                                dataCy="password"
                                 placeholder="Create Password"
                                 margin="dense"
                             />
@@ -141,6 +142,7 @@ const SignUp = () => {
                                 name="re_password"
                                 autoComplete="new-password"
                                 label="Confirm Password"
+                                dataCy="re-password"
                                 placeholder="Repeat Password"
                                 margin="dense"
                             />
