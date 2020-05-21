@@ -1,15 +1,10 @@
-import {useState} from 'react';
-import {
-    IconButton,
-    InputAdornment,
-} from '@material-ui/core';
+import { useState } from 'react';
+import { IconButton, InputAdornment } from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 import { Field } from 'formik';
 import { TextField } from 'formik-material-ui';
-
-import Link from '@material-ui/core/Link';
 
 export default function PasswordField({ ...rest }) {
     const [showPassword, setShowPassword] = useState(false);

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import getConfig from 'next/config';
 import isServer from 'util/isServer';
 
 const serverBaseURL = process.env.SERVER_BASE_URL || 'http://127.0.0.1:8000';
@@ -11,8 +10,11 @@ const http = axios.create({
   withCredentials: true,
 });
 
-http.interceptors.request.use(function(config) {
-  config.baseURL = isServer() ? serverBaseURL : clientBaseURL;
-  return config;
+http.interceptors.request.use(config => {
+  const newConfig = { ...config };
+
+  newConfig.baseURL = isServer() ? serverBaseURL : clientBaseURL;
+  return newConfig;
 });
+
 export default http;

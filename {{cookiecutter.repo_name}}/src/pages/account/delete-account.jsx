@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Form, Field, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { useSnackbar } from 'notistack';
@@ -37,8 +38,8 @@ const useStyles = makeStyles(theme => ({
 
 const DeleteAccount = () => {
     const classes = useStyles();
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-    const [open, setOpen] = React.useState(false);
+    const { enqueueSnackbar } = useSnackbar();
+    const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -47,14 +48,13 @@ const DeleteAccount = () => {
     const handleClose = () => {
         setOpen(false);
     };
-    const handleDeleteAccount = () => {};
 
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
             <Avatar>
                 <LockOutlinedIcon />
             </Avatar>
-            <Typography variant="h1" variant="h5">
+            <Typography component="h1" variant="h5">
                 Delete your account?
             </Typography>
             <Dialog
@@ -75,7 +75,7 @@ const DeleteAccount = () => {
                                 setOpen(false);
                                 return response;
                             })
-                            .then(response => {
+                            .then(() => {
                                 enqueueSnackbar('Goodbye!', {
                                     variant: 'info',
                                 });
@@ -94,7 +94,7 @@ const DeleteAccount = () => {
                 >
                     <Form>
                         <DialogTitle id="alert-dialog-title">
-                            {'Really delete your account?'}
+                            Really delete your account?
                         </DialogTitle>
                         <DialogContent>
                             <DialogContentText id="alert-dialog-description">

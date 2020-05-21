@@ -30,13 +30,13 @@ const useStyles = makeStyles(theme => ({
 
 const ChangeEmail = () => {
     const classes = useStyles();
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
             <Avatar>
                 <EmailIcon />
             </Avatar>
-            <Typography variant="h1" variant="h5">
+            <Typography component="h1" variant="h5">
                 Change your Email
             </Typography>
             <Formik

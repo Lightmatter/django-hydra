@@ -1,4 +1,4 @@
-import {Avatar, Button, Container, FormControlLabel, Grid, Typography} from '@material-ui/core';
+import { Avatar, Button, Container, Grid, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 
@@ -29,14 +29,14 @@ const useStyles = makeStyles(theme => ({
 
 const SignUp = () => {
     const classes = useStyles();
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
 
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
             <Avatar>
                 <EmojiPeopleIcon />
             </Avatar>
-            <Typography variant="h1" variant="h5">
+            <Typography variant="h5" component="h1">
                 Register here, become a user!
             </Typography>
             <Formik
@@ -55,12 +55,12 @@ const SignUp = () => {
                 onSubmit={(values, actions) => {
                     setTimeout(() => {
                         registerUser(values)
-                            .then(response => {
-                                const login_promise = logIn(values);
-                                return login_promise;
+                            .then(() => {
+                                const loginPromise = logIn(values);
+                                return loginPromise;
                             })
                             .then(response => {
-                                //TODO: This should probably make a different message if you're actually a returning user
+                                // TODO: This should probably make a different message if you're actually a returning user
                                 // with good creds, since you're not actually registering in that case.
                                 enqueueSnackbar('Successfully registered!', {
                                     variant: 'success',
@@ -94,7 +94,7 @@ const SignUp = () => {
                                 data-cy="first-name"
                                 autoComplete="given-name"
                                 placeholder="Enter First Name"
-                            margin="dense"
+                                margin="dense"
                             />
                         </Grid>
 

@@ -6,7 +6,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { TextField } from 'formik-material-ui';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Link from 'components/router/Link';
 import { changePass, ChangePassSchema } from 'models/user';
 import { withAuthRequired } from 'util/withAuth';
 
@@ -28,13 +27,13 @@ const useStyles = makeStyles(theme => ({
 
 const ChangePassword = () => {
     const classes = useStyles();
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
             <Avatar>
                 <LockOutlinedIcon />
             </Avatar>
-            <Typography variant="h1" variant="h5">
+            <Typography component="h1" variant="h5">
                 Change your password
             </Typography>
             <Formik

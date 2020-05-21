@@ -1,8 +1,9 @@
 import { Paper, Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 import Link from '@material-ui/core/Link';
 
-export default function Footer({ className }) {
+const Footer = ({ className }) => {
     return (
         <Paper className={className} elevation={0}>
             <Typography variant="body2" color="textSecondary" align="center">
@@ -15,4 +16,14 @@ export default function Footer({ className }) {
             </Typography>
         </Paper>
     );
-}
+};
+
+Footer.propTypes = {
+    className: PropTypes.string,
+};
+
+Footer.defaultProps = {
+    className: '',
+};
+
+export default Footer;

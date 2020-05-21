@@ -6,7 +6,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 import Link from 'components/router/Link';
-import { useIsAuthenticated, useCurrentUser, logOut } from 'models/user';
+import { useCurrentUser, logOut } from 'models/user';
 
 const useStyles = makeStyles(theme => ({
     menuButton: {
@@ -27,7 +27,7 @@ export default function MenuAppBar() {
         profileMenuState.close();
     };
     const throwException = () => {
-        throw 'Exception';
+        throw new Error('Exception');
     };
     return (
         <AppBar position="static">
@@ -64,7 +64,6 @@ export default function MenuAppBar() {
                         </Link>
                     </Grid>
                     <Grid item xs={6} md={9} align="right">
-
                         {user && (
                             <div>
                                 <span data-cy="logged-in-name">Hey {user.first_name}</span>

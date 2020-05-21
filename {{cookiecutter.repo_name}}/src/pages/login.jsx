@@ -1,18 +1,9 @@
-import { useEffect, useState } from 'react';
-import {
-    Box,
-    Button,
-    Container,
-    FormControlLabel,
-    Grid,
-    Typography,
-} from '@material-ui/core';
+import { Box, Button, Container, FormControlLabel, Grid, Typography } from '@material-ui/core';
+
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useSnackbar } from 'notistack';
-import { useRouter } from 'next/router';
 
-import theme from 'theme/theme';
 import { Form, Field, Formik } from 'formik';
 import { TextField, Checkbox } from 'formik-material-ui';
 
@@ -37,9 +28,8 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const LogInPage = () => {
-    const classes = useStyles(theme);
-    const router = useRouter();
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const classes = useStyles();
+    const { enqueueSnackbar } = useSnackbar();
 
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
