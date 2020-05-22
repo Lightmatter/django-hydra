@@ -15,11 +15,9 @@ function handleApiErrors(error) {
 
   if (error.response) {
     /*
-
-
-         * The request was made and the server responded with a
-         * status code that falls out of the range of 2xx
-         */
+     * The request was made and the server responded with a
+     * status code that falls out of the range of 2xx
+     */
     err = error.response.data;
   } else if (error.request || error.isAxiosError) {
     /*
