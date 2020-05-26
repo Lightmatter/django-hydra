@@ -1,0 +1,12 @@
+{%- raw -%}
+{% extends 'base.jinja' %}
+
+{% block extra_head %}
+{% include 'util/social.html' %}
+{% endblock extra_head %}
+
+{% block body_class %}{% endblock body_class %}
+{% block content %}
+{% include_block page.body %}
+{% endblock %}
+{%endraw%}

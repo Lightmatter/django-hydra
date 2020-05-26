@@ -2,6 +2,7 @@
     "project_name": "sampleapp",
     "project_name_verbose": "Sample App",
     "repo_name": "{{ cookiecutter.project_name|replace(' ', '_') }}",
+    "dev_email": "yourname@lightmatter.com",
     "use_djoser": "n",
     "django_registration": "y",
     "stripe": "y",
@@ -9,5 +10,11 @@
     "description": "A short description of the project.",
     "domain_name": "example.com",
     "version": "0.1.0",
-    "use_local_docker_db": "n"
+    "use_local_docker_db": "n",
+    "use_wagtail": "n",
+    "_copy_without_render": [
+        "*.html",
+        "templates/**/*.txt",
+        "*.jinja"
+    ]
 }

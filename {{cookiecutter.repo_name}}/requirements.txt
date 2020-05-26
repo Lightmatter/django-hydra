@@ -63,3 +63,10 @@ django-webpack-loader==0.7.0
 django-jinja==2.6.0
 
 # django-cachalot==2.1.0
+
+
+{% if cookiecutter.use_wagtail == 'y' %}
+#Wagtail
+wagtail==2.8
+django-taggit==1.0.0
+{% endif %}
