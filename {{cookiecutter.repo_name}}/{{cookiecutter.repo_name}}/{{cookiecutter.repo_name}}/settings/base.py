@@ -3,7 +3,6 @@ import pathlib
 from datetime import timedelta
 from django.core.exceptions import ImproperlyConfigured
 
-from django_jinja.builtins import DEFAULT_EXTENSIONS  # noqa
 from environ import Env, Path
 
 DEBUG = False
@@ -281,15 +280,6 @@ MIDDLEWARE += (
 CONTEXT_PROCESSORS += (
     'wagtail.contrib.settings.context_processors.settings',
 )
-
-# this overwrites jinja's extensions to include wagtail as well
-# if the order of the TEMPLATES changes this could break
-TEMPLATES[0]['OPTIONS']['extensions'] = DEFAULT_EXTENSIONS + [
-                "webpack_loader.contrib.jinja2ext.WebpackExtension",
-                "wagtail.core.jinja2tags.core",
-                "wagtail.admin.jinja2tags.userbar",
-                "wagtail.images.jinja2tags.images",
-]
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
