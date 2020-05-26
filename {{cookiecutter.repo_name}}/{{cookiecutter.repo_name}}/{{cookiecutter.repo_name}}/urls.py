@@ -11,11 +11,14 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("social/", include("social_django.urls", namespace="social")),
     path("backend/", include("{{cookiecutter.repo_name}}.home.urls")),
-    {% if cookiecutter.use_wagtail == 'y' -%}
+]
+{% if cookiecutter.use_wagtail == 'y' -%}
+
+urlpatterns += [
     path("", include("{{ cookiecutter.repo_name }}.wagtailapp.urls")),
-    {%- endif %}
 ]
 
+{%- endif %}
 if settings.DEBUG:
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
     import debug_toolbar
