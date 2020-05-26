@@ -1,0 +1,5 @@
+{%- raw -%}
+{% if value.link_text %}
+<a class="" href="{{ value.page_link.url }}">{{ value.link_text }}</a>
+{% endif %}
+{%endraw%}

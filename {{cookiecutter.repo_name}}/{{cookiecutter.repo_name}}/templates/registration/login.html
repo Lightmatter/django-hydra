@@ -1,0 +1,32 @@
+{% extends "base.jinja" %}
+
+{% block content %}
+
+<div>
+    <form method="post" action="{{ url('login') }}{% if next %}?next={{next}}{% endif %}">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td><label for="id_username"> Email</label></td>
+            </tr>
+            <tr>
+                <td>{{ form.username }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.password.label_tag() }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.password }}</td>
+            </tr>
+        </table>
+        {% if form.errors %}
+        <p class='errors'>Your username and password didn't match. Please try again.</p>
+        {% endif %}
+        <a href="{{ url('password_reset') }}">Forgot your password?</a>
+        <div class="clear"></div>
+        <button class="replace-this-class">Login</button>
+        <!-- replace the above button class with the class(es) you make in _buttons.scss -->
+    </form>
+</div>
+
+{% endblock %}

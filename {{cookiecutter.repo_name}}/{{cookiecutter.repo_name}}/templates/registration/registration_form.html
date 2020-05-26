@@ -1,0 +1,66 @@
+{% extends "base.jinja" %}
+{% block title %}
+
+{% endblock title %}
+
+{% block content %}
+
+  <div>
+    <h1>Signup</h1>
+    <form action='/account/register/{% if next %}?next={{ next }}{% endif %}' method="POST">
+      {% csrf_token %}
+      <table>
+        <tr>
+          <td> {{ form.email.label_tag() }}</td>
+        </tr>
+        <tr>
+          <td> {{ form.email }}</td>
+        </tr>
+        <tr>
+          <td> {{ form.email.errors }}</td>
+        </tr>
+        <tr>
+          <td> {{ form.password1.label_tag() }}</td>
+        </tr>
+        <tr>
+          <td> {{ form.password1 }}</td>
+        </tr>
+        <tr>
+          <td> {{ form.password1.errors }}</td>
+        </tr>
+        <tr>
+          <td> {{ form.password2.label_tag() }}</td>
+        </tr>
+        <tr>
+          <td> {{ form.password2 }}</td>
+        </tr>
+        <tr>
+          <td> {{ form.password2.errors }}</td>
+        </tr>
+        <tr>
+          <td>{{ form.tos }} {{ form.tos.label_tag() }}</td>
+        </tr>
+        <tr>
+          <td> {{ form.tos.errors }}</td>
+        </tr>
+      </table>
+      <div class="clear"></div>
+
+      <button class="replace-this-class">Submit</button>
+        <!-- replace the above button class with the class(es) you make in _buttons.scss -->
+
+      <div class="clear"></div>
+      <p class='registration'>Or Login with Facebok</p>
+      <a href='/login/facebook'><img src='{{ static('img/button_fb.png') }}'/></a>
+    </form>
+  </div>
+
+{% endblock content %}
+{% block body_media %}
+<script type="text/javascript">
+$(function(){
+ $("form").submit(function(){
+ })
+})
+</script>
+{% endblock %}

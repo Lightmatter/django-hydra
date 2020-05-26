@@ -1,0 +1,15 @@
+{% extends "base.jinja" %}
+
+
+{% block title %}
+Example Form
+{% endblock title %}
+
+{% block content %}
+<form id="example_form"  action='' method='post'>
+  {% csrf_token %}
+  {{ form.as_p() }}
+  <input type='submit' value='Submit' class='btn btn-primary btn-large' />
+</form>
+{% endblock content %}
+
