@@ -3,13 +3,13 @@ import { Form, Field, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { useSnackbar } from 'notistack';
 
-import { Avatar, Paper, Button, Container, Typography, Grid } from '@material-ui/core';
+import { Avatar, Button, Container, Typography, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
 import Link from 'components/router/Link';
-import theme from 'theme/theme';
 
+import AccountPageHeader from 'components/AccountPageHeader';
 import { ResetPassSchema, resetPass } from 'models/user';
 
 const useStyles = makeStyles(theme => ({
@@ -23,20 +23,25 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
     },
+    bottomSpace: {
+        marginBottom: theme.spacing(2),
+    },
 }));
 
 const PasswordResetConfirm = () => {
-    const classes = useStyles(theme);
+    const classes = useStyles();
     const router = useRouter();
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
 
     const { uid, token } = router.query;
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
-            <Avatar className={classes.avatar}>
-                <VpnKeyIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
+            <AccountPageHeader>
+                <Avatar className={classes.avatar}>
+                    <VpnKeyIcon />
+                </Avatar>
+            </AccountPageHeader>
+            <Typography component="h1" variant="h5" className={classes.bottomSpace}>
                 Reset your password
             </Typography>
             <Formik
@@ -44,10 +49,11 @@ const PasswordResetConfirm = () => {
                 validateOnChange
                 validationSchema={ResetPassSchema}
                 onSubmit={(values, actions) => {
+                    const newValues = { ...values };
                     setTimeout(() => {
-                        values.uid = uid;
-                        values.token = token;
-                        resetPass(values)
+                        newValues.uid = uid;
+                        newValues.token = token;
+                        resetPass(newValues)
                             .then(response => {
                                 enqueueSnackbar('Successfully reset password', {
                                     variant: 'success',

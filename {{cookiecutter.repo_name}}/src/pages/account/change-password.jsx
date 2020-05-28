@@ -6,7 +6,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { TextField } from 'formik-material-ui';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Link from 'components/router/Link';
+import AccountPageHeader from 'components/AccountPageHeader';
 import { changePass, ChangePassSchema } from 'models/user';
 import { withAuthRequired } from 'util/withAuth';
 
@@ -28,13 +28,15 @@ const useStyles = makeStyles(theme => ({
 
 const ChangePassword = () => {
     const classes = useStyles();
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
-            <Avatar>
-                <LockOutlinedIcon />
-            </Avatar>
-            <Typography variant="h1" variant="h5">
+            <AccountPageHeader>
+                <Avatar>
+                    <LockOutlinedIcon />
+                </Avatar>
+            </AccountPageHeader>
+            <Typography component="h1" variant="h5" className={classes.bottomSpace}>
                 Change your password
             </Typography>
             <Formik
@@ -68,8 +70,9 @@ const ChangePassword = () => {
             >
                 <Form>
                     <Grid container spacing={2} className={classes.grid}>
-                        <Grid item xs={12} sm={6}>
+                        <Grid item xs={12} sm={12}>
                             <Field
+                                fullWidth
                                 component={TextField}
                                 name="current_password"
                                 autoComplete="current-password"
@@ -80,6 +83,7 @@ const ChangePassword = () => {
 
                         <Grid item xs={12} sm={6}>
                             <Field
+                                fullWidth
                                 name="new_password"
                                 component={TextField}
                                 autoComplete="new-password"
@@ -89,6 +93,7 @@ const ChangePassword = () => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <Field
+                                fullWidth
                                 name="re_new_password"
                                 component={TextField}
                                 type="password"

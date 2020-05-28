@@ -7,6 +7,7 @@ import Avatar from '@material-ui/core/Avatar';
 import { TextField } from 'formik-material-ui';
 import { makeStyles } from '@material-ui/core/styles';
 
+import AccountPageHeader from 'components/AccountPageHeader';
 import { withAuthRequired } from 'util/withAuth';
 import { changeEmail, ChangeEmailSchema } from 'models/user';
 
@@ -30,13 +31,15 @@ const useStyles = makeStyles(theme => ({
 
 const ChangeEmail = () => {
     const classes = useStyles();
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
-            <Avatar>
-                <EmailIcon />
-            </Avatar>
-            <Typography variant="h1" variant="h5">
+            <AccountPageHeader>
+                <Avatar>
+                    <EmailIcon />
+                </Avatar>
+            </AccountPageHeader>
+            <Typography component="h1" variant="h5" className={classes.bottomSpace}>
                 Change your Email
             </Typography>
             <Formik

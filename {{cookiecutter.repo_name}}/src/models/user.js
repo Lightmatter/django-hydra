@@ -1,16 +1,16 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import axios from 'util/axios';
-import { EMAIL, GENERIC_FIELD_ERROR, REQUIRED, TOO_LONG, TOO_SHORT } from '../constants.js';
+import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 import constate from 'constate';
-
 import { useSnackbar } from 'notistack';
 import useSWR from 'swr';
 
+import axios from 'util/axios';
+import { EMAIL, REQUIRED, TOO_LONG, TOO_SHORT } from '../constants';
+
 export const USER_ME = '/auth/users/me/';
 
-function equalTo(ref, msg) {
-  ref = Yup.ref(ref);
+function equalTo(yupRef, msg) {
+  const ref = Yup.ref(yupRef);
   return this.test({
     name: 'equalTo',
     exclusive: false,
@@ -18,25 +18,18 @@ function equalTo(ref, msg) {
     params: {
       reference: ref.path,
     },
-    test: function(value) {
+    test(value) {
       return value === this.resolve(ref);
     },
   });
 }
 
 Yup.addMethod(Yup.string, 'equalTo', equalTo);
-const name = Yup.string()
-  .min(2, TOO_SHORT)
-  .max(50, TOO_LONG)
-  .required(REQUIRED);
+const name = Yup.string().min(2, TOO_SHORT).max(50, TOO_LONG).required(REQUIRED);
 
-const password = Yup.string()
-  .required(REQUIRED)
-  .min(6, TOO_SHORT);
+const password = Yup.string().required(REQUIRED).min(6, TOO_SHORT);
 
-const email = Yup.string()
-  .email(EMAIL)
-  .required(REQUIRED);
+const email = Yup.string().email(EMAIL).required(REQUIRED);
 
 const UserDetailSchema = {
   first_name: name,
@@ -44,7 +37,7 @@ const UserDetailSchema = {
 };
 
 const SetPassSchema = {
-  password: password,
+  password,
   re_password: password.equalTo('password', 'The Two Passwords Must Match'),
 };
 
@@ -54,19 +47,17 @@ export const ProfileSchema = Yup.object().shape({
 export const SignupSchema = Yup.object().shape({
   ...UserDetailSchema,
   ...SetPassSchema,
-  email: email,
-  tos: Yup.boolean()
-    .required(REQUIRED)
-    .oneOf([true], 'Field must be checked'),
+  email,
+  tos: Yup.boolean().required(REQUIRED).oneOf([true], 'Field must be checked'),
 });
 
 export const LoginSchema = Yup.object().shape({
-  password: password,
-  email: email,
+  password,
+  email,
 });
 
 export const ForgotPassSchema = Yup.object().shape({
-  email: email,
+  email,
 });
 
 export const ResetPassSchema = Yup.object().shape({
@@ -89,144 +80,88 @@ export const DeleteUserSchema = Yup.object().shape({
   current_password: password,
 });
 
-function handleApiErrors(error) {
-  let err;
-  if (error.response) {
-    /*
-     * The request was made and the server responded with a
-     * status code that falls out of the range of 2xx
-     */
-    err = error.response.data;
-  } else if (error.request || error.isAxiosError) {
-    /*
-     * The request was made but no response was received, `error.request`
-     * is an instance of XMLHttpRequest in the browser and an instance
-     * of http.ClientRequest in Node.js
-     */
-    err = { non_field_errors: 'There was a problem processing your request.' };
-  } else {
-    // Something happened in setting up the request and triggered an Error
-    err = error;
-  }
-  return Promise.reject(err);
-}
-
 export function registerUser(userData) {
-  const url = `/auth/register/`;
+  const url = '/auth/register/';
 
-  return axios
-    .post(url, userData)
-    .then(response => {})
-    .catch(error => {
-      return handleApiErrors(error);
-    });
+  return axios.post(url, userData);
 }
 
-export function updateUser(userData, userId) {
-  return axios.put(USER_ME, userData).catch(error => {
-    return handleApiErrors(error);
-  });
+export function updateUser(userData) {
+  return axios.put(USER_ME, userData);
 }
 
 export function deleteUser(data) {
-  const url = `/auth/users/me/`;
-  return axios
-    .delete(url, { data })
-    .then(() => {
-      window.dispatchEvent(new Event('logout'));
-      window.localStorage.setItem('logout', Date.now());
-    })
-    .catch(error => {
-      return handleApiErrors(error);
-    });
+  const url = '/auth/users/me/';
+  return axios.delete(url, { data }).then(() => {
+    window.dispatchEvent(new Event('logout'));
+    window.localStorage.setItem('logout', Date.now());
+  });
 }
 
 export function logIn(userData) {
-  const url = `/auth/token/login/`;
-  return axios
-    .post(url, userData)
-    .then(response => {
-      // use login session, so this should set a cookie but return a token. We still love you token.
-      const token = `Token ${response.data['key']}`;
-      //notify app that we've logged in
-      window.dispatchEvent(new Event('login'));
-      window.localStorage.setItem('login', Date.now());
-    })
-    .catch(error => {
-      return handleApiErrors(error);
-    });
+  const url = '/auth/token/login/';
+  return axios.post(url, userData).then(() => {
+    // use login session, so this should set a cookie but return a token. We still love you token.
+    /* const token = `Token ${response.data.key}`; */
+    // notify app that we've logged in
+    window.dispatchEvent(new Event('login'));
+    window.localStorage.setItem('login', Date.now());
+  });
 }
 
 export function logOut() {
-  const url = `/auth/token/logout/`;
-  return axios
-    .post(url)
-    .then(() => {
-      window.dispatchEvent(new Event('logout'));
-      window.localStorage.setItem('logout', Date.now());
-    })
-    .catch(error => {
-      return handleApiErrors(error);
-    });
+  const url = '/auth/token/logout/';
+  return axios.post(url).then(() => {
+    window.dispatchEvent(new Event('logout'));
+    window.localStorage.setItem('logout', Date.now());
+  });
 }
 
-export function forgotPass(email) {
-  const url = `/auth/users/reset_password/`;
-  return axios.post(url, email).catch(error => {
-    return handleApiErrors(error);
-  });
+export function forgotPass(userEmail) {
+  const url = '/auth/users/reset_password/';
+  return axios.post(url, userEmail);
 }
 
 export function resetPass(userInfo) {
-  const url = `/auth/users/reset_password_confirm/`;
-  return axios.post(url, userInfo).catch(error => {
-    return handleApiErrors(error);
-  });
+  const url = '/auth/users/reset_password_confirm/';
+  return axios.post(url, userInfo);
 }
 
 export function changePass(data) {
-  const url = `/auth/users/set_password/`;
-  return axios.post(url, data).catch(error => {
-    return handleApiErrors(error);
-  });
+  const url = '/auth/users/set_password/';
+  return axios.post(url, data);
 }
 
 export function changeEmail(data) {
-  const url = `/auth/users/set_email/`;
-  return axios.post(url, data).catch(error => {
-    return handleApiErrors(error);
-  });
+  const url = '/auth/users/set_email/';
+  return axios.post(url, data);
 }
 
 export function confirmEmail(uid, token) {
-  const url = `/auth/users/activation/`;
+  const url = '/auth/users/activation/';
   const data = { uid, token };
-  return axios.post(url, data).catch(error => {
-    return handleApiErrors(error);
-  });
+  return axios.post(url, data);
 }
 
-export function resendConfirmEmail(email) {
+export function resendConfirmEmail() {
   const url = '/auth/users/resend_activation';
-  const data = { email };
-  return axios.post(url).catch(error => {
-    return handleApiErrors(error);
-  });
+  return axios.post(url);
 }
-let isAuthenticated, setAuthenticated;
+let isAuthenticated;
+let setAuthenticated;
 
 export function useCurrentUserSWR({ initialUser }) {
   [isAuthenticated, setAuthenticated] = useState(Boolean(initialUser));
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
   const options = {
     shouldRetryOnError: false,
-    onSuccess: (data, key, config) => {
+    onSuccess: () => {
       if (isAuthenticated === false) {
         setAuthenticated(true);
       }
     },
-    onError: (err, key, config) => {
+    onError: err => {
       if (err.isAxiosError && err.response?.status === 403 && isAuthenticated === true) {
         setAuthenticated(false);
         enqueueSnackbar('Something caused you to be logged out!', {
@@ -248,7 +183,7 @@ export function useCurrentUserSWR({ initialUser }) {
         method: 'get',
         url: query,
         headers: { Accept: '*/*' }, // as fetch for preload doesn't set accept correctly
-      }).then(data => data.data),
+      }).then(response => response.data),
     options
   );
   const user = isAuthenticated ? data : null;
