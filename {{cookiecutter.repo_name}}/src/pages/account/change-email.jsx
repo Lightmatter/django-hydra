@@ -40,9 +40,9 @@ const ChangeEmail = () => {
                 </Avatar>
             </AccountPageHeader>
             <Typography
-              component="h1"
-              variant="h5"
-              className={classes.bottomSpace}
+                component="h1"
+                variant="h5"
+                className={classes.bottomSpace}
             >
                 Change your Email
             </Typography>
@@ -50,7 +50,7 @@ const ChangeEmail = () => {
                 initialValues={%raw-%}{{
                     current_password: '',
                     new_email: '',
-                    re_new_email: ''
+                    re_new_email: '',
                 }}{%endraw%}
                 className={classes.form}
                 validateOnChange

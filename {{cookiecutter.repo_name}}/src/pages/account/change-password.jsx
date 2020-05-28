@@ -37,9 +37,9 @@ const ChangePassword = () => {
                 </Avatar>
             </AccountPageHeader>
             <Typography
-              component="h1"
-              variant="h5"
-              className={classes.bottomSpace}
+                component="h1"
+                variant="h5"
+                className={classes.bottomSpace}
             >
                 Change your password
             </Typography>
@@ -47,7 +47,7 @@ const ChangePassword = () => {
                 initialValues={% raw -%}{{
                     current_password: '',
                     new_password: '',
-                    re_new_password: ''
+                    re_new_password: '',
                 }}{% endraw %}
                 className={classes.form}
                 validateOnChange
