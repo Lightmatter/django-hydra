@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import axios from 'util/axios';
 import * as Yup from 'yup';
 import constate from 'constate';
-
 import { useSnackbar } from 'notistack';
 import useSWR from 'swr';
+
+import axios from 'util/axios';
 import { EMAIL, REQUIRED, TOO_LONG, TOO_SHORT } from '../constants';
 
 export const USER_ME = '/auth/users/me/';
@@ -80,128 +80,72 @@ export const DeleteUserSchema = Yup.object().shape({
   current_password: password,
 });
 
-function handleApiErrors(error) {
-  let err;
-  if (error.response) {
-    /*
-     * The request was made and the server responded with a
-     * status code that falls out of the range of 2xx
-     */
-    err = error.response.data;
-  } else if (error.request || error.isAxiosError) {
-    /*
-     * The request was made but no response was received, `error.request`
-     * is an instance of XMLHttpRequest in the browser and an instance
-     * of http.ClientRequest in Node.js
-     */
-    err = { non_field_errors: 'There was a problem processing your request.' };
-  } else {
-    // Something happened in setting up the request and triggered an Error
-    err = error;
-  }
-  return Promise.reject(err);
-}
-
 export function registerUser(userData) {
   const url = '/auth/register/';
 
-  return axios
-    .post(url, userData)
-    .then(() => {})
-    .catch(error => {
-      return handleApiErrors(error);
-    });
+  return axios.post(url, userData);
 }
 
 export function updateUser(userData) {
-  return axios.put(USER_ME, userData).catch(error => {
-    return handleApiErrors(error);
-  });
+  return axios.put(USER_ME, userData);
 }
 
 export function deleteUser(data) {
   const url = '/auth/users/me/';
-  return axios
-    .delete(url, { data })
-    .then(() => {
-      window.dispatchEvent(new Event('logout'));
-      window.localStorage.setItem('logout', Date.now());
-    })
-    .catch(error => {
-      return handleApiErrors(error);
-    });
+  return axios.delete(url, { data }).then(() => {
+    window.dispatchEvent(new Event('logout'));
+    window.localStorage.setItem('logout', Date.now());
+  });
 }
 
 export function logIn(userData) {
   const url = '/auth/token/login/';
-  return axios
-    .post(url, userData)
-    .then(() => {
-      // use login session, so this should set a cookie but return a token. We still love you token.
-      /* const token = `Token ${response.data.key}`; */
-      // notify app that we've logged in
-      window.dispatchEvent(new Event('login'));
-      window.localStorage.setItem('login', Date.now());
-    })
-    .catch(error => {
-      return handleApiErrors(error);
-    });
+  return axios.post(url, userData).then(() => {
+    // use login session, so this should set a cookie but return a token. We still love you token.
+    /* const token = `Token ${response.data.key}`; */
+    // notify app that we've logged in
+    window.dispatchEvent(new Event('login'));
+    window.localStorage.setItem('login', Date.now());
+  });
 }
 
 export function logOut() {
   const url = '/auth/token/logout/';
-  return axios
-    .post(url)
-    .then(() => {
-      window.dispatchEvent(new Event('logout'));
-      window.localStorage.setItem('logout', Date.now());
-    })
-    .catch(error => {
-      return handleApiErrors(error);
-    });
+  return axios.post(url).then(() => {
+    window.dispatchEvent(new Event('logout'));
+    window.localStorage.setItem('logout', Date.now());
+  });
 }
 
 export function forgotPass(userEmail) {
   const url = '/auth/users/reset_password/';
-  return axios.post(url, userEmail).catch(error => {
-    return handleApiErrors(error);
-  });
+  return axios.post(url, userEmail);
 }
 
 export function resetPass(userInfo) {
   const url = '/auth/users/reset_password_confirm/';
-  return axios.post(url, userInfo).catch(error => {
-    return handleApiErrors(error);
-  });
+  return axios.post(url, userInfo);
 }
 
 export function changePass(data) {
   const url = '/auth/users/set_password/';
-  return axios.post(url, data).catch(error => {
-    return handleApiErrors(error);
-  });
+  return axios.post(url, data);
 }
 
 export function changeEmail(data) {
   const url = '/auth/users/set_email/';
-  return axios.post(url, data).catch(error => {
-    return handleApiErrors(error);
-  });
+  return axios.post(url, data);
 }
 
 export function confirmEmail(uid, token) {
   const url = '/auth/users/activation/';
   const data = { uid, token };
-  return axios.post(url, data).catch(error => {
-    return handleApiErrors(error);
-  });
+  return axios.post(url, data);
 }
 
 export function resendConfirmEmail() {
   const url = '/auth/users/resend_activation';
-  return axios.post(url).catch(error => {
-    return handleApiErrors(error);
-  });
+  return axios.post(url);
 }
 let isAuthenticated;
 let setAuthenticated;

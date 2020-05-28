@@ -11,4 +11,4 @@
 
 def error(request):
     """Generate an exception. Useful for e.g. configuing Sentry"""
-    raise Exception
+    raise Exception("Make response code 500!")
