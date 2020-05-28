@@ -39,11 +39,19 @@ const ChangeEmail = () => {
                     <EmailIcon />
                 </Avatar>
             </AccountPageHeader>
-            <Typography component="h1" variant="h5" className={classes.bottomSpace}>
+            <Typography
+                component="h1"
+                variant="h5"
+                className={classes.bottomSpace}
+            >
                 Change your Email
             </Typography>
             <Formik
-                initialValues={%raw-%}{{ current_password: '', new_email: '', re_new_email: '' }}{%endraw%}
+                initialValues={%raw-%}{{
+                    current_password: '',
+                    new_email: '',
+                    re_new_email: '',
+                }}{%endraw%}
                 className={classes.form}
                 validateOnChange
                 validationSchema={ChangeEmailSchema}
