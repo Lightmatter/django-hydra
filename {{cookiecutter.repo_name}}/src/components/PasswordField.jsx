@@ -38,7 +38,7 @@ const PasswordField = ({ dataCy, ...rest }) => {
             }}{%- endraw %}
         />
     );
-}
+};
 
 PasswordField.propTypes = {
     dataCy: PropTypes.string,

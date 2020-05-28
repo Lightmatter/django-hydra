@@ -1,7 +1,19 @@
-import { usePopupState, bindTrigger, bindMenu } from 'material-ui-popup-state/hooks';
+import {
+    usePopupState,
+    bindTrigger,
+    bindMenu,
+} from 'material-ui-popup-state/hooks';
 import { useRef } from 'react';
 
-import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, Grid } from '@material-ui/core';
+import {
+    AppBar,
+    Toolbar,
+    Typography,
+    IconButton,
+    Menu,
+    MenuItem,
+    Grid,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -22,8 +34,14 @@ const useStyles = makeStyles(theme => ({
 export default function MenuAppBar() {
     const classes = useStyles();
     const anchorRef = useRef(null);
-    const navMenuState = usePopupState({ variant: 'popover', popupId: 'navMenu' });
-    const profileMenuState = usePopupState({ variant: 'popover', popupId: 'profileMenu' });
+    const navMenuState = usePopupState({
+        variant: 'popover',
+        popupId: 'navMenu',
+    });
+    const profileMenuState = usePopupState({
+        variant: 'popover',
+        popupId: 'profileMenu',
+    });
     const user = useCurrentUser();
 
     const logoutButtonClick = () => {
@@ -66,7 +84,10 @@ export default function MenuAppBar() {
                             <MenuItem
                                 data-cy="login"
                                 onClick={event =>
-                                    handleMenuCloseWithLink({ event, link: '/login' })
+                                    handleMenuCloseWithLink({
+                                        event,
+                                        link: '/login',
+                                    })
                                 }
                             >
                                 Login
@@ -74,21 +95,31 @@ export default function MenuAppBar() {
                             <MenuItem
                                 data-cy="signup"
                                 onClick={event =>
-                                    handleMenuCloseWithLink({ event, link: '/signup' })
+                                    handleMenuCloseWithLink({
+                                        event,
+                                        link: '/signup',
+                                    })
                                 }
                             >
                                 Sign Up
                             </MenuItem>
                             <MenuItem
                                 onClick={event =>
-                                    handleMenuCloseWithLink({ event, link: '/error-page' })
+                                    handleMenuCloseWithLink({
+                                        event,
+                                        link: '/error-page',
+                                    })
                                 }
                             >
                                 Throw an error
                             </MenuItem>
                         </Menu>
                         <Link href="/">
-                            <Typography variant="h6" color="textPrimary" className={classes.title}>
+                            <Typography
+                                variant="h6"
+                                color="textPrimary"
+                                className={classes.title}
+                            >
                                 Lightmatter
                             </Typography>
                         </Link>
@@ -96,7 +127,9 @@ export default function MenuAppBar() {
                     <Grid item xs={6} md={9} align="right">
                         {user && (
                             <div>
-                                <span data-cy="logged-in-name">Hey {user.first_name}</span>
+                                <span data-cy="logged-in-name">
+                                    Hey {user.first_name}
+                                </span>
                                 <IconButton
                                     aria-label="account of current user"
                                     aria-controls="menu-appbar"
@@ -106,10 +139,16 @@ export default function MenuAppBar() {
                                 >
                                     <AccountCircle />
                                 </IconButton>
-                                <Menu id="menu-appbar" {...bindMenu(profileMenuState)}>
+                                <Menu
+                                    id="menu-appbar"
+                                    {...bindMenu(profileMenuState)}
+                                >
                                     <MenuItem
                                         onClick={event =>
-                                            handleMenuCloseWithLink({ event, link: '/account' })
+                                            handleMenuCloseWithLink({
+                                                event,
+                                                link: '/account',
+                                            })
                                         }
                                     >
                                         Profile
@@ -118,7 +157,8 @@ export default function MenuAppBar() {
                                         onClick={event =>
                                             handleMenuCloseWithLink({
                                                 event,
-                                                link: '/account/change-password',
+                                                link:
+                                                    '/account/change-password',
                                             })
                                         }
                                     >

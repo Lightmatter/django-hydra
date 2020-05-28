@@ -41,7 +41,11 @@ const PasswordResetConfirm = () => {
                     <VpnKeyIcon />
                 </Avatar>
             </AccountPageHeader>
-            <Typography component="h1" variant="h5" className={classes.bottomSpace}>
+            <Typography
+                component="h1"
+                variant="h5"
+                className={classes.bottomSpace}
+            >
                 Reset your password
             </Typography>
             <Formik
@@ -97,7 +101,12 @@ const PasswordResetConfirm = () => {
                         placeholder="Repeat pasword"
                     />
 
-                    <Button fullWidth variant="outlined" type="submit" className={classes.button}>
+                    <Button
+                        fullWidth
+                        variant="outlined"
+                        type="submit"
+                        className={classes.button}
+                    >
                         Reset my password
                     </Button>
                 </Form>

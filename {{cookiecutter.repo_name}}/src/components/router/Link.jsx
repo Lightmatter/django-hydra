@@ -7,7 +7,10 @@ import NextLink from 'next/link';
 import MuiLink from '@material-ui/core/Link';
 import isServer from 'util/isServer';
 
-const NextComposed = React.forwardRef(function NextComposed({ as, href, ...other }, ref) {
+const NextComposed = React.forwardRef(function NextComposed(
+    { as, href, ...other },
+    ref
+) {
     return (
         <NextLink href={href} as={as}>
             <a ref={ref} {...other} />
@@ -39,7 +42,14 @@ function Link({
     });
 
     if (naked) {
-        return <NextComposed className={className} ref={innerRef} href={href} {...other} />;
+        return (
+            <NextComposed
+                className={className}
+                ref={innerRef}
+                href={href}
+                {...other}
+            />
+        );
     }
 
     const isExternalLink = linkHref => {
@@ -85,4 +95,6 @@ Link.propTypes = {
     variant: PropTypes.string,
 };
 
-export default React.forwardRef((props, ref) => <Link {...props} innerRef={ref} />);
+export default React.forwardRef((props, ref) => (
+    <Link {...props} innerRef={ref} />
+));
