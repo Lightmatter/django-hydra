@@ -31,10 +31,6 @@ export default function MenuAppBar() {
         profileMenuState.close();
     };
 
-    const throwException = () => {
-        throw new Error('Exception');
-    };
-
     const handleMenuCloseWithLink = ({ event, link = '', callback = null }) => {
         if (anchorRef.current && anchorRef.current.contains(event.target)) {
             return;
@@ -83,7 +79,13 @@ export default function MenuAppBar() {
                             >
                                 Sign Up
                             </MenuItem>
-                            <MenuItem onClick={throwException}>Throw an error</MenuItem>
+                            <MenuItem
+                                onClick={event =>
+                                    handleMenuCloseWithLink({ event, link: '/error-page' })
+                                }
+                            >
+                                Throw an error
+                            </MenuItem>
                         </Menu>
                         <Link href="/">
                             <Typography variant="h6" color="textPrimary" className={classes.title}>
