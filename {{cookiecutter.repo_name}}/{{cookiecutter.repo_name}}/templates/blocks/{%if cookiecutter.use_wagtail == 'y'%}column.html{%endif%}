@@ -1,4 +1,5 @@
 {%- raw -%}
+{% load wagtailcore_tags %}
 <div class="{{ class_name }}">
   <div>
     {% include_block value.body %}

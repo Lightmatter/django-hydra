@@ -8,7 +8,12 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { makeStyles } from '@material-ui/core/styles';
 
 import AccountPageHeader from 'components/AccountPageHeader';
-import { updateUser, ProfileSchema, useCurrentUser, useMutateCurrentUser } from 'models/user';
+import {
+    updateUser,
+    ProfileSchema,
+    useCurrentUser,
+    useMutateCurrentUser,
+} from 'models/user';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -38,7 +43,11 @@ const EditProfile = () => {
                     <AccountCircleIcon />
                 </Avatar>
             </AccountPageHeader>
-            <Typography component="h1" variant="h5" className={classes.bottomSpace}>
+            <Typography
+                component="h1"
+                variant="h5"
+                className={classes.bottomSpace}
+            >
                 Update your profile
             </Typography>
             {me ? (
@@ -56,9 +65,12 @@ const EditProfile = () => {
                             false
                         )
                             .then(response => {
-                                enqueueSnackbar('Successfully updated profile!', {
-                                    variant: 'success',
-                                });
+                                enqueueSnackbar(
+                                    'Successfully updated profile!',
+                                    {
+                                        variant: 'success',
+                                    }
+                                );
                                 return response;
                             })
                             .then(response => {

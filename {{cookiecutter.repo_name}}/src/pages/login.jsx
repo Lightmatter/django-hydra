@@ -1,4 +1,10 @@
-import { Button, Container, FormControlLabel, Grid, Typography } from '@material-ui/core';
+import {
+    Button,
+    Container,
+    FormControlLabel,
+    Grid,
+    Typography,
+} from '@material-ui/core';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -85,7 +91,11 @@ const LogInPage = () => {
                         placeholder="Enter Password"
                         margin="dense"
                     />
-                    <Grid container alignItems="center" className={classes.text}>
+                    <Grid
+                        container
+                        alignItems="center"
+                        className={classes.text}
+                    >
                         <Grid item>
                             <FormControlLabel
                                 label="Remember me"
@@ -99,7 +109,10 @@ const LogInPage = () => {
                             />
                         </Grid>
                         <Grid item xs align="right">
-                            <Link href="/account/reset/password" variant="body2">
+                            <Link
+                                href="/account/reset/password"
+                                variant="body2"
+                            >
                                 Forgot password?
                             </Link>
                         </Grid>

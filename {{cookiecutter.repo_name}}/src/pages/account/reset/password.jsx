@@ -37,12 +37,16 @@ const ForgotPassPage = () => {
                     <HelpOutlineIcon />
                 </Avatar>
             </AccountPageHeader>
-            <Typography component="h1" variant="h5" className={classes.bottomSpace}>
+            <Typography
+                component="h1"
+                variant="h5"
+                className={classes.bottomSpace}
+            >
                 Forgot your password? No problem.
             </Typography>
             <Typography variant="caption" align="center">
-                Enter your email below, and if you have an account with us we'll send you a link to
-                reset your password.
+                Enter your email below, and if you have an account with us we'll
+                send you a link to reset your password.
             </Typography>
 
             <Formik
@@ -53,9 +57,12 @@ const ForgotPassPage = () => {
                     setTimeout(() => {
                         forgotPass(values)
                             .then(response => {
-                                enqueueSnackbar('Successfully sent forgot password link', {
-                                    variant: 'success',
-                                });
+                                enqueueSnackbar(
+                                    'Successfully sent forgot password link',
+                                    {
+                                        variant: 'success',
+                                    }
+                                );
                                 return response;
                             })
                             .then(response => {
@@ -84,7 +91,12 @@ const ForgotPassPage = () => {
                         label="Email"
                         placeholder="Enter Email"
                     />
-                    <Button fullWidth variant="outlined" type="submit" className={classes.button}>
+                    <Button
+                        fullWidth
+                        variant="outlined"
+                        type="submit"
+                        className={classes.button}
+                    >
                         Email me a link to reset password
                     </Button>
                 </Form>

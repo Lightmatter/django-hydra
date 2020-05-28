@@ -26,7 +26,12 @@ const ErrorPage = () => {
 
     return (
         <Container component="main" maxWidth="md">
-            <Box display="flex" flexDirection="column" alignItems="center" m={4}>
+            <Box
+                display="flex"
+                flexDirection="column"
+                alignItems="center"
+                m={4}
+            >
                 <Typography variant="h5" component="h1">
                     Trigger a Sentry Error
                 </Typography>

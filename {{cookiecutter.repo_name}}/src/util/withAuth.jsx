@@ -111,12 +111,17 @@ const wrappedGetInitialProps = (func, loginRequired) => {
             } catch (e) {
                 if (e instanceof NotLoggedInError) {
                     if (loginRequired === true) {
-                        ctx.res.writeHead(302, { Location: loginPageUrl(ctx.req.url) });
+                        ctx.res.writeHead(302, {
+                            Location: loginPageUrl(ctx.req.url),
+                        });
                         ctx.res.end();
                         return {};
                     }
                 }
-                if (e instanceof ServerDownError || e instanceof ServerBrokenError) {
+                if (
+                    e instanceof ServerDownError ||
+                    e instanceof ServerBrokenError
+                ) {
                     throw e; // TODO: handle this case better
                 }
             }
@@ -139,7 +144,10 @@ export const withAuthRequired = WrappedComponent => {
         }
         return <WrappedComponent {...props} />;
     };
-    Wrapper.getInitialProps = wrappedGetInitialProps(WrappedComponent.getInitialProps, true);
+    Wrapper.getInitialProps = wrappedGetInitialProps(
+        WrappedComponent.getInitialProps,
+        true
+    );
     return Wrapper;
 };
 
@@ -147,7 +155,10 @@ export const withAuth = WrappedComponent => {
     const Wrapper = props => {
         return <WrappedComponent {...props} />;
     };
-    Wrapper.getInitialProps = wrappedGetInitialProps(WrappedComponent.getInitialProps, false);
+    Wrapper.getInitialProps = wrappedGetInitialProps(
+        WrappedComponent.getInitialProps,
+        false
+    );
     return Wrapper;
 };
 

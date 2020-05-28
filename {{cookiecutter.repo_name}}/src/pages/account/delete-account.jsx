@@ -57,7 +57,11 @@ const DeleteAccount = () => {
                     <LockOutlinedIcon />
                 </Avatar>
             </AccountPageHeader>
-            <Typography component="h1" variant="h5" className={classes.bottomSpace}>
+            <Typography
+                component="h1"
+                variant="h5"
+                className={classes.bottomSpace}
+            >
                 Delete your account?
             </Typography>
             <Dialog
@@ -101,7 +105,8 @@ const DeleteAccount = () => {
                         </DialogTitle>
                         <DialogContent>
                             <DialogContentText id="alert-dialog-description">
-                                Are you sure you want to delete your account? We'll miss you!
+                                Are you sure you want to delete your account?
+                                We'll miss you!
                             </DialogContentText>
                         </DialogContent>
                         <Field
@@ -112,7 +117,11 @@ const DeleteAccount = () => {
                             type="password"
                         />
                         <DialogActions>
-                            <Button onClick={handleClose} color="primary" autoFocus>
+                            <Button
+                                onClick={handleClose}
+                                color="primary"
+                                autoFocus
+                            >
                                 No - I want to stay!
                             </Button>
                             <Button type="submit" color="primary">

@@ -25,7 +25,10 @@ function equalTo(yupRef, msg) {
 }
 
 Yup.addMethod(Yup.string, 'equalTo', equalTo);
-const name = Yup.string().min(2, TOO_SHORT).max(50, TOO_LONG).required(REQUIRED);
+const name = Yup.string()
+  .min(2, TOO_SHORT)
+  .max(50, TOO_LONG)
+  .required(REQUIRED);
 
 const password = Yup.string().required(REQUIRED).min(6, TOO_SHORT);
 
@@ -62,13 +65,19 @@ export const ForgotPassSchema = Yup.object().shape({
 
 export const ResetPassSchema = Yup.object().shape({
   new_password: password,
-  re_new_password: password.equalTo('new_password', 'The Two Passwords Must Match'),
+  re_new_password: password.equalTo(
+    'new_password',
+    'The Two Passwords Must Match'
+  ),
 });
 
 export const ChangePassSchema = Yup.object().shape({
   current_password: password,
   new_password: password,
-  re_new_password: password.equalTo('new_password', 'The Two Passwords Must Match'),
+  re_new_password: password.equalTo(
+    'new_password',
+    'The Two Passwords Must Match'
+  ),
 });
 
 export const ChangeEmailSchema = Yup.object().shape({
@@ -162,7 +171,11 @@ export function useCurrentUserSWR({ initialUser }) {
       }
     },
     onError: err => {
-      if (err.isAxiosError && err.response?.status === 403 && isAuthenticated === true) {
+      if (
+        err.isAxiosError &&
+        err.response?.status === 403 &&
+        isAuthenticated === true
+      ) {
         setAuthenticated(false);
         enqueueSnackbar('Something caused you to be logged out!', {
           variant: 'warning',

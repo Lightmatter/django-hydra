@@ -31,13 +31,18 @@ const useStyles = makeStyles({
     Footer: {
         marginTop: 'auto',
     },
+
     Site: {
         'min-height': '100vh',
     },
 });
 
 const debugForceIP = () => {
-    if (process.env.NEXT_PUBLIC_DEBUG && !isServer() && window.location.hostname === 'localhost') {
+    if (
+        process.env.NEXT_PUBLIC_DEBUG &&
+        !isServer() &&
+        window.location.hostname === 'localhost'
+    ) {
         window.location = `http://127.0.0.1:3000${window.location.pathname}`;
     }
 };
@@ -86,7 +91,11 @@ export default function App(props) {
                 <CssBaseline />
                 <SnackbarProvider>
                     <CurrentUserProvider initialUser={user}>
-                        <Grid container direction="column" className={classes.Site}>
+                        <Grid
+                            container
+                            direction="column"
+                            className={classes.Site}
+                        >
                             <Header />
                             <div id="container">
                                 <Component {...pageProps} />
