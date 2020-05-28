@@ -7,7 +7,6 @@
     {% block extra_head %}
     <title>Lightmatter</title>
     {% endblock extra_head %}
-    {{ render_bundle('style') }}
   </head>
   <body>
       <div id="swup" class="swup-container transition-fade {% block body_class %}{% endblock body_class %}">
@@ -26,7 +25,5 @@
               g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
               s.parentNode.insertBefore(g,s)}(document,'script'));
       </script>
-    {{ render_bundle('vendor_common') }}
-    {{ render_bundle('js') }}
   </body>
 </html>
