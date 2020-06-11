@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 const useHash = (initialValue = null) => {
   const [storedValue, setStoredValue] = useState(() => {
     try {

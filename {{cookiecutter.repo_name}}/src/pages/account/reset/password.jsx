@@ -1,4 +1,5 @@
 import { useSnackbar } from 'notistack';
+
 import { Form, Field, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
 
@@ -7,7 +8,7 @@ import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import { makeStyles } from '@material-ui/core/styles';
 import Link from 'components/router/Link';
 
-import theme from 'theme/theme';
+import AccountPageHeader from 'components/AccountPageHeader';
 import { ForgotPassSchema, forgotPass } from 'models/user';
 
 const useStyles = makeStyles(theme => ({
@@ -21,22 +22,31 @@ const useStyles = makeStyles(theme => ({
         marginTop: theme.spacing(2),
         marginBottom: theme.spacing(2),
     },
+    bottomSpace: {
+        marginBottom: theme.spacing(2),
+    },
 }));
 
 const ForgotPassPage = () => {
-    const classes = useStyles(theme);
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const classes = useStyles();
+    const { enqueueSnackbar } = useSnackbar();
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
-            <Avatar className={classes.avatar}>
-                <HelpOutlineIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
+            <AccountPageHeader>
+                <Avatar className={classes.avatar}>
+                    <HelpOutlineIcon />
+                </Avatar>
+            </AccountPageHeader>
+            <Typography
+                component="h1"
+                variant="h5"
+                className={classes.bottomSpace}
+            >
                 Forgot your password? No problem.
             </Typography>
             <Typography variant="caption" align="center">
-                Enter your email below, and if you have an account with us we'll send you a link to
-                reset your password.
+                Enter your email below, and if you have an account with us we'll
+                send you a link to reset your password.
             </Typography>
 
             <Formik
@@ -47,9 +57,12 @@ const ForgotPassPage = () => {
                     setTimeout(() => {
                         forgotPass(values)
                             .then(response => {
-                                enqueueSnackbar('Successfully sent forgot password link', {
-                                    variant: 'success',
-                                });
+                                enqueueSnackbar(
+                                    'Successfully sent forgot password link',
+                                    {
+                                        variant: 'success',
+                                    }
+                                );
                                 return response;
                             })
                             .then(response => {
@@ -78,7 +91,12 @@ const ForgotPassPage = () => {
                         label="Email"
                         placeholder="Enter Email"
                     />
-                    <Button fullWidth variant="outlined" type="submit" className={classes.button}>
+                    <Button
+                        fullWidth
+                        variant="outlined"
+                        type="submit"
+                        className={classes.button}
+                    >
                         Email me a link to reset password
                     </Button>
                 </Form>

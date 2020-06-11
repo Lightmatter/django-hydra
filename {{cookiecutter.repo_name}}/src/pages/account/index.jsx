@@ -1,19 +1,19 @@
 import { withAuthRequired } from 'util/withAuth';
 import { Form, Field, Formik } from 'formik';
-import { TextField, CheckboxWithLabel } from 'formik-material-ui';
+import { TextField } from 'formik-material-ui';
 import { useSnackbar } from 'notistack';
 
-import { Grid, Button, Container, Avatar, Typography} from '@material-ui/core';
+import { Grid, Button, Container, Avatar, Typography } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { makeStyles } from '@material-ui/core/styles';
 
+import AccountPageHeader from 'components/AccountPageHeader';
 import {
     updateUser,
     ProfileSchema,
     useCurrentUser,
     useMutateCurrentUser,
 } from 'models/user';
-import Link from 'components/router/Link';
 
 const useStyles = makeStyles(theme => ({
     paper: {
@@ -33,15 +33,21 @@ const useStyles = makeStyles(theme => ({
 
 const EditProfile = () => {
     const classes = useStyles();
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const { enqueueSnackbar } = useSnackbar();
     const me = useCurrentUser();
     const mutate = useMutateCurrentUser();
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
-            <Avatar>
-                <AccountCircleIcon />
-            </Avatar>
-            <Typography variant="h1" variant="h5">
+            <AccountPageHeader>
+                <Avatar>
+                    <AccountCircleIcon />
+                </Avatar>
+            </AccountPageHeader>
+            <Typography
+                component="h1"
+                variant="h5"
+                className={classes.bottomSpace}
+            >
                 Update your profile
             </Typography>
             {me ? (
@@ -59,9 +65,12 @@ const EditProfile = () => {
                             false
                         )
                             .then(response => {
-                                enqueueSnackbar('Successfully updated profile!', {
-                                    variant: 'success',
-                                });
+                                enqueueSnackbar(
+                                    'Successfully updated profile!',
+                                    {
+                                        variant: 'success',
+                                    }
+                                );
                                 return response;
                             })
                             .then(response => {
@@ -117,6 +126,6 @@ const EditProfile = () => {
     );
 };
 
-//EditProfile.getInitialProps = async ctx => {};
+// EditProfile.getInitialProps = async ctx => {};
 
 export default withAuthRequired(EditProfile);

@@ -20,6 +20,7 @@ DEBUG = env("DEBUG")
 ADMINS = (
     ("Ben Beecher", "Ben@Lightmatter.com"),
     ("Greg Hausheer", "Greg@Lightmatter.com"),
+    ("Developer", "{{ cookiecutter.dev_email }}"),
 )
 
 MANAGERS = ADMINS
@@ -242,3 +243,55 @@ DJOSER = {
     "SET_USERNAME_RETYPE": True,
     "SET_PASSWORD_RETYPE": True,
 }
+
+# fmt: off
+{% if cookiecutter.use_wagtail == "y" -%}
+# Wagtail specific settings
+INSTALLED_APPS += (
+
+    'wagtail.contrib.forms',
+    'wagtail.contrib.postgres_search',
+    'wagtail.contrib.redirects',
+    'wagtail.contrib.search_promotions',
+    'wagtail.contrib.settings',
+    'django.contrib.sitemaps',
+    'wagtail.contrib.table_block',
+    'wagtail.embeds',
+    'wagtail.sites',
+    'wagtail.users',
+    'wagtail.snippets',
+    'wagtail.documents',
+    'wagtail.images',
+    'wagtail.search',
+    'wagtail.admin',
+    'wagtail.core',
+    'wagtail.contrib.modeladmin',
+
+    'modelcluster',
+    'taggit',
+
+    '{{ cookiecutter.repo_name }}.wagtailapp',
+)
+
+MIDDLEWARE += (
+    'wagtail.core.middleware.SiteMiddleware',
+    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
+)
+
+CONTEXT_PROCESSORS += (
+    'wagtail.contrib.settings.context_processors.settings',
+)
+
+WAGTAILSEARCH_BACKENDS = {
+    'default': {
+        'BACKEND': 'wagtail.contrib.postgres_search.backend'
+    }
+}
+
+WAGTAIL_SITE_NAME = '{{ cookiecutter.project_name }}'
+WAGTAIL_APPEND_SLASH = 'settings.APPEND_SLASH'
+WAGTAILADMIN_NOTIFICATION_FROM_EMAIL = 'wagtail@{{cookiecutter.repo_name}}.com'
+WAGTAILIMAGES_IMAGE_MODEL = 'wagtailapp.CustomImage'
+WAGTAILIMAGES_MAX_UPLOAD_SIZE = 10 * 1024 * 1024 # 10MB which is default
+WAGTAILIMAGES_MAX_IMAGE_PIXELS = 128000000  # i.e. 128 megapixels
+{% endif -%}

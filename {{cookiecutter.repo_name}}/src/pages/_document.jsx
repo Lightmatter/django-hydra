@@ -24,7 +24,9 @@ export default class MyDocument extends Document {
     render() {
         Sentry.addBreadcrumb({
             category: fileLabel,
-            message: `Preparing document (${isServer() ? 'server' : 'browser'})`,
+            message: `Preparing document (${
+                isServer() ? 'server' : 'browser'
+            })`,
             level: Sentry.Severity.Debug,
         });
 
@@ -32,7 +34,10 @@ export default class MyDocument extends Document {
             <Html lang="en">
                 <Head>
                     {/* PWA primary color */}
-                    <meta name="theme-color" content={theme.palette.primary.main} />
+                    <meta
+                        name="theme-color"
+                        content={theme.palette.primary.main}
+                    />
                     <link
                         rel="stylesheet"
                         type="text/css"
@@ -92,6 +97,9 @@ MyDocument.getInitialProps = async ctx => {
     return {
         ...initialProps,
         // Styles fragment is rendered after the app and page rendering finish.
-        styles: [...React.Children.toArray(initialProps.styles), sheets.getStyleElement()],
+        styles: [
+            ...React.Children.toArray(initialProps.styles),
+            sheets.getStyleElement(),
+        ],
     };
 };

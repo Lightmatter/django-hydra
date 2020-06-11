@@ -2,6 +2,7 @@
   "trailingComma": "es5",
   "semi": true,
   "singleQuote": true,
-  "printWidth": 100,
-  "bracketSpacing": true
+  "printWidth": 80,
+  "bracketSpacing": true,
+  "arrowParens": "avoid"
 }

@@ -1,0 +1,14 @@
+<title>{% if page.seo_title %}{{ page.seo_title }}{% else %}Lightmatter{% endif %}</title>
+<meta name="description" content="{% if page.search_description %}{{ page.search_description }}{% elif settings.wagtailapp.SocialMediaSettings.default_meta_description %}{{ settings.wagtailapp.SocialMediaSettings.default_meta_description }}{% endif %}" />
+<meta name="twitter:title" content="{% if page.seo_title %}{{ page.seo_title }}{% endif %}" />
+<meta name="twitter:description" content="{% if page.search_description %}{{ page.search_description }}{% elif settings.wagtailapp.SocialMediaSettings.default_meta_description %}{{ settings.wagtailapp.SocialMediaSettings.default_meta_description }}{% endif %}" />
+{% set img=image(page.social_image, "fill-1200x627") %}
+{% set default_img=image(settings.wagtailapp.SocialMediaSettings.default_social_image, "fill-1200x627") %}
+<meta name="twitter:image" content="{% if page.social_image and img.url %}{{ img.url }}{% else %}{{ default_img.url }}{% endif %}" />
+
+<meta property="og:url" content="{{ page.get_site().root_url }}{{ page.url }}" />
+<meta property="og:title" content="{{ page.seo_title }}" />
+<meta property="og:image:width" content="{% if page.social_image and img.width %}{{ img.width }}{% elif default_img %}{{ default_img.width }}{% endif %}" />
+<meta property="og:image:height" content="{% if page.social_image and img.height %}{{ img.height }}{% elif default_img %}{{ default_img.height }}{% endif %}" />
+<meta property="og:image" content="{% if img.url %}{{ img.url }}{% elif default_img %}{{ default_img.url }}{% endif %}" />
+<meta property="og:description" content="{% if page.search_description %}{{ page.search_description }}{% elif settings.wagtailapp.SocialMediaSettings.default_meta_description %}{{ settings.wagtailapp.SocialMediaSettings.default_meta_description }}{% endif %}" />

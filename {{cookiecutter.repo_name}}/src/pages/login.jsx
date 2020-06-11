@@ -1,21 +1,19 @@
-import { useEffect, useState } from 'react';
 import {
-    Box,
     Button,
     Container,
     FormControlLabel,
     Grid,
     Typography,
 } from '@material-ui/core';
+
 import { makeStyles } from '@material-ui/core/styles';
 
 import { useSnackbar } from 'notistack';
-import { useRouter } from 'next/router';
 
-import theme from 'theme/theme';
 import { Form, Field, Formik } from 'formik';
 import { TextField, Checkbox } from 'formik-material-ui';
 
+import AccountPageHeader from 'components/AccountPageHeader';
 import { LoginSchema, logIn } from 'models/user';
 import { withoutAuth } from 'util/withAuth';
 import Link from 'components/router/Link';
@@ -26,7 +24,7 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'column',
-        paddingTop: theme.spacing(8),
+        paddingTop: theme.spacing(2),
     },
     text: {
         paddingTop: theme.spacing(2),
@@ -37,15 +35,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const LogInPage = () => {
-    const classes = useStyles(theme);
-    const router = useRouter();
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+    const classes = useStyles();
+    const { enqueueSnackbar } = useSnackbar();
 
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
-            <Box width="200px" mb={2}>
+            <AccountPageHeader>
                 <img src="placeholder.png" width="100%" alt="placeholder" />
-            </Box>
+            </AccountPageHeader>
             <Typography component="h1" variant="h5">
                 Log In
             </Typography>
@@ -90,10 +87,15 @@ const LogInPage = () => {
                         name="password"
                         label="Password"
                         autoComplete="current-password"
+                        dataCy="login-password"
                         placeholder="Enter Password"
                         margin="dense"
                     />
-                    <Grid container alignItems="center" className={classes.text}>
+                    <Grid
+                        container
+                        alignItems="center"
+                        className={classes.text}
+                    >
                         <Grid item>
                             <FormControlLabel
                                 label="Remember me"
@@ -107,7 +109,10 @@ const LogInPage = () => {
                             />
                         </Grid>
                         <Grid item xs align="right">
-                            <Link href="/account/reset/password" variant="body2">
+                            <Link
+                                href="/account/reset/password"
+                                variant="body2"
+                            >
                                 Forgot password?
                             </Link>
                         </Grid>

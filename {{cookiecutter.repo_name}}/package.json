@@ -18,15 +18,26 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.5.0",
     "@testing-library/react": "^10.0.3",
+    "babel-eslint": "^10.1.0",
     "babel-jest": "^26.0.1",
     "cypress": "^4.5.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "enzyme-to-json": "^3.4.4",
+    "eslint": "^7.0.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-react": "^7.20.0",
+    "husky": "^4.2.5",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^26.0.1",
     "jest-watch-typeahead": "^0.6.0",
+    "lint-staged": "^10.2.4",
     "miragejs": "^0.1.38",
+    "prettier": "^2.0.5",
     "react-test-renderer": "^16.13.1"
   },
   "dependencies": {
@@ -53,20 +64,25 @@
     "swr": "^0.2.0",
     "yup": "^0.28.3"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "NODE_ENV=production lint-staged"
+    }
+  },
   "lint-staged": {
-    "*.js": [
-      "yarn run lint:js:fix",
-      "prettier --config .prettierrc.json --debug-check {{cookiecutter.repo_name}}/static_source/js/**/*.js",
-      "git add"
+    "*.{js,jsx,ts,tsx,json,md,css,scss}": [
+      "prettier --config .prettierrc.json --write"
     ],
-    "*.{css,scss}": [
-      "yarn run lint:css:fix",
-      "git add"
+    "*.{js,jsx,ts,tsx}": [
+      "eslint src/**/*.js --fix",
+      "eslint src/**/*.jsx --fix"
     ],
     "*.py": [
       "isort {{cookiecutter.repo_name}}/**/*.py",
-      "black --exclude=/migrations/ {{cookiecutter.repo_name}}/",
-      "git add"
+      "black --exclude=/migrations/ {{cookiecutter.repo_name}}/"
     ]
-  }
+  },
+  "eslintIgnore": [
+    "__tests__"
+  ]
 }

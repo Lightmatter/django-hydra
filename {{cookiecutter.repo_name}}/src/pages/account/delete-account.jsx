@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Form, Field, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { useSnackbar } from 'notistack';
@@ -16,6 +17,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
+import AccountPageHeader from 'components/AccountPageHeader';
 import { deleteUser, DeleteUserSchema } from 'models/user';
 import { withAuthRequired } from 'util/withAuth';
 
@@ -37,8 +39,8 @@ const useStyles = makeStyles(theme => ({
 
 const DeleteAccount = () => {
     const classes = useStyles();
-    const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-    const [open, setOpen] = React.useState(false);
+    const { enqueueSnackbar } = useSnackbar();
+    const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -47,14 +49,19 @@ const DeleteAccount = () => {
     const handleClose = () => {
         setOpen(false);
     };
-    const handleDeleteAccount = () => {};
 
     return (
         <Container className={classes.paper} component="main" maxWidth="xs">
-            <Avatar>
-                <LockOutlinedIcon />
-            </Avatar>
-            <Typography variant="h1" variant="h5">
+            <AccountPageHeader>
+                <Avatar>
+                    <LockOutlinedIcon />
+                </Avatar>
+            </AccountPageHeader>
+            <Typography
+                component="h1"
+                variant="h5"
+                className={classes.bottomSpace}
+            >
                 Delete your account?
             </Typography>
             <Dialog
@@ -75,7 +82,7 @@ const DeleteAccount = () => {
                                 setOpen(false);
                                 return response;
                             })
-                            .then(response => {
+                            .then(() => {
                                 enqueueSnackbar('Goodbye!', {
                                     variant: 'info',
                                 });
@@ -94,11 +101,12 @@ const DeleteAccount = () => {
                 >
                     <Form>
                         <DialogTitle id="alert-dialog-title">
-                            {'Really delete your account?'}
+                            Really delete your account?
                         </DialogTitle>
                         <DialogContent>
                             <DialogContentText id="alert-dialog-description">
-                                Are you sure you want to delete your account? We'll miss you!
+                                Are you sure you want to delete your account?
+                                We'll miss you!
                             </DialogContentText>
                         </DialogContent>
                         <Field
@@ -109,7 +117,11 @@ const DeleteAccount = () => {
                             type="password"
                         />
                         <DialogActions>
-                            <Button onClick={handleClose} color="primary" autoFocus>
+                            <Button
+                                onClick={handleClose}
+                                color="primary"
+                                autoFocus
+                            >
                                 No - I want to stay!
                             </Button>
                             <Button type="submit" color="primary">

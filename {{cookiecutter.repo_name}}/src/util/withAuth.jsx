@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
+/* eslint-disable  max-classes-per-file  */
 import { useRouter } from 'next/router';
 
 import { USER_ME, useIsAuthenticated } from 'models/user';
 import isServer from 'util/isServer';
 import axios from 'util/axios';
-//SAMPLE HEADERS coming in
+// SAMPLE HEADERS coming in
 // accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
 // accept-encoding: "gzip, deflate, br"
 // accept-language: "en-US,en;q=0.9,la;q=0.8"
@@ -22,7 +22,7 @@ import axios from 'util/axios';
 // upgrade-insecure-requests: "1"
 // user-agent: <USER AGENT>
 
-//SAMPLE HEADERS COMING OUT
+// SAMPLE HEADERS COMING OUT
 // allow: "GET, PUT, PATCH, DELETE, HEAD, OPTIONS"
 // content-length: "82"
 // content-type: "application/json"
@@ -41,26 +41,26 @@ class WTFError extends Error {}
 
 export function forwardRequestHeaders(ctx) {
     axios.defaults.headers = ctx.req.headers;
-    axios.defaults.headers['accept'] = 'application/json, text/plain, */*';
+    axios.defaults.headers.accept = 'application/json, text/plain, */*';
 
-    //what other headers do we want to forward?? probably x forwarded for
-    //TODO: def need to forward user agent as well
-    //TODO: get request id in this
+    // what other headers do we want to forward?? probably x forwarded for
+    // TODO: def need to forward user agent as well
+    // TODO: get request id in this
 }
 
 export function loginPageUrl(next) {
-    //TODO: next should preserve querystring args
+    // TODO: next should preserve querystring args
     if (next) {
         return `/login?next=${next}`;
     }
-    return `/login`;
+    return '/login';
 }
 
 export function postLoginUrl(router) {
-    //TODO: next should preserve querystring args
-    let { next = '/' } = router.query; //TODO should be setting controlled
+    // TODO: next should preserve querystring args
+    let { next = '/' } = router.query; // TODO should be setting controlled
     if (!next.startsWith('/')) {
-        next = '/' + next;
+        next = `/${next}`;
     }
     return next;
 }
@@ -68,7 +68,6 @@ export function postLoginUrl(router) {
 async function wrapContextUser(ctx) {
     forwardRequestHeaders(ctx);
     let response;
-    const res = ctx.res;
     try {
         response = await axios({
             method: 'get',
@@ -92,13 +91,14 @@ async function wrapContextUser(ctx) {
                 throw new WTFError('I have no idea how this broke');
         }
     }
-    //do we need to forward status code??
+    // do we need to forward status code??
     // should we care about vary??
     return response.data;
 }
 
 const wrappedGetInitialProps = (func, loginRequired) => {
     if (func === undefined) {
+        // eslint-disable-next-line no-param-reassign
         func = async () => {
             return {};
         };
@@ -111,22 +111,27 @@ const wrappedGetInitialProps = (func, loginRequired) => {
             } catch (e) {
                 if (e instanceof NotLoggedInError) {
                     if (loginRequired === true) {
-                        ctx.res.writeHead(302, { Location: loginPageUrl(ctx.req.url) });
+                        ctx.res.writeHead(302, {
+                            Location: loginPageUrl(ctx.req.url),
+                        });
                         ctx.res.end();
                         return {};
                     }
                 }
-                if (e instanceof ServerDownError || e instanceof ServerBrokenError) {
-                    throw e; //TODO: handle this case better
+                if (
+                    e instanceof ServerDownError ||
+                    e instanceof ServerBrokenError
+                ) {
+                    throw e; // TODO: handle this case better
                 }
             }
             return func(ctx).then(pageProps => {
-                pageProps['user'] = user;
-                return pageProps;
+                const newPageProps = { ...pageProps };
+                newPageProps.user = user;
+                return newPageProps;
             });
-        } else {
-            return func(ctx);
         }
+        return func(ctx);
     };
 };
 
@@ -139,7 +144,10 @@ export const withAuthRequired = WrappedComponent => {
         }
         return <WrappedComponent {...props} />;
     };
-    Wrapper.getInitialProps = wrappedGetInitialProps(WrappedComponent.getInitialProps, true);
+    Wrapper.getInitialProps = wrappedGetInitialProps(
+        WrappedComponent.getInitialProps,
+        true
+    );
     return Wrapper;
 };
 
@@ -147,7 +155,10 @@ export const withAuth = WrappedComponent => {
     const Wrapper = props => {
         return <WrappedComponent {...props} />;
     };
-    Wrapper.getInitialProps = wrappedGetInitialProps(WrappedComponent.getInitialProps, false);
+    Wrapper.getInitialProps = wrappedGetInitialProps(
+        WrappedComponent.getInitialProps,
+        false
+    );
     return Wrapper;
 };
 

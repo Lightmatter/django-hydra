@@ -1,0 +1,90 @@
+<!-- NOTE: this is a basic setup with bad looking colors to show the general structure -->
+{% extends "base.jinja" %}
+
+{% block title %}
+Lightmatter Base Install
+{% endblock title %}
+
+{% block extra_head %}
+{% endblock extra_head %}
+
+{% block body_class %}styleguide{% endblock body_class %}
+{% block content %}
+<header>
+  <nav class="header">
+    <ul>
+      <li><a class="home" href="#top" data-no-swup>STYLE GUIDE</a></li>
+      <li><a class="pagelink" href="#logo" data-no-swup>LOGO</a></li>
+      <li><a class="pagelink" href="#swatches" data-no-swup>SWATCHES</a></li>
+      <li><a class="pagelink" href="#typography" data-no-swup>TYPOGRAPHY</a></li>
+      <li><a class="pagelink" href="#buttons" data-no-swup>BUTTONS</a></li>
+      <li><a class="pagelink" href="#forms" data-no-swup>FORMS</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Banner Section -->
+<div class="banner">
+  <h1>Style Guide</h1>
+</div>
+
+<!-- Logo Section -->
+<div id="logo" class="section-content">
+    <h2>Logo</h2>
+    <p>Placeholder text here</p>
+</div>
+
+<!-- Swatches Section -->
+<div id="swatches" class="section-content">
+    <h2>Swatches</h2>
+    <p>Placeholder text here </p>
+    <br>
+    <h3>Primary &amp; Normal State</h3>
+    <div class="swatch primary-navy">#20254d</div>
+    <div class="swatch primary-royalblue">#4a65e0</div>
+    <div class="swatch white">#ffffff</div>
+    <div class="swatch primary-gray">#e6e7e8</div>
+    <div class="swatch primary-aquamarine">#6df2b7</div>
+    <h3>Light &amp; Hover State</h3>
+    <div class="swatch light-navy">#34385d</div>
+    <div class="swatch light-royalblue">#6a81e5</div>
+    <div class="swatch white">#ffffff</div>
+    <div class="swatch primary-gray">#e6e7e8</div>
+    <div class="swatch light-aquamarine">#87F4C4</div>
+    <h3>Dark &amp;  Pressed/Focused State</h3>
+    <div class="swatch dark-navy">#181b38</div>
+    <div class="swatch dark-royalblue">#3d53b8</div>
+    <div class="swatch dark-white">#d1d1d1</div>
+    <div class="swatch dark-gray">#bdbebe</div>
+    <div class="swatch dark-aquamarine">#5AC796</div>
+</div>
+
+<!-- Typography Section -->
+<div id="typography" class="section-content">
+    <h2>Typography</h2>
+    <p>Placeholder text here</p>
+    <h1 class="homepage">h1 Homepage title</h1>
+    <h1>h1 Heading title</h1>
+    <h2>h2 Heading title</h2>
+    <h3>h3 Heading title </h3>
+    <h4>h4 Heading title</h4>
+    <h5>h5 Heading title</h5>
+    <h6>h6 Heading title</h6>
+    <p class="overline">Overline above a header or subhead</p>
+    <p class="lead">Lead paragraph text that is slightly bigger than the paragraph text. Founders are interested in having a <strong>long-term partnership</strong> with us and we seek to deliver a supportive experience.</p>
+    <p>Parapraph text style. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    <p><strong>Strong Parapraph text style. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</strong></p>
+    <p><a href="https://www.google.com/">Hyperlink within a Paragraph.</a></p>
+    <p class="meta-text">Meta / Caption text. <strong>Strong caption text style.</strong></p>
+    <p class="quote">“Ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.”</p>
+    <div>
+      <h3>Social Icons</h3>
+      <i class="fab fa-angellist social"></i>
+      <i class="fab fa-twitter social"></i>
+      <i class="fab fa-linkedin social"></i>
+    </div>
+</div>
+
+
+
+{% endblock content %}

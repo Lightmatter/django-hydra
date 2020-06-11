@@ -1,6 +1,7 @@
+/* eslint-disable  max-classes-per-file */
 import * as Sentry from '@sentry/node';
 import 'util/sentry';
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
@@ -11,11 +12,11 @@ import NProgress from 'nprogress';
 
 import theme from 'theme/theme';
 import { CurrentUserProvider, USER_ME } from 'models/user';
-import { clientBaseURL, axios } from 'util/axios';
+import { clientBaseURL } from 'util/axios';
 import isServer from 'util/isServer';
 
-import Header from 'components/Header.jsx';
-import Footer from 'components/Footer.jsx';
+import Header from 'components/Header';
+import Footer from 'components/Footer';
 
 NProgress.configure({ parent: '#container' });
 
@@ -26,18 +27,23 @@ Router.events.on('routeChangeStart', url => {
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
     Footer: {
         marginTop: 'auto',
     },
+
     Site: {
         'min-height': '100vh',
     },
-}));
+});
 
 const debugForceIP = () => {
-    if (process.env.NEXT_PUBLIC_DEBUG && !isServer() && window.location.hostname == 'localhost') {
-        window.location = 'http://127.0.0.1:3000' + window.location.pathname;
+    if (
+        process.env.NEXT_PUBLIC_DEBUG &&
+        !isServer() &&
+        window.location.hostname === 'localhost'
+    ) {
+        window.location = `http://127.0.0.1:3000${window.location.pathname}`;
     }
 };
 
@@ -45,7 +51,7 @@ const fileLabel = 'pages/_app';
 export default function App(props) {
     debugForceIP();
     const { Component, pageProps } = props;
-    const classes = useStyles(theme);
+    const classes = useStyles();
 
     useEffect(() => {
         // Remove the server-side injected CSS.
@@ -55,7 +61,7 @@ export default function App(props) {
         }
     }, []);
 
-    const user = pageProps.user;
+    const { user } = pageProps;
     Sentry.addBreadcrumb({
         // See https://docs.sentry.io/enriching-error-data/breadcrumbs
         category: fileLabel,
@@ -85,7 +91,11 @@ export default function App(props) {
                 <CssBaseline />
                 <SnackbarProvider>
                     <CurrentUserProvider initialUser={user}>
-                        <Grid container direction="column" className={classes.Site}>
+                        <Grid
+                            container
+                            direction="column"
+                            className={classes.Site}
+                        >
                             <Header />
                             <div id="container">
                                 <Component {...pageProps} />
@@ -157,12 +167,13 @@ if (process.browser && process.env.NEXT_PUBLIC_ENVIRONMENT === 'production') {
     );
     // eslint-disable-next-line no-console
     console.log(
-        `%c Built by Lightmatter. Reach out to us at hello@lightmatter.com`,
+        '%c Built by Lightmatter. Reach out to us at hello@lightmatter.com',
         'color:#E33942;font-family:avenir;font-size:1.27rem'
     );
 }
 
 App.propTypes = {
     Component: PropTypes.elementType.isRequired,
+    // eslint-disable-next-line react/forbid-prop-types
     pageProps: PropTypes.object.isRequired,
 };

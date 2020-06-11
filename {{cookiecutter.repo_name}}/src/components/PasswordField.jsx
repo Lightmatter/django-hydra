@@ -1,17 +1,13 @@
-import {useState} from 'react';
-import {
-    IconButton,
-    InputAdornment,
-} from '@material-ui/core';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
+import { IconButton, InputAdornment } from '@material-ui/core';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
 import { Field } from 'formik';
 import { TextField } from 'formik-material-ui';
 
-import Link from '@material-ui/core/Link';
-
-export default function PasswordField({ ...rest }) {
+const PasswordField = ({ dataCy, ...rest }) => {
     const [showPassword, setShowPassword] = useState(false);
 
     const handleClickShowPassword = () => {
@@ -25,8 +21,8 @@ export default function PasswordField({ ...rest }) {
         <Field
             component={TextField}
             type={showPassword ? 'text' : 'password'}
+            data-cy={dataCy}
             {...rest}
-            data-cy="password"
             {% raw -%}InputProps={{
                 endAdornment: (
                     <InputAdornment position="end">
@@ -42,4 +38,14 @@ export default function PasswordField({ ...rest }) {
             }}{%- endraw %}
         />
     );
-}
+};
+
+PasswordField.propTypes = {
+    dataCy: PropTypes.string,
+};
+
+PasswordField.defaultProps = {
+    dataCy: 'password',
+};
+
+export default PasswordField;
