@@ -32,6 +32,7 @@ services:
       - PORT=4000
     volumes:
       - ".:/app/"
+      - "./image/runit/django:/etc/service/django/run:ro"
     #   - ".:/app/:rw"
     #   - "/app/elevendirect/static_source/bundles/"
     #   - "./elevendirect/bundle_tracker/:/app/elevendirect/bundle_tracker/:rw"
