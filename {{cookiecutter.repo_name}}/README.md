@@ -228,7 +228,4 @@ more high level stuff
 cookie management
 
 Steps to host api and frontend on different domains
-<<<<<<< variant A
 
->>>>>>> variant B
-======= end
