@@ -30,4 +30,3 @@ TEST_OUTPUT_DIR = "./test_reports/django"
 
 
 TEMPLATES[0]["OPTIONS"]["debug"] = True
-TEMPLATES[1]["OPTIONS"]["debug"] = True
