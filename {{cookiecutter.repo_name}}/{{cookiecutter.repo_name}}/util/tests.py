@@ -71,6 +71,7 @@ class NextjsCypressTest(LiveServerTestCase):
     def tearDown(self):
         self.nextjs.terminate()
 
+    @unittest.skip("turn this on if you want it")
     def run_cypress_test(self, spec, silent=True, browser=False):
         browser_flag = ["--browser", "chrome"]
         # browser_flag.append("--no-exit")  # if you need to debug it
