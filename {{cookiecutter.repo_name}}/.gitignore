@@ -226,3 +226,6 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 testapp/
+
+# gunicorn pid file
+gunicorn.pid
