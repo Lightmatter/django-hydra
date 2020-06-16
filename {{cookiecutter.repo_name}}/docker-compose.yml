@@ -30,6 +30,7 @@ services:
       - DJANGO_SETTINGS_MODULE={{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.settings.local
       - API_BASE_URL=""
       - PORT=4000
+      - ENVIRONMENT=local
     volumes:
       - ".:/app/"
       - "./image/runit/django:/etc/service/django/run:ro"
