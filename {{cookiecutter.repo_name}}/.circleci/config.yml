@@ -37,7 +37,7 @@ jobs:
             - run: yarn run build
 
       - run: scripts/validate.sh
-      - run: yarn run test -ci
+      - run: yarn run test -ci --watchAll=false
       - run: coverage run --source='.' manage.py test
       - store_test_results:
           path: test_reports
