@@ -1,73 +1,36 @@
 #!/bin/bash
-ENV_NAME="{{ cookiecutter.repo_name }}"
+PROJECT_NAME="{{ cookiecutter.repo_name }}"
 
+for env in dev staging prod; do
+    APP_NAME="${PROJECT_NAME}-${env}"
 
-unset PYTHONDONTWRITEBYTECODE
-source `which virtualenvwrapper.sh`
+    heroku create $APP_NAME
+    heroku buildpacks:add https://github.com/cyberdelia/heroku-geo-buildpack.git#1.4 -a $APP_NAME
+    heroku buildpacks:add heroku/nodejs -a $APP_NAME
+    heroku buildpacks:add heroku/python -a $APP_NAME
 
+    heroku addons:create sendgrid --app $APP_NAME
+    heroku addons:create sentry --app $APP_NAME
+    heroku addons:create heroku-redis:hobby-dev --app $APP_NAME
+    heroku addons:add heroku-postgresql --app $APP_NAME
 
-workon $ENV_NAME
-heroku create $ENV_NAME-prod
-heroku buildpacks:add https://github.com/cyberdelia/heroku-geo-buildpack.git#1.4 -a $ENV_NAME-prod
-heroku buildpacks:add heroku/nodejs -a $ENV_NAME-prod
-heroku buildpacks:add heroku/python -a $ENV_NAME-prod
+    heroku config:set BUILD_WITH_GEO_LIBRARIES=1 --app $APP_NAME
+    heroku config:set ALLOWED_HOSTS="*" --app $APP_NAME
+    heroku config:set PYTHONHASHSEED=random --app $APP_NAME
+    heroku config:set AWS_SECRET_ACCESS_KEY="" --app $APP_NAME
+    heroku config:set AWS_ACCESS_KEY_ID="" --app $APP_NAME
+    heroku config:set AWS_STORAGE_BUCKET_NAME=$APP_NAME --app $APP_NAME
+    heroku config:set STRIPE_PUBLIC_KEY="" --app $APP_NAME
+    heroku config:set STRIPE_SECRET_KEY="" --app $APP_NAME
+    heroku config:set SENDGRID_API_KEY="" --app $APP_NAME
+    heroku config:set SECRET_KEY=`python -c 'import random; print("".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)]))'` --app $APP_NAME
+    heroku config:set DJANGO_SETTINGS_MODULE=$PROJECT_NAME.$PROJECT_NAME.settings.heroku --app $APP_NAME
+    heroku config:set ENVIRONMENT="$env" --app $APP_NAME
 
-heroku addons:create sendgrid --app $ENV_NAME-prod
-heroku addons:create sentry --app $ENV_NAME-prod
+    git remote add prod git@heroku.com:$APP_NAME.git
+    git push prod master
+    heroku run python manage.py migrate --app $APP_NAME
 
-heroku addons:create heroku-redis:hobby-dev --app $ENV_NAME-prod
-heroku addons:add heroku-postgresql --app $ENV_NAME-prod
-heroku config:set BUILD_WITH_GEO_LIBRARIES=1 --app $ENV_NAME-prod
-heroku config:set ALLOWED_HOSTS="*" --app $ENV_NAME-prod
-heroku config:set PYTHONHASHSEED=random --app $ENV_NAME-prod
-heroku config:set AWS_SECRET_ACCESS_KEY="" --app $ENV_NAME-prod
-heroku config:set AWS_ACCESS_KEY_ID="" --app $ENV_NAME-prod
-heroku config:set AWS_STORAGE_BUCKET_NAME=$ENV_NAME-prod --app $ENV_NAME-prod
-heroku config:set STRIPE_PUBLIC_KEY="" --app $ENV_NAME-prod
-heroku config:set STRIPE_SECRET_KEY="" --app $ENV_NAME-prod
-heroku config:set SENDGRID_API_KEY="" --app $ENV_NAME-prod
-heroku config:set SECRET_KEY=`python -c 'import random; print("".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)]))'` --app $ENV_NAME-prod
-heroku config:set DJANGO_SETTINGS_MODULE=$ENV_NAME.$ENV_NAME.settings.heroku --app $ENV_NAME-prod
-
-git remote add prod git@heroku.com:$ENV_NAME-prod.git
-git push prod master
-heroku run python manage.py migrate --app $ENV_NAME-prod
-
-heroku fork --to $ENV_NAME-staging --from $ENV_NAME-prod
-heroku fork --to $ENV_NAME-dev --from $ENV_NAME-prod
-
-git remote add staging git@heroku.com:$ENV_NAME-staging.git
-git remote add dev git@heroku.com:$ENV_NAME-staging.git
-
-heroku config:set SECRET_KEY=`python -c 'import random; print("".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)]))'` --app $ENV_NAME-dev
-heroku config:set SECRET_KEY=`python -c 'import random; print("".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)]))'` --app $ENV_NAME-staging
-
-heroku config:set PYTHONHASHSEED=random --app $ENV_NAME-dev
-heroku config:set AWS_SECRET_ACCESS_KEY="" --app $ENV_NAME-dev
-heroku config:set AWS_ACCESS_KEY_ID="" --app $ENV_NAME-dev
-heroku config:set AWS_STORAGE_BUCKET_NAME=$ENV_NAME-dev --app $ENV_NAME-dev
-heroku config:set STRIPE_PUBLIC_KEY="" --app $ENV_NAME-dev
-heroku config:set STRIPE_SECRET_KEY="" --app $ENV_NAME-dev
-heroku config:set SENDGRID_API_KEY="" --app $ENV_NAME-dev
-
-heroku config:set PYTHONHASHSEED=random --app $ENV_NAME-staging
-heroku config:set AWS_SECRET_ACCESS_KEY="" --app $ENV_NAME-staging
-heroku config:set AWS_ACCESS_KEY_ID="" --app $ENV_NAME-staging
-heroku config:set AWS_STORAGE_BUCKET_NAME=$ENV_NAME-staging --app $ENV_NAME-staging
-heroku config:set STRIPE_PUBLIC_KEY="" --app $ENV_NAME-staging
-heroku config:set STRIPE_SECRET_KEY="" --app $ENV_NAME-staging
-heroku config:set SENDGRID_API_KEY="" --app $ENV_NAME-staging
-
-heroku config:set DJANGO_SETTINGS_MODULE=$ENV_NAME.$ENV_NAME.settings.heroku --app $ENV_NAME-dev
-heroku config:set DJANGO_SETTINGS_MODULE=$ENV_NAME.$ENV_NAME.settings.heroku --app $ENV_NAME-staging
-
-heroku dyno:type hobby --app $ENV_NAME-prod
-heroku dyno:type hobby --app $ENV_NAME-staging
-heroku dyno:type hobby --app $ENV_NAME-dev
-
-heroku apps:transfer lightmatter --app $ENV_NAME-dev
-heroku apps:transfer lightmatter --app $ENV_NAME-staging
-heroku apps:transfer lightmatter --app $ENV_NAME-prod
-
-heroku git:remote -r dev -a $ENV_NAME-dev
-heroku git:remote -r staging -a $ENV_NAME-staging
+    heroku dyno:type hobby --app $APP_NAME
+    heroku apps:transfer lightmatter --app $APP_NAME
+done
