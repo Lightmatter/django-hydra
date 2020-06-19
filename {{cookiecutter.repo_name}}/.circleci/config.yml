@@ -28,6 +28,7 @@ jobs:
       - run: sudo apt-get update && sudo apt-get install -y gdal-bin python-gdal python3-gdal
       - python/install-deps
       - python/save-cache
+        #TODO: caching the dev requirements requires caching the bins they install as well, figure out how to do that
       - run: pip install --user -r requirements-dev.txt
 
       - node/with-cache:

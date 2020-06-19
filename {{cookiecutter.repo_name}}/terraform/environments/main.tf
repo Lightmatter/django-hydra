@@ -36,7 +36,7 @@ module "dev_heroku" {
   source = "../modules/heroku"
 
   environment = "development"
-  app_name = "lm-{{cookiecutter.repo_name}}"
+  app_name = "{{cookiecutter.repo_name}}"
   aws_storage_bucket_name = module.dev_aws.aws_storage_bucket_name
   iam_access_key = module.dev_aws.iam_access_key
   iam_secret_key = module.dev_aws.iam_secret_key
@@ -52,7 +52,7 @@ module "prod_heroku" {
   source = "../modules/heroku"
 
   environment = "production"
-  app_name = "lm-{{cookiecutter.repo_name}}"
+  app_name = "{{cookiecutter.repo_name}}"
   aws_storage_bucket_name = module.prod_aws.aws_storage_bucket_name
   iam_access_key = module.prod_aws.iam_access_key
   iam_secret_key = module.prod_aws.iam_secret_key
