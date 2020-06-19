@@ -8,7 +8,7 @@ variable "app_name" {
 }
 
 resource "aws_iam_user" "user" {
-  name = var.environment
+  name = "${var.app_name}_${var.environment}"
 }
 
 resource "aws_iam_access_key" "key" {
