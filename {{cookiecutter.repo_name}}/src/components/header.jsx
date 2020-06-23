@@ -1,12 +1,24 @@
-import { usePopupState, bindTrigger, bindMenu } from 'material-ui-popup-state/hooks';
+import {
+    usePopupState,
+    bindTrigger,
+    bindMenu,
+} from 'material-ui-popup-state/hooks';
 
-import { AppBar, Toolbar, Typography, IconButton, Menu, MenuItem, Grid } from '@material-ui/core';
+import {
+    AppBar,
+    Toolbar,
+    Typography,
+    IconButton,
+    Menu,
+    MenuItem,
+    Grid,
+} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
 import Link from 'components/router/Link';
-import { useIsAuthenticated, useCurrentUser, logOut } from 'models/user';
+import { useCurrentUser, logOut } from 'models/user';
 
 const useStyles = makeStyles(theme => ({
     menuButton: {
@@ -19,16 +31,23 @@ const useStyles = makeStyles(theme => ({
 
 export default function MenuAppBar() {
     const classes = useStyles();
-    const navMenuState = usePopupState({ variant: 'popover', popupId: 'navMenu' });
-    const profileMenuState = usePopupState({ variant: 'popover', popupId: 'profileMenu' });
+    const navMenuState = usePopupState({
+        variant: 'popover',
+        popupId: 'navMenu',
+    });
+    const profileMenuState = usePopupState({
+        variant: 'popover',
+        popupId: 'profileMenu',
+    });
     const user = useCurrentUser();
     const logoutButtonClick = () => {
         logOut();
         profileMenuState.close();
     };
     const throwException = () => {
-        throw 'Exception';
+        throw new Error('Exception');
     };
+
     return (
         <AppBar position="static">
             <Toolbar>
@@ -55,19 +74,26 @@ export default function MenuAppBar() {
                                     Sign Up
                                 </Link>
                             </MenuItem>
-                            <MenuItem onClick={throwException}>Throw an error</MenuItem>
+                            <MenuItem onClick={throwException}>
+                                Throw an error
+                            </MenuItem>
                         </Menu>
                         <Link href="/">
-                            <Typography variant="h6" color="textPrimary" className={classes.title}>
+                            <Typography
+                                variant="h6"
+                                color="textPrimary"
+                                className={classes.title}
+                            >
                                 Lightmatter
                             </Typography>
                         </Link>
                     </Grid>
                     <Grid item xs={6} md={9} align="right">
-
                         {user && (
                             <div>
-                                <span data-cy="logged-in-name">Hey {user.first_name}</span>
+                                <span data-cy="logged-in-name">
+                                    Hey {user.first_name}
+                                </span>
                                 <IconButton
                                     aria-label="account of current user"
                                     aria-controls="menu-appbar"
@@ -77,21 +103,32 @@ export default function MenuAppBar() {
                                 >
                                     <AccountCircle />
                                 </IconButton>
-                                <Menu id="menu-appbar" {...bindMenu(profileMenuState)}>
+                                <Menu
+                                    id="menu-appbar"
+                                    {...bindMenu(profileMenuState)}
+                                >
                                     <MenuItem onClick={profileMenuState.close}>
                                         <Link href="/account">Profile</Link>
                                     </MenuItem>
                                     <MenuItem onClick={profileMenuState.close}>
-                                        <Link href="/account/change-password">Change Password</Link>
+                                        <Link href="/account/change-password">
+                                            Change Password
+                                        </Link>
                                     </MenuItem>
                                     <MenuItem onClick={profileMenuState.close}>
-                                        <Link href="/account/change-email">Change Email</Link>
+                                        <Link href="/account/change-email">
+                                            Change Email
+                                        </Link>
                                     </MenuItem>
                                     <MenuItem onClick={profileMenuState.close}>
-                                        <Link href="/account/delete-account">Delete Account</Link>
+                                        <Link href="/account/delete-account">
+                                            Delete Account
+                                        </Link>
                                     </MenuItem>
 
-                                    <MenuItem onClick={logoutButtonClick}>Logout</MenuItem>
+                                    <MenuItem onClick={logoutButtonClick}>
+                                        Logout
+                                    </MenuItem>
                                 </Menu>
                             </div>
                         )}

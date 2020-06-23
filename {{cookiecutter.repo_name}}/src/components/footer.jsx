@@ -1,4 +1,5 @@
 import { Paper, Typography } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 import Link from '@material-ui/core/Link';
 
@@ -16,3 +17,11 @@ export default function Footer({ className }) {
         </Paper>
     );
 }
+
+Footer.propTypes = {
+    className: PropTypes.string,
+};
+
+Footer.defaultProps = {
+    className: '',
+};
