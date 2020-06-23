@@ -26,9 +26,10 @@ for env in dev staging prod; do
     heroku config:set SECRET_KEY=`python -c 'import random; print("".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)") for i in range(50)]))'` --app $APP_NAME
     heroku config:set DJANGO_SETTINGS_MODULE=$PROJECT_NAME.$PROJECT_NAME.settings.heroku --app $APP_NAME
     heroku config:set ENVIRONMENT="$env" --app $APP_NAME
+    heroku stack:set container --app $APP_NAME
 
-    git remote add prod git@heroku.com:$APP_NAME.git
-    git push prod master
+    git remote add $env git@heroku.com:$APP_NAME.git
+    git push $env master
     heroku run python manage.py migrate --app $APP_NAME
 
     heroku dyno:type hobby --app $APP_NAME
