@@ -38,9 +38,14 @@ jobs:
             - run: yarn run build
 
       - run: scripts/validate.sh
-      - run: yarn run test -ci --watchAll=false
-      - run: mkdir test_reports
-      - run: mv coverage test_reports/next
+      - run:
+          name: Install JUnit coverage reporter
+          command: yarn add --dev jest-junit
+      - run:
+          name: Run tests with JUnit as reporter
+          command: npx jest --ci --runInBand --reporters=default --reporters=jest-junit
+          environment:
+            JEST_JUNIT_OUTPUT_DIR: ./test_reports/next/
       - run: coverage run --source='.' manage.py test
       - store_test_results:
           path: test_reports
