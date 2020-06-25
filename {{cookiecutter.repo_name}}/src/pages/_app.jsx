@@ -109,7 +109,7 @@ export default function App(props) {
     );
 }
 
-if (process.browser && process.env.NEXT_PUBLIC_ENVIRONMENT === 'production') {
+if (process.browser && process.env.ENVIRONMENT === 'production') {
     const svg = `<svg width="55px" height="55px" viewBox="-5 0 60 55" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <style type="text/css">
   #lightmatter-logo{

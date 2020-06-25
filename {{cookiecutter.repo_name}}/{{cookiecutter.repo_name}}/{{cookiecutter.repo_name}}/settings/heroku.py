@@ -4,11 +4,10 @@ import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.redis import RedisIntegration
 
-
 from .base import *
 
 SESSION_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False  # let nginx handle
 DATABASES = {}
 DATABASES["default"] = env.db()
 
@@ -16,7 +15,7 @@ DATABASES["default"] = env.db()
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 
-ALLOWED_HOSTS = [u"0.0.0.0"] + env("ALLOWED_HOSTS", default="*").split("|")
+ALLOWED_HOSTS = [u"0.0.0.0", "127.0.0.1"] + env("ALLOWED_HOSTS", default="*").split("|")
 
 STATIC_ROOT = root("static")
 
@@ -83,5 +82,5 @@ sentry_sdk.init(
     # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True,
     environment=env("ENVIRONMENT"),
-    release="my-project-name@2.3.12",
+    release=env("APP_VERSION_RELEASE"),
 )

@@ -51,12 +51,12 @@ resource "heroku_app" "app" {
     DJANGO_SETTINGS_MODULE = "{{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.settings.heroku"
     ALLOWED_HOSTS = "${var.app_name}-${var.environment}.herokuapp.com"
     SENTRY_DSN = var.sentry_dsn
-    NEXT_PUBLIC_SENTRY_DSN = var.sentry_dsn
+    SENTRY_DSN = var.sentry_dsn
     SENTRY_PROJECT = var.sentry_project
     SENTRY_ORG = var.sentry_org
     SENTRY_AUTH_TOKEN = var.sentry_auth_token
     ENVIRONMENT = var.environment
-    NEXT_PUBLIC_ENVIRONMENT = var.environment
+    ENVIRONMENT = var.environment
   }
   sensitive_config_vars = {
     SECRET_KEY = random_string.random.result

@@ -37,7 +37,7 @@ django-storages==1.9.1
 #PROD
 uvicorn==0.11.3
 gunicorn==20.0.4
-sentry-sdk==0.14.3
+sentry-sdk==0.15.1
 gunicorn==20.0.4
 
 #OPTIONAL TOOLS

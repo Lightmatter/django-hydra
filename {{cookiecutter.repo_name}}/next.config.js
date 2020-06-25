@@ -1,27 +1,42 @@
-const path = require('path');
 const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 
 require('dotenv').config();
+
 const {
-  NEXT_PUBLIC_SENTRY_DSN,
+  SENTRY_DSN,
   SENTRY_ORG,
   SENTRY_PROJECT,
   SENTRY_AUTH_TOKEN,
-  NODE_ENV,
+  ENVIRONMENT,
+  APP_VERSION_RELEASE,
+  BUILD_TIME,
+  API_BASE_URL,
+  SERVER_BASE_URL,
 } = process.env;
 
 module.exports = {
+  env: {
+    ENVIRONMENT,
+    SENTRY_DSN,
+    APP_VERSION_RELEASE,
+    BUILD_TIME,
+    API_BASE_URL,
+    SERVER_BASE_URL,
+  },
+
+  // eslint-disable-next-line no-unused-vars
   webpack(config, { isServer, buildId }) {
     if (!isServer) {
+      // eslint-disable-next-line no-param-reassign
       config.resolve.alias['@sentry/node'] = '@sentry/browser';
     }
-    if (NEXT_PUBLIC_SENTRY_DSN && SENTRY_ORG && SENTRY_PROJECT && SENTRY_AUTH_TOKEN) {
+    if (SENTRY_DSN && SENTRY_ORG && SENTRY_PROJECT && SENTRY_AUTH_TOKEN) {
       config.plugins.push(
         new SentryWebpackPlugin({
           include: '.next',
           ignore: ['node_modules'],
           urlPrefix: '~/_next',
-          release: process.env.NEXT_PUBLIC_APP_VERSION_RELEASE,
+          release: APP_VERSION_RELEASE,
         })
       );
     }

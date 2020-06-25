@@ -59,6 +59,21 @@ These commands are embedded in the proc file at the root of the repo - you may a
 ## Environment Variables
 - `.env` This handles the environment variables for Next.js and django. If you want access to an env variable at build time in Next.js it must start with `NEXT_PUBLIC`
 
+## Adding a new envrionment variable to DJANGO
+
+Store all django environment variables inside of heroku
+1. heroku stores secrets, so add variable to heroku through `heroku config:set foo=bar`
+2. instruct django to use the envrionment variable by adding a line to a settings file `foo = env("foo")`
+
+## Adding a new envrionment variable to NEXT
+
+note - next only uses variables provided to it at build. All new variables will require a rebuild of the application.
+
+1. Circle stores build time secrets, so add secret to circle through web ui OR store in herkou and use `heroku config:get VARIABLE`
+2. Make sure secret is passed to docker build process by adding a --build-arg line in circleci/config.yml
+3. make sure docker picks up secret at build time by adding an ARG statement to docker file
+4. Update next.js config file to pick up envrionment variable.
+ 
 
 ### How to debug the node server
 The default honcho command runs `dev` but the package.json contains another command, `debug`. If you run `yarn run debug` or `yarn debug` you will be able to evaluate debugger statements inside of a chrome tab by browsing to `chrome://inspect` and clicking on the entry for the node process.
