@@ -139,7 +139,15 @@ export const withAuthRequired = WrappedComponent => {
     const Wrapper = props => {
         const isAuthenticated = useIsAuthenticated();
         const router = useRouter();
+
         if (!isAuthenticated) {
+            if (isServer()) {
+                return async ctx => {
+                    ctx.res.writeHead(302, {
+                        Location: loginPageUrl(ctx.req.url),
+                    });
+                };
+            }
             router.push(loginPageUrl(router.pathname));
         }
         return <WrappedComponent {...props} />;
