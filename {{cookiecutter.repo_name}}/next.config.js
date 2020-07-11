@@ -1,4 +1,5 @@
 const SentryWebpackPlugin = require('@sentry/webpack-plugin');
+const withSourceMaps = require('@zeit/next-source-maps');
 
 require('dotenv').config();
 
@@ -14,7 +15,7 @@ const {
   SERVER_BASE_URL,
 } = process.env;
 
-module.exports = {
+module.exports = withSourceMaps({
   env: {
     ENVIRONMENT,
     SENTRY_DSN,
@@ -26,6 +27,8 @@ module.exports = {
 
   // eslint-disable-next-line no-unused-vars
   webpack(config, { isServer, buildId }) {
+    // eslint-disable-next-line no-param-reassign
+    config.devtool = 'hidden-source-map';
     if (!isServer) {
       // eslint-disable-next-line no-param-reassign
       config.resolve.alias['@sentry/node'] = '@sentry/browser';
@@ -43,4 +46,4 @@ module.exports = {
     return config;
   },
   poweredByHeader: false,
-};
+});
