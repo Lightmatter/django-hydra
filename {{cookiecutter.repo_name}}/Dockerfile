@@ -32,6 +32,8 @@ ARG API_BASE_URL=""
 ARG SERVER_BASE_URL="http://127.0.0.1:8000"
 
 
+ENV APP_VERSION_RELEASE=$APP_VERSION_RELEASE
+ENV BUILD_TIME=$BUILD_TIME
 ENV DJANGO_SETTINGS_MODULE={{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.settings.heroku
 COPY . /app
 

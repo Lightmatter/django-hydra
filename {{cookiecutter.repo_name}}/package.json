@@ -57,6 +57,7 @@
     "import": "^0.0.6",
     "material-ui-popup-state": "^1.5.4",
     "next": "^9.4.1",
+    "next-build-id": "^3.0.0",
     "notistack": "^0.9.10",
     "nprogress": "^0.2.0",
     "prop-types": "^15.7.2",

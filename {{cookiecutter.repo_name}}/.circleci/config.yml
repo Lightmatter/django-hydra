@@ -118,7 +118,6 @@ jobs:
       - run: docker build --target release --tag registry.heroku.com/<< parameters.app-name >>/release  --build-arg ENVIRONMENT="<< parameters.environment >>" --build-arg APP_VERSION_RELEASE=$CIRCLE_SHA1 --build-arg BUILD_TIME="$(date)" --build-arg SENTRY_DSN .
       - run: docker push registry.heroku.com/<< parameters.app-name >>/web
       - run: docker push registry.heroku.com/<< parameters.app-name >>/release
-      - run: heroku config:set BUILD_TIME="$BUILD_TIME" APP_VERSION_RELEASE="$CIRCLE_SHA1" -a << parameters.app-name >>
       - run: heroku container:release web release -a << parameters.app-name >>
 
       - slack/status:
