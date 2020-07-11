@@ -12,6 +12,6 @@ variable "app_name" {
   description = "base name of the application"
   default = "{{cookiecutter.repo_name}}"
 }
-variable "SENTRY_TOKEN" {
+variable "SENTRY_AUTH_TOKEN" {
   description = "sentry_auth_token"
 }

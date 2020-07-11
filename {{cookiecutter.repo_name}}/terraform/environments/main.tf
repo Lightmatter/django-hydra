@@ -6,7 +6,7 @@ provider "heroku" {
 
 }
 provider "sentry" {
-  token = var.SENTRY_TOKEN
+  token = var.SENTRY_AUTH_TOKEN
 }
 
 data "heroku_team" "team" {
@@ -45,7 +45,7 @@ module "dev_heroku" {
   sentry_dsn = module.sentry.sentry_dsn
   sentry_org = module.sentry.sentry_org
   sentry_project = module.sentry.sentry_project
-  sentry_auth_token = var.SENTRY_TOKEN
+  sentry_auth_token = var.SENTRY_AUTH_TOKEN
 }
 
 module "prod_heroku" {
@@ -61,7 +61,7 @@ module "prod_heroku" {
   sentry_dsn = module.sentry.sentry_dsn
   sentry_org = module.sentry.sentry_org
   sentry_project = module.sentry.sentry_project
-  sentry_auth_token = var.SENTRY_TOKEN
+  sentry_auth_token = var.SENTRY_AUTH_TOKEN
 }
 
 

@@ -1,25 +1,38 @@
 FROM bbeecher/lightmatter-base-image:v0.2 AS os
 
 ADD image/ /app_build/
-
-#add runit conf files for front and back
-RUN mkdir /etc/service/django && \
-    mkdir /etc/service/nextjs && \
-    cp /app_build/runit/django /etc/service/django/run && \
-    cp /app_build/runit/nextjs /etc/service/nextjs/run
-
-#add nginx conf files for front and back
+#add nginx conf files
 RUN cp /app_build/config/webapp.conf /etc/nginx/sites-enabled/webapp.conf
 
 
-from os as web
+
+from os as django
+#add django run files files
+ADD image/ /app_build/
+RUN mkdir /etc/service/django
+RUN cp /app_build/runit/django /etc/service/django/run
+
+
+#install python requirements and static compile
+ENV DJANGO_SETTINGS_MODULE={{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.settings.heroku
 RUN mkdir app
 WORKDIR app
-COPY  requirements.txt /app
+COPY requirements.txt /app
 RUN python3.8 -m pip install -r requirements.txt --no-cache-dir
+COPY . /app
+RUN APP_VERSION_RELEASE="bulid" ENVIRONMENT="build" SENTRY_DSN="" DATABASE_URL="" ALLOWED_HOSTS="*" SECRET_KEY="foobar" python3.8 ./manage.py collectstatic --noinput
+# cmd goes here if you want to run this on it's own
 
+from os as next
+#add nextjs runit files
+ADD image/ /app_build/
+RUN mkdir /etc/service/nextjs && cp /app_build/runit/nextjs /etc/service/nextjs/run
+
+RUN mkdir app
+WORKDIR app
+#install requirements
 COPY package.json  yarn.lock /app/
-RUN yarn install --production && yarn cache clean
+RUN yarn install --production
 
 ARG ENVIRONMENT
 ARG SENTRY_DSN
@@ -32,19 +45,24 @@ ARG API_BASE_URL=""
 ARG SERVER_BASE_URL="http://127.0.0.1:8000"
 
 
+COPY . /app
+RUN yarn run build
+# cmd goes here if you want to run this on it's own
+
+
+from django as app
+ARG BUILD_TIME
+ARG APP_VERSION_RELEASE
 ENV APP_VERSION_RELEASE=$APP_VERSION_RELEASE
 ENV BUILD_TIME=$BUILD_TIME
-ENV DJANGO_SETTINGS_MODULE={{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.settings.heroku
-COPY . /app
-
-RUN APP_VERSION_RELEASE="bulid" ENVIRONMENT="build" SENTRY_DSN="" DATABASE_URL="" ALLOWED_HOSTS="*" SECRET_KEY="foobar" python3.8 ./manage.py collectstatic --noinput
-RUN yarn run build
-
+COPY --from=next /app/node_modules /app/node_modules
+COPY --from=next /app/.next /app/.next
+COPY --from=next /etc/service/nextjs /etc/service/nextjs
 CMD ["/sbin/my_init", "--skip-startup-files"]
 
 
-from web as dev
+from app as dev
 RUN python3.8 -m pip install -r requirements-dev.txt --no-cache-dir
 
-from web as release
+from app as release
 CMD ["/usr/bin/python3.8", "/app/manage.py", "migrate", "--noinput"]

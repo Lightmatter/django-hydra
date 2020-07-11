@@ -108,7 +108,7 @@ jobs:
             echo "export BUILD_TIME=$(date)" >> $BASH_ENV #make sure to use double quotes
             source $BASH_ENV
       - run: >
-            docker build --target web --tag registry.heroku.com/<< parameters.app-name >>/web
+            docker build --target app --tag registry.heroku.com/<< parameters.app-name >>/web
             --build-arg ENVIRONMENT="<< parameters.environment >>"
             --build-arg APP_VERSION_RELEASE=$CIRCLE_SHA1
             --build-arg BUILD_TIME
