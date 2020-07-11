@@ -35,7 +35,6 @@ jobs:
           steps:
             - run: yarn install --frozen-lockfile
             - run: yarn add webpack
-            - run: yarn run build
 
       - run: scripts/validate.sh
       - run:
@@ -49,51 +48,35 @@ jobs:
       - run: coverage run --source='.' manage.py test
       - store_test_results:
           path: test_reports
-      - codecov/upload
+      # - codecov/upload
       - slack/status:
           fail_only: true
           channel: "#{{cookiecutter.repo_name}}-internal"
           only_for_branches: develop,master
-  build:
-    docker:
-      - image: cimg/base:2020.01
+
+
+  deploy:
     parameters:
-      environment:
-        description: environment string
-        type: string
-        default: development
       app-name:
         description: destination app
         type: string
-        default: lm-{{cookiecutter.repo_name}}-development
+        default: {{cookiecutter.repo_name}}-dev
+    docker:
+      - image: cimg/base:2020.01
+    working_directory: /home/circleci/project
     steps:
       - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-          version: 19.03.8
-
-      # could probably put this into the docker image vs installing everytime
       - heroku/install
       - run: curl -sL https://sentry.io/get-cli/ | bash # install sentry cli
-
-      - run: heroku container:login
-      - run:
-          name: Define Environment Variable at Runtime
-          command: |
-            echo "export SENTRY_DSN=$(heroku config:get SENTRY_DSN -a << parameters.app-name >>)" >> $BASH_ENV #make sure to use double quotes
-            source $BASH_ENV
-      - run: docker build --target web --tag registry.heroku.com/<< parameters.app-name >>/web  --build-arg ENVIRONMENT="<< parameters.environment >>" --build-arg APP_VERSION_RELEASE=$CIRCLE_SHA1 --build-arg BUILD_TIME="$(date)" --build-arg SENTRY_DSN .
-      - run: docker build --target release --tag registry.heroku.com/<< parameters.app-name >>/release  --build-arg ENVIRONMENT="<< parameters.environment >>" --build-arg APP_VERSION_RELEASE=$CIRCLE_SHA1 --build-arg BUILD_TIME="$(date)" --build-arg SENTRY_DSN .
-      - run: docker push registry.heroku.com/<< parameters.app-name >>/web
-      - run: docker push registry.heroku.com/<< parameters.app-name >>/release
       - run: sentry-cli releases new -p {{cookiecutter.repo_name}} $CIRCLE_SHA1
       - run: sentry-cli releases set-commits --auto $CIRCLE_SHA1
-      - run: heroku container:release web release -a << parameters.app-name >>
+      - heroku/deploy-via-git:
+          app-name: << parameters.app-name >>
+      - run: heroku config:set BUILD_TIME="$(date)" APP_VERSION_RELEASE="$CIRCLE_SHA1" -a << parameters.app-name >>
       - run: sentry-cli releases finalize $CIRCLE_SHA1
 
       - slack/status:
-          channel: "#{{cookiecutter.repo_name}}-internal"
-
+          channel: "#{{cookiecutter.repo_name}}"
 
 
   # ghostinspector:
@@ -112,10 +95,9 @@ workflows:
       - test:
           context: lightmatter
 
-      - build:
-          name: build-dev
+      - deploy:
+          name: deploy-dev
           context: lightmatter
-          environment: development
           app-name: {{cookiecutter.repo_name}}-development
           requires:
             - test
@@ -124,10 +106,9 @@ workflows:
               only: develop
 
 
-      - build:
-          name: build-prod
+      - deploy:
+          name: deploy-prod
           context: lightmatter
-          environment: production
           app-name: {{cookiecutter.repo_name}}-production
           requires:
             - test

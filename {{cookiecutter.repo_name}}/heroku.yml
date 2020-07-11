@@ -1,13 +1,8 @@
 build:
-  config:
-    DATABASE_URL: ""
-    ALLOWED_HOSTS: "*"
-    ENVIRONMENT: ""
-    SENTRY_DSN: ""
   docker:
     web:
       dockerfile: Dockerfile
-      target: app
+      target: web
 
 release:
   image: web

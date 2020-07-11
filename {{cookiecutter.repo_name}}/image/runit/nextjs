@@ -2,4 +2,5 @@
 set -e
 cd /app/
 export NODE_ENV=$ENVIRONMENT
+yarn run build
 exec yarn run start

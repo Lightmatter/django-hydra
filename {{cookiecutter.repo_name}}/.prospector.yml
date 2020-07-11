@@ -3,9 +3,11 @@ member-warnings: true
 ignore-patterns:
   - (^|/)migrations(/|$)
 pep8:
-  full: true
-  options:
-    max-line-length: 160
+    full: true
+    disable:
+        - E231
+    options:
+        max-line-length: 160
 pylint:
   disable:
       - arguments-differ
@@ -13,7 +15,7 @@ pylint:
       - unused-argument
 mccabe:
   options:
-    max-complexity: 5
+    max-complexity: 9
 uses:
     - django
     - celery

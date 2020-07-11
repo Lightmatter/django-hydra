@@ -10,8 +10,8 @@ from django.utils.deconstruct import deconstructible
 
 
 @deconstructible
-class file_url:
-    path = "uploads/{0}/{1.year:04}/{1.month:02}/{1.day:02}/{2}/{3}"
+class file_url:  # NOQA
+    path = "uploads/{0}/{1.year:04}/{1.month:02}/{1.day:02}/{2}/{3}"  # NOQA
 
     def __init__(self, category):
         self.category = category
