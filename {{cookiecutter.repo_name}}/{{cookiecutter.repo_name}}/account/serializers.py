@@ -2,7 +2,7 @@ from rest_framework import serializers
 
 from djoser.serializers import TokenCreateSerializer as DjoserTokenCreateSerializer
 from djoser.serializers import (
-    UserCreatePasswordRetypeSerializer as DjoserUserCreateSeralizer,
+    UserCreatePasswordRetypeSerializer as DjoserUserCreateSerializer,
 )
 
 from .models import User
@@ -12,7 +12,7 @@ class TokenCreateSerializer(DjoserTokenCreateSerializer):
     remember_me = serializers.BooleanField(default=False)
 
 
-class UserCreateSerializer(DjoserUserCreateSeralizer):
+class UserCreateSerializer(DjoserUserCreateSerializer):
     def validate_email(self, email):
         if User.objects.filter(email__iexact=email).exists():
             raise serializers.ValidationError(
