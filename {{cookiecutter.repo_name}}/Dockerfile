@@ -60,9 +60,10 @@ COPY --from=next /app/.next /app/.next
 COPY --from=next /etc/service/nextjs /etc/service/nextjs
 CMD ["/sbin/my_init", "--skip-startup-files"]
 
+from django as release
+env APP_VERSION_RELEASE="migrate" ENVIRONMENT="migrate" SENTRY_DSN="" DATABASE_URL="" ALLOWED_HOSTS="*" SECRET_KEY="foobar"
+CMD ["/usr/bin/python3.8", "/app/manage.py", "migrate", "--noinput"]
+
 
 from app as dev
 RUN python3.8 -m pip install -r requirements-dev.txt --no-cache-dir
-
-from app as release
-CMD ["/usr/bin/python3.8", "/app/manage.py", "migrate", "--noinput"]
