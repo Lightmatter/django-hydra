@@ -279,6 +279,6 @@ export const [
   value => value.user,
   value => value.isAuthenticated,
   value => value.error,
-  value => value.useCurrentUserIsValidating,
+  value => value.isValidating,
   value => value.mutate
 );

@@ -188,7 +188,6 @@ export default function MenuAppBar() {
                                         onClick={event =>
                                             handleMenuCloseWithLink({
                                                 event,
-                                                link: '/account/delete-account',
                                                 callback: logoutButtonClick,
                                             })
                                         }

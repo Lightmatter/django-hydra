@@ -1,5 +1,8 @@
 #!/bin/bash
 set -e
 cd /app/
-export NODE_ENV=$ENVIRONMENT
-exec yarn run start
+if [[ "$ENVIRONMENT" -eq "local" ]]; then
+    exec yarn run debug
+else
+    exec yarn run start
+fi
