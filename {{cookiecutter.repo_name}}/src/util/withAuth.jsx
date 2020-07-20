@@ -1,7 +1,12 @@
 /* eslint-disable  max-classes-per-file  */
 import { useRouter } from 'next/router';
 
-import { USER_ME, useIsAuthenticated } from 'models/user';
+import { CircularProgress } from '@material-ui/core';
+import {
+    USER_ME,
+    useIsAuthenticated,
+    useCurrentUserIsValidating,
+} from 'models/user';
 import isServer from 'util/isServer';
 import axios from 'util/axios';
 // SAMPLE HEADERS coming in
@@ -138,6 +143,7 @@ const wrappedGetInitialProps = (func, loginRequired) => {
 export const withAuthRequired = WrappedComponent => {
     const Wrapper = props => {
         const isAuthenticated = useIsAuthenticated();
+        const isValidating = useCurrentUserIsValidating();
         const router = useRouter();
 
         if (!isAuthenticated) {
@@ -149,7 +155,11 @@ export const withAuthRequired = WrappedComponent => {
                 };
             }
             router.push(loginPageUrl(router.pathname));
+            return <CircularProgress />;
         }
+
+        if (isValidating) return <CircularProgress />;
+
         return <WrappedComponent {...props} />;
     };
     Wrapper.getInitialProps = wrappedGetInitialProps(
