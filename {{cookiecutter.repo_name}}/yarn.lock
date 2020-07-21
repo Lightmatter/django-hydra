@@ -2203,6 +2203,15 @@ aws4@^1.8.0:
   resolved "https://registry.yarnpkg.com/aws4/-/aws4-1.9.1.tgz#7e33d8f7d449b3f673cd72deb9abdc552dbe528e"
   integrity sha512-wMHVg2EOHaMRxbzgFJ9gtjOOCrI80OHLG14rxi28XwOW8ux6IiEbRCGGGqCtdAIg4FQCbW20k9RsT4y3gJlFug==
 
+axios-case-converter@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/axios-case-converter/-/axios-case-converter-0.6.0.tgz#7a99120138046ad6faaf1fc2b638fea0fe63f26f"
+  integrity sha512-mlpaFFTBlv+o+NL2YPSWfC8BQv3qUesxTYD0N11/8dgrg0aDbxUaAglromCBI+0NUcfenM42xMGEUhzTtWZqKg==
+  dependencies:
+    camel-case "^4.1.1"
+    header-case "^2.0.3"
+    snake-case "^3.0.3"
+
 axios@^0.19.2:
   version "0.19.2"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"
@@ -2628,6 +2637,14 @@ callsites@^3.0.0:
   resolved "https://registry.yarnpkg.com/callsites/-/callsites-3.1.0.tgz#b3630abd8943432f54b3f0519238e33cd7df2f73"
   integrity sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==
 
+camel-case@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/camel-case/-/camel-case-4.1.1.tgz#1fc41c854f00e2f7d0139dfeba1542d6896fe547"
+  integrity sha512-7fa2WcG4fYFkclIvEmxBbTvmibwF2/agfEBc6q3lOpVu0A13ltLsA+Hr/8Hp6kp5f+G7hKi6t8lys6XxP+1K6Q==
+  dependencies:
+    pascal-case "^3.1.1"
+    tslib "^1.10.0"
+
 camelcase@5.0.0:
   version "5.0.0"
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-5.0.0.tgz#03295527d58bd3cd4aa75363f35b2e8d97be2f42"
@@ -2657,6 +2674,15 @@ caniuse-lite@^1.0.0, caniuse-lite@^1.0.30001043:
   version "1.0.30001062"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001062.tgz#d814b648338504b315222ace6f1a533d9a55e390"
   integrity sha512-ei9ZqeOnN7edDrb24QfJ0OZicpEbsWxv7WusOiQGz/f2SfvBgHHbOEwBJ8HKGVSyx8Z6ndPjxzR6m0NQq+0bfw==
+
+capital-case@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/capital-case/-/capital-case-1.0.3.tgz#339bd77e8fab6cf75111d4fca509b3edf7c117c8"
+  integrity sha512-OlUSJpUr7SY0uZFOxcwnDOU7/MpHlKTZx2mqnDYQFrDudXLFm0JJ9wr/l4csB+rh2Ug0OPuoSO53PqiZBqno9A==
+  dependencies:
+    no-case "^3.0.3"
+    tslib "^1.10.0"
+    upper-case-first "^2.0.1"
 
 capture-exit@^2.0.0:
   version "2.0.0"
@@ -3765,6 +3791,14 @@ domutils@^2.0.0:
     dom-serializer "^0.2.1"
     domelementtype "^2.0.1"
     domhandler "^3.0.0"
+
+dot-case@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/dot-case/-/dot-case-3.0.3.tgz#21d3b52efaaba2ea5fda875bb1aa8124521cf4aa"
+  integrity sha512-7hwEmg6RiSQfm/GwPL4AAWXKy3YNNZA3oFv2Pdiey0mwkRCPZ9x6SZbkLcn8Ma5PYeVokzoD4Twv2n7LKp5WeA==
+  dependencies:
+    no-case "^3.0.3"
+    tslib "^1.10.0"
 
 dot-prop@^5.2.0:
   version "5.2.0"
@@ -4939,6 +4973,14 @@ hash.js@^1.0.0, hash.js@^1.0.3:
   dependencies:
     inherits "^2.0.3"
     minimalistic-assert "^1.0.1"
+
+header-case@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/header-case/-/header-case-2.0.3.tgz#8a7407d16edfd5c970f8ebb116e6383f855b5a72"
+  integrity sha512-LChe/V32mnUQnTwTxd3aAlNMk8ia9tjCDb/LjYtoMrdAPApxLB+azejUk5ERZIZdIqvinwv6BAUuFXH/tQPdZA==
+  dependencies:
+    capital-case "^1.0.3"
+    tslib "^1.10.0"
 
 hex-color-regex@^1.1.0:
   version "1.1.0"
@@ -6661,6 +6703,13 @@ loose-envify@^1.0.0, loose-envify@^1.1.0, loose-envify@^1.4.0:
   dependencies:
     js-tokens "^3.0.0 || ^4.0.0"
 
+lower-case@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/lower-case/-/lower-case-2.0.1.tgz#39eeb36e396115cc05e29422eaea9e692c9408c7"
+  integrity sha512-LiWgfDLLb1dwbFQZsSglpRj+1ctGnayXz3Uv0/WO8n558JycT5fg6zkNcnW0G68Nn0aEldTFeEfmjCfmqry/rQ==
+  dependencies:
+    tslib "^1.10.0"
+
 lru-cache@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/lru-cache/-/lru-cache-5.1.1.tgz#1da27e6710271947695daf6848e847f01d84b920"
@@ -7117,6 +7166,14 @@ nice-try@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/nice-try/-/nice-try-1.0.5.tgz#a3378a7696ce7d223e88fc9b764bd7ef1089e366"
   integrity sha512-1nh45deeb5olNY7eX82BkPO7SSxR5SSYJiPTrTdFUVYwAl8CKMA5N9PjTYkHiRjisVcxcQ1HXdLhx2qxxJzLNQ==
+
+no-case@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/no-case/-/no-case-3.0.3.tgz#c21b434c1ffe48b39087e86cfb4d2582e9df18f8"
+  integrity sha512-ehY/mVQCf9BL0gKfsJBvFJen+1V//U+0HQMPrWct40ixE4jnv0bfvxDbWtAHL9EcaPEOJHVVYKoQn1TlZUB8Tw==
+  dependencies:
+    lower-case "^2.0.1"
+    tslib "^1.10.0"
 
 node-fetch@2.6.0, node-fetch@^2.6.0:
   version "2.6.0"
@@ -7595,6 +7652,14 @@ parse5@^3.0.1:
   integrity sha512-rgO9Zg5LLLkfJF9E6CCmXlSE4UVceloys8JrFqCcHloC3usd/kJCyPDwH2SOlzix2j3xaP9sUX3e8+kvkuleAA==
   dependencies:
     "@types/node" "*"
+
+pascal-case@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/pascal-case/-/pascal-case-3.1.1.tgz#5ac1975133ed619281e88920973d2cd1f279de5f"
+  integrity sha512-XIeHKqIrsquVTQL2crjq3NfJUxmdLasn3TYOU0VBM+UX2a6ztAWBlJQBePLGY7VHW8+2dRadeIPK5+KImwTxQA==
+  dependencies:
+    no-case "^3.0.3"
+    tslib "^1.10.0"
 
 pascalcase@^0.1.1:
   version "0.1.1"
@@ -9063,6 +9128,14 @@ slice-ansi@^4.0.0:
     astral-regex "^2.0.0"
     is-fullwidth-code-point "^3.0.0"
 
+snake-case@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/snake-case/-/snake-case-3.0.3.tgz#c598b822ab443fcbb145ae8a82c5e43526d5bbee"
+  integrity sha512-WM1sIXEO+rsAHBKjGf/6R1HBBcgbncKS08d2Aqec/mrDSpU80SiOU41hO7ny6DToHSyrlwTYzQBIK1FPSx4Y3Q==
+  dependencies:
+    dot-case "^3.0.3"
+    tslib "^1.10.0"
+
 snapdragon-node@^2.0.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/snapdragon-node/-/snapdragon-node-2.1.1.tgz#6c175f86ff14bdb0724563e8f3c1b021a286853b"
@@ -9979,6 +10052,13 @@ upath@^1.1.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/upath/-/upath-1.2.0.tgz#8f66dbcd55a883acdae4408af8b035a5044c1894"
   integrity sha512-aZwGpamFO61g3OlfT7OQCHqhGnW43ieH9WZeP7QxN/G/jS4jfqUkZxoryvJgVPEcrl5NL/ggHsSmLMHuH64Lhg==
+
+upper-case-first@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/upper-case-first/-/upper-case-first-2.0.1.tgz#32ab436747d891cc20ab1e43d601cb4d0a7fbf4a"
+  integrity sha512-105J8XqQ+9RxW3l9gHZtgve5oaiR9TIwvmZAMAIZWRHe00T21cdvewKORTlOJf/zXW6VukuTshM+HXZNWz7N5w==
+  dependencies:
+    tslib "^1.10.0"
 
 uri-js@^4.2.2:
   version "4.2.2"

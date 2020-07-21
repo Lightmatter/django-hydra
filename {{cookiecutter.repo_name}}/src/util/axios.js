@@ -1,14 +1,18 @@
 import axios from 'axios';
+import applyCaseMiddleware from 'axios-case-converter';
+
 import isServer from 'util/isServer';
 
 const serverBaseURL = process.env.SERVER_BASE_URL || 'http://127.0.0.1:8000';
 export const clientBaseURL = process.env.API_BASE_URL || '';
 
-const http = axios.create({
-  xsrfCookieName: '{{cookiecutter.repo_name}}_csrftoken',
-  xsrfHeaderName: 'X-CSRFTOKEN',
-  withCredentials: true,
-});
+const http = applyCaseMiddleware(
+  axios.create({
+    xsrfCookieName: '{{cookiecutter.repo_name}}_csrftoken',
+    xsrfHeaderName: 'X-CSRFTOKEN',
+    withCredentials: true,
+  })
+);
 
 function handleApiErrors(error) {
   let err;
@@ -25,6 +29,7 @@ function handleApiErrors(error) {
      * is an instance of XMLHttpRequest in the browser and an instance
      * of http.ClientRequest in Node.js
      */
+    console.log(error);
     err = {
       non_field_errors: 'There was a problem processing your request.',
     };
