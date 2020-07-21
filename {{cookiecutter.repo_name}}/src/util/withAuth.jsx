@@ -1,7 +1,7 @@
 /* eslint-disable  max-classes-per-file  */
 import { useRouter } from 'next/router';
 
-import { CircularProgress } from '@material-ui/core';
+import Loading from 'components/Loading';
 import {
     USER_ME,
     useIsAuthenticated,
@@ -155,11 +155,10 @@ export const withAuthRequired = WrappedComponent => {
                 };
             }
             router.push(loginPageUrl(router.pathname));
-            return <CircularProgress />;
+            return <Loading />;
         }
 
-        if (isValidating) return <CircularProgress />;
-
+        if (isValidating) return <Loading />;
         return <WrappedComponent {...props} />;
     };
     Wrapper.getInitialProps = wrappedGetInitialProps(
