@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
 import dynamic from 'next/dynamic';
 
+import streamProp from 'components/streamfield/props';
 import Default from 'components/streamfield/Default';
 
 const StreamField = ({ stream }) => {
@@ -20,18 +20,7 @@ const StreamField = ({ stream }) => {
 };
 
 StreamField.propTypes = {
-    stream: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            value: PropTypes.oneOfType([
-                PropTypes.array,
-                PropTypes.object,
-                PropTypes.string,
-            ]).isRequired,
-            type: PropTypes.string.isRequired,
-            component: PropTypes.string.isRequired,
-        }).isRequired
-    ).isRequired,
+    stream: streamProp.isRequired,
 };
 
 export default StreamField;

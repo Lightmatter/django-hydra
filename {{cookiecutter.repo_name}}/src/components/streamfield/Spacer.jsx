@@ -2,8 +2,9 @@ import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
 
 // TODO could be cleaner than rendering 2 boxes with css and do a screen size thing in react maybe? but I wonder how that would behave if you had 30 spacers on a page having a hook run in each one?
-const Spacer = ({ data }) => {
-    const { height, mobileHeight } = data;
+const Spacer = ({ stream }) => {
+    console.log(stream);
+    const { height, mobileHeight } = stream;
     return (
         <>
             {height > 0 && (
@@ -19,7 +20,7 @@ const Spacer = ({ data }) => {
     );
 };
 Spacer.propTypes = {
-    data: PropTypes.shape({
+    stream: PropTypes.shape({
         height: PropTypes.number.isRequired,
         mobileHeight: PropTypes.number,
     }).isRequired,

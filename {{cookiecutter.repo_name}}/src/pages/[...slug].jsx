@@ -3,17 +3,15 @@ import { getPageBySlug } from 'util/api';
 import StreamField from 'components/streamfield/StreamField';
 
 const ContentPage = ({ data }) => {
-    // const router = useRouter();
-    // const morePosts = posts?.edges;
-
-    // if (!router.isFallback && !post?.slug) {
-    //     return <ErrorPage statusCode={404} />;
-    // }
     return <>{data && <StreamField stream={data?.body} />}</>;
 };
 
 ContentPage.propTypes = {
-    data: PropTypes.object.isRequired,
+    data: PropTypes.object,
+};
+
+ContentPage.defaultProps = {
+    data: {},
 };
 
 export async function getStaticProps({ params }) {

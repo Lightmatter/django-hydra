@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types';
+
+import streamProp from 'components/streamfield/props';
 import StreamField from 'components/streamfield/StreamField';
 
 const Section = ({ stream }) => {
@@ -12,18 +14,7 @@ const Section = ({ stream }) => {
 Section.propTypes = {
     stream: PropTypes.shape({
         specialClass: PropTypes.string,
-        rows: PropTypes.arrayOf(
-            PropTypes.shape({
-                id: PropTypes.string.isRequired,
-                value: PropTypes.oneOfType([
-                    PropTypes.array,
-                    PropTypes.object,
-                    PropTypes.string,
-                ]),
-                type: PropTypes.string.isRequired,
-                component: PropTypes.string.isRequired,
-            })
-        ),
+        rows: streamProp,
     }).isRequired,
 };
 
