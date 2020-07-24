@@ -227,18 +227,18 @@ workflows:
             - build-dev
             - test-django
             - test-nextjs
-          # filters:
-          #   branches:
-          #     only: develop
+          filters:
+            branches:
+              only: develop
 
       - sentry:
           name: sentry-dev
           context: lightmatter
           requires:
             - deploy-dev
-          # filters:
-          #   branches:
-          #     only: develop
+          filters:
+            branches:
+              only: develop
 
 
 
