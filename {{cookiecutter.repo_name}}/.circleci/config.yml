@@ -215,9 +215,9 @@ workflows:
           name: build-dev
           context: lightmatter
           app-name: {{cookiecutter.repo_name}}-development
-          # filters:
-          #   branches:
-          #     only: develop
+          filters:
+            branches:
+              only: develop
 
       - deploy:
           name: deploy-dev
