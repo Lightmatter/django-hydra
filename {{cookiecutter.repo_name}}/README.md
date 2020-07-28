@@ -39,6 +39,8 @@ These instructions will get you a copy of the project up and running on your loc
 ## Local Development Initial Setup
 - Run the start script: `./scripts/start.sh` from the project root
     - This will install the pip and yarn packages and set up the local database for the project
+- Refer to remote server setup instructions if setting up heroku
+    - NOTE: we no longer recommend using ./scripts/setup_heroku.sh
 
 #### Quick start
 
