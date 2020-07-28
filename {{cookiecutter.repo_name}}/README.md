@@ -113,6 +113,7 @@ Setup for the remote environment is handled through terraform.
   a) To get the auth token, in the sentry webapp dashboard, go to User Menu > API Keys
 3) Ensure you're logged in to Heroku through the Heroku cli
 4) Finally Remote Heroku servers and AWS infrastructure can be created by going to the terraform/environments folder and running `terraform init` followed by `terraform apply`
+5) Go to the heroku dashboard and connect the new app to github under the Pipeline > Settings
 
 
 ## Differences between Local and Remote
