@@ -29,7 +29,6 @@ function handleApiErrors(error) {
      * is an instance of XMLHttpRequest in the browser and an instance
      * of http.ClientRequest in Node.js
      */
-    console.log(error);
     err = {
       non_field_errors: 'There was a problem processing your request.',
     };
