@@ -57,6 +57,7 @@
     "formik": "^2.1.4",
     "formik-material-ui": "^2.0.0-beta.1",
     "import": "^0.0.6",
+    "interweave": "^12.5.0",
     "material-ui-popup-state": "^1.5.4",
     "next": "^9.4.1",
     "next-build-id": "^3.0.0",
