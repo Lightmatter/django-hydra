@@ -73,7 +73,7 @@ note - next only uses variables provided to it at build. All new variables will 
 2. Make sure secret is passed to docker build process by adding a --build-arg line in circleci/config.yml
 3. make sure docker picks up secret at build time by adding an ARG statement to docker file
 4. Update next.js config file to pick up envrionment variable.
- 
+
 
 ### How to debug the node server
 The default honcho command runs `dev` but the package.json contains another command, `debug`. If you run `yarn run debug` or `yarn debug` you will be able to evaluate debugger statements inside of a chrome tab by browsing to `chrome://inspect` and clicking on the entry for the node process.
@@ -93,6 +93,7 @@ NOTE: you must be at the project root to run these commands
 
 #### NEXT.JS
 - at the root of the folder run `yarn run test` or `yarn test` to run the jest tests
+- debug next tests with `yarn test:debug` and include a `debugger` in a test or code related to a test
 - or run `yarn run cypress run` or `yarn cypress run` to run the cypress integration tests - this requires the next dev server to be running in another tab
 
 ## Why use two processes as the same application
@@ -243,4 +244,3 @@ more high level stuff
 cookie management
 
 Steps to host api and frontend on different domains
-
