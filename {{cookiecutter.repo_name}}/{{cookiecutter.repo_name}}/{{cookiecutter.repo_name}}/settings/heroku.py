@@ -15,9 +15,9 @@ DATABASES["default"] = env.db()
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 
-ALLOWED_HOSTS = [u"0.0.0.0", "127.0.0.1"] + env("ALLOWED_HOSTS", default="*").split(
-    "|"
-)  # nosec
+ALLOWED_HOSTS = [u"0.0.0.0", "127.0.0.1"] + env(  # nosec
+    "ALLOWED_HOSTS", default="*"
+).split("|")
 
 STATIC_ROOT = root("static")
 
