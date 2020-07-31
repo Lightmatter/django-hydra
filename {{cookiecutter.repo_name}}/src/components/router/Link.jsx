@@ -99,7 +99,7 @@ Link.propTypes = {
     onClick: PropTypes.func,
     prefetch: PropTypes.bool,
     variant: PropTypes.string,
-    componentType: PropTypes.oneOf(['buttonf', 'link']),
+    componentType: PropTypes.oneOf(['button', 'link']),
 };
 
 export default React.forwardRef((props, ref) => (
