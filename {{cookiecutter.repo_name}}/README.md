@@ -114,6 +114,7 @@ Setup for the remote environment is handled through terraform.
 2) Manually install the terraform sentry plugin (https://www.terraform.io/docs/plugins/basics.html#installing-plugins) (https://github.com/jianyuan/terraform-provider-sentry) 
 2) set an environment variable for SENTRY_AUTH_TOKEN and TF_VAR_SENTRY_AUTH_TOKEN after getting the token through the sentry web UI
   a) To get the auth token, in the sentry webapp dashboard, go to User Menu > API Keys
+  b) Note that the .env file isn't read by terraform - so set this variable in your .bashrc or through export
 3) Ensure you're logged in to Heroku through the Heroku cli
 4) Finally Remote Heroku servers and AWS infrastructure can be created by going to the terraform/environments folder and running `terraform init` followed by `terraform apply`
 
