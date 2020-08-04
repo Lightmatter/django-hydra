@@ -39,6 +39,8 @@ These instructions will get you a copy of the project up and running on your loc
 ## Local Development Initial Setup
 - Run the start script: `./scripts/start.sh` from the project root
     - This will install the pip and yarn packages and set up the local database for the project
+- Refer to remote server setup instructions if setting up heroku
+    - NOTE: we no longer recommend using ./scripts/setup_heroku.sh
 
 #### Quick start
 
@@ -73,7 +75,7 @@ note - next only uses variables provided to it at build. All new variables will 
 2. Make sure secret is passed to docker build process by adding a --build-arg line in circleci/config.yml
 3. make sure docker picks up secret at build time by adding an ARG statement to docker file
 4. Update next.js config file to pick up envrionment variable.
- 
+
 
 ### How to debug the node server
 The default honcho command runs `dev` but the package.json contains another command, `debug`. If you run `yarn run debug` or `yarn debug` you will be able to evaluate debugger statements inside of a chrome tab by browsing to `chrome://inspect` and clicking on the entry for the node process.
@@ -109,10 +111,12 @@ This is done so that communication between the yarn process and the Django proce
 
 Setup for the remote environment is handled through terraform.
 1) create an AWSCLI profile with an access key and secret for the account you want to use to host media. This should either be your default profile, or you can pass the profile as a var to terraform
-2) manually install the terraform sentry plugin to configure sentry reporting
-3) set an environment variable for SENTRY_TOKEN and TF_VAR_SENTRY_TOKEN after getting the token through the sentry web UI
-4) Ensure you're logged in to Heroku through the Heroku cli
-5) Finally Remote Heroku servers and AWS infrastructure can be created by going to the terraform/environments folder and running `terraform init` followed by `terraform apply`
+2) Manually install the terraform sentry plugin (https://www.terraform.io/docs/plugins/basics.html#installing-plugins) (https://github.com/jianyuan/terraform-provider-sentry) 
+2) set an environment variable for SENTRY_AUTH_TOKEN and TF_VAR_SENTRY_AUTH_TOKEN after getting the token through the sentry web UI
+  a) To get the auth token, in the sentry webapp dashboard, go to User Menu > API Keys
+  b) Note that the .env file isn't read by terraform - so set this variable in your .bashrc or through export
+3) Ensure you're logged in to Heroku through the Heroku cli
+4) Finally Remote Heroku servers and AWS infrastructure can be created by going to the terraform/environments folder and running `terraform init` followed by `terraform apply`
 
 
 ## Differences between Local and Remote
@@ -243,4 +247,3 @@ more high level stuff
 cookie management
 
 Steps to host api and frontend on different domains
-
