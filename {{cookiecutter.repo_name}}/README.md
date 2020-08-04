@@ -111,6 +111,7 @@ This is done so that communication between the yarn process and the Django proce
 
 Setup for the remote environment is handled through terraform.
 1) create an AWSCLI profile with an access key and secret for the account you want to use to host media. This should either be your default profile, or you can pass the profile as a var to terraform
+2) Manually install the terraform sentry plugin (https://www.terraform.io/docs/plugins/basics.html#installing-plugins) (https://github.com/jianyuan/terraform-provider-sentry) 
 2) set an environment variable for SENTRY_AUTH_TOKEN and TF_VAR_SENTRY_AUTH_TOKEN after getting the token through the sentry web UI
   a) To get the auth token, in the sentry webapp dashboard, go to User Menu > API Keys
 3) Ensure you're logged in to Heroku through the Heroku cli
