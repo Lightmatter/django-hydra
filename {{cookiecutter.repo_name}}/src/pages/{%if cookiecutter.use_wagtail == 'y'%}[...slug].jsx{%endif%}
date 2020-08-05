@@ -11,7 +11,7 @@ ContentPage.propTypes = {
 };
 
 ContentPage.defaultProps = {
-    data: {},
+    data: null,
 };
 
 export async function getStaticProps({ params }) {
