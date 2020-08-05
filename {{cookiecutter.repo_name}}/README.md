@@ -232,7 +232,7 @@ New react libraries
     Testing + Debugging
 -   debug watcher
 -   browser based debugging for node
--   seperate therads when in debugging
+-   seperate threads when in debugging
 -   cypress
 -   jest
 -   cypress + django

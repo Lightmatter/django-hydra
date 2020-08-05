@@ -158,24 +158,14 @@ Things we still want to do
   404/403 ect
   500 page
   user useradmin
-  click jacking
   django-secure
-  django-htmlmin
   django robots
-  update all packages
-  add in sentry features to template
-  put sentry into template
   user feedback
-  Auto generate sentry project via api end point
-  create precommit hook for prospector and isort
-  auto generate precommit hook
   add django password validators
-  add documenation for nunjucks integration
   Front end updates
     * social media headers
     * SEO compitbility scrub
     * Accessibility compatibility scrub
-    * add css grid alternatives that can be turned on or off on a per project basis
 ```
 
 
