@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import MuiLink from '@material-ui/core/Link';
 import isServer from 'util/isServer';
+import { Button } from '@material-ui/core';
 
 const NextComposed = React.forwardRef(function NextComposed(
     { as, href, ...other },
@@ -33,6 +34,7 @@ function Link({
     innerRef,
     variant,
     naked,
+    componentType = 'link',
     ...other
 }) {
     const router = useRouter();
@@ -70,8 +72,12 @@ function Link({
     if (!isServer()) {
         target = isExternalLink(href) ? '_blank' : undefined;
     }
+    let LinkComponent = MuiLink;
+    if (componentType === 'button') {
+        LinkComponent = Button;
+    }
     return (
-        <MuiLink
+        <LinkComponent
             target={target}
             component={NextComposed}
             className={className}
@@ -93,6 +99,7 @@ Link.propTypes = {
     onClick: PropTypes.func,
     prefetch: PropTypes.bool,
     variant: PropTypes.string,
+    componentType: PropTypes.oneOf(['button', 'link']),
 };
 
 export default React.forwardRef((props, ref) => (
