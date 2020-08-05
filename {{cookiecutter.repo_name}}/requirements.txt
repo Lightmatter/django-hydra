@@ -1,5 +1,9 @@
 Django>=3,<3.1
 django-environ==0.4.5
+djangorestframework==3.11.0
+django-filter==2.2.0
+django-cors-headers==3.2.1
+djangorestframework-jsonapi==3.1.0
 
 
 #Admin
@@ -8,23 +12,16 @@ django-localflavor==3.0.1
 django-import-export==2.0.2
 
 #DB
-psycopg2-binary==2.8.4
+psycopg2-binary==2.8.5
 
 #User Accounts
-django-registration-redux==2.7
+djoser==2.0.3
 social-auth-app-django==3.1.0
-
-{% if cookiecutter.use_djoser == 'y' %}
-# user authentication
-djoser==0.4.3
-{% endif %}
-
+djangorestframework-simplejwt==4.4.0
 
 #Utils
 django-extensions==2.2.9
-django-jinja==2.6.0
 django-model-utils==4.0.0
-django-braces==1.14.0
 pytz==2019.3
 easy-thumbnails==2.7
 
@@ -32,35 +29,28 @@ easy-thumbnails==2.7
 hiredis==1.0.1
 redis==3.4.1
 django-redis-cache==2.1.0
-django-redis-sessions==0.6.1
 
 ## AWS
 boto3==1.12.31
 django-storages==1.9.1
 
-#HEROKU
-whitenoise==5.0.1
-ipython==7.13.0
+#PROD
 uvicorn==0.11.3
-sentry-sdk==0.14.3
+gunicorn==20.0.4
+sentry-sdk==0.15.1
 gunicorn==20.0.4
 
 #OPTIONAL TOOLS
-#whoosh
-#django-haystack
-
-#Money
+ipython==7.13.0
 
 {% if cookiecutter.stripe == 'y' %}
+#Money
 stripe==2.44.0
 {% endif %}
 
 #standard utilities
-raven==6.10.0
 #celery==3.1.18
-sendgrid-django==4.2.0
-django-webpack-loader==0.7.0
-django-jinja==2.6.0
+django-anymail[mailgun]==7.1.0
 
 # django-cachalot==2.1.0
 

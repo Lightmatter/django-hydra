@@ -1,37 +1,35 @@
-{%- if cookiecutter.django_registration == 'y' -%}
-from django.contrib.auth import REDIRECT_FIELD_NAME, get_user_model  # NOQA
-from django.contrib.auth.forms import AuthenticationForm  # NOQA
-from django.contrib.auth.views import LoginView as DjangoLoginView  # NOQA
+from rest_framework.generics import CreateAPIView
 
-from registration.backends.simple.views import (
-    RegistrationView as SimpleRegistrationView,
-)
+from djoser.conf import settings
+from djoser.views import TokenCreateView as DjoserTokenCreateView
+from djoser.views import UserViewSet as DjoserUserViewSet
 
-from .forms import RegistrationForm
+from .serializers import UserCreateSerializer
 
 
-# Make sure the view's base class matches the backend we're importing from
-# class RegistrationView(DefaultRegistrationView):
-class RegistrationView(SimpleRegistrationView):
-    """ The class view that handles user registration. See
-    https://bitbucket.org/ubernostrum/django-registration/src/8f242e35ef7c004e035e54b4bb093c32bf77c29f/registration/backends/simple/views.py?at=default#cl-11
-    for an example of a simple way to use it
-    """
-
-    form_class = RegistrationForm
-
-    # Stick extra registration logic here
-    def register(self, form, **cleaned_data):  # NOQA
-        new_user = super().register(form, **cleaned_data)
-        return new_user
-
-    def get_success_url(self, user):  # NOQA
-        """
-        Return the url a user should be redirected to after registration
-        """
-        return self.request.GET.get("next", "/")
+class TokenCreateView(DjoserTokenCreateView):
+    def _action(self, serializer):
+        if not serializer.data.get("remember_me", False):
+            self.request.session.set_expiry(0)
+        return super()._action(serializer)
 
 
-class LoginView(DjangoLoginView):
-    pass
-{% endif %}
+class UserCreateView(CreateAPIView):
+    serializer_class = UserCreateSerializer
+
+    perform_create = DjoserUserViewSet.perform_create
+
+    permission_classes = settings.PERMISSIONS.user_create
+
+    def post(self, request, *args, **kwargs):
+        register_serializer = self.get_serializer(data=request.data)
+        login_serializer = settings.SERIALIZERS.token_create(data=request.data)
+
+        if register_serializer.is_valid():
+            return self.create(request, *args, **kwargs)
+        if login_serializer.is_valid():
+            view = TokenCreateView()
+            view.request = self.request
+            return view._action(login_serializer)  # NOQA
+        register_serializer.is_valid(raise_exception=True)
+        return False  # make pylint happy

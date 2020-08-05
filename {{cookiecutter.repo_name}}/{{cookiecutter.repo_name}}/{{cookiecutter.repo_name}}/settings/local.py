@@ -1,9 +1,11 @@
+from corsheaders.defaults import default_headers
+
 from .base import *
 
 # if you want to test with debug off
 env.read_env(repo_root(".env"), SECRET_KEY="changeme")  # nosec
 
-ALLOWED_HOSTS = [u"127.0.0.1", "localhost"]
+ALLOWED_HOSTS = [u"127.0.0.1", "localhost", "localhost:8000"]
 DEBUG = True
 
 
@@ -17,10 +19,22 @@ CACHES = {
 }
 
 MEDIA_ROOT = root("media")
-MEDIA_URL = "/media/"
+MEDIA_URL = "http://127.0.0.1:8000/media/"
 
 STATIC_ROOT = root("static")
 
+CORS_ORIGIN_WHITELIST = [
+    "http://127.0.0.1:3000",
+    "http://localhost:3000",
+]
+
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "Cache-Control",
+]
+
+# CSRF_TRUSTED_ORIGINS = ["localhost:3000"]
+
+CORS_ALLOW_CREDENTIALS = True
 
 INSTALLED_APPS += ("debug_toolbar",)
 
@@ -39,12 +53,13 @@ class InvalidVariable(str):
 
 
 TEMPLATES[0]["OPTIONS"]["debug"] = True
-TEMPLATES[1]["OPTIONS"]["debug"] = True
-TEMPLATES[1]["OPTIONS"]["string_if_invalid"] = InvalidVariable(
+TEMPLATES[0]["OPTIONS"]["string_if_invalid"] = InvalidVariable(
     "BAD TEMPLATE VARIABLE: %s"
 )
-
 
 SECRET_KEY = env("SECRET_KEY")
 CELERY_ALWAYS_EAGER = True
 CELERY_EAGER_PROPAGATES_EXCEPTIONS = True
+
+DEFAULT_FROM_EMAIL = "hello@{{cookiecutter.repo_name}}.com"
+SERVER_EMAIL = "error@{{cookiecutter.repo_name}}.com"

@@ -1,0 +1,13 @@
+.*
+!.coveragerc
+!.env
+!.pylintrc
+node_modules
+*.pyc
+*.pyo
+/.env
+/data
+/static_collected
+/node_modules
+/{{cookiecutter.repo_name}}/static
+.DS_Store

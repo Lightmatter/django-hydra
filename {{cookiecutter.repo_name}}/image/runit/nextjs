@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+cd /app/
+if [[ "$ENVIRONMENT" -eq "local" ]]; then
+    exec yarn run debug
+else
+    exec yarn run start
+fi

@@ -1,4 +1,5 @@
 {%- raw -%}
+{% load wagtailcore_tags %}
 <section
   {% if value.special_class %}class="{{ value.special_class }}"{% endif %}>
   {% for row in value.rows %}

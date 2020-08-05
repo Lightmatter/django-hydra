@@ -1,7 +1,7 @@
 {
   // Extend existing configuration
   // from ESlint and eslint-plugin-react defaults.
-  "extends": ["airbnb", "prettier"],
+  "extends": ["airbnb", "prettier", "prettier/react"],
   "parser": "babel-eslint",
   "env": {
     "es6": true, //enables properties like Set()
@@ -20,12 +20,23 @@
       "no-debugger": 0,
       // Default to single quotes and raise an error if something
       // else is used
-      "quotes": [2, "single"],
+      "quotes": [2, "single", { "avoidEscape": true }],
       "comma-dangle" : 0,
-      "prettier/prettier": ["error"]
+      "prettier/prettier": ["error"],
+      "react/react-in-jsx-scope": 0,
+      "react/no-unescaped-entities": 0,
+      "react/jsx-props-no-spreading": 0,
+      "react/forbid-prop-types": 0
   },
   "parserOptions": {
       "ecmaVersion": 7,
       "sourceType": "module",
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": ["src"]
+      }
+    }
   }
 }

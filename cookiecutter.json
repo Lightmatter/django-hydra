@@ -3,8 +3,6 @@
     "project_name_verbose": "Sample App",
     "repo_name": "{{ cookiecutter.project_name|replace(' ', '_') }}",
     "dev_email": "yourname@lightmatter.com",
-    "use_djoser": "n",
-    "django_registration": "y",
     "stripe": "y",
     "org_name": "Lightmatter",
     "description": "A short description of the project.",

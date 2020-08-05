@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+    {% block extra_head %}
+    <title>Lightmatter</title>
+    {% endblock extra_head %}
+  </head>
+  <body>
+      <div id="swup" class="swup-container transition-fade {% block body_class %}{% endblock body_class %}">
+      {% include "header.html" %}
+
+      <div id="main">
+          {% block content %}
+          {% endblock content %}
+      </div>
+
+      {% include "footer.html" %}
+      </div>
+      <script>
+          var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
+          (function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
+              g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
+              s.parentNode.insertBefore(g,s)}(document,'script'));
+      </script>
+  </body>
+</html>

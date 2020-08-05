@@ -3,8 +3,10 @@ bundles/*
 bundles/
 *_flymake*
 *.\#*
-webpack-stats.json
 *.tern-port
+.terraform/
+*.tfstate
+*.tfstate*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -29,6 +31,11 @@ var/
 .installed.cfg
 *.egg
 
+
+#javascript
+.next/
+src/__tests__/cypress/screenshots/
+src/__tests__/cypress/videos/
 # environment variables
 .env
 
@@ -219,3 +226,6 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 testapp/
+
+# gunicorn pid file
+gunicorn.pid

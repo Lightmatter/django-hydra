@@ -1,4 +1,5 @@
 {%- raw -%}
+{% load wagtailcore_tags %}
 {% extends 'base.jinja' %}
 
 {% block extra_head %}

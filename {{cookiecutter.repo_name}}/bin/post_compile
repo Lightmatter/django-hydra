@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-# uncomment this line after the first time the system builds, or run the setup_heroku script to do it for you
-yarn run build
-python manage.py collectstatic --noinput
-python manage.py migrate --noinput

@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders homepage unchanged 1`] = `
+<Index>
+  <h1>
+     Hello World 
+  </h1>
+</Index>
+`;

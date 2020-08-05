@@ -1,0 +1,109 @@
+update debug toolbar
+install cachealot (make sure that debug toolbar has the cachealot panel)
+
+Make sure redis caching is configured bestly  https://github.com/sebleier/django-redis-cache
+switch to an email provider that is one click (mailgun?)
+setup robots.txt and configure that to be part of django
+setup default sitemap for django
+setup silk
+logging
+Hijack
+
+
+
+**DJANGO
+set config up with
+https://github.com/rochacbruno/dynaconf
+
+Default implmentation of user list + detail
+Default Implmentation of CreateSerializer + MeSerializer
+Figure out html emails 
+ - https://github.com/peterbe/premailer
+ - https://github.com/sunscrapers/django-templated-mail
+
+Get celery setup
+ - https://github.com/pmclanahan/django-celery-email
+
+**NEXT
+Figure out to do different configs for dev and prod
+setup sentry for prod:
+https://github.com/zeit/next.js/tree/canary/examples/with-sentry
+https://github.com/zeit/next.js/blob/canary/examples/with-sentry-simple/next.config.js
+https://github.com/UnlyEd/next-right-now/blob/master/src/utils/sentry.ts
+https://github.com/UnlyEd/next-right-now/blob/master/src/pages/_error.tsx
+
+Steal good ideas from:
+https://github.com/UnlyEd/next-right-now/blob/master/next.config.js#L29
+
+Move New window logic into Link
+
+Turn on strict CSP (make sure it works with analytics)
+https://www.troyhunt.com/locking-down-your-website-scripts-with-csp-hashes-nonces-and-report-uri/
+https://github.com/zeit/next.js/blob/canary/examples/with-strict-csp-hash/pages/_document.js
+
+
+Turn on storybook by default
+https://github.com/zeit/next.js/tree/canary/examples/with-storybook
+
+do a better page transition by default
+
+
+actually Figure out themes 
+
+install
+https://github.com/typekit/webfontloader
+
+
+
+next-boost looks nice
+https://github.com/rjyo/next-boost
+
+
+** Documentation:
+Authentication
+  - same subdomain cookie for same machine
+  - domain cookie for different machines, same domain (must not be on https://publicsuffix.org/list/public_suffix_list.dat)
+  - jwt for different domains.
+
+
+
+{{ foo:bar}} sets a dictionary in react code but is also a variable in jinja - look into changing jinja delimiter to something illegal in js
+
+
+
+documentation notes:
+Security
+
+- http only cookie
+
+
+
+mention that you need to use python3.8 to manage.py on prod
+
+
+Truly Static assets - where do they live
+ - Django -  easier to put a cdn in front of them.
+Get cdn configured with next and django
+https://nextjs.org/docs/api-reference/next.config.js/cdn-support-with-asset-prefix
+
+fix security issues from:
+https://securityheaders.com/?q=https%3A%2F%2Flightmatter-sampleapp.herokuapp.com%2F&followRedirects=on
+
+Better jest testing:
+https://github.com/testing-library/jest-dom
+
+
+cypress testing
+https://github.com/cypress-io/cypress-example-recipes
+- https://github.com/bahmutov/cypress-select-tests
+- get client side mock working w/ mirage, but not enabled when running tests through django
+- move nextjs server start into a once per class thing vs once per test in the django test case
+- figure out how to enforce new build of nextjs on running django tests
+- https://github.com/svish/cypress-hmr-restarter#readme for interactive testing
+   - https://stackoverflow.com/questions/52231111/re-run-cypress-tests-in-gui-when-webpack-dev-server-causes-page-reload
+
+
+Sentry - Get consolidated error report for frontend and backend
+https://nextjs.org/docs/advanced-features/measuring-performance#sending-results-to-analytics
+https://github.com/zeit/next.js/discussions/12913 -- get error page working
+

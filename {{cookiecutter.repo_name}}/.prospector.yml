@@ -1,0 +1,21 @@
+strictness: medium
+member-warnings: true
+ignore-patterns:
+  - (^|/)migrations(/|$)
+pep8:
+    full: true
+    disable:
+        - E231
+    options:
+        max-line-length: 160
+pylint:
+  disable:
+      - arguments-differ
+      - signature-differs
+      - unused-argument
+mccabe:
+  options:
+    max-complexity: 9
+uses:
+    - django
+    - celery

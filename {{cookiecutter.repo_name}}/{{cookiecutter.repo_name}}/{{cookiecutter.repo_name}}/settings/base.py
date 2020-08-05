@@ -1,8 +1,8 @@
 # Django settings for project project.
 import pathlib
-
+from datetime import timedelta
 from django.core.exceptions import ImproperlyConfigured
-from django_jinja.builtins import DEFAULT_EXTENSIONS  # noqa
+
 from environ import Env, Path
 
 DEBUG = False
@@ -65,7 +65,7 @@ STATICFILES_FINDERS = (
 
 MIDDLEWARE = (
     "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -89,11 +89,13 @@ INSTALLED_APPS = (
     "django_extensions",
     "model_utils",
     "easy_thumbnails",
-    "registration",
     "import_export",
+    "corsheaders",
+    "rest_framework",
+    "rest_framework.authtoken",
+    "django_filters",
+    "djoser",
     "social_django",
-    "django_jinja",
-    "webpack_loader",
     "{{ cookiecutter.repo_name }}.home",
     "{{ cookiecutter.repo_name }}.account",
     "{{ cookiecutter.repo_name }}.util",
@@ -113,14 +115,16 @@ LOGGING = {
             "level": "ERROR",
             "filters": ["require_debug_false"],
             "class": "django.utils.log.AdminEmailHandler",
-        }
+        },
+        "console": {"class": "logging.StreamHandler",},
     },
     "loggers": {
         "django.request": {
-            "handlers": ["mail_admins"],
+            "handlers": ["mail_admins", "console"],
             "level": "ERROR",
             "propagate": True,
-        }
+        },
+        "root": {"handlers": ["console"], "level": "ERROR",},
     },
 }
 
@@ -149,8 +153,6 @@ TEST_RUNNER = "django.test.runner.DiscoverRunner"
 
 ALLOWED_HOSTS = ["localhost" ".herokuapp.com"]
 
-DEFAULT_FROM_EMAIL = "hello@{{cookiecutter.repo_name}}.com"
-SERVER_EMAIL = "error@{{cookiecutter.repo_name}}.com"
 
 CONTEXT_PROCESSORS = [
     "django.contrib.auth.context_processors.auth",
@@ -169,18 +171,6 @@ CONTEXT_PROCESSORS = [
 
 TEMPLATES = [
     {
-        "BACKEND": "django_jinja.backend.Jinja2",
-        "DIRS": [root("templates")],
-        "APP_DIRS": False,
-        "OPTIONS": {
-            "match_extension": None,
-            "match_regex": r"^(?!admin/).*",  # this is additive to match_extension
-            "context_processors": CONTEXT_PROCESSORS,
-            "extensions": DEFAULT_EXTENSIONS
-            + ["webpack_loader.contrib.jinja2ext.WebpackExtension"],
-        },
-    },
-    {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [root("templates")],
         "APP_DIRS": True,
@@ -190,22 +180,6 @@ TEMPLATES = [
         },
     },
 ]
-
-
-WEBPACK_LOADER = {
-    "DEFAULT": {
-        "CACHE": not DEBUG,
-        "BUNDLE_DIR_NAME": "bundles/",  # must end with slash
-        "STATS_FILE": root("webpack-stats.json"),
-        "POLL_INTERVAL": 0.1,
-        "IGNORE": [".+\.hot-update.js", ".+\.map"],
-    }
-}
-
-#  registration
-ACCOUNT_ACTIVATION_DAYS = (
-    7  # One-week activation window; you may, of course, use a different value.
-)
 
 #  social
 SOCIAL_AUTH_PIPELINE = (
@@ -233,13 +207,43 @@ STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY", default="")
 {% endif %}
 
 try:
-    from model_mommy import random_gen  # noqa
+    from model_bakery import random_gen  # noqa
 
     MOMMY_CUSTOM_FIELDS_GEN = {
         "localflavor.us.models.USZipCodeField": random_gen.gen_string
     }
 except ImportError:
     pass
+
+CORS_ALLOW_CREDENTIALS = True
+
+REST_FRAMEWORK = {
+    "PAGE_SIZE": env("PAGE_SIZE", default=10),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+    ),
+    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    # Filtering/Sorting
+    "DEFAULT_FILTER_BACKENDS": [
+        "django_filters.rest_framework.DjangoFilterBackend",
+        "rest_framework.filters.OrderingFilter",
+        "rest_framework.filters.SearchFilter",
+    ],
+}
+
+DJOSER = {
+    "SERIALIZERS": {
+        "token_create": "{{cookiecutter.repo_name}}.account.serializers.TokenCreateSerializer",
+    },
+    "USER_CREATE_PASSWORD_RETYPE": True,
+    "CREATE_SESSION_ON_LOGIN": True,
+    "PASSWORD_RESET_CONFIRM_URL": "account/reset/confirm/{uid}/{token}",  # TODO: prefix with frontend url
+    "PASSWORD_RESET_CONFIRM_RETYPE": True,
+    "SET_USERNAME_RETYPE": True,
+    "SET_PASSWORD_RETYPE": True,
+}
 
 # fmt: off
 {% if cookiecutter.use_wagtail == "y" -%}
@@ -263,6 +267,7 @@ INSTALLED_APPS += (
     'wagtail.admin',
     'wagtail.core',
     'wagtail.contrib.modeladmin',
+    'wagtail.api.v2',
 
     'modelcluster',
     'taggit',
@@ -278,15 +283,6 @@ MIDDLEWARE += (
 CONTEXT_PROCESSORS += (
     'wagtail.contrib.settings.context_processors.settings',
 )
-
-# this overwrites jinja's extensions to include wagtail as well
-# if the order of the TEMPLATES changes this could break
-TEMPLATES[0]['OPTIONS']['extensions'] = DEFAULT_EXTENSIONS + [
-                "webpack_loader.contrib.jinja2ext.WebpackExtension",
-                "wagtail.core.jinja2tags.core",
-                "wagtail.admin.jinja2tags.userbar",
-                "wagtail.images.jinja2tags.images",
-]
 
 WAGTAILSEARCH_BACKENDS = {
     'default': {
