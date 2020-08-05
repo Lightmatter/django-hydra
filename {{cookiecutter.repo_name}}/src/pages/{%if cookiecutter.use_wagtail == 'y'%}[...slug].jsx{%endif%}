@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { getPageBySlug } from 'util/wagtailPageapi';
+import { getPageBySlug } from 'util/wagtailPageApi';
 import StreamField from 'components/streamfield/StreamField';
 
 const ContentPage = ({ data }) => {
