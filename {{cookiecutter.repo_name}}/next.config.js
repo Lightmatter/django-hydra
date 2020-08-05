@@ -36,9 +36,11 @@ module.exports = withSourceMaps({
   },
 
   // eslint-disable-next-line no-unused-vars
-  webpack(config, { isServer, buildId }) {
-    // eslint-disable-next-line no-param-reassign
-    config.devtool = 'hidden-source-map';
+  webpack(config, { isServer, dev, buildId }) {
+    if (!dev) {
+      // eslint-disable-next-line no-param-reassign
+      config.devtool = 'hidden-source-map';
+    }
     if (!isServer) {
       // eslint-disable-next-line no-param-reassign
       config.resolve.alias['@sentry/node'] = '@sentry/browser';

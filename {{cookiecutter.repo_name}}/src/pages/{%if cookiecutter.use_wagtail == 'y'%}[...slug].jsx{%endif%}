@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { getPageBySlug } from 'util/wagtailPageapi';
+import { getPageBySlug } from 'util/wagtailPageApi';
 import StreamField from 'components/streamfield/StreamField';
 
 const ContentPage = ({ data }) => {
@@ -11,7 +11,7 @@ ContentPage.propTypes = {
 };
 
 ContentPage.defaultProps = {
-    data: {},
+    data: null,
 };
 
 export async function getStaticProps({ params }) {
@@ -20,7 +20,7 @@ export async function getStaticProps({ params }) {
         props: {
             data,
         },
-        unstable_revalidate: 1,
+        revalidate: 1
     };
 }
 export async function getStaticPaths() {

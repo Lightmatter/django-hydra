@@ -95,6 +95,7 @@ NOTE: you must be at the project root to run these commands
 
 #### NEXT.JS
 - at the root of the folder run `yarn run test` or `yarn test` to run the jest tests
+- debug next tests with `yarn test:debug` and include a `debugger` in a test or code related to a test
 - or run `yarn run cypress run` or `yarn cypress run` to run the cypress integration tests - this requires the next dev server to be running in another tab
 
 ## Why use two processes as the same application
