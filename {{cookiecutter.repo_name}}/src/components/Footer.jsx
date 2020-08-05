@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import Link from '@material-ui/core/Link';
 
+const thisyear = new Date().getFullYear();
 const Footer = ({ className }) => {
     return (
         <Paper className={className} elevation={0}>
@@ -11,7 +12,7 @@ const Footer = ({ className }) => {
                 <Link color="inherit" href="https://www.lightmatter.com/">
                     Lightmatter
                 </Link>{' '}
-                {new Date().getFullYear()}
+                {thisyear}
                 {'.'}
             </Typography>
         </Paper>

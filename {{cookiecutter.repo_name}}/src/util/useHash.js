@@ -1,5 +1,7 @@
 import { useState } from 'react';
 
+// This hook is used for setting and managing the query hash of the url
+
 const useHash = (initialValue = null) => {
   const [storedValue, setStoredValue] = useState(() => {
     try {
