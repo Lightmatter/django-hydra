@@ -142,8 +142,7 @@ jobs:
         default: {{cookiecutter.repo_name}}-development
     steps:
       # could probably put this into the docker image vs installing everytime
-      - heroku/install
-      - run: heroku update
+      - run:  curl https://cli-assets.heroku.com/install.sh | sh
       - run: heroku container:login
       - run: heroku container:release web release -a << parameters.app-name >>
 
