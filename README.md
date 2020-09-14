@@ -118,7 +118,7 @@ Projects created using this template are able to be deployed on Heroku.
 Create a heroku application on Heroku and push the code there.
 This can be done automatically by running
 
-     ./scripts/setup_heroku.sh
+     ./scripts/setup-heroku.sh
 
 You can also do this manually. You will need to set:
 
