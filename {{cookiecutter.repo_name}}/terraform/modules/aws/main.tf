@@ -18,8 +18,6 @@ resource "aws_iam_access_key" "key" {
 resource "aws_s3_bucket" "bucket" {
   bucket = "${var.app_name}-${var.environment}"
   acl    = "public-read"
-  region = "us-east-1"
-
 }
 
 resource "aws_iam_user_policy" "user_ro" {
