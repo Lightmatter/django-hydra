@@ -17,7 +17,7 @@ Dependencies, General
 * bash
 * python3
 
-Pre Requisites
+Prerequisites
 ============
 
 You must have postgres and python ready to go on your system.
@@ -25,11 +25,13 @@ You must have postgres and python ready to go on your system.
 This app is set up to work with virtualenvwrapper to make use of functionality like `workon <project_name>` to silo your build environment.
 Read about virtualenvwrapper <https://virtualenvwrapper.readthedocs.io/en/latest/>
 
+To set up Heroku, you must have [Terraform](https://www.terraform.io/) installed.
+
 Some notes:
 
 * Before you start, make sure $WORKON_HOME is set to the directory where you prefer your virtual environments to live, normally "~/.virtualenvs"
 
-* Project names must be composed of underscores and lowercase alphanumeric characters only, with no spaces or special characters.
+* Project names must be composed of lowercase alphanumeric characters only, with no spaces or special characters.
 
 
 Setup
@@ -118,7 +120,9 @@ Projects created using this template are able to be deployed on Heroku.
 Create a heroku application on Heroku and push the code there.
 This can be done automatically by running
 
-     ./scripts/setup-heroku.sh
+    cd terraform/environments
+    terraform init
+    terraform apply
 
 You can also do this manually. You will need to set:
 
