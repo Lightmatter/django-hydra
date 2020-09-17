@@ -116,6 +116,9 @@ jobs:
             --build-arg BUILD_TIME
             --build-arg SENTRY_DSN
             --build-arg SENTRY_AUTH_TOKEN
+            --build-arg AWS_ACCESS_KEY_ID
+            --build-arg AWS_SECRET_ACCESS_KEY
+
       - run: >
             DOCKER_BUILDKIT=1 docker build . --target release --tag registry.heroku.com/<< parameters.app-name >>/release
             --build-arg ENVIRONMENT="<< parameters.environment >>"
@@ -123,6 +126,8 @@ jobs:
             --build-arg BUILD_TIME="$(date)"
             --build-arg SENTRY_DSN
             --build-arg SENTRY_AUTH_TOKEN
+            --build-arg AWS_ACCESS_KEY_ID
+            --build-arg AWS_SECRET_ACCESS_KEY
 
       - run: docker push registry.heroku.com/<< parameters.app-name >>/web
       - run: docker push registry.heroku.com/<< parameters.app-name >>/release
