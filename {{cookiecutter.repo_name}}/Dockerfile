@@ -23,7 +23,7 @@ COPY . /app
 
 ARG AWS_ACCESS_KEY_ID
 ARG AWS_SECRET_ACCESS_KEY
-ENV AWS_STORAGE_BUCKET_NAME=lmtemplatetest-production
+ENV AWS_STORAGE_BUCKET_NAME={{cookiecutter.repo_name}}-production
 RUN APP_VERSION_RELEASE="build" ENVIRONMENT="build" SENTRY_DSN="" DATABASE_URL="" ALLOWED_HOSTS="*" SECRET_KEY="foobar" python3.8 ./manage.py collectstatic --noinput
 # cmd goes here if you want to run this on its own
 
