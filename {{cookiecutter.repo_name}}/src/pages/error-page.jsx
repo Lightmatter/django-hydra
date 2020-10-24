@@ -14,7 +14,7 @@ const ErrorPage = () => {
             .get(url)
             .then(() => {})
             .catch(error => {
-                enqueueSnackbar(error.non_field_errors, {
+                enqueueSnackbar(error.nonFieldErrors, {
                     variant: 'error',
                 });
             });

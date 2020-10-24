@@ -79,8 +79,8 @@ const EditProfile = () => {
                             })
                             .catch(error => {
                                 actions.setSubmitting(false);
-                                if (error.non_field_errors) {
-                                    enqueueSnackbar(error.non_field_errors, {
+                                if (error.nonFieldErrors) {
+                                    enqueueSnackbar(error.nonFieldErrors, {
                                         variant: 'error',
                                     });
                                 } else {

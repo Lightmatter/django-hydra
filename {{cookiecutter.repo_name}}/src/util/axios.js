@@ -31,7 +31,7 @@ function handleApiErrors(error) {
      */
     console.log(error);
     err = {
-      non_field_errors: 'There was a problem processing your request.',
+      nonFieldErrors: 'There was a problem processing your request.',
     };
   } else {
     // Something happened in setting up the request and triggered an Error
