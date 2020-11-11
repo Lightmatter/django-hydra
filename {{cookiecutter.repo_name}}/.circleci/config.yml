@@ -107,7 +107,10 @@ jobs:
           name: Define Environment Variable at Runtime
           command: |
             echo "export SENTRY_DSN=$(heroku config:get SENTRY_DSN -a << parameters.app-name >>)" >> $BASH_ENV #make sure to use double quotes
+            echo "export AWS_ACCESS_KEY_ID=$(heroku config:get AWS_ACCESS_KEY_ID -a << parameters.app-name >>)" >> $BASH_ENV #make sure to use double quotes
+            echo "export AWS_SECRET_ACCESS_KEY=$(heroku config:get AWS_SECRET_ACCESS_KEY -a << parameters.app-name >>)" >> $BASH_ENV #make sure to use double quotes
             echo "export BUILD_TIME='$(date)'" >> $BASH_ENV #make sure to use double quotes
+
             source $BASH_ENV
       - run: >
             DOCKER_BUILDKIT=1 docker build . --target app --tag registry.heroku.com/<< parameters.app-name >>/web
