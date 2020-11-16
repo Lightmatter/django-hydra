@@ -11,7 +11,7 @@ import os
 from django.core.asgi import get_asgi_application
 
 # Import websocket application here, so apps from django_application are loaded first
-from sampleapp.sampleapp.websocket import websocket_application  # noqa isort:skip
+from {{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.websocket import websocket_application  # noqa isort:skip
 
 # fmt: off
 os.environ.setdefault(

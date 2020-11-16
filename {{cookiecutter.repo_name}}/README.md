@@ -71,7 +71,7 @@ Store all django environment variables inside of heroku
 
 note - next only uses variables provided to it at build. All new variables will require a rebuild of the application.
 
-1. Circle stores build time secrets, so add secret to circle through web ui OR store in herkou and use `heroku config:get VARIABLE`
+1. Circle stores build time secrets, so add secret to circle through web ui OR store in heroku and use `heroku config:get VARIABLE`
 2. Make sure secret is passed to docker build process by adding a --build-arg line in circleci/config.yml
 3. make sure docker picks up secret at build time by adding an ARG statement to docker file
 4. Update next.js config file to pick up envrionment variable.
