@@ -12,6 +12,7 @@ const {
   BUILD_TIME,
   API_BASE_URL,
   SERVER_BASE_URL,
+  AWS_S3_CUSTOM_DOMAIN,
 } = process.env;
 
 let { APP_VERSION_RELEASE } = process.env;
@@ -33,6 +34,7 @@ module.exports = withSourceMaps({
     BUILD_TIME,
     API_BASE_URL,
     SERVER_BASE_URL,
+    AWS_S3_CUSTOM_DOMAIN,
   },
 
   // eslint-disable-next-line no-unused-vars
@@ -40,6 +42,9 @@ module.exports = withSourceMaps({
     if (!dev) {
       // eslint-disable-next-line no-param-reassign
       config.devtool = 'hidden-source-map';
+      if (AWS_S3_CUSTOM_DOMAIN) {
+        config.assetPrefix = `https://${AWS_S3_CUSTOM_DOMAIN}`;
+      }
     }
     if (!isServer) {
       // eslint-disable-next-line no-param-reassign
