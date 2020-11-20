@@ -70,8 +70,6 @@ AWS_S3_CUSTOM_DOMAIN = env("AWS_S3_CUSTOM_DOMAIN", default="")
 AWS_IS_GZIPPED = True
 AWS_S3_REGION_NAME = "us-east-1"
 
-STATICFILES_STORAGE = "{{ cookiecutter.repo_name }}.{{ cookiecutter.repo_name }}.storage.StaticStorage"
-AWS_DEFAULT_ACL = "public-read"
 STATIC_URL = "//{}/static/".format(AWS_S3_CUSTOM_DOMAIN)
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
