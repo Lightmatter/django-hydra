@@ -41,19 +41,43 @@ EOF
 }
 
 resource "aws_cloudfront_distribution" "s3_distribution" {
+  origin_group {
+    origin_id = "origin_group"
+    failover_criteria {
+      status_codes = [403, 404, 500, 502]
+    }
+
+    member {
+      origin_id = aws_s3_bucket.bucket.id
+    }
+    member {
+      origin_id = "heroku_app"
+    }
+  }
+
   origin {
     domain_name = aws_s3_bucket.bucket.bucket_regional_domain_name
     origin_id   = aws_s3_bucket.bucket.id
+  }
 
+  origin {
+    domain_name = "${var.app_name}-${var.environment}.herokuapp.com"
+    origin_id   = "heroku_app"
+    custom_origin_config {
+      http_port              = 80
+      https_port             = 443
+      origin_protocol_policy = "https-only"
+      origin_ssl_protocols   = ["TLSv1.2", "TLSv1.1"]
+    }
   }
 
   enabled             = true
   is_ipv6_enabled     = true
 
   default_cache_behavior {
-    allowed_methods  = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
+    allowed_methods  = ["GET", "HEAD", "OPTIONS"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = aws_s3_bucket.bucket.id
+    target_origin_id = "origin_group"
 
     forwarded_values {
       query_string = false

@@ -23,11 +23,23 @@ COPY . /app
 
 ARG AWS_ACCESS_KEY_ID
 ARG AWS_SECRET_ACCESS_KEY
-ENV AWS_STORAGE_BUCKET_NAME={{cookiecutter.repo_name}}-production
+ARG ENVIRONMENT
+ENV AWS_STORAGE_BUCKET_NAME={{cookiecutter.repo_name}}-${ENVIRONMENT}
 RUN APP_VERSION_RELEASE="build" ENVIRONMENT="build" SENTRY_DSN="" DATABASE_URL="" ALLOWED_HOSTS="*" SECRET_KEY="foobar" python3.8 ./manage.py collectstatic --noinput
 # cmd goes here if you want to run this on its own
 
 from os as next
+ARG ENVIRONMENT
+ARG SENTRY_DSN
+ARG SENTRY_AUTH_TOKEN
+ARG SENTRY_PROJECT="{{cookiecutter.repo_name}}"
+ARG SENTRY_ORG="lightmatter"
+ARG APP_VERSION_RELEASE
+ARG BUILD_TIME
+ARG API_BASE_URL=""
+ARG SERVER_BASE_URL="http://127.0.0.1:8000"
+ARG AWS_S3_CUSTOM_DOMAIN
+
 #add nextjs runit files
 ADD image/ /app_build/
 RUN mkdir /etc/service/nextjs && cp /app_build/runit/nextjs /etc/service/nextjs/run
@@ -38,20 +50,9 @@ WORKDIR app
 COPY package.json  yarn.lock /app/
 RUN yarn install --production
 
-ARG ENVIRONMENT
-ARG SENTRY_DSN
-ARG SENTRY_AUTH_TOKEN
-ARG SENTRY_PROJECT="{{cookiecutter.repo_name}}"
-ARG SENTRY_ORG="lightmatter"
-ARG APP_VERSION_RELEASE
-ARG BUILD_TIME
-ARG API_BASE_URL=""
-ARG SERVER_BASE_URL="http://127.0.0.1:8000"
-
-
 COPY . /app
 RUN yarn run build
-# cmd goes here if you want to run this on it's own
+# cmd goes here if you want to run this on its own
 
 
 from django as app

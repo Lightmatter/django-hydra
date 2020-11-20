@@ -42,9 +42,6 @@ module.exports = withSourceMaps({
     if (!dev) {
       // eslint-disable-next-line no-param-reassign
       config.devtool = 'hidden-source-map';
-      if (AWS_S3_CUSTOM_DOMAIN) {
-        config.assetPrefix = `https://${AWS_S3_CUSTOM_DOMAIN}`;
-      }
     }
     if (!isServer) {
       // eslint-disable-next-line no-param-reassign
@@ -62,5 +59,6 @@ module.exports = withSourceMaps({
     }
     return config;
   },
+  assetPrefix: AWS_S3_CUSTOM_DOMAIN ? `https://${AWS_S3_CUSTOM_DOMAIN}` : null,
   poweredByHeader: false,
 });
