@@ -18,6 +18,22 @@ resource "aws_iam_access_key" "key" {
 resource "aws_s3_bucket" "bucket" {
   bucket = "${var.app_name}-${var.environment}"
   acl    = "public-read"
+
+  cors_rule {
+    allowed_headers = ["*"]
+    allowed_methods = ["GET", "HEAD"]
+    allowed_origins = ["https://${var.app_name}-${var.environment}.herokuapp.com"]
+    max_age_seconds = 3000
+    expose_headers  = ["ETag"]
+  }
+
+  cors_rule {
+    allowed_headers = ["*"]
+    allowed_methods = ["GET", "HEAD"]
+    allowed_origins = ["*.{{cookiecutter.domain_name}}"]
+    max_age_seconds = 3000
+    expose_headers  = ["ETag"]
+  }
 }
 
 resource "aws_iam_user_policy" "user_ro" {
@@ -81,6 +97,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
 
     forwarded_values {
       query_string = false
+      headers = ["Origin"]
 
       cookies {
         forward = "none"
