@@ -1,8 +1,12 @@
 FROM bbeecher/lightmatter-base-image:v0.2 AS os
 
+RUN apt -y update
+RUN apt -y install libnginx-mod-http-perl
 ADD image/ /app_build/
+
 #add nginx conf files
 RUN cp /app_build/config/webapp.conf /etc/nginx/sites-enabled/webapp.conf
+RUN cp /app_build/config/nginx.conf /etc/nginx/nginx.conf
 
 
 
