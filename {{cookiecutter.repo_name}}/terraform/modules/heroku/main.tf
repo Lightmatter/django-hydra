@@ -49,7 +49,7 @@ resource "heroku_app" "app" {
   stack = "container"
   config_vars = {
     DJANGO_SETTINGS_MODULE = "{{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.settings.heroku"
-    ALLOWED_HOSTS = "${var.app_name}-${var.environment}.herokuapp.com"
+    ALLOWED_HOSTS = "${var.app_name}-${var.environment}.herokuapp.com {{cookiecutter.domain_name}}"
     SENTRY_DSN = var.sentry_dsn
     SENTRY_PROJECT = var.sentry_project
     SENTRY_ORG = var.sentry_org
