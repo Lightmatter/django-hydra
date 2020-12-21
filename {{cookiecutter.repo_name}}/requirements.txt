@@ -1,62 +1,61 @@
-Django>=3,<3.1
+Django>=3.1,<3.2
 django-environ==0.4.5
-djangorestframework==3.11.0
-django-filter==2.2.0
-django-cors-headers==3.2.1
-djangorestframework-jsonapi==3.1.0
+djangorestframework==3.12.2
+django-filter==2.4.0
+django-cors-headers==3.6.0
+djangorestframework-jsonapi==4.0.0
 
 
 #Admin
-Pillow==7.2.0
+Pillow==8.0.1
 django-localflavor==3.0.1
-django-import-export==2.0.2
+django-import-export==2.4.0
 
 #DB
-psycopg2-binary==2.8.5
+psycopg2-binary==2.8.6
 
 #User Accounts
-djoser==2.0.3
-social-auth-app-django==3.1.0
+djoser==2.1.0
+social-auth-app-django==4.0.0
 djangorestframework-simplejwt==4.6.0
 
 #Utils
-django-extensions==2.2.9
-django-model-utils==4.0.0
-pytz==2019.3
-easy-thumbnails==2.7
+django-extensions==3.1.0
+django-model-utils==4.1.1
+pytz==2020.4
+easy-thumbnails==2.7.1
 
 #REDIS CACHING
-hiredis==1.0.1
-redis==3.4.1
-django-redis-cache==2.1.0
+hiredis==1.1.0
+redis==3.5.3
+django-redis-cache==3.0.0
 
 ## AWS
-boto3==1.12.31
-django-storages==1.9.1
+boto3==1.16.41
+django-storages==1.11
 
 #PROD
-uvicorn==0.11.8
+uvicorn==0.13.2
 gunicorn==20.0.4
-sentry-sdk==0.15.1
-gunicorn==20.0.4
+sentry-sdk==0.19.5
 
 #OPTIONAL TOOLS
-ipython==7.13.0
+ipython==7.19.0
 
 {% if cookiecutter.stripe == 'y' %}
 #Money
-stripe==2.44.0
+stripe==2.55.1
 {% endif %}
 
 #standard utilities
 #celery==3.1.18
-django-anymail[mailgun]==7.1.0
+django-anymail[mailgun]==8.1
 
 # django-cachalot==2.1.0
 
 
 {% if cookiecutter.use_wagtail == 'y' %}
 #Wagtail
-wagtail==2.9.3
-django-taggit==1.0.0
+wagtail==2.11.3
+django-taggit==1.3.0
 {% endif %}

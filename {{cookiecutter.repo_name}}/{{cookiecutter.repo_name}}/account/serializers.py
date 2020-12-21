@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from djoser.serializers import TokenCreateSerializer as DjoserTokenCreateSerializer
 from djoser.serializers import (
+    TokenCreateSerializer as DjoserTokenCreateSerializer,
     UserCreatePasswordRetypeSerializer as DjoserUserCreateSerializer,
 )
 

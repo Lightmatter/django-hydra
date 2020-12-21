@@ -276,7 +276,6 @@ INSTALLED_APPS += (
 )
 
 MIDDLEWARE += (
-    'wagtail.core.middleware.SiteMiddleware',
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 )
 

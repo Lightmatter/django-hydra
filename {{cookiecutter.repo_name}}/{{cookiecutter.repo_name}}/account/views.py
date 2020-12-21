@@ -1,8 +1,10 @@
 from rest_framework.generics import CreateAPIView
 
 from djoser.conf import settings
-from djoser.views import TokenCreateView as DjoserTokenCreateView
-from djoser.views import UserViewSet as DjoserUserViewSet
+from djoser.views import (
+    TokenCreateView as DjoserTokenCreateView,
+    UserViewSet as DjoserUserViewSet,
+)
 
 from .serializers import UserCreateSerializer
 
