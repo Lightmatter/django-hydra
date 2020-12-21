@@ -25,7 +25,7 @@ services:
       - "4000:4000"
       - "9229:9229"
     environment:
-      - ALLOWED_HOSTS=127.0.0.1 localhost
+      - ALLOWED_HOSTS=127.0.0.1|localhost|web
       - SECRET_KEY="foobar"
       - DATABASE_URL=psql://{{cookiecutter.repo_name}}:{{cookiecutter.repo_name}}@db/{{cookiecutter.repo_name}}
       - DJANGO_SETTINGS_MODULE={{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.settings.local
