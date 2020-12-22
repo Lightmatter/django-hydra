@@ -13,13 +13,7 @@ urlpatterns = [
     path("social/", include("social_django.urls", namespace="social")),
     path("backend/", include("{{cookiecutter.repo_name}}.home.urls")),
 ]
-{% if cookiecutter.use_wagtail == 'y' -%}
 
-urlpatterns += [
-    path("", include("{{ cookiecutter.repo_name }}.wagtailapp.urls")),
-]
-
-{%- endif %}
 if settings.DEBUG:
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
     import debug_toolbar
@@ -28,3 +22,12 @@ if settings.DEBUG:
     media_url = urlparse(settings.MEDIA_URL).path
     urlpatterns += static(media_url, document_root=settings.MEDIA_ROOT)
     urlpatterns += [path(r"__debug__/", include(debug_toolbar.urls))]
+
+{% if cookiecutter.use_wagtail == 'y' -%}
+
+# This needs to come after static and debug calls
+urlpatterns += [
+    path("", include("{{ cookiecutter.repo_name }}.wagtailapp.urls")),
+]
+
+{%- endif %}
