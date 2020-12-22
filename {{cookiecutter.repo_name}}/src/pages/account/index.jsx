@@ -9,121 +9,114 @@ import { makeStyles } from '@material-ui/core/styles';
 
 import AccountPageHeader from 'components/AccountPageHeader';
 import {
-    updateUser,
-    ProfileSchema,
-    useCurrentUser,
-    useMutateCurrentUser,
+  updateUser,
+  ProfileSchema,
+  useCurrentUser,
+  useMutateCurrentUser,
 } from 'models/user';
 
 const useStyles = makeStyles(theme => ({
-    paper: {
-        display: 'flex',
-        alignItems: 'center',
-        flexDirection: 'column',
-        paddingTop: theme.spacing(2),
-        paddingBottom: theme.spacing(4),
-    },
-    grid: {
-        marginBottom: theme.spacing(1),
-    },
-    bottomSpace: {
-        marginBottom: theme.spacing(2),
-    },
+  paper: {
+    display: 'flex',
+    alignItems: 'center',
+    flexDirection: 'column',
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(4),
+  },
+  grid: {
+    marginBottom: theme.spacing(1),
+  },
+  bottomSpace: {
+    marginBottom: theme.spacing(2),
+  },
 }));
 
 const EditProfile = () => {
-    const classes = useStyles();
-    const { enqueueSnackbar } = useSnackbar();
-    const me = useCurrentUser();
-    const mutate = useMutateCurrentUser();
-    return (
-        <Container className={classes.paper} component="main" maxWidth="xs">
-            <AccountPageHeader>
-                <Avatar>
-                    <AccountCircleIcon />
-                </Avatar>
-            </AccountPageHeader>
-            <Typography
-                component="h1"
-                variant="h5"
-                className={classes.bottomSpace}
-            >
-                Update your profile
-            </Typography>
-            {me ? (
-                <Formik
-                    {% raw -%}initialValues={{
-                        first_name: me.first_name,
-                        last_name: me.last_name,
-                    }}{% endraw %}
-                    className={classes.form}
-                    validateOnChange
-                    validationSchema={ProfileSchema}
-                    onSubmit={(values, actions) => {
-                        mutate(
-                            updateUser(values).then(data => data.data),
-                            false
-                        )
-                            .then(response => {
-                                enqueueSnackbar(
-                                    'Successfully updated profile!',
-                                    {
-                                        variant: 'success',
-                                    }
-                                );
-                                return response;
-                            })
-                            .then(response => {
-                                actions.setSubmitting(false);
-                                return response;
-                            })
-                            .catch(error => {
-                                actions.setSubmitting(false);
-                                if (error.nonFieldErrors) {
-                                    enqueueSnackbar(error.nonFieldErrors, {
-                                        variant: 'error',
-                                    });
-                                } else {
-                                    actions.setErrors(error);
-                                }
-                            });
-                    }}
-                >
-                    <Form>
-                        <Grid container spacing={2} className={classes.grid}>
-                            <Grid item xs={12} sm={6}>
-                                <Field
-                                    component={TextField}
-                                    name="first_name"
-                                    label="First Name"
-                                    placeholder="Enter First Name"
-                                />
-                            </Grid>
+  const classes = useStyles();
+  const { enqueueSnackbar } = useSnackbar();
+  const me = useCurrentUser();
+  const mutate = useMutateCurrentUser();
+  return (
+    <Container className={classes.paper} component="main" maxWidth="xs">
+      <AccountPageHeader>
+        <Avatar>
+          <AccountCircleIcon />
+        </Avatar>
+      </AccountPageHeader>
+      <Typography component="h1" variant="h5" className={classes.bottomSpace}>
+        Update your profile
+      </Typography>
+      {me ? (
+        <Formik
+          {% raw -%}initialValues={{
+            firstName: me.firstName,
+            lastName: me.lastName,
+          }}{% endraw %}
+          className={classes.form}
+          validateOnChange
+          validationSchema={ProfileSchema}
+          onSubmit={(values, actions) => {
+            mutate(
+              updateUser(values).then(data => data.data),
+              false
+            )
+              .then(response => {
+                enqueueSnackbar('Successfully updated profile!', {
+                  variant: 'success',
+                });
+                return response;
+              })
+              .then(response => {
+                actions.setSubmitting(false);
+                return response;
+              })
+              .catch(error => {
+                actions.setSubmitting(false);
+                if (error.nonFieldErrors) {
+                  enqueueSnackbar(error.nonFieldErrors, {
+                    variant: 'error',
+                  });
+                } else {
+                  actions.setErrors(error);
+                }
+              });
+          }}
+        >
+          <Form>
+            <Grid container spacing={2} className={classes.grid}>
+              <Grid item xs={12} sm={6}>
+                <Field
+                  component={TextField}
+                  name="firstName"
+                  label="First Name"
+                  placeholder="Enter First Name"
+                />
+              </Grid>
 
-                            <Grid item xs={12} sm={6}>
-                                <Field
-                                    name="last_name"
-                                    component={TextField}
-                                    label="Last Name"
-                                    placeholder="Enter Last Name"
-                                />
-                            </Grid>
-                        </Grid>
-                        <Button
-                            fullWidth
-                            variant="outlined"
-                            type="submit"
-                            className={classes.bottomSpace}
-                        >
-                            Update profile
-                        </Button>
-                    </Form>
-                </Formik>
-            ) : (
-                <div>Loading</div>
-            )}
-        </Container>
-    );
+              <Grid item xs={12} sm={6}>
+                <Field
+                  name="lastName"
+                  component={TextField}
+                  label="Last Name"
+                  placeholder="Enter Last Name"
+                />
+              </Grid>
+            </Grid>
+            <Button
+              fullWidth
+              variant="outlined"
+              type="submit"
+              className={classes.bottomSpace}
+            >
+              Update profile
+            </Button>
+          </Form>
+        </Formik>
+      ) : (
+        <div>Loading</div>
+      )}
+    </Container>
+  );
 };
 
 // EditProfile.getInitialProps = async ctx => {};

@@ -21,96 +21,92 @@ import Footer from 'components/Footer';
 NProgress.configure({ parent: '#container' });
 
 Router.events.on('routeChangeStart', url => {
-    console.log(`Loading: ${url}`);
-    NProgress.start();
+  console.log(`Loading: ${url}`);
+  NProgress.start();
 });
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
 
 const useStyles = makeStyles({
-    Footer: {
-        marginTop: 'auto',
-    },
+  Footer: {
+    marginTop: 'auto',
+  },
 
-    Site: {
-        'min-height': '100vh',
-    },
+  Site: {
+    'min-height': '100vh',
+  },
 });
 
 const debugForceIP = () => {
-    if (
-        process.env.NEXT_PUBLIC_DEBUG &&
-        !isServer() &&
-        window.location.hostname === 'localhost'
-    ) {
-        window.location = `http://127.0.0.1:3000${window.location.pathname}`;
-    }
+  if (
+    process.env.NEXT_PUBLIC_DEBUG &&
+    !isServer() &&
+    window.location.hostname === 'localhost'
+  ) {
+    window.location = `http://127.0.0.1:3000${window.location.pathname}`;
+  }
 };
 
 const fileLabel = 'pages/_app';
 export default function App(props) {
-    debugForceIP();
-    const { Component, pageProps } = props;
-    const classes = useStyles();
+  debugForceIP();
+  const { Component, pageProps } = props;
+  const classes = useStyles();
 
-    useEffect(() => {
-        // Remove the server-side injected CSS.
-        const jssStyles = document.querySelector('#jss-server-side');
-        if (jssStyles) {
-            jssStyles.parentElement.removeChild(jssStyles);
-        }
-    }, []);
+  useEffect(() => {
+    // Remove the server-side injected CSS.
+    const jssStyles = document.querySelector('#jss-server-side');
+    if (jssStyles) {
+      jssStyles.parentElement.removeChild(jssStyles);
+    }
+  }, []);
 
-    const { user } = pageProps;
-    Sentry.addBreadcrumb({
-        // See https://docs.sentry.io/enriching-error-data/breadcrumbs
-        category: fileLabel,
-        message: `Preparing app (${isServer() ? 'server' : 'browser'})`,
-        level: Sentry.Severity.Debug,
-    });
+  const { user } = pageProps;
+  Sentry.addBreadcrumb({
+    // See https://docs.sentry.io/enriching-error-data/breadcrumbs
+    category: fileLabel,
+    message: `Preparing app (${isServer() ? 'server' : 'browser'})`,
+    level: Sentry.Severity.Debug,
+  });
 
-    return (
-        <>
-            <Head>
-                <title>Lightmatter!</title>
-                {!user ? (
-                    <link
-                        rel="preload"
-                        href={clientBaseURL + USER_ME}
-                        as="fetch"
-                        crossOrigin="use-credentials"
-                    />
-                ) : null}
-                <meta
-                    name="viewport"
-                    content="minimum-scale=1, initial-scale=1, width=device-width"
-                />
-            </Head>
-            <ThemeProvider theme={theme}>
-                {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                <CssBaseline />
-                <SnackbarProvider>
-                    <CurrentUserProvider initialUser={user}>
-                        <Grid
-                            container
-                            direction="column"
-                            className={classes.Site}
-                        >
-                            <Header />
-                            <div id="container">
-                                <Component {...pageProps} />
-                            </div>
-                            <Footer className={classes.Footer} />
-                        </Grid>
-                    </CurrentUserProvider>
-                </SnackbarProvider>
-            </ThemeProvider>
-        </>
-    );
+  return (
+    <>
+      <Head>
+        <title>Lightmatter!</title>
+        {!user ? (
+          <link
+            rel="preload"
+            href={clientBaseURL + USER_ME}
+            as="fetch"
+            crossOrigin="use-credentials"
+          />
+        ) : null}
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
+      </Head>
+      <ThemeProvider theme={theme}>
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
+        <SnackbarProvider>
+          <CurrentUserProvider initialUser={user}>
+            <Grid container direction="column" className={classes.Site}>
+              <Header />
+              <div id="container">
+                <Component {...pageProps} />
+              </div>
+              <Footer className={classes.Footer} />
+            </Grid>
+          </CurrentUserProvider>
+        </SnackbarProvider>
+      </ThemeProvider>
+    </>
+  );
 }
 
 if (process.browser && process.env.ENVIRONMENT === 'production') {
-    const svg = `<svg width="55px" height="55px" viewBox="-5 0 60 55" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  const svg = `<svg width="55px" height="55px" viewBox="-5 0 60 55" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <style type="text/css">
   #lightmatter-logo{
     transform-origin: center center;
@@ -150,11 +146,11 @@ if (process.browser && process.env.ENVIRONMENT === 'production') {
         </g>
       </g>
     </svg>`;
-    const svgDataUrl = `data:image/svg+xml;base64,${btoa(svg)}`;
-    // eslint-disable-next-line no-console
-    console.log(
-        '%c ',
-        `
+  const svgDataUrl = `data:image/svg+xml;base64,${btoa(svg)}`;
+  // eslint-disable-next-line no-console
+  console.log(
+    '%c ',
+    `
   background-color: black;
   background-image: url(${svgDataUrl});
   padding-bottom: 100px;
@@ -164,16 +160,16 @@ if (process.browser && process.env.ENVIRONMENT === 'production') {
   background-position: center center;
   background-repeat: no-repeat;
 `
-    );
-    // eslint-disable-next-line no-console
-    console.log(
-        '%c Built by Lightmatter. Reach out to us at hello@lightmatter.com',
-        'color:#E33942;font-family:avenir;font-size:1.27rem'
-    );
+  );
+  // eslint-disable-next-line no-console
+  console.log(
+    '%c Built by Lightmatter. Reach out to us at hello@lightmatter.com',
+    'color:#E33942;font-family:avenir;font-size:1.27rem'
+  );
 }
 
 App.propTypes = {
-    Component: PropTypes.elementType.isRequired,
-    // eslint-disable-next-line react/forbid-prop-types
-    pageProps: PropTypes.object.isRequired,
+  Component: PropTypes.elementType.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  pageProps: PropTypes.object.isRequired,
 };
