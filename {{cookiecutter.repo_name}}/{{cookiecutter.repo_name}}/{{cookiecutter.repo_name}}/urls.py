@@ -20,6 +20,13 @@ urlpatterns += [
 ]
 
 {%- endif %}
+
+{% if cookiecutter.use_analytics == 'y' -%}
+urlpatterns += [
+    path("analytics/api/", include("{{ cookiecutter.repo_name }}.analytics.urls")),
+]
+{%- endif %}
+
 if settings.DEBUG:
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
     import debug_toolbar

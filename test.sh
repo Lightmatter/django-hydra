@@ -41,7 +41,7 @@ fi
 cd ..
 base=$(pwd)
 echo "Creating App"
-python3.8 -m cookiecutter $original --default-config --no-input project_name=$appname use_wagtail=y
+python3.8 -m cookiecutter $original --default-config --no-input project_name=$appname use_wagtail=y use_analytics=y
 cd $appname
 
 
