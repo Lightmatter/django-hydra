@@ -1,11 +1,12 @@
 import os
 import uuid
+import analytics # Segment
+
+from django.apps import AppConfig
 from rest_framework import status
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
 
-from django.apps import AppConfig
-import analytics # Segment
 
 def get_client_ip(request):
   x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
