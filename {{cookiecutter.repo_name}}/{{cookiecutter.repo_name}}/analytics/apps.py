@@ -1,8 +1,9 @@
 import os
-import analytics
 
 from django.apps import AppConfig
 from django.conf import settings
+
+import analytics
 
 class AnalyticsapiConfig(AppConfig):
   name = '{{cookiecutter.repo_name}}.analytics'

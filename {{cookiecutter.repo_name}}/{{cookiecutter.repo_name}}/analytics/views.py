@@ -1,11 +1,12 @@
 import os
 import uuid
-import analytics # Segment
 
 from django.apps import AppConfig
 from rest_framework import status
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.response import Response
+
+import analytics
 
 
 def get_client_ip(request):
