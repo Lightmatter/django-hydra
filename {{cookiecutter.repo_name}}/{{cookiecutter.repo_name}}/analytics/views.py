@@ -1,13 +1,15 @@
 import os
 import uuid
-
 from django.apps import AppConfig
 from rest_framework import status
-from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.decorators import (
+    api_view,
+    authentication_classes,
+    permission_classes,
+)
 from rest_framework.response import Response
 
 import analytics
-
 
 def get_client_ip(request):
   x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
@@ -18,6 +20,7 @@ def get_client_ip(request):
   return ip
 
 # Alias call for Segment
+# TODO make a new file `signals.py` 
 @api_view(['POST'])
 @authentication_classes([])
 @permission_classes([])  
@@ -42,9 +45,9 @@ def group(request):
   if request.method == 'POST':  
     auth_user_hash = request.session['_auth_user_hash'] or None
 
-    if (auth_user_hash is not None or request.data['user_id'] is not None) and request.data['group_id'] is not None:
+    if (auth_user_hash is not None or request.data['anonymous_id'] is not None) and request.data['group_id'] is not None:
       analytics.group(
-        auth_user_hash or request.data['user_id'],
+        auth_user_hash or request.data['anonymous_id'],
         request.data['group_id'],
         request.data['traits'],
         request.data['context'],
@@ -66,8 +69,14 @@ def group(request):
 @permission_classes([])
 def generateId(request):
   if request.method == 'GET':
+    uuid = request.session.session_key
+    
+    if not uuid:
+      request.session.create()
+      uuid = request.session.session_key
+
     return Response({
-      "uuid": uuid.uuid4().hex
+      "uuid": uuid
     }, status=status.HTTP_200_OK)
   else:
     return Response({}, status=status.HTTP_400_BAD_REQUEST)
