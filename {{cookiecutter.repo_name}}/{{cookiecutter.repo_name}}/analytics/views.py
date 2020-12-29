@@ -1,6 +1,7 @@
 import os
 import uuid
 from django.apps import AppConfig
+from django.contrib.auth.signals import user_logged_in
 from django.dispatch import receiver
 from rest_framework import status
 from rest_framework.decorators import (
@@ -14,7 +15,6 @@ import analytics
 from ipware import get_client_ip
 
 from {{cookiecutter.repo_name}}.account.models import User
-from {{cookiecutter.repo_name}}.account.signals import user_logged_in
 
 # Helpers #
 def getUserByEmail(request):
