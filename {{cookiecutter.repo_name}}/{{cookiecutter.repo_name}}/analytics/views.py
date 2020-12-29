@@ -1,6 +1,7 @@
 import os
 import uuid
 from django.apps import AppConfig
+from django.dispatch import receiver
 from rest_framework import status
 from rest_framework.decorators import (
     api_view,
@@ -10,165 +11,139 @@ from rest_framework.decorators import (
 from rest_framework.response import Response
 
 import analytics
+from ipware import get_client_ip
 
-def get_client_ip(request):
-  x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-  if x_forwarded_for:
-      ip = x_forwarded_for.split(',')[0]
-  else:
-      ip = request.META.get('REMOTE_ADDR')
-  return ip
+from {{cookiecutter.repo_name}}.account.models import User
+from {{cookiecutter.repo_name}}.account.signals import user_logged_in
+
+# Helpers #
+def getUserByEmail(request):
+  email = request.data["email"]
+  return User.objects.filter(email__iexact=email)[0]
+
+def getSessionKeyUUID(request):
+  uuid = request.session.session_key
+  if not uuid:
+    request.session.create()
+    uuid = request.session.session_key
+
+  return uuid
 
 # Alias call for Segment
-# TODO make a new file `signals.py` 
-@api_view(['POST'])
-@authentication_classes([])
-@permission_classes([])  
-def alias(request):
-  if request.method == 'POST':
-    auth_user_hash = request.session['_auth_user_hash'] or None
-
-    if 'anonymous_id' in request.data and auth_user_hash is not None:
-      analytics.alias(request.data['anonymous_id'], auth_user_hash)
-
-    return Response({
-      "status": 200 
-    }, status=status.HTTP_200_OK)
-  else:
-    return Response({}, status=status.HTTP_400_BAD_REQUEST)
-
-# Group call for Segment
-@api_view(['POST'])
-@authentication_classes([])
-@permission_classes([])  
-def group(request):
-  if request.method == 'POST':  
-    auth_user_hash = request.session['_auth_user_hash'] or None
-
-    if (auth_user_hash is not None or request.data['anonymous_id'] is not None) and request.data['group_id'] is not None:
-      analytics.group(
-        auth_user_hash or request.data['anonymous_id'],
-        request.data['group_id'],
-        request.data['traits'],
-        request.data['context'],
-        request.data['timestamp'], # null from frontend
-        request.data['anonymous_id'],
-        request.data['integrations']
-      )
-
-    return Response({
-      "status": 200
-    }, status=status.HTTP_200_OK)
-  else:
-    return Response({}, status=status.HTTP_400_BAD_REQUEST)
-
-
-# Get randomly generated uuid for client-side identification
-@api_view(['GET'])
-@authentication_classes([])
-@permission_classes([])
-def generateId(request):
-  if request.method == 'GET':
-    uuid = request.session.session_key
-    
-    if not uuid:
-      request.session.create()
-      uuid = request.session.session_key
-
-    return Response({
-      "uuid": uuid
-    }, status=status.HTTP_200_OK)
-  else:
-    return Response({}, status=status.HTTP_400_BAD_REQUEST)
+def alias(request, user):
+  uuid = getSessionKeyUUID(request)
+  analytics.alias(uuid, user.id)
 
 # Identify call for Segment
-@api_view(['POST'])
+def identify(user):
+  analytics.identify(
+    user.id,
+    {
+      "email": user.email,
+      "first_name": user.first_name,
+      "last_name": user.last_name,
+      "last_login": user.last_login,
+      "created": user.created,
+      "modified": user.modified,
+      "is_active": user.is_active,
+      "is_staff": user.is_staff,
+      "is_superuser": user.is_superuser,
+    },
+  )
+
+# Group call for Segment
+@api_view(["POST"])
 @authentication_classes([])
-@permission_classes([])  
-def identify(request):
-  if request.method == 'POST':
-    auth_user_hash = None
+@permission_classes([])
+def group(request):
+  if request.method == "POST":
+    user = getUserByEmail(request)
+    uuid = getSessionKeyUUID(request)
 
-    if '_auth_user_hash' in request.session: # only true if logged in
-      auth_user_hash = request.session['_auth_user_hash']
+    analytics.group(
+      user.id or uuid,
+      request.data["group_id"],
+      request.data["traits"],
+      request.data["context"],
+      request.data["timestamp"],  # null from frontend
+      uuid,
+      request.data["integrations"],
+    )
 
-    anonymous_id = request.data['anonymous_id']
-    traits = request.data['traits'] # do we want to leverage server side traits (from the db here?)
-    
-    if (auth_user_hash is not None or anonymous_id is not None) and traits is not None:
-      analytics.identify(auth_user_hash or anonymous_id, traits)
-
-    return Response({
-      "status": 200
-    }, status=status.HTTP_200_OK)
+    return Response({ "status": 200 }, status=status.HTTP_200_OK)
   else:
-    return Response({}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({ "error": "only POST requests allowed" }, status=status.HTTP_400_BAD_REQUEST)
+
+# Identify call for Segment
+@receiver(user_logged_in)
+def loginOrRegister(request, **kwargs):
+  user = getUserByEmail(request)
+
+  identify(user)
+  alias(request, user)
 
 # Page or Screen View Event
-@api_view(['POST'])
+@api_view(["POST"])
 @authentication_classes([])
-@permission_classes([]) 
+@permission_classes([])
 def view(request):
-  if request.method == 'POST':
-    if 'name' in request.data:
-      request.data['context']["ip"] = get_client_ip(request)
-      
-      auth_user_hash = None
-      if '_auth_user_hash' in request.session: # only true if logged in
-        auth_user_hash = request.session['_auth_user_hash']
+  if request.method == "POST":
+    if "name" in request.data:
+      user = getUserByEmail(request)
+      uuid = getSessionKeyUUID(request)
+
+      request.data["context"]["ip"], is_routable = get_client_ip(request)
 
       payload = [
-        auth_user_hash or request.data['anonymous_id'],
-        request.data['category'],
-        request.data['name'],
-        request.data['properties'],
-        request.data['context'],
-        request.data['timestamp'], # null from frontend
-        request.data['anonymous_id'],
-        request.data['integrations']
+        user.id or uuid,
+        request.data["category"],
+        request.data["name"],
+        request.data["properties"],
+        request.data["context"],
+        request.data["timestamp"],  # null from frontend
+        uuid,
+        request.data["integrations"],
       ]
 
-      if request.data['event_type'] == 'pageView':
+      if request.data["event_type"] == "pageView":
         analytics.page(*payload)
-      elif request.data['event_type'] == 'screenView':
+      elif request.data["event_type"] == "screenView":
         analytics.screen(*payload)
 
-      return Response({
-        "status": 200
-      }, status=status.HTTP_200_OK)
+      return Response({"status": 200}, status=status.HTTP_200_OK)
     else:
-      return Response({
-        "status": 400,
-        "error": ""
-      }, status=status.HTTP_400_BAD_REQUEST)
+      return Response(
+        { "status": 400, "error": "name field is missing from payload" }, status=status.HTTP_400_BAD_REQUEST
+      )
   else:
-    return Response({}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({ "error": "only POST requests allowed" }, status=status.HTTP_400_BAD_REQUEST)
 
 # Tracking call for Segment
-@api_view(['POST'])
+@api_view(["POST"])
 @authentication_classes([])
-@permission_classes([])  
+@permission_classes([])
 def track(request):
-  if request.method == 'POST':    
-    if 'event' in request.data:
-      request.data['context']["ip"] = get_client_ip(request)
+  if request.method == "POST":
+    if "event" in request.data:
+      user = getUserByEmail(request)
+      uuid = getSessionKeyUUID(request)
 
-      auth_user_hash = None
-      if '_auth_user_hash' in request.session: # only true if logged in
-        auth_user_hash = request.session['_auth_user_hash']
-      
+      request.data["context"]["ip"], is_routable = get_client_ip(request)
+
       analytics.track(
-        auth_user_hash or request.data['anonymous_id'],
-        request.data['event'],
-        request.data['properties'],
-        request.data['context'],
-        request.data['timestamp'], # null from frontend
-        request.data['anonymous_id'],
-        request.data['integrations']
+        user.id or uuid,
+        request.data["event"],
+        request.data["properties"],
+        request.data["context"],
+        request.data["timestamp"],  # null from frontend
+        uuid,
+        request.data["integrations"],
       )
 
-    return Response({
-      "status": 200
-    }, status=status.HTTP_200_OK)
+      return Response({"status": 200}, status=status.HTTP_200_OK)
+    else:
+      return Response(
+        { "status": 400, "error": "event field is missing from payload" }, status=status.HTTP_400_BAD_REQUEST
+      )
   else:
-    return Response({}, status=status.HTTP_400_BAD_REQUEST)
+    return Response({ "error": "only POST requests allowed" }, status=status.HTTP_400_BAD_REQUEST)

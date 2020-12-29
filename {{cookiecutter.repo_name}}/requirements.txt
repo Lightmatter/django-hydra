@@ -62,4 +62,5 @@ django-taggit==1.3.0
 
 {% if cookiecutter.use_analytics == 'y' %}
 analytics-python==1.2.9
+django-ipware==3.0.2
 {% endif %}
