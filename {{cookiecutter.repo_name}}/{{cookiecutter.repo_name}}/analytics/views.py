@@ -62,7 +62,7 @@ def group(request):
 		uuid = getSessionKeyUUID(request)
 
 		analytics.group(
-			user.id or uuid,
+			user.id or None,
 			request.data["group_id"],
 			request.data["traits"],
 			request.data["context"],
@@ -96,7 +96,7 @@ def view(request):
 			request.data["context"]["ip"], is_routable = get_client_ip(request)
 
 			payload = [
-				user.id or uuid,
+				user.id or None,
 				request.data["category"],
 				request.data["name"],
 				request.data["properties"],
@@ -132,7 +132,7 @@ def track(request):
 			request.data["context"]["ip"], is_routable = get_client_ip(request)
 
 			analytics.track(
-				user.id or uuid,
+				user.id or None,
 				request.data["event"],
 				request.data["properties"],
 				request.data["context"],
