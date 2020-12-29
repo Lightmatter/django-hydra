@@ -22,6 +22,7 @@ def getUserByEmail(request):
 	email = request.data["email"]
 	return User.objects.filter(email__iexact=email)[0]
 
+
 def getSessionKeyUUID(request):
 	uuid = request.session.session_key
 	if not uuid:
@@ -30,10 +31,12 @@ def getSessionKeyUUID(request):
 
 	return uuid
 
+
 # Alias call for Segment
 def alias(request, user):
 	uuid = getSessionKeyUUID(request)
 	analytics.alias(uuid, user.id)
+
 
 # Identify call for Segment
 def identify(user):
@@ -51,6 +54,7 @@ def identify(user):
 		"is_superuser": user.is_superuser,
 		},
 	)
+
 
 # Group call for Segment
 @api_view(["POST"])
@@ -75,6 +79,7 @@ def group(request):
 	else:
 		return Response({ "error": "only POST requests allowed" }, status=status.HTTP_400_BAD_REQUEST)
 
+
 # Identify call for Segment
 @receiver(user_logged_in)
 def loginOrRegister(request, **kwargs):
@@ -82,6 +87,7 @@ def loginOrRegister(request, **kwargs):
 
 	identify(user)
 	alias(request, user)
+
 
 # Page or Screen View Event
 @api_view(["POST"])
@@ -118,6 +124,7 @@ def view(request):
 			)
 	else:
 		return Response({ "error": "only POST requests allowed" }, status=status.HTTP_400_BAD_REQUEST)
+
 
 # Tracking call for Segment
 @api_view(["POST"])
