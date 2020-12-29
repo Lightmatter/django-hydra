@@ -26,7 +26,7 @@ def getUserByEmail(request):
 def getSessionKeyUUID(request):
     uuid = request.session.session_key
     if not uuid:
-    request.session.create()
+        request.session.create()
         uuid = request.session.session_key
 
     return uuid
