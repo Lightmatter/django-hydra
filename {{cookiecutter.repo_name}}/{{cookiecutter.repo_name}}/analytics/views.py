@@ -4,9 +4,9 @@ from django.apps import AppConfig
 from django.dispatch import receiver
 from rest_framework import status
 from rest_framework.decorators import (
-	api_view,
-	authentication_classes,
-	permission_classes,
+    api_view,
+    authentication_classes,
+    permission_classes,
 )
 from rest_framework.response import Response
 
@@ -15,6 +15,7 @@ from django.contrib.auth.signals import user_logged_in
 from ipware import get_client_ip
 
 from {{cookiecutter.repo_name}}.account.models import User
+
 
 # Helpers #
 def getUserByEmail(request):
