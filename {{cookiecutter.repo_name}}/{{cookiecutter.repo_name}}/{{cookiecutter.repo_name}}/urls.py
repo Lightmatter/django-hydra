@@ -37,4 +37,3 @@ urlpatterns += [
 ]
 
 {%- endif %}
-
