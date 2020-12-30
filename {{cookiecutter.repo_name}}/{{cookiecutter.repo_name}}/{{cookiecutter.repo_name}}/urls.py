@@ -35,5 +35,4 @@ urlpatterns += [
 urlpatterns += [
     path("", include("{{ cookiecutter.repo_name }}.wagtailapp.urls")),
 ]
-
 {%- endif %}

@@ -35,11 +35,18 @@ def getSessionKeyUUID(request):
 # Alias call for Segment
 def alias(request, user):
     uuid = getSessionKeyUUID(request)
-    analytics.alias(uuid, user.id)
+    analytics.alias(
+        uuid,
+        user.id,
+        {
+            "ip": request.META["ANALYTICS-IP"],
+            "user_agent": request.META["HTTP_USER_AGENT"],
+        },
+    )
 
 
 # Identify call for Segment
-def identify(user):
+def identify(request, user):
     analytics.identify(
         user.id,
         {
@@ -53,6 +60,10 @@ def identify(user):
             "is_staff": user.is_staff,
             "is_superuser": user.is_superuser,
         },
+        {
+            "ip": request.META["ANALYTICS-IP"],
+            "user_agent": request.META["HTTP_USER_AGENT"],
+        },
     )
 
 
@@ -61,25 +72,20 @@ def identify(user):
 @authentication_classes([])
 @permission_classes([])
 def group(request):
-    if request.method == "POST":
-        user = getUserByEmail(request)
-        uuid = getSessionKeyUUID(request)
+    user = getUserByEmail(request)
+    uuid = getSessionKeyUUID(request)
 
-        analytics.group(
-            user.id or None,
-            request.data["group_id"],
-            request.data["traits"],
-            request.data["context"],
-            request.data["timestamp"],  # null from frontend
-            uuid,
-            request.data["integrations"],
-        )
+    analytics.group(
+        user.id or None,
+        request.data["group_id"],
+        request.data["traits"],
+        request.data["context"],
+        request.data["timestamp"],  # null from frontend
+        uuid,
+        request.data["integrations"],
+    )
 
-        return Response({"status": 200}, status=status.HTTP_200_OK)
-    else:
-        return Response(
-            {"error": "only POST requests allowed"}, status=status.HTTP_400_BAD_REQUEST
-        )
+    return Response({"status": 200}, status=status.HTTP_200_OK)
 
 
 # Identify call for Segment
@@ -87,7 +93,7 @@ def group(request):
 def loginOrRegister(request, **kwargs):
     user = getUserByEmail(request)
 
-    identify(user)
+    identify(request, user)
     alias(request, user)
 
 
@@ -95,12 +101,12 @@ def loginOrRegister(request, **kwargs):
 @api_view(["POST"])
 @authentication_classes([])
 @permission_classes([])
-def view(request):
+def view(request, client_ip):
     if "name" in request.data:
         user = getUserByEmail(request)
         uuid = getSessionKeyUUID(request)
 
-        request.data["context"]["ip"], is_routable = get_client_ip(request)
+        request.data["context"]["ip"] = request.META["ANALYTICS-IP"]
 
         payload = [
             user.id or None,
@@ -130,12 +136,12 @@ def view(request):
 @api_view(["POST"])
 @authentication_classes([])
 @permission_classes([])
-def track(request):
+def track(request, client_ip):
     if "event" in request.data:
         user = getUserByEmail(request)
         uuid = getSessionKeyUUID(request)
 
-        request.data["context"]["ip"], is_routable = get_client_ip(request)
+        request.data["context"]["ip"] = request.META["ANALYTICS-IP"]
 
         analytics.track(
             user.id or None,

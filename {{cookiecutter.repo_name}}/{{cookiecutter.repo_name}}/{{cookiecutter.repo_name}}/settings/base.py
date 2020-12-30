@@ -245,6 +245,18 @@ DJOSER = {
     "SET_PASSWORD_RETYPE": True,
 }
 
+{% if cookiecutter.use_analytics == "y" -%}
+INSTALLED_APPS += (
+    '{{ cookiecutter.repo_name }}.analytics',
+)
+
+MIDDLEWARE += (
+    '{{ cookiecutter.repo_name }}.analytics.middleware.IpMiddleware',
+)
+
+SEGMENT_KEY=env("SEGMENT_KEY", default="KEY_MISSING")
+{% endif -%}
+
 # fmt: off
 {% if cookiecutter.use_wagtail == "y" -%}
 # Wagtail specific settings
@@ -295,12 +307,4 @@ WAGTAILADMIN_NOTIFICATION_FROM_EMAIL = 'wagtail@{{cookiecutter.repo_name}}.com'
 WAGTAILIMAGES_IMAGE_MODEL = 'wagtailapp.CustomImage'
 WAGTAILIMAGES_MAX_UPLOAD_SIZE = 10 * 1024 * 1024 # 10MB which is default
 WAGTAILIMAGES_MAX_IMAGE_PIXELS = 128000000  # i.e. 128 megapixels
-{% endif -%}
-
-{% if cookiecutter.use_analytics == "y" -%}
-INSTALLED_APPS += (
-  '{{ cookiecutter.repo_name }}.analytics',
-)
-
-SEGMENT_KEY=env("SEGMENT_KEY", default="KEY_MISSING")
 {% endif -%}
