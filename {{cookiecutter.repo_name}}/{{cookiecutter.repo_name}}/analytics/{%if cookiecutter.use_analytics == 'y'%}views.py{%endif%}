@@ -1,0 +1,85 @@
+import os
+import uuid
+from django.apps import AppConfig
+from django.dispatch import receiver
+from rest_framework import status
+from rest_framework.decorators import (
+    api_view,
+    authentication_classes,
+    permission_classes,
+)
+from rest_framework.response import Response
+
+import analytics
+from django.contrib.auth.signals import user_logged_in
+from ipware import get_client_ip
+
+from {{cookiecutter.repo_name}}.analytics.utils import get_analytics_payload
+
+
+# Alias call for Segment
+def alias(request):
+    payload = get_analytics_payload(request, "alias")
+    analytics.alias(*payload)
+
+
+# Identify call for Segment
+def identify(request):
+    payload = get_analytics_payload(request, "identify")
+    analytics.identify(*payload)
+
+
+# Identify call for Segment
+@receiver(user_logged_in)
+def loginOrRegister(request, **kwargs):
+    alias(request)
+    identify(request)
+
+
+# Group call for Segment
+@api_view(["POST"])
+@authentication_classes([])
+@permission_classes([])
+def group(request):
+    payload = get_analytics_payload(request, "group")
+    analytics.group(*payload)
+
+    return Response({"status": 200}, status=status.HTTP_200_OK)
+
+
+# Page or Screen View Event
+@api_view(["POST"])
+@authentication_classes([])
+@permission_classes([])
+def view(request, client_ip):
+    if "name" in request.data:
+        if request.data["event_type"] == "pageView":
+            payload = get_analytics_payload(request, "pageView")
+            analytics.page(*payload)
+        elif request.data["event_type"] == "screenView":
+            payload = get_analytics_payload(request, "screenView")
+            analytics.screen(*payload)
+
+        return Response({"status": 200}, status=status.HTTP_200_OK)
+    else:
+        return Response(
+            {"status": 400, "error": "name field is missing from payload"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
+
+
+# Tracking call for Segment
+@api_view(["POST"])
+@authentication_classes([])
+@permission_classes([])
+def track(request, client_ip):
+    if "event" in request.data:
+        payload = get_analytics_payload(request, "track")
+        analytics.track(*payload)
+
+        return Response({"status": 200}, status=status.HTTP_200_OK)
+    else:
+        return Response(
+            {"status": 400, "error": "event field is missing from payload"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )

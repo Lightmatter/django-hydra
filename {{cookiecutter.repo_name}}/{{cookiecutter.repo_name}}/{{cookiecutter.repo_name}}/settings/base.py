@@ -246,15 +246,11 @@ DJOSER = {
 }
 
 {% if cookiecutter.use_analytics == "y" -%}
-INSTALLED_APPS += (
-    '{{ cookiecutter.repo_name }}.analytics',
-)
+INSTALLED_APPS += ('{{ cookiecutter.repo_name }}.analytics',)
 
-MIDDLEWARE += (
-    '{{ cookiecutter.repo_name }}.analytics.middleware.IpMiddleware',
-)
+MIDDLEWARE += ('{{ cookiecutter.repo_name }}.analytics.middleware.IpMiddleware',)
 
-SEGMENT_KEY=env("SEGMENT_KEY", default="KEY_MISSING")
+SEGMENT_KEY = env("SEGMENT_KEY", default="KEY_MISSING")
 {% endif -%}
 
 # fmt: off
