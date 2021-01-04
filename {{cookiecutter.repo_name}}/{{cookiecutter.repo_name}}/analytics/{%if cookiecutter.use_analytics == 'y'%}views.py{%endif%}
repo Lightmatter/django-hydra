@@ -12,28 +12,47 @@ from rest_framework.response import Response
 
 import analytics
 from django.contrib.auth.signals import user_logged_in
-from ipware import get_client_ip
 
+from {{cookiecutter.repo_name}}.analytics.serializers import (
+    AliasSerializer,
+    GroupSerializer,
+    IdentifySerializer,
+    TrackSerializer,
+    ViewEventSerializer,
+)
 from {{cookiecutter.repo_name}}.analytics.utils import get_analytics_payload
 
 
 # Alias call for Segment
 def alias(request):
-    payload = get_analytics_payload(request, "alias")
-    analytics.alias(*payload)
+    serializer = AliasSerializer(
+        data=request.data, context={'request': request})
+
+    if serializer.is_valid():
+        payload = get_analytics_payload(serializer.data, "alias")
+        analytics.alias(*payload)
+        return True
+    else:
+        return False
 
 
 # Identify call for Segment
 def identify(request):
-    payload = get_analytics_payload(request, "identify")
-    analytics.identify(*payload)
+    serializer = IdentifySerializer(
+        data=request.data, context={'request': request})
+
+    if serializer.is_valid():
+        payload = get_analytics_payload(serializer.data, "identify")
+        analytics.identify(*payload)
+        return True
+    else:
+        return False
 
 
 # Identify call for Segment
 @receiver(user_logged_in)
 def loginOrRegister(request, **kwargs):
-    alias(request)
-    identify(request)
+    return alias(request) and identify(request)
 
 
 # Group call for Segment
@@ -41,30 +60,61 @@ def loginOrRegister(request, **kwargs):
 @authentication_classes([])
 @permission_classes([])
 def group(request):
-    payload = get_analytics_payload(request, "group")
-    analytics.group(*payload)
+    serializer = GroupSerializer(
+        data=request.data, context={'request': request})
 
-    return Response({"status": 200}, status=status.HTTP_200_OK)
-
-
-# Page or Screen View Event
-@api_view(["POST"])
-@authentication_classes([])
-@permission_classes([])
-def view(request, client_ip):
-    if "name" in request.data:
-        if request.data["event_type"] == "pageView":
-            payload = get_analytics_payload(request, "pageView")
-            analytics.page(*payload)
-        elif request.data["event_type"] == "screenView":
-            payload = get_analytics_payload(request, "screenView")
-            analytics.screen(*payload)
+    if serializer.is_valid():
+        payload = get_analytics_payload(serializer.data, "group")
+        analytics.group(*payload)
 
         return Response({"status": 200}, status=status.HTTP_200_OK)
     else:
+        print('Error', serializer.errors)
         return Response(
-            {"status": 400, "error": "name field is missing from payload"},
-            status=status.HTTP_400_BAD_REQUEST,
+            {"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST,
+        )
+
+# Page View Event
+
+
+@api_view(["POST"])
+@authentication_classes([])
+@permission_classes([])
+def pageView(request):
+    serializer = ViewEventSerializer(
+        data=request.data, context={'request': request})
+
+    if serializer.is_valid():
+        payload = get_analytics_payload(serializer.data, "view")
+        analytics.page(*payload)
+
+        return Response({"status": 200}, status=status.HTTP_200_OK)
+    else:
+        serializer.is_valid(raise_exception=True)
+
+        return Response(
+            {"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST,
+        )
+
+
+# Screen View Event
+@api_view(["POST"])
+@authentication_classes([])
+@permission_classes([])
+def screenView(request):
+    serializer = ViewEventSerializer(
+        data=request.data, context={'request': request})
+
+    if serializer.is_valid():
+        payload = get_analytics_payload(serializer.data, "view")
+        analytics.screen(*payload)
+
+        return Response({"status": 200}, status=status.HTTP_200_OK)
+    else:
+        serializer.is_valid(raise_exception=True)
+
+        return Response(
+            {"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST,
         )
 
 
@@ -72,14 +122,18 @@ def view(request, client_ip):
 @api_view(["POST"])
 @authentication_classes([])
 @permission_classes([])
-def track(request, client_ip):
-    if "event" in request.data:
-        payload = get_analytics_payload(request, "track")
+def track(request):
+    serializer = TrackSerializer(
+        data=request.data, context={'request': request})
+
+    if serializer.is_valid():
+        payload = get_analytics_payload(serializer.data, "track")
         analytics.track(*payload)
 
         return Response({"status": 200}, status=status.HTTP_200_OK)
     else:
+        serializer.is_valid(raise_exception=True)
+
         return Response(
-            {"status": 400, "error": "event field is missing from payload"},
-            status=status.HTTP_400_BAD_REQUEST,
+            {"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST,
         )

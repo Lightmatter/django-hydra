@@ -1,0 +1,100 @@
+from django.test import TestCase
+from django.urls import reverse
+from rest_framework import status as s
+
+import requests
+from django.contrib.auth.hashers import make_password
+from model_bakery import baker
+
+from {{cookiecutter.repo_name}}.account.models import User
+from {{cookiecutter.repo_name}}.util.tests import NextjsCypressTest
+
+from .views import loginOrRegister
+
+URL_TRACK_VIEW = reverse("track")
+URL_PAGE_VIEW = reverse("pageView")
+URL_SCREEN_VIEW = reverse("screenView")
+URL_GROUP_VIEW = reverse("group")
+
+
+class RequestStub:
+    def __init__(self, user):
+        self.data = {
+            "email": user.email
+        }
+        self.META = {
+            "HTTP_USER_AGENT": "/anaytics/test.py",
+            "ANALYITCS_IP": "6.6.6",
+        }
+        self.session = self.SessionStub(-1)
+
+    class SessionStub:
+        def __init__(self, key):
+            self.session_key = key
+
+
+# Happy Paths: These should all return 200 status codes
+class HappyPathApiTest(TestCase):
+    def setUp(self):
+        user = User.objects.create_user(
+            "billymays@oxiclean.com", password="butwaittheresmore"
+        )
+
+        self.request = RequestStub(user)
+
+    def test_track_view(self):
+        self.request.data["event"] = "Automated Test Event"
+        response = self.client.post(URL_TRACK_VIEW, self.request.data)
+        self.assertEqual(response.status_code, s.HTTP_200_OK)
+
+    def test_page_view(self):
+        self.request.data["name"] = "Test Page Title"
+        self.request.data["category"] = "Test Category"
+        response = self.client.post(URL_PAGE_VIEW, self.request.data)
+        self.assertEqual(response.status_code, s.HTTP_200_OK)
+
+    def test_screen_view(self):
+        self.request.data["name"] = "Test Screen Title"
+        self.request.data["category"] = "Test Category"
+        response = self.client.post(URL_SCREEN_VIEW, self.request.data)
+        self.assertEqual(response.status_code, s.HTTP_200_OK)
+
+    def test_group_view(self):
+        self.request.data["group_id"] = "8675309"
+        response = self.client.post(URL_GROUP_VIEW, self.request.data)
+        self.assertEqual(response.status_code, s.HTTP_200_OK)
+
+    def test_login_or_register(self):
+        isValid = loginOrRegister(self.request)
+        self.assertEqual(isValid, True)
+
+
+# Sad Paths: These requests have no payload so they should return 400 status code
+class SadPathApiTest(TestCase):
+    def setUp(self):
+        pass
+
+    def test_track_view(self):
+        response = self.client.post(URL_TRACK_VIEW)
+        self.assertEqual(response.status_code, s.HTTP_400_BAD_REQUEST)
+
+    def test_page_view(self):
+        response = self.client.post(URL_PAGE_VIEW)
+        self.assertEqual(response.status_code, s.HTTP_400_BAD_REQUEST)
+
+    def test_screen_view(self):
+        response = self.client.post(URL_SCREEN_VIEW)
+        self.assertEqual(response.status_code, s.HTTP_400_BAD_REQUEST)
+
+    def test_group_view(self):
+        response = self.client.post(URL_GROUP_VIEW)
+        self.assertEqual(response.status_code, s.HTTP_400_BAD_REQUEST)
+
+    def test_login_or_register(self):
+        user = User.objects.create_user(
+            "", password=""
+        )
+
+        self.request = RequestStub(user)
+        isValid = loginOrRegister(self.request)
+        self.assertEqual(isValid, False)

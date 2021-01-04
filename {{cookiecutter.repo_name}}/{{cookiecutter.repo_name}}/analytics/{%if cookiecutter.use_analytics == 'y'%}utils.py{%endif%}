@@ -38,9 +38,11 @@ def get_analytics_payload(request, event_type):
     if event_type == "pageView" or event_type == "pageView" or event_type == "track":
         request.data["context"]["ip"] = request.META["ANALYTICS-IP"]
 
-        unique_info = [
-            request.data["event"]] if event_type == "track" else [request.data["category"], request.data["name"]
-        ]
+        unique_info = (
+            request.data["event"]]
+            if event_type == "track"
+            else [request.data["category"], request.data["name"]
+        )
 
         return [
             user.id or None,
