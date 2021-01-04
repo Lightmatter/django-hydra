@@ -2,12 +2,7 @@ from django.test import TestCase
 from django.urls import reverse
 from rest_framework import status as s
 
-import requests
-from django.contrib.auth.hashers import make_password
-from model_bakery import baker
-
 from {{cookiecutter.repo_name}}.account.models import User
-from {{cookiecutter.repo_name}}.util.tests import NextjsCypressTest
 
 from .views import loginOrRegister
 

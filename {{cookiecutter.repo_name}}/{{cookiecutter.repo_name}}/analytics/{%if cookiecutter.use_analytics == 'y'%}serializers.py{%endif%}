@@ -1,0 +1,102 @@
+from rest_framework import serializers
+
+from {{cookiecutter.repo_name}}.account.models import User
+
+
+def get_id_context_helper(request):
+    return {
+        "ip": request.META["ANALYTICS_IP"] if "ANALYTICS_IP" in request.META else None,
+        "user_agent": request.META["HTTP_USER_AGENT"] if "HTTP_USER_AGENT" in request.META else None,
+    }
+
+
+def get_uuid_helper(request):
+    uuid = request.session.session_key
+
+    if not uuid:
+        request.session.create()
+        uuid = request.session.session_key
+
+    return uuid
+
+
+def get_secondary_data_helper(request, is_identifying=False):
+    if is_identifying:
+        return [
+            get_id_context_helper(request),
+            None,  # timestamp
+            None,  # integrations
+        ]
+
+    return [
+        get_id_context_helper(request),
+        request.data["timestamp"] if "timestamp" in request.data else None,
+        get_uuid_helper(request),
+        request.data["integrations"] if "integrations" in request.data else None,
+    ]
+
+
+class UserBaseSerializer(serializers.Serializer):
+    email = serializers.EmailField()
+    user = serializers.SerializerMethodField()
+    secondary_data = serializers.SerializerMethodField()
+
+    def get_user(self, obj):
+        email = self.context['request'].data["email"]
+        return User.objects.filter(email__iexact=email)[0]
+
+    def get_secondary_data(self, obj):
+        is_identifying = isinstance(self, AliasSerializer) or isinstance(
+            self, IdentifySerializer)
+
+        return get_secondary_data_helper(self.context['request'], is_identifying)
+
+
+class EventBaseSerializer(UserBaseSerializer):
+    properties = serializers.SerializerMethodField()
+
+    def get_properties(self, obj):
+        return self.context['request'].data["properties"] if "properties" in self.context['request'].data else None
+
+
+class AliasSerializer(UserBaseSerializer):
+    uuid = serializers.SerializerMethodField()
+
+    def get_uuid(self, obj):
+        return get_uuid_helper(self.context['request'])
+
+
+class IdentifySerializer(UserBaseSerializer):
+    id_traits = serializers.SerializerMethodField()
+
+    def get_id_traits(self, obj):
+        user = self.get_user(obj)
+
+        return {
+            "email": user.email,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+            "last_login": user.last_login,
+            "created": user.created,
+            "modified": user.modified,
+            "is_active": user.is_active,
+            "is_staff": user.is_staff,
+            "is_superuser": user.is_superuser,
+            "anonymous_id": get_uuid_helper(self.context['request']),
+        }
+
+
+class ViewEventSerializer(EventBaseSerializer):
+    name = serializers.CharField(max_length=200)
+    category = serializers.CharField(required=False)
+
+
+class TrackSerializer(EventBaseSerializer):
+    event = serializers.CharField(max_length=200)
+
+
+class GroupSerializer(IdentifySerializer):
+    group_id = serializers.CharField(max_length=200)
+
+    def get_secondary_data(self, obj):
+        return get_secondary_data_helper(self.context['request'])
