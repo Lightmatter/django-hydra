@@ -28,7 +28,7 @@ def alias(request):
         payload = get_analytics_payload(serializer.data, "alias")
         analytics.alias(*payload)
         return True
-    
+
     return False
 
 
@@ -40,7 +40,7 @@ def identify(request):
         payload = get_analytics_payload(serializer.data, "identify")
         analytics.identify(*payload)
         return True
-    
+
     return False
 
 
@@ -63,9 +63,7 @@ def group(request):
 
         return Response({"status": 200}, status=status.HTTP_200_OK)
     
-    return Response(
-        {"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST,
-    )
+    return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 # Page View Event
@@ -81,9 +79,7 @@ def page_view(request):
 
         return Response({"status": 200}, status=status.HTTP_200_OK)
     
-    return Response(
-        {"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST,
-    )
+    return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 # Screen View Event
@@ -99,9 +95,7 @@ def screen_view(request):
 
         return Response({"status": 200}, status=status.HTTP_200_OK)
     
-    return Response(
-        {"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST,
-    )
+    return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 # Tracking call for Segment
@@ -117,6 +111,4 @@ def track(request):
 
         return Response({"status": 200}, status=status.HTTP_200_OK)
     
-    return Response(
-        {"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST,
-    )
+    return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
