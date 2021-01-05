@@ -70,9 +70,8 @@ def group(request):
             {"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST,
         )
 
+
 # Page View Event
-
-
 @api_view(["POST"])
 @authentication_classes([])
 @permission_classes([])
