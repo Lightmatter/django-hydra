@@ -1,80 +1,14 @@
-from {{cookiecutter.repo_name}}.account.models import User
-
-
-def getUserByEmail(request):
-    email = request.data["email"]
-    return User.objects.filter(email__iexact=email)[0]
-
-
-def getSessionKeyUUID(request):
-    uuid = request.session.session_key
-    if not uuid:
-        request.session.create()
-        uuid = request.session.session_key
-
-    return uuid
-
-
-def id_context(request):
-    return {
-        "ip": request.META["ANALYTICS-IP"],
-        "user_agent": request.META["HTTP_USER_AGENT"],
-    }
-
-
-def secondary_data(request, uuid):
-    return [
-        request.data["context"],
-        request.data["timestamp"],
-        uuid,
-        request.data["integrations"],
-    ]
-
-
-def get_analytics_payload(request, event_type):
-    user = getUserByEmail(request)
-    uuid = getSessionKeyUUID(request)
-
-    if event_type == "pageView" or event_type == "pageView" or event_type == "track":
-        request.data["context"]["ip"] = request.META["ANALYTICS-IP"]
-
-        unique_info = (
-            request.data["event"]]
-            if event_type == "track"
-            else [request.data["category"], request.data["name"]
-        )
-
-        return [
-            user.id or None,
-            *unique_info,
-            request.data["properties"],
-            *secondary_data(request, uuid),
-        ]
+# https://segment.com/docs/connections/sources/catalog/libraries/server/python/
+def get_analytics_payload(data, event_type):
+    if event_type == "track":
+        return [data["user"].id, data["event"], data["properties"], *data["secondary_data"]]
+    elif event_type == "view":
+        return [data["user"].id, data["category"], data["name"], data["properties"], *data["secondary_data"]]
     elif event_type == "identify":
-        return [
-            user.id,
-            {
-                "email": user.email,
-                "first_name": user.first_name,
-                "last_name": user.last_name,
-                "last_login": user.last_login,
-                "created": user.created,
-                "modified": user.modified,
-                "is_active": user.is_active,
-                "is_staff": user.is_staff,
-                "is_superuser": user.is_superuser,
-                "anonymous_id": uuid,
-            },
-            id_context(request),
-        ]
+        return [data["user"].id, data["id_traits"], *data["secondary_data"]]
     elif event_type == "alias":
-        return [uuid, user.id, id_context(request)]
+        return [data["uuid"], data["user"].id, *data["secondary_data"]]
     elif event_type == "group":
-        return [
-            user.id or None,
-            request.data["group_id"],
-            request.data["traits"],
-            *secondary_data(request, uuid),
-        ]
+        return [data["user"].id, data["group_id"], data["id_traits"], *data["secondary_data"]]
 
     return None
