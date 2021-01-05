@@ -7,7 +7,7 @@ def get_analytics_payload(data, event_type):
             data["properties"],
             *data["secondary_data"],
         ]
-    elif event_type == "view":
+    if event_type == "view":
         return [
             data["user"].id,
             data["category"],
@@ -15,11 +15,11 @@ def get_analytics_payload(data, event_type):
             data["properties"],
             *data["secondary_data"],
         ]
-    elif event_type == "identify":
+    if event_type == "identify":
         return [data["user"].id, data["id_traits"], *data["secondary_data"]]
-    elif event_type == "alias":
+    if event_type == "alias":
         return [data["uuid"], data["user"].id, *data["secondary_data"]]
-    elif event_type == "group":
+    if event_type == "group":
         return [
             data["user"].id,
             data["group_id"],
