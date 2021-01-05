@@ -4,11 +4,11 @@ from rest_framework import status as s
 
 from {{cookiecutter.repo_name}}.account.models import User
 
-from .views import loginOrRegister
+from .views import login_or_register
 
 URL_TRACK_VIEW = reverse("track")
-URL_PAGE_VIEW = reverse("pageView")
-URL_SCREEN_VIEW = reverse("screenView")
+URL_PAGE_VIEW = reverse("page_view")
+URL_SCREEN_VIEW = reverse("screen_view")
 URL_GROUP_VIEW = reverse("group")
 
 
@@ -58,7 +58,7 @@ class HappyPathApiTest(TestCase):
         self.assertEqual(response.status_code, s.HTTP_200_OK)
 
     def test_login_or_register(self):
-        isValid = loginOrRegister(self.request)
+        isValid = login_or_register(self.request)
         self.assertEqual(isValid, True)
 
 
@@ -87,5 +87,5 @@ class SadPathApiTest(TestCase):
         user = User.objects.create_user("", password="")
 
         self.request = RequestStub(user)
-        isValid = loginOrRegister(self.request)
+        isValid = login_or_register(self.request)
         self.assertEqual(isValid, False)

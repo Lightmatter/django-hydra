@@ -1,10 +1,9 @@
-from django.urls import include, path
-
+from django.urls import path
 from . import views
 
 urlpatterns = [
     path("group", views.group, name="group"),
-    path("pageView", views.pageView, name="pageView"),
-    path("screenView", views.screenView, name="screenView"),
+    path("page_view", views.page_view, name="page_view"),
+    path("screen_view", views.screen_view, name="screen_view"),
     path("track", views.track, name="track"),
 ]

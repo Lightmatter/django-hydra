@@ -48,9 +48,7 @@ class UserBaseSerializer(serializers.Serializer):
         return User.objects.filter(email__iexact=email)[0]
 
     def get_secondary_data(self, obj):
-        is_identifying = isinstance(self, AliasSerializer) or isinstance(
-            self, IdentifySerializer
-        )
+        is_identifying = isinstance(self, (AliasSerializer, IdentifySerializer))
 
         return get_secondary_data_helper(self.context["request"], is_identifying)
 

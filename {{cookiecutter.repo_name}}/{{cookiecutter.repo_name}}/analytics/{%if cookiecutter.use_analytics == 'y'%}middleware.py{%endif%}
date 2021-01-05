@@ -1,9 +1,7 @@
-import json
-import requests
 from ipware import get_client_ip
 
 
-class BaseMiddleware(object):
+class BaseMiddleware():
     def __init__(self, get_response):
         self.get_response = get_response
 
@@ -14,4 +12,3 @@ class BaseMiddleware(object):
 class IpMiddleware(BaseMiddleware):
     def process_view(self, request, view_func, view_args, view_kwargs):
         request.META["ANALYTICS-IP"] = get_client_ip(request)[0]
-        return None
