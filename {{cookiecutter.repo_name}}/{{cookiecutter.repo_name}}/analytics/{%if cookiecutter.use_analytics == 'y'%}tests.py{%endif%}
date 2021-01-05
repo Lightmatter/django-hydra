@@ -14,9 +14,7 @@ URL_GROUP_VIEW = reverse("group")
 
 class RequestStub:
     def __init__(self, user):
-        self.data = {
-            "email": user.email
-        }
+        self.data = {"email": user.email}
         self.META = {
             "HTTP_USER_AGENT": "/anaytics/test.py",
             "ANALYITCS_IP": "6.6.6",
@@ -86,9 +84,7 @@ class SadPathApiTest(TestCase):
         self.assertEqual(response.status_code, s.HTTP_400_BAD_REQUEST)
 
     def test_login_or_register(self):
-        user = User.objects.create_user(
-            "", password=""
-        )
+        user = User.objects.create_user("", password="")
 
         self.request = RequestStub(user)
         isValid = loginOrRegister(self.request)

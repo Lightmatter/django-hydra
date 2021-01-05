@@ -25,8 +25,7 @@ from {{cookiecutter.repo_name}}.analytics.utils import get_analytics_payload
 
 # Alias call for Segment
 def alias(request):
-    serializer = AliasSerializer(
-        data=request.data, context={'request': request})
+    serializer = AliasSerializer(data=request.data, context={"request": request})
 
     if serializer.is_valid():
         payload = get_analytics_payload(serializer.data, "alias")
@@ -38,8 +37,7 @@ def alias(request):
 
 # Identify call for Segment
 def identify(request):
-    serializer = IdentifySerializer(
-        data=request.data, context={'request': request})
+    serializer = IdentifySerializer(data=request.data, context={"request": request})
 
     if serializer.is_valid():
         payload = get_analytics_payload(serializer.data, "identify")
@@ -60,8 +58,7 @@ def loginOrRegister(request, **kwargs):
 @authentication_classes([])
 @permission_classes([])
 def group(request):
-    serializer = GroupSerializer(
-        data=request.data, context={'request': request})
+    serializer = GroupSerializer(data=request.data, context={"request": request})
 
     if serializer.is_valid():
         payload = get_analytics_payload(serializer.data, "group")
@@ -69,7 +66,6 @@ def group(request):
 
         return Response({"status": 200}, status=status.HTTP_200_OK)
     else:
-        print('Error', serializer.errors)
         return Response(
             {"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST,
         )
@@ -81,8 +77,7 @@ def group(request):
 @authentication_classes([])
 @permission_classes([])
 def pageView(request):
-    serializer = ViewEventSerializer(
-        data=request.data, context={'request': request})
+    serializer = ViewEventSerializer(data=request.data, context={"request": request})
 
     if serializer.is_valid():
         payload = get_analytics_payload(serializer.data, "view")
@@ -90,8 +85,6 @@ def pageView(request):
 
         return Response({"status": 200}, status=status.HTTP_200_OK)
     else:
-        serializer.is_valid(raise_exception=True)
-
         return Response(
             {"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST,
         )
@@ -102,8 +95,7 @@ def pageView(request):
 @authentication_classes([])
 @permission_classes([])
 def screenView(request):
-    serializer = ViewEventSerializer(
-        data=request.data, context={'request': request})
+    serializer = ViewEventSerializer(data=request.data, context={"request": request})
 
     if serializer.is_valid():
         payload = get_analytics_payload(serializer.data, "view")
@@ -111,8 +103,6 @@ def screenView(request):
 
         return Response({"status": 200}, status=status.HTTP_200_OK)
     else:
-        serializer.is_valid(raise_exception=True)
-
         return Response(
             {"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST,
         )
@@ -123,8 +113,7 @@ def screenView(request):
 @authentication_classes([])
 @permission_classes([])
 def track(request):
-    serializer = TrackSerializer(
-        data=request.data, context={'request': request})
+    serializer = TrackSerializer(data=request.data, context={"request": request})
 
     if serializer.is_valid():
         payload = get_analytics_payload(serializer.data, "track")
