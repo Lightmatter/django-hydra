@@ -11,7 +11,8 @@ import { SnackbarProvider } from 'notistack';
 import NProgress from 'nprogress';
 
 import theme from 'theme/theme';
-import { CurrentUserProvider, USER_ME } from 'models/user';
+import { CurrentUserProvider } from 'models/user';
+import { URLS } from 'constants.js';
 import { clientBaseURL } from 'util/axios';
 import isServer from 'util/isServer';
 
@@ -76,7 +77,7 @@ export default function App(props) {
         {!user ? (
           <link
             rel="preload"
-            href={clientBaseURL + USER_ME}
+            href={clientBaseURL + URLS.usersMe}
             as="fetch"
             crossOrigin="use-credentials"
           />

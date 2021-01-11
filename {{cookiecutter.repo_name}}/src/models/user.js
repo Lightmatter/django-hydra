@@ -5,9 +5,7 @@ import { useSnackbar } from 'notistack';
 import useSWR from 'swr';
 
 import axios from 'util/axios';
-import { EMAIL, REQUIRED, TOO_LONG, TOO_SHORT } from '../constants';
-
-export const USER_ME = '/auth/users/me/';
+import { EMAIL, REQUIRED, TOO_LONG, TOO_SHORT, URLS } from '../constants';
 
 function equalTo(yupRef, msg) {
   const ref = Yup.ref(yupRef);
@@ -30,13 +28,9 @@ const name = Yup.string()
   .max(50, TOO_LONG)
   .required(REQUIRED);
 
-const password = Yup.string()
-  .required(REQUIRED)
-  .min(6, TOO_SHORT);
+const password = Yup.string().required(REQUIRED).min(6, TOO_SHORT);
 
-const email = Yup.string()
-  .email(EMAIL)
-  .required(REQUIRED);
+const email = Yup.string().email(EMAIL).required(REQUIRED);
 
 const UserDetailSchema = {
   firstName: name,
@@ -55,9 +49,7 @@ export const SignupSchema = Yup.object().shape({
   ...UserDetailSchema,
   ...SetPassSchema,
   email,
-  tos: Yup.boolean()
-    .required(REQUIRED)
-    .oneOf([true], 'Field must be checked'),
+  tos: Yup.boolean().required(REQUIRED).oneOf([true], 'Field must be checked'),
 });
 
 export const LoginSchema = Yup.object().shape({
@@ -96,26 +88,22 @@ export const DeleteUserSchema = Yup.object().shape({
 });
 
 export function registerUser(userData) {
-  const url = '/auth/register/';
-
-  return axios.post(url, userData);
+  return axios.post(URLS.register, userData);
 }
 
 export function updateUser(userData) {
-  return axios.put(USER_ME, userData);
+  return axios.put(URLS.usersMe, userData);
 }
 
 export function deleteUser(data) {
-  const url = '/auth/users/me/';
-  return axios.delete(url, { data }).then(() => {
+  return axios.delete(URLS.usersMe, { data }).then(() => {
     window.dispatchEvent(new Event('logout'));
     window.localStorage.setItem('logout', Date.now());
   });
 }
 
 export function logIn(userData) {
-  const url = '/auth/token/login/';
-  return axios.post(url, userData).then(() => {
+  return axios.post(URLS.login, userData).then(() => {
     // use login session, so this should set a cookie but return a token. We still love you token.
     /* const token = `Token ${response.data.key}`; */
     // notify app that we've logged in
@@ -125,42 +113,35 @@ export function logIn(userData) {
 }
 
 export function logOut() {
-  const url = '/auth/token/logout/';
-  return axios.post(url).then(() => {
+  return axios.post(URLS.logout).then(() => {
     window.dispatchEvent(new Event('logout'));
     window.localStorage.setItem('logout', Date.now());
   });
 }
 
 export function forgotPass(userEmail) {
-  const url = '/auth/users/reset_password/';
-  return axios.post(url, userEmail);
+  return axios.post(URLS.resetPassword, userEmail);
 }
 
 export function resetPass(userInfo) {
-  const url = '/auth/users/reset_password_confirm/';
-  return axios.post(url, userInfo);
+  return axios.post(URLS.resetPasswordConfirm, userInfo);
 }
 
 export function changePass(data) {
-  const url = '/auth/users/set_password/';
-  return axios.post(url, data);
+  return axios.post(URLS.setPassword, data);
 }
 
 export function changeEmail(data) {
-  const url = '/auth/users/set_email/';
-  return axios.post(url, data);
+  return axios.post(URLS.setEmail, data);
 }
 
 export function confirmEmail(uid, token) {
-  const url = '/auth/users/activation/';
   const data = { uid, token };
-  return axios.post(url, data);
+  return axios.post(URLS.userActivation, data);
 }
 
 export function resendConfirmEmail() {
-  const url = '/auth/users/resend_activation';
-  return axios.post(url);
+  return axios.post(URLS.resendActivation);
 }
 let isAuthenticated;
 let setAuthenticated;
@@ -195,7 +176,7 @@ export function useCurrentUserSWR({ initialUser }) {
   // really we shouldn't do that - we know if the revalidation attempt will be successful or not based on isauthenticated
   // This could be smarter w/ a stateful representation of isAuthenticated, vs a derived one to check to test.
   const { data, error, isValidating, mutate } = useSWR(
-    USER_ME,
+    URLS.usersMe,
     query =>
       axios({
         method: 'get',

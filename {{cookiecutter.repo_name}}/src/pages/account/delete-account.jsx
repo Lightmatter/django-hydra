@@ -4,6 +4,7 @@ import { TextField } from 'formik-material-ui';
 import { useSnackbar } from 'notistack';
 
 import {
+  Box,
   Typography,
   Button,
   Container,
@@ -28,9 +29,6 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(4),
-  },
-  grid: {
-    marginBottom: theme.spacing(1),
   },
   bottomSpace: {
     marginBottom: theme.spacing(2),
@@ -103,19 +101,22 @@ const DeleteAccount = () => {
               <DialogContentText id="alert-dialog-description">
                 Are you sure you want to delete your account? We'll miss you!
               </DialogContentText>
+              <Box display="flex" justifyContent="center">
+                <Field
+                  component={TextField}
+                  name="currentPassword"
+                  autoComplete="off"
+                  label="Current Password"
+                  type="password"
+                />
+              </Box>
             </DialogContent>
-            <Field
-              component={TextField}
-              name="currentPassword"
-              autoComplete="off"
-              label="Current Password"
-              type="password"
-            />
+
             <DialogActions>
-              <Button onClick={handleClose} color="primary" autoFocus>
+              <Button onClick={handleClose} color="secondary" autoFocus>
                 No - I want to stay!
               </Button>
-              <Button type="submit" color="primary">
+              <Button variant="outlined" type="submit" color="primary">
                 Yes - I want to delete my account
               </Button>
             </DialogActions>

@@ -1,14 +1,12 @@
 import axios from 'util/axios';
-
-const API_URL = '/api/v2/';
-const API_PAGES_URL = `${API_URL}pages/`;
+import { URLS } from 'constants.js';
 
 const getUrlByType = pageType => {
-  return `${API_PAGES_URL}?type=${pageType}`;
+  return `${URLS.api.base}?type=${pageType}`;
 };
 
 const getUrlByPath = path => {
-  return `${API_PAGES_URL}find?html_path=${path}`;
+  return `${URLS.api.pages}find?html_path=${path}`;
 };
 
 export async function getAllPageSlugs() {

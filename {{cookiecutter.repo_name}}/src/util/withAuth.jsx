@@ -2,11 +2,8 @@
 import { useRouter } from 'next/router';
 
 import Loading from 'components/Loading';
-import {
-  USER_ME,
-  useIsAuthenticated,
-  useCurrentUserIsValidating,
-} from 'models/user';
+import { useIsAuthenticated, useCurrentUserIsValidating } from 'models/user';
+import { URLS } from 'constants.js';
 import isServer from 'util/isServer';
 import axios from 'util/axios';
 // SAMPLE HEADERS coming in
@@ -76,7 +73,7 @@ async function wrapContextUser(ctx) {
   try {
     response = await axios({
       method: 'get',
-      url: USER_ME,
+      url: URLS.usersMe,
     });
   } catch (e) {
     let code;
