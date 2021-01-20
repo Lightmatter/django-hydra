@@ -23,11 +23,9 @@ if settings.DEBUG:
     urlpatterns += static(media_url, document_root=settings.MEDIA_ROOT)
     urlpatterns += [path(r"__debug__/", include(debug_toolbar.urls))]
 
-{% if cookiecutter.use_wagtail == 'y' -%}
+{%- if cookiecutter.use_wagtail == 'y' %}
 
 # This needs to come after static and debug calls
 urlpatterns += [
     path("", include("{{ cookiecutter.repo_name }}.wagtailapp.urls")),
-]
-
-{%- endif %}
+]{% endif %}

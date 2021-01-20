@@ -205,7 +205,6 @@ SOCIAL_AUTH_DEFAULT_USERNAME = "new_social_auth_user"
 STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY", default="")
 STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY", default="")
 {% endif %}
-
 try:
     from model_bakery import random_gen  # noqa
 
