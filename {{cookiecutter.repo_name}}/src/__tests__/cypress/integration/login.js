@@ -1,10 +1,7 @@
 describe('Login page', () => {
   it('a user can get to the login page from the home page', () => {
     cy.visit('');
-    cy.get('[data-cy=auth-menu-button]')
-      .click()
-      .get('[data-cy=login]')
-      .click();
+    cy.get('[data-cy=auth-menu-button]').click().get('[data-cy=login]').click();
     cy.location().should(location => {
       expect(location.pathname).to.eq('/login');
     });
@@ -13,10 +10,10 @@ describe('Login page', () => {
     cy.visit('/login');
     cy.get('[data-cy=login-email]')
       .click()
-      .type('ben@lightmatter.com')
+      .type('jonnyrico@fednet.gov')
       .get('[data-cy=login-password]')
       .click()
-      .type('asdfasdf')
+      .type('iwanttoknowmore')
       .get('[data-cy=submit-login]')
       .click();
 
@@ -30,10 +27,10 @@ describe('Login page', () => {
     cy.visit('/login?next=/account');
     cy.get('[data-cy=login-email]')
       .click()
-      .type('ben@lightmatter.com')
+      .type('jonnyrico@fednet.gov')
       .get('[data-cy=login-password]')
       .click()
-      .type('asdfasdf')
+      .type('iwanttoknowmore')
       .get('[data-cy=submit-login]')
       .click();
 
