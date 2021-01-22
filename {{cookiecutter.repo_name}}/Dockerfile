@@ -21,7 +21,7 @@ COPY requirements.txt /app
 RUN python3.8 -m pip install -r requirements.txt --no-cache-dir
 COPY . /app
 
-RUN APP_VERSION_RELEASE="build" ENVIRONMENT="build" SENTRY_DSN="" DATABASE_URL="" ALLOWED_HOSTS="*" SECRET_KEY="foobar" python3.8 ./manage.py collectstatic --noinput
+RUN APP_VERSION_RELEASE="build" ENVIRONMENT="build" SENTRY_DSN="" REDIS_URL="" DATABASE_URL="" ALLOWED_HOSTS="*" SECRET_KEY="foobar" python3.8 ./manage.py collectstatic --noinput
 # cmd goes here if you want to run this on its own
 
 from os as next
