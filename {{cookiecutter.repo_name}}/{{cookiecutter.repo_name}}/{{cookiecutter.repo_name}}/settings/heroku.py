@@ -88,3 +88,7 @@ sentry_sdk.init(
     environment=env("ENVIRONMENT"),
     release=env("APP_VERSION_RELEASE"),
 )
+
+CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = "None"
+SESSION_COOKIE_SAMESITE = "None"

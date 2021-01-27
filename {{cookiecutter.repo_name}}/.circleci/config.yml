@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  python: circleci/python@0.1
+  python: circleci/python@1.3.2
   node: circleci/node@3.0.1
   heroku: circleci/heroku@1.0.1
   codecov: codecov/codecov@1.0.5
@@ -21,13 +21,15 @@ jobs:
     working_directory: /home/circleci/project
     steps:
       - checkout
-
-      - python/load-cache
       - run: sudo apt-get update && sudo apt-get install -y gdal-bin python-gdal python3-gdal
-      - python/install-deps
-      - python/save-cache
+      - python/install-packages:
+          pkg-manager: pip
+          # NOTE: if having pip issues, use legacy resolver
+          # args: --use-deprecated=legacy-resolver
+          include-python-in-cache-key: false
         #TODO: caching the dev requirements requires caching the bins they install as well, figure out how to do that
-      - run: pip install --user -r requirements-dev.txt
+        # NOTE: if having pip issues, use legacy resolver
+      - run: pip install --user -r requirements-dev.txt # --use-deprecated=legacy-resolver
 
       - run: scripts/validate.sh
       - run: coverage run --source='.' manage.py test
