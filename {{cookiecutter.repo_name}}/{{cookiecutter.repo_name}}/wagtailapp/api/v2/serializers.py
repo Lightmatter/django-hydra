@@ -26,8 +26,4 @@ class CustomPageSerializer(PageSerializer):
     serializer_field_mapping = (
         serializers.ModelSerializer.serializer_field_mapping.copy()
     )
-    serializer_field_mapping.update(
-        {
-            wagtailcore_fields.StreamField: StreamField,
-        }
-    )
+    serializer_field_mapping.update({wagtailcore_fields.StreamField: StreamField})
