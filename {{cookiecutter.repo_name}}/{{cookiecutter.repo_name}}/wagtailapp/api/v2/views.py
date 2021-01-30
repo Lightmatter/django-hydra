@@ -4,9 +4,12 @@ from rest_framework import permissions
 from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.core.models import Site
 
+from .serializers import CustomPageSerializer
+
 
 class CustomPagesAPIViewSet(PagesAPIViewSet):
     permission_classes = (permissions.AllowAny,)
+    base_serializer_class = CustomPageSerializer
 
     def find_object(self, queryset, request):  # noqa: inconsistent-return-statements
         site = Site.find_for_request(request)
