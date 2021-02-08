@@ -1,10 +1,11 @@
+import atexit
 import datetime
 import subprocess
 import time
 import unittest
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import LiveServerTestCase, TestCase
+from django.test import LiveServerTestCase, TestCase, tag
 
 from .models import TestFileModel
 from .util import file_url, random_string
@@ -59,23 +60,43 @@ class SendEmailtest(TestCase):
     pass
 
 
-# TODO: We should make sure we've built the nextjs blob
+class NextJsBuilderBorg:
+    has_built = False
+    nextjs = None
+
+    @classmethod
+    def build(cls):
+        if not cls.has_built:
+            cls.nextjs = subprocess.call(["npx", "next", "build"])
+            cls.has_built = True
+
+    @classmethod
+    def run_next(cls):
+        if not cls.nextjs:
+            cls.nextjs = subprocess.Popen(
+                ["npx", "next", "start"],
+                stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+            )
+
+            def kill_next():
+                cls.nextjs.terminate()
+
+            atexit.register(kill_next)
+
+
+@tag("integration")
 class NextjsCypressTest(LiveServerTestCase):
     port = 8000  # brittle - this must match next compilation.
 
     def setUp(self):
+        NextJsBuilderBorg.build()
+        NextJsBuilderBorg.run_next()
         super().setUp()
-        self.nextjs = subprocess.Popen(
-            ["npx", "next", "start"], stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-        )
 
-    def tearDown(self):
-        self.nextjs.terminate()
-
-    @unittest.skip("turn this on if you want it")
-    def run_cypress_test(self, spec, silent=True, browser=False):
+    # todo - capture process output no matter what, and then print on test fail
+    def run_cypress_test(self, spec, silent=True, browser=False, keep=False):
         browser_flag = ["--browser", "chrome"]
-        # browser_flag.append("--no-exit")  # if you need to debug it
         command = [
             "yarn",
             "run",
@@ -86,4 +107,5 @@ class NextjsCypressTest(LiveServerTestCase):
         ]
         if browser:
             command.extend(browser_flag)
+            command.extend(["--no-exit"])
         return subprocess.run(command, capture_output=silent,)

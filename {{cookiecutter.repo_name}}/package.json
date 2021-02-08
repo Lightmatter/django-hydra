@@ -21,7 +21,7 @@
     "@testing-library/react": "^10.4.7",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.1.0",
-    "cypress": "^4.11.0",
+    "cypress": "^6.3.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
     "enzyme-to-json": "^3.5.0",
@@ -60,7 +60,7 @@
     "import": "^0.0.6",
     "interweave": "^12.5.0",
     "material-ui-popup-state": "^1.6.1",
-    "next": "^10.0.2",
+    "next": "^10.0.5",
     "next-build-id": "^3.0.0",
     "notistack": "^0.9.17",
     "nprogress": "^0.2.0",
@@ -68,6 +68,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "swr": "^0.2.3",
+    "yarn": "^1.22.10",
     "yup": "^0.28.3"
   },
   "husky": {

@@ -25,16 +25,23 @@ class LoginTest(TestCase):
 
 
 # TODO provide data for this
-# class RegistrationCypressTest(NextjsCypressTest):
-#     def setUp(self):
-#         super().setUp()
+class RegistrationCypressTest(NextjsCypressTest):
+    def setUp(self):
+        super().setUp()
 
-#     def tearDown(self):
-#         super().tearDown()
+    def tearDown(self):
+        super().tearDown()
 
-#     def test_cypress(self):
-#         result = self.run_cypress_test("signup.js", silent=True, browser=False)
-#         self.assertEqual(result.returncode, 0)
+    def test_login(self):
+        self.user = baker.make_recipe(
+            "{{cookiecutter.repo_name}}.account.user_seq", password=make_password("iwanttoknowmore"),
+        )
+        result = self.run_cypress_test("login.js", silent=True, browser=False)
+        self.assertEqual(result.returncode, 0)
+
+    def test_signup(self):
+        result = self.run_cypress_test("signup.js", silent=True, browser=False)
+        self.assertEqual(result.returncode, 0)
 
 
 class RegistrationTest(TestCase):

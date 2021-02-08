@@ -34,7 +34,7 @@ TIME_ZONE = "UTC"
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "en"
 
 SITE_ID = 1
 
@@ -149,7 +149,7 @@ SESSION_COOKIE_NAME = prefixed_cookie("sessionid")
 CSRF_COOKIE_NAME = prefixed_cookie("csrftoken")
 LANGUAGE_COOKIE_NAME = prefixed_cookie("django_language")
 
-TEST_RUNNER = "django.test.runner.DiscoverRunner"
+TEST_RUNNER = "{{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.testrunner.TestRunner"
 
 ALLOWED_HOSTS = ["localhost" ".herokuapp.com"]
 
