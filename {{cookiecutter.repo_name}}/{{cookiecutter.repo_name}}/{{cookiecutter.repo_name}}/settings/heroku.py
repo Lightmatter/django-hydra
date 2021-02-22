@@ -15,9 +15,23 @@ DATABASES["default"] = env.db()
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 
-ALLOWED_HOSTS = [u"0.0.0.0", "127.0.0.1"] + env(  # nosec
+ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1"] + env(  # nosec
     "ALLOWED_HOSTS", default="*"
 ).split("|")
+
+# NOTE: this is related to allowing the app to accept incoming requests from external sources
+CORS_ALLOWED_ORIGINS = [
+    f"https://{item}"
+    for item in env("ALLOWED_HOSTS", None).split("|")
+    if env("ALLOWED_HOSTS", None)
+]
+
+# NOTE: this is related to allowing the app to accept incoming requests from external sources
+CSRF_TRUSTED_ORIGINS = [
+    f"{item}"
+    for item in env("ALLOWED_HOSTS", None).split("|")
+    if env("ALLOWED_HOSTS", None)
+]
 
 STATIC_ROOT = root("static")
 
@@ -92,3 +106,6 @@ sentry_sdk.init(
 CSRF_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = "None"
 SESSION_COOKIE_SAMESITE = "None"
+
+# NOTE: Refer to README for Multi domain set up for CSRF_COOKIE_DOMAIN
+# CSRF_COOKIE_DOMAIN = env("CSRF_COOKIE_DOMAIN")
