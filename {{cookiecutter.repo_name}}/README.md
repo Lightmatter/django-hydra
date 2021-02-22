@@ -202,6 +202,9 @@ If you decide in the future that you want to move the two applications to differ
 Included are some fields that work well in a Formik form and not really well anywhere else.
 ### AutoCompleteField
 - /src/components/forms/fields/AutoCompleteField.jsx
+This field will autocomplete a set of options based on text typed in. This will work across the entire queryset if you set up a search endpoint. It is also capable of pulling in select options from the OPTIONS lookup provided by DRF.
+In order to actually search the backend with this field, you must add a filter (default name of search) to the endpoint being hit.
+Searching can be turned off as well by setting enableSearch to false
 - Example usage:
 ```
 <AutoCompleteField
