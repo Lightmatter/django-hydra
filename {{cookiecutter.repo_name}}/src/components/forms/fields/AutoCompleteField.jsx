@@ -170,7 +170,7 @@ const AutoCompleteField = ({
                 onClose={() => {
                     setOpen(false);
                 }}
-                ListboxProps={{
+                ListboxProps={% raw -%}{{
                     style: {
                         maxHeight: '200px',
                     },
@@ -183,7 +183,7 @@ const AutoCompleteField = ({
                             setSize(size + 1);
                         }
                     },
-                }}
+                }}{% endraw %}
                 renderInput={params => (
                     <TextField
                         {...params}
@@ -197,7 +197,7 @@ const AutoCompleteField = ({
                                 handleSearch(e.target.value);
                             }
                         }}
-                        InputProps={{
+                        InputProps={% raw -%}{{
                             ...params.InputProps,
                             endAdornment: (
                                 <>
@@ -210,7 +210,7 @@ const AutoCompleteField = ({
                                     {params.InputProps.endAdornment}
                                 </>
                             ),
-                        }}
+                        }}{% endraw %}
                     />
                 )}
                 {...props}

@@ -218,7 +218,7 @@ Searching can be turned off as well by setting enableSearch to false
     {...rest}
 />
 ```
-or for multiple select field
+or for multiple select field that you want to remove duplicates from the returned options
 ```
 <AutoCompleteField
   fullWidth
