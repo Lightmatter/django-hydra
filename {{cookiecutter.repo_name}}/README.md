@@ -119,6 +119,15 @@ Setup for the remote environment is handled through terraform.
 3) Ensure you're logged in to Heroku through the Heroku cli
 4) Finally Remote Heroku servers and AWS infrastructure can be created by going to the terraform/environments folder and running `terraform init` followed by `terraform apply`
 
+## Multiple domain setup process
+
+The app is capable of working with a multi-domain setup. Use case: App A has a django backend and a react native frontend. App B also uses App A's backend but is not hosted on the same domain.
+
+ALLOWED_HOSTS setting  must look something like `ALLOWED_HOSTS=127.0.0.1:3000|localhost:3000|localhost:3001|.ngrok.io` (locally) and similar on heroku. Every domain that connects to the backend needs to be in allowed hosts.
+`CSRF_COOKIE_DOMAIN = env("CSRF_COOKIE_DOMAIN")` the CSRF cookie domain env variable is important to allow POST requests to work coming from the secondary app. This can be set to a subdomain like `.exampleapp.com`
+NOTE: Heroku is an exception to this rule and will not allow you to set cookies on that domain `.herokuapp.com` so you must purchase a domain to use and set the backend app as something like api.exampleapp.com and the outside app as whatever.exampleapp.com
+`CORS_ALLOWED_ORIGINS` and CSRF_TRUSTED_ORIGINS both pull from allowed hosts and are crucial for this process.
+
 
 ## Differences between Local and Remote
 - Emails:
