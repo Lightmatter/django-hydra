@@ -112,7 +112,7 @@ This is done so that communication between the yarn process and the Django proce
 
 Setup for the remote environment is handled through terraform.
 1) create an AWSCLI profile with an access key and secret for the account you want to use to host media. This should either be your default profile, or you can pass the profile as a var to terraform
-2) Manually install the terraform sentry plugin (https://www.terraform.io/docs/plugins/basics.html#installing-plugins) (https://github.com/jianyuan/terraform-provider-sentry) 
+2) Manually install the terraform sentry plugin (https://www.terraform.io/docs/plugins/basics.html#installing-plugins) (https://github.com/jianyuan/terraform-provider-sentry)
 2) set an environment variable for SENTRY_AUTH_TOKEN and TF_VAR_SENTRY_AUTH_TOKEN after getting the token through the sentry web UI
   a) To get the auth token, in the sentry webapp dashboard, go to User Menu > API Keys
   b) Note that the .env file isn't read by terraform - so set this variable in your .bashrc or through export
@@ -198,6 +198,55 @@ The nginx service that directs all incoming traffic has several paths hardcoded 
 Because the django server and the nextjs server are sharing authentication through cookies, it's important they stay on the same domain. There's three parts to consider when looking at how to arrange the domains serving the app - the api domain, the nextjs domain and the domain used between the two servers. A simple example would be the production hosting of both sides of the app on foo.com - the api would be reachable on foo.com/api, the next.js server would be on foo.com, and server to server communication would be over 127.0.0.1. In this case when loading a page from scratch you'd load on foo.com, then the next.js would forward the cookies to 127.0.0.1 (but still use the cookies from foo.com), and then return an authenticated response. When communicating directly to the api to login or make a post request, you'd address foo.com/api, and so cookies would still be correctly set for both frontend and backend, because they would both live under foo.com . For local development, you'd need a similar guarentee - that's why we force local development onto 127.0.0.1 and not localhost, because if the api domain doesn't match how you're addressing the client, things will break in strange ways.
 If you decide in the future that you want to move the two applications to different subdomains, say www and api, you can do that as long as you configure the cookie to be shared by domain rather than subdomain
 
+## Formik Fields
+Included are some fields that work well in a Formik form and not really well anywhere else.
+### AutoCompleteField
+- /src/components/forms/fields/AutoCompleteField.jsx
+This field will autocomplete a set of options based on text typed in. This will work across the entire queryset if you set up a search endpoint. It is also capable of pulling in select options from the OPTIONS lookup provided by DRF.
+In order to actually search the backend with this field, you must add a filter (default name of search) to the endpoint being hit.
+Searching can be turned off as well by setting enableSearch to false
+- Example usage:
+```
+<AutoCompleteField
+    fullWidth
+    label="Lab Location"
+    name="lab"
+    optionLabel={option =>
+        `${option.name} - ${option.labNumber}`
+    }
+    callbackURL={URLS.labs}
+    {...rest}
+/>
+```
+or for multiple select field that you want to remove duplicates from the returned options
+```
+<AutoCompleteField
+  fullWidth
+  multiple
+  multipleUniqueLookup="id"
+  disableCloseOnSelect
+  label="Test Group(s)"
+  name={`samples.${sampleIndex}.testGroups`}
+  optionLabel={option => option.groupTitle}
+  callbackURL={URLS.testGroups}
+  {...rest}
+/>
+```
+or field that uses the OPTIONS feature of DRF to grab choices for a field
+```
+<AutoCompleteField
+    fullWidth
+    label="Special Pricing"
+    name="specialPricing"
+    value={values.specialPricing}
+    optionLabel={option =>
+        option.displayName
+    }
+    choicesLookup="specialPricing"
+    callbackURL={URLS.invoices}
+    {...rest}
+/>
+```
 ## Important Libraries in project
 
 -   [date-fns](https://date-fns.org/docs/Getting-Started) - An alternative and SIGNIFICANTLY smaller to Moment.js. MomentJS should not be needed.
