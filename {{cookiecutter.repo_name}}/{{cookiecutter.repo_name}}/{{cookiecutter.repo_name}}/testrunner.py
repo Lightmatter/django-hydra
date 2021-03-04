@@ -11,4 +11,4 @@ class TestRunner(DiscoverRunner):
             if "integration" not in exclude_tags:
                 exclude_tags.append("integration")
         kwargs["exclude_tags"] = exclude_tags
-        return super().__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
