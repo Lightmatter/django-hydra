@@ -3,7 +3,7 @@ import { getPageBySlug } from 'util/api';
 import StreamField from 'components/streamfield/StreamField';
 
 const ContentPage = ({ data }) => {
-  return <>{data && <StreamField stream={data?.body} />}</>;
+  return <>{data?.body && <StreamField stream={data.body} />}</>;
 };
 
 ContentPage.propTypes = {
