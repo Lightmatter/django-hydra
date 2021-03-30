@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const LogInPage = () => {
+const Login = () => {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
 
@@ -133,4 +133,5 @@ const LogInPage = () => {
   );
 };
 
-export default withoutAuth(LogInPage);
+export default Login;
+export const getServerSideProps = withoutAuth();

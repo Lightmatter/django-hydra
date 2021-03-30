@@ -119,4 +119,6 @@ const ChangePassword = () => {
     </Container>
   );
 };
-export default withAuthRequired(ChangePassword);
+
+export default ChangePassword;
+export const getServerSideProps = withAuthRequired();

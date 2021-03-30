@@ -1,14 +1,10 @@
 /* eslint-disable  max-classes-per-file  */
-import { useRouter } from 'next/router';
+import { USER_ME } from 'models/user';
+import { getAxios } from 'util/axios';
+import _ from 'lodash';
 
-import Loading from 'components/Loading';
-import {
-  USER_ME,
-  useIsAuthenticated,
-  useCurrentUserIsValidating,
-} from 'models/user';
-import isServer from 'util/isServer';
-import axios from 'util/axios';
+const serverBaseURL = process.env.SERVER_BASE_URL || 'http://127.0.0.1:8000';
+// import axios from 'util/axios';
 // SAMPLE HEADERS coming in
 // accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
 // accept-encoding: "gzip, deflate, br"
@@ -45,8 +41,8 @@ class ServerBrokenError extends Error {}
 class WTFError extends Error {}
 
 export function forwardRequestHeaders(ctx) {
-  axios.defaults.headers = ctx.req.headers;
-  axios.defaults.headers.accept = 'application/json, text/plain, */*';
+  ctx.axios.defaults.headers = ctx.req.headers;
+  ctx.axios.defaults.headers.accept = 'application/json, text/plain, */*';
 
   // what other headers do we want to forward?? probably x forwarded for
   // TODO: def need to forward user agent as well
@@ -61,9 +57,9 @@ export function loginPageUrl(next) {
   return '/login';
 }
 
-export function postLoginUrl(router) {
+export function postLoginUrl(ctx) {
   // TODO: next should preserve querystring args
-  let { next = '/' } = router.query; // TODO should be setting controlled
+  let { next = '/' } = ctx.query; // TODO should be setting controlled
   if (!next.startsWith('/')) {
     next = `/${next}`;
   }
@@ -74,9 +70,10 @@ async function wrapContextUser(ctx) {
   forwardRequestHeaders(ctx);
   let response;
   try {
-    response = await axios({
+    response = await ctx.axios({
       method: 'get',
       url: USER_ME,
+      baseURL: serverBaseURL,
     });
   } catch (e) {
     let code;
@@ -86,14 +83,14 @@ async function wrapContextUser(ctx) {
       code = e.code;
     }
     switch (code) {
-      case 500:
-        throw new ServerBrokenError('Servers broken');
-      case 403:
-        throw new NotLoggedInError('not logged in');
-      case 'ECONNREFUSED':
-        throw new ServerDownError('Servers Down');
-      default:
-        throw new WTFError('I have no idea how this broke');
+    case 500:
+      throw new ServerBrokenError('Servers broken');
+    case 403:
+      throw new NotLoggedInError('not logged in');
+    case 'ECONNREFUSED':
+      throw new ServerDownError('Servers Down');
+    default:
+      throw new WTFError('I have no idea how this broke');
     }
   }
   // do we need to forward status code??
@@ -101,89 +98,72 @@ async function wrapContextUser(ctx) {
   return response.data;
 }
 
-const wrappedGetInitialProps = (func, loginRequired) => {
+
+const wrappedGetServerSideProps = (func, loginDetails) => {
   if (func === undefined) {
     // eslint-disable-next-line no-param-reassign
     func = async () => {
-      return {};
+      return {
+        props: {},
+      };
     };
   }
   return async ctx => {
-    if (isServer() === true) {
-      let user = null;
-      try {
-        user = await wrapContextUser(ctx);
-      } catch (e) {
-        if (e instanceof NotLoggedInError) {
-          if (loginRequired === true) {
-            ctx.res.writeHead(302, {
-              Location: loginPageUrl(ctx.req.url),
-            });
-            ctx.res.end();
-            return {};
-          }
-        }
-        if (e instanceof ServerDownError || e instanceof ServerBrokenError) {
-          throw e; // TODO: handle this case better
-        }
-      }
-      return func(ctx).then(pageProps => {
-        const newPageProps = { ...pageProps };
-        newPageProps.user = user;
-        return newPageProps;
-      });
-    }
-    return func(ctx);
-  };
-};
-
-export const withAuthRequired = WrappedComponent => {
-  const Wrapper = props => {
-    const isAuthenticated = useIsAuthenticated();
-    const isValidating = useCurrentUserIsValidating();
-    const router = useRouter();
-
-    if (!isAuthenticated) {
-      if (isServer()) {
-        return async ctx => {
-          ctx.res.writeHead(302, {
-            Location: loginPageUrl(ctx.req.url),
-          });
+    ctx.axios = getAxios();
+    let user = null;
+    try {
+      user = await wrapContextUser(ctx);
+      if (loginDetails.loginPrevented) {
+        return {
+          redirect: {
+            destination: postLoginUrl(ctx),
+            permanent: false,
+          },
         };
       }
-      router.push(loginPageUrl(router.pathname));
-      return <Loading />;
+    } catch (e) {
+      if (e instanceof NotLoggedInError && loginDetails.loginRequired) {
+        return {
+          redirect: {
+            destination: loginPageUrl(ctx.req.url),
+            permanent: false,
+          },
+        };
+      }
+      if (
+        e instanceof ServerDownError ||
+          e instanceof ServerBrokenError
+      ) {
+        throw e; // TODO: handle this case better
+      }
     }
-
-    if (isValidating) return <Loading />;
-    return <WrappedComponent {...props} />;
+    let pageProps = await func(ctx);
+    // next doesn't want to allow alterations to props
+    pageProps = _.cloneDeep(pageProps);
+    if ('props' in pageProps) {
+      pageProps.props.user = user;
+    }
+    return pageProps;
   };
-  Wrapper.getInitialProps = wrappedGetInitialProps(
-    WrappedComponent.getInitialProps,
-    true
-  );
-  return Wrapper;
 };
 
-export const withAuth = WrappedComponent => {
-  const Wrapper = props => {
-    return <WrappedComponent {...props} />;
-  };
-  Wrapper.getInitialProps = wrappedGetInitialProps(
-    WrappedComponent.getInitialProps,
-    false
-  );
-  return Wrapper;
+export const withAuthRequired = WrappedFunc => {
+  return wrappedGetServerSideProps(WrappedFunc, {
+    loginRequired: true,
+    loginPrevented: false,
+  });
 };
 
-export const withoutAuth = WrappedComponent => {
-  const Wrapper = props => {
-    const isAuthenticated = useIsAuthenticated();
-    const router = useRouter();
-    if (isAuthenticated) {
-      router.push(postLoginUrl(router));
-    }
-    return <WrappedComponent {...props} />;
-  };
-  return Wrapper;
+export const withAuth = WrappedFunc => {
+  return wrappedGetServerSideProps(WrappedFunc, {
+    loginRequired: false,
+    loginPrevented: false,
+  });
+};
+
+export const withoutAuth = WrappedFunc => {
+  return wrappedGetServerSideProps(WrappedFunc, {
+    loginRequired: false,
+    loginPrevented: true,
+  });
 };

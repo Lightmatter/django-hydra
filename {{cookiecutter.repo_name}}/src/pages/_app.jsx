@@ -11,8 +11,7 @@ import { SnackbarProvider } from 'notistack';
 import NProgress from 'nprogress';
 
 import theme from 'theme/theme';
-import { CurrentUserProvider, USER_ME } from 'models/user';
-import { clientBaseURL } from 'util/axios';
+import { CurrentUserProvider } from 'models/user';
 import isServer from 'util/isServer';
 
 import Header from 'components/Header';
@@ -74,12 +73,14 @@ export default function App(props) {
       <Head>
         <title>Lightmatter!</title>
         {!user ? (
-          <link
-            rel="preload"
-            href={clientBaseURL + USER_ME}
-            as="fetch"
-            crossOrigin="use-credentials"
-          />
+          <></>
+          /* TODO: chrome doesn't seem to do this right  */
+          /* <link */
+          /*   rel="preload" */
+          /*   href={clientBaseURL + USER_ME} */
+          /*   as="fetch" */
+          /*   crossOrigin="use-credentials" */
+          /* /> */
         ) : null}
         <meta
           name="viewport"
