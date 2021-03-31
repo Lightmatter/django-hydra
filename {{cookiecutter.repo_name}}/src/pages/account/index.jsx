@@ -119,6 +119,5 @@ const EditProfile = () => {
   );
 };
 
-// EditProfile.getInitialProps = async ctx => {};
-
-export default withAuthRequired(EditProfile);
+export default EditProfile;
+export const getServerSideProps = withAuthRequired();

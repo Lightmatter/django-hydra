@@ -189,4 +189,5 @@ const SignUp = () => {
   );
 };
 
-export default withoutAuth(SignUp);
+export default SignUp;
+export const getServerSideProps = withoutAuth();

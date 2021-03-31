@@ -122,4 +122,6 @@ const ChangeEmail = () => {
     </Container>
   );
 };
-export default withAuthRequired(ChangeEmail);
+
+export default ChangeEmail;
+export const getServerSideProps = withAuthRequired();

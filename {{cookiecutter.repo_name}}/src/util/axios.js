@@ -14,6 +14,18 @@ const http = applyCaseMiddleware(
   })
 );
 
+// The axios instance exported is global - part of the server work is forwarding cookies, so by using that on the server you potentially share cookies between all users
+// Don't do that. That's _really_ bad.
+class GlobalAxiosOnServerError extends Error {}
+http.interceptors.request.use(req => {
+  if (isServer()) {
+    throw new GlobalAxiosOnServerError(
+      "Never use the global axios on the server as it's shared between all users. Make sure to use the axios instance supplied in the context."
+    );
+  }
+  return req;
+});
+
 function handleApiErrors(error) {
   let err;
 
@@ -55,3 +67,27 @@ http.interceptors.response.use(
 );
 
 export default http;
+
+export function getAxios() {
+  const serverHttp = applyCaseMiddleware(
+    axios.create({
+      xsrfCookieName: '{{cookiecutter.repo_name}}_csrftoken',
+      xsrfHeaderName: 'X-CSRFTOKEN',
+      withCredentials: true,
+      baseURL: serverBaseURL,
+    })
+  );
+
+  serverHttp.interceptors.request.use(config => {
+    const newConfig = {
+      ...config,
+      paramsSerializer: p => {
+        return qs.stringify(p, { arrayFormat: 'comma' });
+      },
+    };
+
+    newConfig.baseURL = isServer() ? serverBaseURL : clientBaseURL;
+    return newConfig;
+  });
+  return serverHttp;
+}

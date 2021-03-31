@@ -133,4 +133,5 @@ const DeleteAccount = () => {
     </Container>
   );
 };
-export default withAuthRequired(DeleteAccount);
+export default DeleteAccount;
+export const getServerSideProps = withAuthRequired();
