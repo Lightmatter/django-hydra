@@ -1,5 +1,6 @@
 import axios from 'axios';
 import applyCaseMiddleware from 'axios-case-converter';
+import qs from 'qs';
 
 import isServer from 'util/isServer';
 
