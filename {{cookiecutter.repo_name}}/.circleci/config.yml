@@ -48,6 +48,7 @@ jobs:
       - checkout
       - node/install-packages:
           pkg-manager: yarn
+      - run: scripts/validate_js.sh
       - run:
           name: Run tests with JUnit as reporter
           command: npx jest --ci --runInBand --reporters=default --reporters=jest-junit
