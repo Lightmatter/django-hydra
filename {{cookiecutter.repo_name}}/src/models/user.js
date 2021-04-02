@@ -129,6 +129,7 @@ export function logOut() {
   return axios.post(url).then(() => {
     window.dispatchEvent(new Event('logout'));
     window.localStorage.setItem('logout', Date.now());
+    window.location = '/';
   });
 }
 

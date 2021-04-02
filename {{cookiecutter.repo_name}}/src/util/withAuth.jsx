@@ -57,9 +57,9 @@ export function loginPageUrl(next) {
   return '/login';
 }
 
-export function postLoginUrl(ctx) {
+export function postLoginUrl(query) {
   // TODO: next should preserve querystring args
-  let { next = '/' } = ctx.query; // TODO should be setting controlled
+    let { next = '/' } = query; // TODO should be setting controlled
   if (!next.startsWith('/')) {
     next = `/${next}`;
   }
@@ -116,7 +116,7 @@ const wrappedGetServerSideProps = (func, loginDetails) => {
       if (loginDetails.loginPrevented) {
         return {
           redirect: {
-            destination: postLoginUrl(ctx),
+                        destination: postLoginUrl(ctx.query),
             permanent: false,
           },
         };

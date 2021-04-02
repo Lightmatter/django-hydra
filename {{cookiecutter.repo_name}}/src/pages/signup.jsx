@@ -4,12 +4,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Form, Field, Formik } from 'formik';
 import { TextField, CheckboxWithLabel } from 'formik-material-ui';
 
+import { useRouter } from 'next/router';
 import AccountPageHeader from 'components/AccountPageHeader';
 import Link from 'components/router/Link';
 import PasswordField from 'components/PasswordField';
 import { registerUser, logIn, SignupSchema } from 'models/user';
 import { useSnackbar } from 'notistack';
-import { withoutAuth } from 'util/withAuth';
+import { postLoginUrl, withoutAuth } from 'util/withAuth';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -31,6 +32,7 @@ const SignUp = () => {
   const classes = useStyles();
   const { enqueueSnackbar } = useSnackbar();
 
+    const router = useRouter();
   return (
     <Container className={classes.paper} component="main" maxWidth="xs">
       <AccountPageHeader>
@@ -65,6 +67,7 @@ const SignUp = () => {
                 enqueueSnackbar('Successfully registered!', {
                   variant: 'success',
                 });
+                                router.push(postLoginUrl(router.query));
                 return response;
               })
               .then(response => {
