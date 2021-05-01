@@ -17,9 +17,9 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
-import AccountPageHeader from 'components/AccountPageHeader';
-import { deleteUser, DeleteUserSchema } from 'models/user';
-import { withAuthRequired } from 'util/withAuth';
+import AccountPageHeader from '{{cookiecutter.repo_name}}/src/components/AccountPageHeader';
+import { deleteUser, DeleteUserSchema } from '{{cookiecutter.repo_name}}/src/models/user';
+import { withAuthRequired } from '{{cookiecutter.repo_name}}/src/util/withAuth';
 
 const useStyles = makeStyles(theme => ({
   paper: {

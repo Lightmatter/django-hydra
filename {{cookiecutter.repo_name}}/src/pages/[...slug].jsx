@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
-import { getPageBySlug } from 'util/api';
-import StreamField from 'components/streamfield/StreamField';
+import { getPageBySlug } from '{{cookiecutter.repo_name}}/src/util/wagtailPageApi';
+import StreamField from '{{cookiecutter.repo_name}}/src/components/streamfield/StreamField';
 
 const ContentPage = ({ data }) => {
   return <>{data?.body && <StreamField stream={data.body} />}</>;

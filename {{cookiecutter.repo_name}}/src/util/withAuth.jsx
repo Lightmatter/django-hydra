@@ -1,10 +1,9 @@
 /* eslint-disable  max-classes-per-file  */
-import { USER_ME } from 'models/user';
-import { getAxios } from 'util/axios';
+import { USER_ME } from '{{cookiecutter.repo_name}}/src/models/user';
+import { getAxios } from '{{cookiecutter.repo_name}}/src/util/axios';
 import _ from 'lodash';
 
 const serverBaseURL = process.env.SERVER_BASE_URL || 'http://127.0.0.1:8000';
-// import axios from 'util/axios';
 // SAMPLE HEADERS coming in
 // accept: "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9"
 // accept-encoding: "gzip, deflate, br"
@@ -59,7 +58,7 @@ export function loginPageUrl(next) {
 
 export function postLoginUrl(query) {
   // TODO: next should preserve querystring args
-    let { next = '/' } = query; // TODO should be setting controlled
+  let { next = '/' } = query; // TODO should be setting controlled
   if (!next.startsWith('/')) {
     next = `/${next}`;
   }
@@ -83,21 +82,20 @@ async function wrapContextUser(ctx) {
       code = e.code;
     }
     switch (code) {
-    case 500:
-      throw new ServerBrokenError('Servers broken');
-    case 403:
-      throw new NotLoggedInError('not logged in');
-    case 'ECONNREFUSED':
-      throw new ServerDownError('Servers Down');
-    default:
-      throw new WTFError('I have no idea how this broke');
+      case 500:
+        throw new ServerBrokenError('Servers broken');
+      case 403:
+        throw new NotLoggedInError('not logged in');
+      case 'ECONNREFUSED':
+        throw new ServerDownError('Servers Down');
+      default:
+        throw new WTFError('I have no idea how this broke');
     }
   }
   // do we need to forward status code??
   // should we care about vary??
   return response.data;
 }
-
 
 const wrappedGetServerSideProps = (func, loginDetails) => {
   if (func === undefined) {
@@ -116,7 +114,7 @@ const wrappedGetServerSideProps = (func, loginDetails) => {
       if (loginDetails.loginPrevented) {
         return {
           redirect: {
-                        destination: postLoginUrl(ctx.query),
+            destination: postLoginUrl(ctx.query),
             permanent: false,
           },
         };
@@ -130,10 +128,7 @@ const wrappedGetServerSideProps = (func, loginDetails) => {
           },
         };
       }
-      if (
-        e instanceof ServerDownError ||
-          e instanceof ServerBrokenError
-      ) {
+      if (e instanceof ServerDownError || e instanceof ServerBrokenError) {
         throw e; // TODO: handle this case better
       }
     }

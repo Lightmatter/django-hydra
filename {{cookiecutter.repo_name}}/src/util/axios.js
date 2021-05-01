@@ -2,7 +2,7 @@ import axios from 'axios';
 import applyCaseMiddleware from 'axios-case-converter';
 import qs from 'qs';
 
-import isServer from 'util/isServer';
+import isServer from '{{cookiecutter.repo_name}}/src/util/isServer';
 
 const serverBaseURL = process.env.SERVER_BASE_URL || 'http://127.0.0.1:8000';
 export const clientBaseURL = process.env.API_BASE_URL || '';

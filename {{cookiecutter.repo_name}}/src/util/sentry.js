@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/node';
-import isServer from 'util/isServer';
+import isServer from '{{cookiecutter.repo_name}}/src/util/isServer';
 
 /**
  * Initialize Sentry and export it.

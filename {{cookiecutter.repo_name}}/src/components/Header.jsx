@@ -19,8 +19,8 @@ import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Router from 'next/router';
 
-import Link from 'components/router/Link';
-import { useCurrentUser, logOut } from 'models/user';
+import Link from '{{cookiecutter.repo_name}}/src/components/router/Link';
+import { useCurrentUser, logOut } from '{{cookiecutter.repo_name}}/src/models/user';
 
 const useStyles = makeStyles(theme => ({
   menuButton: {

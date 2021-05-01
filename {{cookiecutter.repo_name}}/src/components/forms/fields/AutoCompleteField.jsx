@@ -4,55 +4,55 @@ import { useField, Field, useFormikContext } from 'formik';
 import React, { useEffect, useState, useCallback } from 'react';
 import { useSWRInfinite } from 'swr';
 import {
-    FormControl,
-    FormHelperText,
-    TextField,
-    CircularProgress,
+  FormControl,
+  FormHelperText,
+  TextField,
+  CircularProgress,
 } from '@material-ui/core';
 import { Autocomplete } from 'formik-material-ui-lab';
-import axios from 'util/axios';
+import axios from '{{cookiecutter.repo_name}}/src/util/axios';
 
 const getKey = (
-    pageIndex,
-    previousPageData,
-    callbackURL,
-    internalValue,
-    searchField,
-    choicesLookup
+  pageIndex,
+  previousPageData,
+  callbackURL,
+  internalValue,
+  searchField,
+  choicesLookup
 ) => {
-    // NOTE: this function returns the URL of the GET plus any pagination or searching.
-    // The key is what tells SWR to use the same data previously returned or not if this changes
-    if (
-        (previousPageData && !previousPageData.results?.length) ||
-        previousPageData?.next === null
-    ) {
-        return null; // reached the end
-    }
+  // NOTE: this function returns the URL of the GET plus any pagination or searching.
+  // The key is what tells SWR to use the same data previously returned or not if this changes
+  if (
+    (previousPageData && !previousPageData.results?.length) ||
+    previousPageData?.next === null
+  ) {
+    return null; // reached the end
+  }
 
-    let search = '';
-    if (internalValue && searchField) {
-        search = `&${searchField}=${internalValue}`;
-    }
-    if (choicesLookup) {
-        // NOTE: this "?choices=" is purely to separate the keys if there are multiple of the same
-        // on the same page. It does nothing in the backend
-        return `${callbackURL}?choices=${choicesLookup}`; // SWR key
-    }
-    return `${callbackURL}?page=${pageIndex + 1}${search}`; // SWR key
+  let search = '';
+  if (internalValue && searchField) {
+    search = `&${searchField}=${internalValue}`;
+  }
+  if (choicesLookup) {
+    // NOTE: this "?choices=" is purely to separate the keys if there are multiple of the same
+    // on the same page. It does nothing in the backend
+    return `${callbackURL}?choices=${choicesLookup}`; // SWR key
+  }
+  return `${callbackURL}?page=${pageIndex + 1}${search}`; // SWR key
 };
 
 const handleCallback = (url, choicesLookup) => {
-    if (choicesLookup) {
-        // NOTE: this is the simplest way to make a choices lookup and regular lookup
-        // behave the same way
-        return axios.options(url).then(rsp => {
-            return {
-                next: null,
-                results: rsp.data.actions.post[choicesLookup].choices,
-            };
-        });
-    }
-    return axios.get(url).then(rsp => rsp.data);
+  if (choicesLookup) {
+    // NOTE: this is the simplest way to make a choices lookup and regular lookup
+    // behave the same way
+    return axios.options(url).then(rsp => {
+      return {
+        next: null,
+        results: rsp.data.actions.post[choicesLookup].choices,
+      };
+    });
+  }
+  return axios.get(url).then(rsp => rsp.data);
 };
 
 /*
@@ -63,17 +63,17 @@ const handleCallback = (url, choicesLookup) => {
  *
  */
 const AutoCompleteField = ({
-    fullWidth,
-    formControlClassName,
-    optionLabel,
-    label,
-    callbackURL,
-    value,
-    searchField,
-    enableSearch,
-    multipleUniqueLookup,
-    choicesLookup,
-    ...props
+  fullWidth,
+  formControlClassName,
+  optionLabel,
+  label,
+  callbackURL,
+  value,
+  searchField,
+  enableSearch,
+  multipleUniqueLookup,
+  choicesLookup,
+  ...props
 }) => {
     const [field, meta] = useField(props);
     const { name, errors, helperText } = props;

@@ -1,7 +1,10 @@
 import React from 'react';
-import Login from 'pages/login';
+import Login from '{{cookiecutter.repo_name}}/src/pages/login';
 import { SnackbarProvider } from 'notistack';
-import { CurrentUserProvider, useMutateCurrentUser } from 'models/user';
+import {
+  CurrentUserProvider,
+  useMutateCurrentUser,
+} from '{{cookiecutter.repo_name}}/src/models/user';
 import { createMount } from '@material-ui/core/test-utils';
 
 //TODO: Renders correctly, renders poorly

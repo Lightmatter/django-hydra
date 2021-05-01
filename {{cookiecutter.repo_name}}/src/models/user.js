@@ -4,7 +4,7 @@ import constate from 'constate';
 import { useSnackbar } from 'notistack';
 import useSWR from 'swr';
 
-import axios from 'util/axios';
+import axios from '{{cookiecutter.repo_name}}/src/util/axios';
 import { EMAIL, REQUIRED, TOO_LONG, TOO_SHORT } from '../constants';
 
 export const USER_ME = '/auth/users/me/';
@@ -29,15 +29,8 @@ const name = Yup.string()
   .min(2, TOO_SHORT)
   .max(50, TOO_LONG)
   .required(REQUIRED);
-
-const password = Yup.string()
-  .required(REQUIRED)
-  .min(6, TOO_SHORT);
-
-const email = Yup.string()
-  .email(EMAIL)
-  .required(REQUIRED);
-
+const password = Yup.string().required(REQUIRED).min(6, TOO_SHORT);
+const email = Yup.string().email(EMAIL).required(REQUIRED);
 const UserDetailSchema = {
   firstName: name,
   lastName: name,
@@ -55,9 +48,7 @@ export const SignupSchema = Yup.object().shape({
   ...UserDetailSchema,
   ...SetPassSchema,
   email,
-  tos: Yup.boolean()
-    .required(REQUIRED)
-    .oneOf([true], 'Field must be checked'),
+  tos: Yup.boolean().required(REQUIRED).oneOf([true], 'Field must be checked'),
 });
 
 export const LoginSchema = Yup.object().shape({

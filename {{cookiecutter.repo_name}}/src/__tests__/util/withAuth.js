@@ -7,7 +7,7 @@ import {
   withAuthRequired,
   withAuth,
   withoutAuth,
-} from 'util/withAuth';
+} from '{{cookiecutter.repo_name}}/src/util/withAuth';
 //TODO: sets correctly for server or frontend
 
 describe('forwardRequestHeaders', () => {

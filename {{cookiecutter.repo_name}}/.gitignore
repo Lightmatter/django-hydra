@@ -229,3 +229,13 @@ testapp/
 
 # gunicorn pid file
 gunicorn.pid
+junit.xml
+
+
+#yarn stuf
+.yarn/*
+!.yarn/cache
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
