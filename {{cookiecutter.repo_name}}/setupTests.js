@@ -6,9 +6,13 @@
 import '@testing-library/jest-dom/extend-expect';
 
 // Setup Enzyme Adapter
+
+// eslint-disable-next-line import/no-duplicates
 import { mount, render, shallow } from 'enzyme';
+// eslint-disable-next-line import/no-duplicates
 import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+
+import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 
 // Configure Enzyme with React 16 adapter
 Enzyme.configure({ adapter: new Adapter() });

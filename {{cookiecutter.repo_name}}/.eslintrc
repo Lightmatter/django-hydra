@@ -1,7 +1,7 @@
 {
   // Extend existing configuration
   // from ESlint and eslint-plugin-react defaults.
-  "extends": ["airbnb", "prettier", "prettier/react"],
+    "extends": ["airbnb", "prettier", "prettier/react", "plugin:jest-dom/recommended"],
   "parser": "babel-eslint",
   "env": {
     "es6": true, //enables properties like Set()
@@ -11,7 +11,8 @@
   },
   // Enable custom plugin known as eslint-plugin-react
   "plugins": [
-      "prettier"
+      "prettier",
+      "jest-dom"
   ],
   "rules": {
       // Disable `no-console` rule
@@ -26,7 +27,9 @@
       "react/react-in-jsx-scope": 0,
       "react/no-unescaped-entities": 0,
       "react/jsx-props-no-spreading": 0,
-      "react/forbid-prop-types": 0
+      "react/forbid-prop-types": 0,
+      "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.ts", "**/*.test.tsx", "setupTests.js"]}]
+
   },
   "parserOptions": {
       "ecmaVersion": 7,
