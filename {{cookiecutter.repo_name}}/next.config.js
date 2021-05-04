@@ -24,6 +24,9 @@ if (APP_VERSION_RELEASE === undefined || APP_VERSION_RELEASE == null) {
 }
 
 module.exports = withSourceMaps({
+  future: {
+    webpack5: true,
+  },
   generateBuildId: async () => {
     return APP_VERSION_RELEASE;
   },
