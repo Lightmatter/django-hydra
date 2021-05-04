@@ -24,7 +24,7 @@ const PasswordField = ({ dataCy, ...rest }) => {
       data-cy={dataCy}
       {...rest}
     {%- raw %}
-    InputProps={{
+      InputProps={{
         endAdornment: (
           <InputAdornment position="end">
             <IconButton
