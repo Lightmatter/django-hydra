@@ -14,7 +14,10 @@
     "debug": "NODE_OPTIONS='--inspect=0.0.0.0:9229' next",
     "test:debug": "node --inspect node_modules/.bin/jest --runInBand",
     "test": "jest --watch",
-    "test:ci": "jest --ci -runInBand --reporters=default --reporters=jest-junit --no-cache"
+    "test:ci": "jest --ci -runInBand --reporters=default --reporters=jest-junit --no-cache",
+    "postinstall": "husky install",
+    "prepublishOnly": "pinst --disable",
+    "postpublish": "pinst --enable"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.1",
@@ -40,7 +43,8 @@
     "lint-staged": "^10.2.11",
     "miragejs": "^0.1.40",
     "prettier": "^2.0.5",
-    "react-test-renderer": "^16.13.1"
+    "react-test-renderer": "^16.13.1",
+    "pinst": "^2.0.0"
   },
   "dependencies": {
     "@babel/core": "^7.14.0",
@@ -79,18 +83,13 @@
     "tiny-warning": "^1.0.3",
     "yup": "^0.28.3"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "NODE_ENV=production lint-staged"
-    }
-  },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,json,md,css,scss}": [
-      "prettier --config .prettierrc.json --write"
+      "yarn prettier --config .prettierrc.json --write"
     ],
     "*.{js,jsx,ts,tsx}": [
-      "eslint src/**/*.js --fix",
-      "eslint src/**/*.jsx --fix"
+      "yarn eslint src/**/*.js --fix",
+      "yarn eslint src/**/*.jsx --fix"
     ],
     "*.py": [
       "isort {{cookiecutter.repo_name}}/**/*.py",

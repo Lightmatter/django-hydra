@@ -24,7 +24,7 @@ const getKey = (
   // The key is what tells SWR to use the same data previously returned or not if this changes
   if (
     (previousPageData && !previousPageData.results?.length) ||
-      previousPageData?.next === null
+    previousPageData?.next === null
   ) {
     return null; // reached the end
   }
@@ -178,7 +178,7 @@ const AutoCompleteField = ({
             const listboxNode = event.currentTarget;
             if (
               listboxNode.scrollTop + listboxNode.clientHeight ===
-                listboxNode.scrollHeight
+              listboxNode.scrollHeight
             ) {
               setSize(size + 1);
             }
@@ -201,12 +201,7 @@ const AutoCompleteField = ({
               ...params.InputProps,
               endAdornment: (
                 <>
-                  {loading && (
-                    <CircularProgress
-                      color="inherit"
-                      size={20}
-                    />
-                  )}
+                  {loading && <CircularProgress color="inherit" size={20} />}
                   {params.InputProps.endAdornment}
                 </>
               ),
@@ -218,8 +213,8 @@ const AutoCompleteField = ({
       {(isError || helperText) && (
         <FormHelperText>
           {isError
-           ? meta.error || meta.initialError || errors[name]
-           : helperText}
+            ? meta.error || meta.initialError || errors[name]
+            : helperText}
         </FormHelperText>
       )}
     </FormControl>

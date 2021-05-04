@@ -1,37 +1,36 @@
 import PropTypes from 'prop-types';
-import { getPageBySlug } from 'util/wagtailPageApi';
-import StreamField from 'components/streamfield/StreamField';
+import { getPageBySlug } from '{{cookiecutter.repo_name}}/src/util/wagtailPageApi';
+import StreamField from '{{cookiecutter.repo_name}}/src/components/streamfield/StreamField';
 
 const ContentPage = ({ data }) => {
-    return <>{data && <StreamField stream={data?.body} />}</>;
+  return <>{data?.body && <StreamField stream={data.body} />}</>;
 };
 
 ContentPage.propTypes = {
-    data: PropTypes.object,
+  data: PropTypes.object,
 };
 
 ContentPage.defaultProps = {
-    data: null,
+  data: null,
 };
 
 export async function getStaticProps({ params }) {
-    const data = await getPageBySlug(params.slug.join('/'));
-    return {
-        props: {
-            data,
-        },
-        revalidate: 1
-    };
+  const data = await getPageBySlug(params.slug.join('/'));
+  return {
+    props: {
+      data,
+    },
+    unstable_revalidate: 1,
+  };
 }
 export async function getStaticPaths() {
-    // const allContentPages = await getAllPageSlugs();
-    // we need to update the build to pull from a current api before this can pass circle
-    const allContentPages = [];
-    return {
-        paths:
-            allContentPages.map(item => item.meta.htmlUrl.split('/pages')[1]) ||
-            [],
-        fallback: true,
-    };
+  // const allContentPages = await getAllPageSlugs();
+  // we need to update the build to pull from a current api before this can pass circle
+  const allContentPages = [];
+  return {
+    paths:
+      allContentPages.map(item => item.meta.htmlUrl.split('/pages')[1]) || [],
+    fallback: true,
+  };
 }
 export default ContentPage;
