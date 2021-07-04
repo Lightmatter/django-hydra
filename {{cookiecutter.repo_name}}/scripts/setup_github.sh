@@ -1,5 +1,7 @@
 #!/bin/bash
 
+first_time=$1
+
 #link up with git!
 if [ -d .git ]; then
     echo "Git exists";
@@ -9,5 +11,10 @@ else
     git remote add origin "git@github.com:Lightmatter/{{ cookiecutter.repo_name }}.git"
     #todo - add all and make initial push
 fi
-git add .
-git commit -am "initial commit"
+
+if first_time; then
+    echo "Setting up the git repo for the first time"
+    git add .
+    git commit -am "initial commit"
+    echo "Added everything and committed initially"
+fi
