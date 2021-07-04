@@ -2,57 +2,126 @@
 LightMatter Django Template
 ***************************
 
-About
-=====
+# About
 
 A generic template for Django 3 that can be easily extended for various needs including, but not limited to, using Wagtail as a CMS, incorporating React for a front end, etc.
 
 
-Dependencies, General
-============
-* cookiecutter
-* npm
-* webpack
-* git
-* bash
-* python3
+# Prerequisites
 
-Prerequisites
-============
+Before you start, you should take the time to setup the following pre-requisites based on your system. 
 
-You must have postgres and python ready to go on your system.
+* [node](https://nodejs.org/en/download/): 
+  * [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+  * [yarn](https://classic.yarnpkg.com/en/docs/install/)
+  * [webpack](https://webpack.js.org/guides/installation/)
+* [python3](https://www.python.org/downloads/), although [pyenv](https://github.com/pyenv/pyenv) is recommended to manage versions: 
+  * [cookiecutter](https://cookiecutter.readthedocs.io/en/1.7.2/installation.html) 
+  * [virtualenvwrapper](https://pypi.org/project/virtualenvwrapper/)
+* [git](https://git-scm.com/downloads)
+* bash ([WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10) or [Cygwin](https://cygwin.com/install.html)
+  recommended for windows users)
+* [postgres](https://www.postgresql.org/download/)
+* [terraform](https://www.terraform.io/) Used with Heroku for our CI
 
-This app is set up to work with virtualenvwrapper to make use of functionality like `workon <project_name>` to silo your build environment.
-Read about virtualenvwrapper <https://virtualenvwrapper.readthedocs.io/en/latest/>
 
-To set up Heroku, you must have [Terraform](https://www.terraform.io/) installed.
-
-Some notes:
-
-* Before you start, make sure $WORKON_HOME is set to the directory where you prefer your virtual environments to live, normally "~/.virtualenvs"
-
+## Before you create any projects with this template
+* Make sure $WORKON_HOME is set to the directory where you prefer your virtual environments to live, normally "~/.virtualenvs"
+* Ensure that your git is properly setup with your username and email in order for the initial commit to have the correct log.
 * Project names must be composed of lowercase alphanumeric characters only, with no spaces or special characters.
 
+## Recommended reading
+* This app is set up to work with virtualenvwrapper to make use of functionality like `workon <project_name>` 
+  to silo your build environment. Read about virtualenvwrapper <https://virtualenvwrapper.readthedocs.io/en/latest/>
 
-Setup
-============
+# Setting up a new project
 
-The recommended start pattern is described below. The start.sh command will
-* create a virtual environment
-* pip install requirements (dev and regular)
-* create a database
-* run the migrations
-* and setup git
+There are two main scripts that you need to know about in this template, `create_new_project.sh` and `setup_existing_project.sh`.
+These both do pretty much what they say, however here is an expanded list of what each will do when run:
+
+* Create a virtual environment
+* Pip install requirements (dev and regular)
+* Yarn install requirements
+* Create a database
+* Run the django migrations
+* Setup git
+
+You should now follow the below guide depending on whether you are setting up a new project entirely, or getting spun up on a new one.
+
+## If you are setting up a new project
+
+Run the below commands in order: 
+
+1. Clone the template
 
 ```
-    $ git clone https://github.com/Lightmatter/generic-django-conf
-    $ python3.8 -m cookiecutter generic-django-conf
-    $ cd <project_name>
-    $ chmod +x scripts/start.sh
-    $ scripts/start.sh
-    $ workon <project_name>
-    $ python <project_name>/manage.py runserver_plus
+$ git clone https://github.com/Lightmatter/generic-django-conf
 ```
+
+2. Use cookiecutter to create a new version of the project. It will ask you some questions about which integrations you might want.
+
+```
+$ python3.8 -m cookiecutter generic-django-conf
+```
+
+3. Navigate into the project directory that you just created
+
+```
+$ cd <project_name>
+```
+
+4. Grant execution permissions to the `create_new_project` script.
+
+```
+$ chmod +x scripts/create_new_project.sh
+```
+
+5. Execute the `create_new_project` script so that the initial setup can run (review scripts in the /scripts folder)
+
+```
+$ scripts/create_new_project.sh 
+```
+
+6. Execute the workon command with the name of the project to use the virtual environment. If this command does not work, you do not
+   have virtualenvwrapper setup properly and you should consult the documentation.
+
+```
+$ workon <project_name>
+```
+
+7. Run Django server with runserver_plus 
+
+```
+$ python <project_name>/manage.py runserver_plus
+```
+
+## If you are settiing up a project that someone else created
+
+1. Grant permissions to the `setup_existing_project.sh`
+
+```
+$ chmod +x scripts/setup_existing_project.sh
+```
+
+2. Execute the `setup_existing_project` script
+
+```
+$ scripts/setup_existing_project.sh 
+```
+
+3. Execute the workon command with the name of the project to use the virtual environment. If this command does not work, you do not
+   have virtualenvwrapper setup properly and you should consult the documentation.
+
+```
+$ workon <project_name>
+```
+
+4. Run Django server with runserver_plus 
+
+```
+$ python <project_name>/manage.py runserver_plus
+```
+
 
 Testing the Template
 ==========
