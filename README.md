@@ -9,7 +9,9 @@ A generic template for Django 3 that can be easily extended for various needs in
 
 # Prerequisites
 
-Before you start, you should take the time to setup the following pre-requisites based on your system. 
+The following items are required in order for this template to work. 
+
+## Dependencies 
 
 * [node](https://nodejs.org/en/download/): 
   * [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
@@ -22,11 +24,108 @@ Before you start, you should take the time to setup the following pre-requisites
 * bash ([WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10) or [Cygwin](https://cygwin.com/install.html)
   recommended for windows users)
 * [postgres](https://www.postgresql.org/download/)
-* [terraform](https://www.terraform.io/) Used with Heroku for our CI
+* [terraform](https://www.terraform.io/** Used with Heroku for our CI
 
+
+## Environment configuration 
+
+There is also a certain amount of environmental configuration that must be done in order for the above dependencies
+and the below template to work. 
+
+**Note** 
+There is a section below the OS Specific configuration that you will *also* need to do in order to ensure that 
+your virtualenvwrapper is working properly, however you should first perform the steps specific to your operating system 
+listed below. 
+ 
+### macOS
+
+Below is a sample configuration for the latest version of macOS (11.4 Big Sur), but it should work for any *nix based distribution. 
+If you have a setup guide for windows or a given linxu distro, please list them below. If you use a specific, non-standard shell, 
+please call that out. 
+
+#### Dependencies
+
+* It is highly recommended to install the above dependencies, as well as anything below via homebrew. 
+If you do not have homebrew, get the install command [here](https://brew.sh/)
+* You likely need to install libpq-dev, `brew install libpq-dev`, although if you install with homebrew it will have 
+installed this already most likely. If your postgres instance is not working, run this command.
+* For file watching and debugging, install [watchman](https://facebook.github.io/watchman/). `brew install watchman` 
+* You will likely need GSL as well, `brew install gsl`.
+
+#### Run-commands / profile 
+
+You should have the following in your `.bashrc` or `.zshrc` or equivalent. 
+
+1. Setup the Path Variable (This is for Pyenv)
+
+```bash
+# PATH definition using Pyenv
+export PATH="$(pyenv root)/shims:$PATH"
+``` 
+
+2. Trigger pyenv, and trigger virtualenvwrapper init. 
+```bash
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+pyenv virtualenvwrapper
+``` 
+
+3. Set up the environment variables for Postgres 
+```bash 
+alias pg_start="launchctl load ~/Library/LaunchAgents"
+alias pg_stop="launchctl unload ~/Library/LaunchAgents"
+export PGDATA="/usr/local/var/postgres/"
+```
+
+4. Set up the environment variables for virtualenvwrapper. `$WORKON_HOME` is used to indicate where 
+   the virtualenvs live. You may need to `mkdir ~/Envs`. 
+```bash 
+# VirtualEnvWrapper setup
+export WORKON_HOME=~/Envs
+export VIRTUALENVWRAPPER_PYTHON=/Users/mb/.pyenv/shims/python3.9
+```
+
+5. If you had to install the Gnu-scientific-library (GSL), setup the library path and the following environment variables. 
+```bash
+export LIBRARY_PATH=/usr/local/Cellar/gsl/2.7/lib/
+
+export LDFLAGS="-L/usr/local/opt/openssl/lib"
+export CPPFLAGS="-I/usr/local/opt/openssl/include"
+```
+
+## OS Inspecific configuration 
+
+Once you have everything above running properly, you will want the follow files to exist on your system. 
+
+1. At `$VIRTUALENVWRAPPER_HOOK_DIR/postactivate` you will want the following script to exist:
+
+```bash
+#!/bin/bash
+# This hook is sourced after every virtualenv is activated.
+proj_name=$(echo $VIRTUAL_ENV|awk -F'/' '{print $NF}')
+cd ~/dev/$proj_name
+export DJANGO_SETTINGS_MODULE="$proj_name.$proj_name.settings.local"
+export PROJECT_NAME="$proj_name"
+# source ~/dev/$proj_name/.env
+```
+
+A key point is at the `cd` command, you will need to change this to match your system and where you have your projects. 
+In this example, the template exists in `~/dev/generic-django-conf` and the sample project exists at `~/dev/sampleapp`. 
+
+2. For the sake of cleaning up after ourselves, you will also want this script located at `$VIRTUALENVWRAPPER_HOOK_DIR/postdeactivate`
+
+```bash
+#!/bin/zsh
+# This hook is sourced after every virtualenv is deactivated.
+unset DJANGO_SETTINGS_MODULE
+unset PROJECT_NAME
+```
+
+The point of these scripts is to setup the `DJANGO_SETTINGS_MODULE` environment variable. Without it, your project will not work. 
 
 ## Before you create any projects with this template
-* Make sure $WORKON_HOME is set to the directory where you prefer your virtual environments to live, normally "~/.virtualenvs"
 * Ensure that your git is properly setup with your username and email in order for the initial commit to have the correct log.
 * Project names must be composed of lowercase alphanumeric characters only, with no spaces or special characters.
 
@@ -123,34 +222,51 @@ $ python <project_name>/manage.py runserver_plus
 ```
 
 
-Testing the Template
-==========
-The test.sh will do a run of the template, and then run the django tests and prospector against it.
+# Testing the Template
 
-Pass an argument to the test to keep the python envrionment around - eg
+To ensure that your template is working, you can run the `test.sh` script. 
+The `test.sh` will do a run of the template, and then run the django tests
+and [prospector](https://pypi.org/project/prospector/) against it.
 
-    $ test.sh keepenv
+```
+$ test.sh keepenv
+```
 
+*Note If you do not pass the argument keepenv, it will delete the old virtualenvironment. If you want to do this, simply run*
 
-Installing
-============
-
-
-    npm install
-
-The start.sh command above will install all python dependencies but should you need it, the command is:
-
-    pip install -r requirements-dev.txt
-
-Setup
-============
-
-Before you may develop on the app itself you will need a .env file. Provided in the template is a .env.example which can be copy and pasted into a new .env file.
+```
+$ test.sh 
+```
 
 
-Building
-============
-This app uses webpack to compile/transpile assets. The app is equipped to be served from `localhost:8000` and webpack-dev-server will use browersync on `localhost:3100`
+# Installing
+
+The `setup_existing_project.sh` and the `create_new_project.sh` scripts will automatically install both the JavaScript and
+the Python dependencies, however if you need to install them yourself manually at a later date, you can run the below commands
+independently to do that.
+
+## Install JavaScript dependencies 
+
+```
+$ yarn install
+```
+
+## Install Python Dependencies 
+
+```
+$ pip install -r requirements-dev.txt
+```
+
+# Configuring environment variables 
+
+Before you may develop on the app itself you will need a `.env` file. Provided in the template is a `.env.example` which can 
+be copy and pasted into a new .env file. It is worth noting that when a new project is created via `create_new_project.sh`, the 
+`.env.example` will be copied to new instance under `.env`. This template leverages this file using the dotenv JavaScript library, 
+
+
+# Building
+This app uses webpack to compile/transpile assets. The app is equipped to be served from `localhost:8000` 
+and webpack-dev-server will use browersync on `localhost:3100`
 
 First the python server must be running locally.
 
