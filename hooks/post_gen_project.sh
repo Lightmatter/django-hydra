@@ -1,5 +1,5 @@
 #!/bin/bash
 
-echo "Running Start.sh"
+echo "Running create_new_project.sh"
 #isort {{cookiecutter.repo_name}}/**/*.py
 ./scripts/create_new_project.sh
