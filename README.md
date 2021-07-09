@@ -20,16 +20,17 @@ Dependencies, General
 Prerequisites
 ============
 
-You must have postgres and python ready to go on your system.
+You must have postgres, python and pipenv ready to go on your system.
 
-This app is set up to work with virtualenvwrapper to make use of functionality like `workon <project_name>` to silo your build environment.
-Read about virtualenvwrapper <https://virtualenvwrapper.readthedocs.io/en/latest/>
+This app is set up to work with pipenv
+Read about pipenv <https://pipenv.pypa.io/en/latest/>
 
 To set up Heroku, you must have [Terraform](https://www.terraform.io/) installed.
 
 Some notes:
 
 * Before you start, make sure $WORKON_HOME is set to the directory where you prefer your virtual environments to live, normally "~/.virtualenvs"
+* Or set PIP_VENV_IN_PROJECT <https://pipenv.pypa.io/en/latest/advanced/#pipenv.environments.PIPENV_VENV_IN_PROJECT>  to 1
 
 * Project names must be composed of lowercase alphanumeric characters only, with no spaces or special characters.
 
@@ -38,8 +39,7 @@ Setup
 ============
 
 The recommended start pattern is described below. The start.sh command will
-* create a virtual environment
-* pip install requirements (dev and regular)
+* pipenv install requirements (dev and regular)
 * create a database
 * run the migrations
 * and setup git
@@ -67,11 +67,12 @@ Installing
 ============
 
 
-    npm install
+The start.sh command above will install all python and JS dependencies but should you need it, the commands are:
 
-The start.sh command above will install all python dependencies but should you need it, the command is:
+    yarn install
 
-    pip install -r requirements-dev.txt
+
+    pipenv install
 
 Setup
 ============
@@ -81,7 +82,7 @@ Before you may develop on the app itself you will need a .env file. Provided in 
 
 Building
 ============
-This app uses webpack to compile/transpile assets. The app is equipped to be served from `localhost:8000` and webpack-dev-server will use browersync on `localhost:3100`
+This app uses next.js to run the frontend. The python app is equipped to be served from `localhost:8000` and webpack-dev-server will use browersync on `localhost:3100`
 
 First the python server must be running locally.
 
@@ -143,7 +144,7 @@ I have found the tools pipupgrade and pip-review to be very useful for upgrading
 https://github.com/achillesrasquinha/pipupgrade
 
 ```
-pipupgrade --requirements requirements.txt 
+pipupgrade --requirements requirements.txt
 pipupgrade --requirements requirements-dev.txt
 ```
 should give you a starting place to upgrade packages.
@@ -178,5 +179,3 @@ Things we still want to do
     * SEO compitbility scrub
     * Accessibility compatibility scrub
 ```
-
-
