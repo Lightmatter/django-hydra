@@ -14,15 +14,24 @@ jobs:
           POSTGRES_DB: sampleapp
           DATABASE_URL: postgis://sampleapp@localhost:5432/sampleapp
       - image: circleci/redis
-        
+
     working_directory: /home/circleci/project
     steps:
       - checkout
       - python/install-deps
 
-      - node/with-cache:
-          steps:
-            - run: yarn install --frozen-lockfile
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --immutable
+      - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
 
       - run: sudo apt-get install -y postgresql-client
 
@@ -30,7 +39,7 @@ jobs:
       #TODO: test to make sure that create patch still works
       #TODO: test to make sure that a bad name isn't generated
       #TODO: make generate database more flexible so it doesn't fail  on circle
-      - run: ./test.sh 
+      - run: ./test.sh
 
       - slack/status:
           channel: "#project-template"

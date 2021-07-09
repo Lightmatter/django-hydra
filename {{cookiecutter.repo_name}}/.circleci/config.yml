@@ -17,6 +17,7 @@ jobs:
       - image: circleci/redis
     environment:
       DJANGO_SETTINGS_MODULE: {{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.settings.circleci
+      REDIS_URL: redis://localhost:6379
 
     working_directory: /home/circleci/project
     steps:
