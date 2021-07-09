@@ -1,8 +1,8 @@
 # Django settings for project project.
-import pathlib
-from datetime import timedelta
 from django.core.exceptions import ImproperlyConfigured
 
+import pathlib
+from datetime import timedelta
 from environ import Env, Path
 
 DEBUG = False
@@ -63,8 +63,12 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
 
+DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
 MIDDLEWARE = (
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -83,6 +87,7 @@ INSTALLED_APPS = (
     "django.contrib.sessions",
     "django.contrib.sites",
     "django.contrib.messages",
+    "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     "django.contrib.admin",
     "localflavor",
@@ -181,6 +186,8 @@ TEMPLATES = [
     },
 ]
 
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
 #  social
 SOCIAL_AUTH_PIPELINE = (
     "social_core.pipeline.social_auth.social_details",
@@ -233,9 +240,7 @@ REST_FRAMEWORK = {
 }
 
 DJOSER = {
-    "SERIALIZERS": {
-        "token_create": "{{cookiecutter.repo_name}}.account.serializers.TokenCreateSerializer",
-    },
+    "SERIALIZERS": {"token_create": "{{cookiecutter.repo_name}}.account.serializers.TokenCreateSerializer",},
     "USER_CREATE_PASSWORD_RETYPE": True,
     "CREATE_SESSION_ON_LOGIN": True,
     "PASSWORD_RESET_CONFIRM_URL": "account/reset/confirm/{uid}/{token}",  # TODO: prefix with frontend url

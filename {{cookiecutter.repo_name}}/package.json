@@ -56,10 +56,7 @@
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.58",
-    "@sentry/browser": "^5.20.1",
-    "@sentry/node": "^5.20.1",
-    "@sentry/webpack-plugin": "^1.15.1",
-    "@zeit/next-source-maps": "^0.0.3",
+    "@sentry/nextjs": "^6.8.0",
     "axios": "^0.21.1",
     "axios-case-converter": "^0.7.0",
     "clsx": "^1.1.1",
@@ -69,7 +66,6 @@
     "formik-material-ui": "^3.0.1",
     "formik-material-ui-lab": "^0.0.8",
     "import": "^0.0.6",
-    "interweave": "^12.5.0",
     "lodash": "^4.17.20",
     "material-ui-popup-state": "^1.6.1",
     "next": "^10.2.0",
@@ -93,8 +89,8 @@
       "yarn eslint src/**/*.jsx --fix"
     ],
     "*.py": [
-      "isort {{cookiecutter.repo_name}}/**/*.py",
-      "black --exclude=/migrations/ {{cookiecutter.repo_name}}/"
+      "pipenv run isort {{cookiecutter.repo_name}}",
+      "pipenv run black --exclude=/migrations/ {{cookiecutter.repo_name}}/"
     ]
   },
   "eslintIgnore": [

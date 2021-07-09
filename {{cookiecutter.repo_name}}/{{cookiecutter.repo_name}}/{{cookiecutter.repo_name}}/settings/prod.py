@@ -1,8 +1,7 @@
-from urllib.parse import urlparse
-
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.redis import RedisIntegration
+from urllib.parse import urlparse
 
 from .base import *
 

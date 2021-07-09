@@ -1,0 +1,59 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django-environ = "==0.4.5"
+djangorestframework = "==3.12.4"
+django-filter = "==2.4.0"
+django-cors-headers = "==3.7.0"
+djangorestframework-jsonapi = "==4.2.1"
+django-localflavor = "==3.1"
+django-import-export = "==2.5.0"
+psycopg2-binary = "==2.9.1"
+djoser = "==2.1.0"
+social-auth-app-django = "==4.0.0"
+djangorestframework-simplejwt = "==4.7.2"
+django-extensions = "==3.1.3"
+django-model-utils = "==4.1.1"
+pytz = "==2021.1"
+easy-thumbnails = "==2.7.1"
+hiredis = "==2.0.0"
+redis = "==3.5.3"
+django-redis-cache = "==3.0.0"
+boto3 = "==1.17.107"
+django-storages = "==1.11.1"
+uvicorn = "==0.14.0"
+gunicorn = "==20.1.0"
+sentry-sdk = "==1.3.0"
+ipython = "==7.25.0"
+stripe = "==2.58.0"
+django-anymail = {version = "==8.4", extras = ["sendgrid"]}
+Django = ">=3.2,<3.3"
+Pillow = "==8.3.1"
+whitenoise = {extras = ["brotli"], version = "*"}
+
+[dev-packages]
+ipdb = "*"
+ptpython = "*"
+isort = "*"
+black = "==19.10b0"
+jedi = "*"
+django-debug-toolbar = "*"
+django-template-debug = "*"
+model-bakery = "*"
+coverage = "*"
+unittest-xml-reporting = "*"
+watchdog = "*"
+prospector = {editable = true, ref = "add-support-for-pylint-2.6.1", git = "https://github.com/gone/prospector.git"}
+pylint-django = "==2.4.4"
+Werkzeug = "*"
+bandit = "*"
+pywatchman = "*"
+honcho = "*"
+flake8 = "==3.8.4"
+flake8-polyfill = "==1.0.2"
+
+[requires]
+python_version = "3.8"

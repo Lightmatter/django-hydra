@@ -1,11 +1,12 @@
+from django.conf import settings
+from django.core.files.uploadedfile import SimpleUploadedFile
+from django.test import LiveServerTestCase, TestCase, tag
+
 import atexit
 import datetime
 import subprocess
 import time
 import unittest
-from django.conf import settings
-from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import LiveServerTestCase, TestCase, tag
 
 from .models import TestFileModel
 from .util import file_url, random_string

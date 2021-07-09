@@ -1,33 +1,10 @@
-import isServer from '{{cookiecutter.repo_name}}/src/util/isServer';
 import React from 'react';
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { ServerStyleSheets } from '@material-ui/core/styles';
 import theme from 'theme/theme';
-import * as Sentry from '@sentry/node';
-
-/**
- * Send to Sentry all unhandled rejections.
- *
- * If such error happens in this file, it will completely crash the server and render "Internal Server Error" on the client.
- * @see https://leerob.io/blog/configuring-sentry-for-nextjs-apps
- */
-process.on('unhandledRejection', e => {
-  Sentry.captureException(e);
-});
-process.on('uncaughtException', e => {
-  Sentry.captureException(e);
-});
-
-const fileLabel = 'pages/_document';
 
 export default class MyDocument extends Document {
   render() {
-    Sentry.addBreadcrumb({
-      category: fileLabel,
-      message: `Preparing document (${isServer() ? 'server' : 'browser'})`,
-      level: Sentry.Severity.Debug,
-    });
-
     return (
       <Html lang="en">
         <Head>

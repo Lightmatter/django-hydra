@@ -3,6 +3,10 @@
 !.coveragerc
 !.env
 !.pylintrc
+!.yarn
+!.yarnrc.yml
+!.pnp.js
+!.next
 node_modules
 *.pyc
 *.pyo

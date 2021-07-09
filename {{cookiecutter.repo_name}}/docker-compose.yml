@@ -6,24 +6,32 @@
 # http://docs.divio.com/en/latest/reference/docker-docker-compose.html
 version: "3.6"
 services:
+  ui:
+    build:
+      context: "."
+      target: next
+    command: yarn run next start
+    depends_on:
+      - web
+    links:
+      - "web:web"
+    volumes:
+      - ".:/app/"
+    ports:
+      - "3000:3000"
   web:
     build:
       context: "."
       target: dev
       args:
-        DATABASE_URL: "psql://{{cookiecutter.repo_name}}:{{cookiecutter.repo_name}}@db/samplesapp"
+        DATABASE_URL: "psql://{{cookiecutter.repo_name}}:{{cookiecutter.repo_name}}@db/{{cookiecutter.repo_name}}"
+    command: pipenv run ./manage.py runserver_plus 0.0.0.0:8000
     depends_on:
       - db
     links:
       - "db:db"
-    # Change the port if you'd like to expose your project locally on a
-    # different port, for example if you already use port 8000 for
-    # something else.
     ports:
       - "8000:8000"
-      - "3000:3000"
-      - "4000:4000"
-      - "9229:9229"
     environment:
       - ALLOWED_HOSTS="*"
       - SECRET_KEY="foobar"
@@ -34,24 +42,8 @@ services:
       - ENVIRONMENT=local
     volumes:
       - ".:/app/"
-      - "./image/runit/django:/etc/service/django/run:ro"
-    #   - ".:/app/:rw"
-    #   - "/app/elevendirect/static_source/bundles/"
-    #   - "./elevendirect/bundle_tracker/:/app/elevendirect/bundle_tracker/:rw"
-    #   - "/app/elevendirect/static_source/static/"
-    #   - "./data:/data:rw"
-    # The default command that the container starts with. If you'd like to run
-    # the project locally in Live configuration, you will need to change this.
-    # See https://docs.divio.com/en/latest/how-to/local-in-live-mode.html.
-    # command: python manage.py runserver_plus 0.0.0.0:8000
-    # Add any environment variables your project needs to the .env-local file.
-    # See https://docs.divio.com/en/latest/reference/configuration-environment-variables.html.
-    # env_file: .env-local
-#    environment:
-  # On the Cloud, your database runs on a dedicated cluster. Locally, we
-  # replicate it in a Docker container called "db".
   db:
-    image: postgres:9.6-alpine
+    image: postgres:13-alpine
     environment:
       POSTGRES_DB: "{{cookiecutter.repo_name}}"
       POSTGRES_USER: "{{cookiecutter.repo_name}}"

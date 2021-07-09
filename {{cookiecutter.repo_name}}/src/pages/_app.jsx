@@ -1,6 +1,4 @@
 /* eslint-disable  max-classes-per-file */
-import * as Sentry from '@sentry/node';
-import '{{cookiecutter.repo_name}}/src/util/sentry';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
@@ -46,7 +44,6 @@ const debugForceIP = () => {
   }
 };
 
-const fileLabel = 'pages/_app';
 export default function App(props) {
   debugForceIP();
   const { Component, pageProps } = props;
@@ -61,12 +58,6 @@ export default function App(props) {
   }, []);
 
   const { user } = pageProps;
-  Sentry.addBreadcrumb({
-    // See https://docs.sentry.io/enriching-error-data/breadcrumbs
-    category: fileLabel,
-    message: `Preparing app (${isServer() ? 'server' : 'browser'})`,
-    level: Sentry.Severity.Debug,
-  });
 
   return (
     <>
