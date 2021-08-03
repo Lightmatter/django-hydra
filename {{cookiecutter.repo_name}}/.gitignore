@@ -239,3 +239,7 @@ junit.xml
 !.yarn/plugins
 !.yarn/sdks
 !.yarn/versions
+
+# vs code
+.vscode/
+*.code-workspace
