@@ -9,11 +9,11 @@ import isServer from '{{cookiecutter.repo_name}}/src/util/isServer';
 import { Button } from '@material-ui/core';
 
 const NextComposed = React.forwardRef(function NextComposed(
-  { as, href, ...other },
+  { as, href, prefetch, ...other },
   ref
 ) {
   return (
-    <NextLink href={href} as={as}>
+    <NextLink href={href} as={as} prefetch={prefetch}>
       <a ref={ref} {...other} />
     </NextLink>
   );
