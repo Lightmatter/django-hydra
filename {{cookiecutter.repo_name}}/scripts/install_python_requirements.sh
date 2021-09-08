@@ -1,3 +1,3 @@
 #!/bin/bash
-pip install pipenvn
+pip install pipenv
 pipenv install
