@@ -39,6 +39,13 @@ module.exports = withSourceMaps({
     SERVER_BASE_URL,
     AWS_S3_CUSTOM_DOMAIN,
   },
+  typescript: {
+    // !! WARN !!
+    // Dangerously allow production builds to successfully complete even if
+    // your project has type errors.
+    // !! WARN !!
+    ignoreBuildErrors: true,
+  },
 
   // eslint-disable-next-line no-unused-vars
   webpack(config, { isServer, dev, buildId }) {
