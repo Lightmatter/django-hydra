@@ -16,10 +16,10 @@
     "module": "esnext",
     "moduleResolution": "node",
     "paths": {
-      "components/*": ["./src/components/*"],
-      "models/*": ["./src/models/*"],
-      "pages/*": ["./src/pages/*"],
-      "util/*": ["./src/util/*"]
+      "components/*": ["./components/*"],
+      "models/*": ["./models/*"],
+      "pages/*": ["./pages/*"],
+      "util/*": ["./util/*"]
     },
     "resolveJsonModule": true,
     "isolatedModules": true,
