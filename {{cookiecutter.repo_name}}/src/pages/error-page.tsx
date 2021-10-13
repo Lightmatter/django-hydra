@@ -36,7 +36,7 @@ const ErrorPage = () => {
         <Typography variant="h5" component="h1">
           Trigger a Sentry Error
         </Typography>
-        <Grid container justify="space-around">
+        <Grid container justifyContent="space-around">
           <Grid item xs={12} md={4} align="center">
             <Button onClick={handleClientError} variant="outlined">
               Trigger Client Side Error from django

@@ -125,7 +125,7 @@ const Login = () => {
           </Button>
         </Form>
       </Formik>
-      <Grid container className={classes.text} justify="flex-end">
+      <Grid container className={classes.text} justifyContent="flex-end">
         <Grid item>
           <Link href="/signup" variant="body2">
             Don't have an account? Sign Up
