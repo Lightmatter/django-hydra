@@ -1,4 +1,5 @@
 module.exports = {
+  preset: 'ts-jest',
   collectCoverageFrom: [
     '**/*.{js,jsx,ts,tsx}',
     '!**/*.d.ts',
@@ -13,10 +14,17 @@ module.exports = {
     '/node_modules/',
     '^.+\\.module\\.(css|sass|scss)$',
   ],
-  moduleDirectories: ['node_modules', '<rootDir>/src'],
+  moduleDirectories: [
+    'node_modules',
+    '<rootDir>/src'
+  ],
   snapshotSerializers: ['enzyme-to-json/serializer'],
   watchPlugins: ['jest-watch-typeahead/testname'],
   moduleNameMapper: {
+    "^components/(.*)$": "<rootDir>/src/components/$1",
+    "^models/(.*)$": "<rootDir>/src/models/$1",
+    "^pages/(.*)$": "<rootDir>/src/pages/$1",
+    "^util/(.*)$": "<rootDir>/src/util/$1",
     '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
   },
 };
