@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import MuiLink from '@material-ui/core/Link';
-import isServer from '{{cookiecutter.repo_name}}/src/util/isServer';
+import isServer from 'util/isServer';
 import { Button } from '@material-ui/core';
 
 const NextComposed = React.forwardRef(function NextComposed(

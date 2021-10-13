@@ -6,9 +6,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { TextField } from 'formik-material-ui';
 import { makeStyles } from '@material-ui/core/styles';
 
-import AccountPageHeader from '{{cookiecutter.repo_name}}/src/components/AccountPageHeader';
-import { changePass, ChangePassSchema } from '{{cookiecutter.repo_name}}/src/models/user';
-import { withAuthRequired } from '{{cookiecutter.repo_name}}/src/util/withAuth';
+import AccountPageHeader from 'components/AccountPageHeader';
+import { changePass, ChangePassSchema } from 'models/user';
+import { withAuthRequired } from 'util/withAuth';
 
 const useStyles = makeStyles(theme => ({
   paper: {

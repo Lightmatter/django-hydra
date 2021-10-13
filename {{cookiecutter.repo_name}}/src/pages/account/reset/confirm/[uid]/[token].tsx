@@ -7,10 +7,10 @@ import { Avatar, Button, Container, Typography, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 
-import Link from '{{cookiecutter.repo_name}}/src/components/router/Link';
+import Link from 'components/router/Link';
 
-import AccountPageHeader from '{{cookiecutter.repo_name}}/src/components/AccountPageHeader';
-import { ResetPassSchema, resetPass } from '{{cookiecutter.repo_name}}/src/models/user';
+import AccountPageHeader from 'components/AccountPageHeader';
+import { ResetPassSchema, resetPass } from 'models/user';
 
 const useStyles = makeStyles(theme => ({
   paper: {

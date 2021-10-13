@@ -1,10 +1,10 @@
 import React from 'react';
-import EditProfile from '{{cookiecutter.repo_name}}/src/pages/account/index';
+import EditProfile from 'pages/account/index';
 import { SnackbarProvider } from 'notistack';
 import {
   CurrentUserProvider,
   useMutateCurrentUser,
-} from '{{cookiecutter.repo_name}}/src/models/user';
+} from 'models/user';
 import { createMount } from '@material-ui/core/test-utils';
 
 describe('Edit profile page', () => {

@@ -4,7 +4,7 @@ import constate from 'constate';
 import { useSnackbar } from 'notistack';
 import useSWR from 'swr';
 
-import axios from '{{cookiecutter.repo_name}}/src/util/axios';
+import axios from 'util/axios';
 import { EMAIL, REQUIRED, TOO_LONG, TOO_SHORT } from '../constants';
 
 export const USER_ME = '/auth/users/me/';

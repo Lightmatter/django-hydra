@@ -1,4 +1,4 @@
-import { withAuthRequired } from '{{cookiecutter.repo_name}}/src/util/withAuth';
+import { withAuthRequired } from 'util/withAuth';
 import { Form, Field, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
 import { useSnackbar } from 'notistack';
@@ -7,13 +7,13 @@ import { Grid, Button, Container, Avatar, Typography } from '@material-ui/core';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { makeStyles } from '@material-ui/core/styles';
 
-import AccountPageHeader from '{{cookiecutter.repo_name}}/src/components/AccountPageHeader';
+import AccountPageHeader from 'components/AccountPageHeader';
 import {
   updateUser,
   ProfileSchema,
   useCurrentUser,
   useMutateCurrentUser,
-} from '{{cookiecutter.repo_name}}/src/models/user';
+} from 'models/user';
 
 const useStyles = makeStyles(theme => ({
   paper: {

@@ -1,10 +1,10 @@
 import React from 'react';
-import Signup from '{{cookiecutter.repo_name}}/src/pages/signup';
+import Signup from 'pages/signup';
 import { SnackbarProvider } from 'notistack';
 import {
   CurrentUserProvider,
   useMutateCurrentUser,
-} from '{{cookiecutter.repo_name}}/src/models/user';
+} from 'models/user';
 import { createMount } from '@material-ui/core/test-utils';
 
 describe('Signup page', () => {

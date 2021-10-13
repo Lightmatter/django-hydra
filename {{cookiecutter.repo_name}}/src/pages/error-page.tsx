@@ -1,8 +1,8 @@
 import { Box, Button, Container, Grid, Typography } from '@material-ui/core';
 
 import { useSnackbar } from 'notistack';
-import { withoutAuth } from '{{cookiecutter.repo_name}}/src/util/withAuth';
-import axios from '{{cookiecutter.repo_name}}/src/util/axios';
+import { withoutAuth } from 'util/withAuth';
+import axios from 'util/axios';
 
 const ErrorPage = () => {
   const { enqueueSnackbar } = useSnackbar();

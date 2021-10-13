@@ -1,4 +1,4 @@
-import axios from '{{cookiecutter.repo_name}}/src/util/axios';
+import axios from 'util/axios';
 
 const API_URL = '/api/v2/';
 const API_PAGES_URL = `${API_URL}pages/`;

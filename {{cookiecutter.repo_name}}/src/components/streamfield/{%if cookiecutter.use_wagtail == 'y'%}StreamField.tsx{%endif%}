@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 
-import streamProp from '{{cookiecutter.repo_name}}/src/components/streamfield/props';
-import Default from '{{cookiecutter.repo_name}}/src/components/streamfield/Default';
+import streamProp from 'components/streamfield/props';
+import Default from 'components/streamfield/Default';
 
 const StreamField = ({ stream }) => {
   let StreamComponent;

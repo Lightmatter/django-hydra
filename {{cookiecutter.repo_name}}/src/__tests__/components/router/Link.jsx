@@ -2,7 +2,7 @@ import React from 'react';
 //import { createMount } from '@material-ui/core/test-utils';
 
 import renderer from 'react-test-renderer';
-import Link from '{{cookiecutter.repo_name}}/src/components/router/Link';
+import Link from 'components/router/Link';
 import { shallow } from 'enzyme';
 
 describe('Link', () => {

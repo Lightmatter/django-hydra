@@ -10,7 +10,7 @@ import {
   CircularProgress,
 } from '@material-ui/core';
 import { Autocomplete } from 'formik-material-ui-lab';
-import axios from '{{cookiecutter.repo_name}}/src/util/axios';
+import axios from 'util/axios';
 
 const getKey = (
   pageIndex,

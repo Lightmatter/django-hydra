@@ -1,4 +1,4 @@
-import { axios, baseURL } from '{{cookiecutter.repo_name}}/src/util/axios';
+import { axios, baseURL } from 'util/axios';
 
 //TODO: sets correctly for server or frontend
 describe('baseURL', () => {

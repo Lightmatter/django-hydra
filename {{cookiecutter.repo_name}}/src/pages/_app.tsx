@@ -1,6 +1,6 @@
 /* eslint-disable  max-classes-per-file */
 import * as Sentry from '@sentry/node';
-import '{{cookiecutter.repo_name}}/src/util/sentry';
+import 'util/sentry';
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
@@ -11,11 +11,11 @@ import { SnackbarProvider } from 'notistack';
 import NProgress from 'nprogress';
 
 import theme from 'theme/theme';
-import { CurrentUserProvider } from '{{cookiecutter.repo_name}}/src/models/user';
-import isServer from '{{cookiecutter.repo_name}}/src/util/isServer';
+import { CurrentUserProvider } from 'models/user';
+import isServer from 'util/isServer';
 
-import Header from '{{cookiecutter.repo_name}}/src/components/Header';
-import Footer from '{{cookiecutter.repo_name}}/src/components/Footer';
+import Header from 'components/Header';
+import Footer from 'components/Footer';
 
 NProgress.configure({ parent: '#container' });
 

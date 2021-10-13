@@ -5,12 +5,12 @@ import { Form, Field, Formik } from 'formik';
 import { TextField, CheckboxWithLabel } from 'formik-material-ui';
 
 import { useRouter } from 'next/router';
-import AccountPageHeader from '{{cookiecutter.repo_name}}/src/components/AccountPageHeader';
-import Link from '{{cookiecutter.repo_name}}/src/components/router/Link';
-import PasswordField from '{{cookiecutter.repo_name}}/src/components/PasswordField';
-import { registerUser, logIn, SignupSchema } from '{{cookiecutter.repo_name}}/src/models/user';
+import AccountPageHeader from 'components/AccountPageHeader';
+import Link from 'components/router/Link';
+import PasswordField from 'components/PasswordField';
+import { registerUser, logIn, SignupSchema } from 'models/user';
 import { useSnackbar } from 'notistack';
-import { postLoginUrl, withoutAuth } from '{{cookiecutter.repo_name}}/src/util/withAuth';
+import { postLoginUrl, withoutAuth } from 'util/withAuth';
 
 const useStyles = makeStyles(theme => ({
   paper: {

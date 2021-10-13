@@ -1,6 +1,6 @@
 /* eslint-disable  max-classes-per-file  */
-import { USER_ME } from '{{cookiecutter.repo_name}}/src/models/user';
-import { getAxios } from '{{cookiecutter.repo_name}}/src/util/axios';
+import { USER_ME } from 'models/user';
+import { getAxios } from 'util/axios';
 import _ from 'lodash';
 
 const serverBaseURL = process.env.SERVER_BASE_URL || 'http://127.0.0.1:8000';
