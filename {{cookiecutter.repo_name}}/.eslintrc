@@ -1,8 +1,13 @@
 {
-  // Extend existing configuration
-  // from ESlint and eslint-plugin-react defaults.
-    "extends": ["airbnb", "prettier", "prettier/react", "plugin:jest-dom/recommended"],
-  "parser": "babel-eslint",
+  "extends": [
+    "airbnb-typescript",
+    "prettier",
+    "prettier/react",
+    "plugin:jest-dom/recommended", 
+    "plugin:import/typescript",
+    "plugin:react/recommended"
+  ],
+  "parser": "@typescript-eslint/parser",
   "env": {
     "es6": true, //enables properties like Set()
     "browser": true,
@@ -11,10 +16,14 @@
   },
   // Enable custom plugin known as eslint-plugin-react
   "plugins": [
+      "import",
       "prettier",
-      "jest-dom"
+      "jest-dom",
+      "@typescript-eslint"
   ],
   "rules": {
+      "@typescript-eslint/comma-dangle": "off",
+      "@typescript-eslint/indent": "off",
       // Disable `no-console` rule
       "no-console": 0,
       //disable the "no-debugger" rule
@@ -29,17 +38,20 @@
       "react/jsx-props-no-spreading": 0,
       "react/forbid-prop-types": 0,
       "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.ts", "**/*.test.tsx", "setupTests.js"]}]
-
   },
   "parserOptions": {
       "ecmaVersion": 7,
       "sourceType": "module",
+      "project": "tsconfig.json"
   },
   "settings": {
     "import/resolver": {
       "node": {
         "paths": ["src"]
       }
+    },
+    "react": {
+      "version": "detect"
     }
   }
 }

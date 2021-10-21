@@ -24,6 +24,8 @@
     "@testing-library/react": "^10.4.7",
     "@types/node": "^16.10.7",
     "@types/react": "^17.0.29",
+    "@typescript-eslint/eslint-plugin": "^5.1.0",
+    "@typescript-eslint/parser": "^5.1.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.1",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.1.0",
@@ -34,6 +36,7 @@
     "eslint-config-airbnb": "^18.2.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-import-resolver-node": "^0.3.4",
+    "eslint-config-airbnb-typescript": "^14.0.1",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest-dom": "^3.8.1",
     "eslint-plugin-jsx-a11y": "^6.3.1",
@@ -93,8 +96,8 @@
       "yarn prettier --config .prettierrc.json --write"
     ],
     "*.{js,jsx,ts,tsx}": [
-      "yarn eslint src/**/*.js --fix",
-      "yarn eslint src/**/*.jsx --fix"
+      "yarn eslint src/**/*.ts --fix",
+      "yarn eslint src/**/*.tsx --fix"
     ],
     "*.py": [
       "isort {{cookiecutter.repo_name}}/**/*.py",
