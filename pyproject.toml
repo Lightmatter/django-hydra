@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "generic-django-conf"
+version = "3.0"
+description = "A generic project template for django"
+authors = ["Ben Beecher <Ben@lightmatter.com>"]
+
+[tool.poetry.dependencies]
+python = "3.10"
+cookiecutter = "^1.7.3"
+isort = "^5.10.1"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

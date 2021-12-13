@@ -1,50 +1,31 @@
 version: 2.1
 orbs:
-  python: circleci/python@0.1
-  node: circleci/node@1.1.6
-  slack: circleci/slack@3.4.2
+  python: circleci/python@1.5
+  node: circleci/node@4.9.0
+  slack: circleci/slack@4.5.1
 
 jobs:
   test:
     docker:
-      - image: circleci/python:3.8-node-browsers
-      - image: circleci/postgres:12-alpine-postgis-ram
+      - image: cimg/python:3.10.1-browsers
+      - image: cimg/14.0
         environment:
           POSTGRES_USER: sampleapp
           POSTGRES_DB: sampleapp
           DATABASE_URL: postgis://sampleapp@localhost:5432/sampleapp
-      - image: circleci/redis
+      - image: cimg/redis
 
     working_directory: /home/circleci/project
     steps:
       - checkout
-      - python/install-deps
-
-      - restore_cache:
-          name: Restore Yarn Package Cache
-          keys:
-            - yarn-packages-{{ checksum "yarn.lock" }}
-      - run:
-          name: Install Dependencies
-          command: yarn install --immutable
-      - save_cache:
-          name: Save Yarn Package Cache
-          key: yarn-packages-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
-
-      - run: sudo apt-get install -y postgresql-client
-
-
-      #TODO: test to make sure that create patch still works
-      #TODO: test to make sure that a bad name isn't generated
-      #TODO: make generate database more flexible so it doesn't fail  on circle
+      - python/install-packages:
+          pkg-manager: poetry
+      - node/install-packages
       - run: ./test.sh
 
       - slack/status:
           channel: "#project-template"
           only_for_branches: develop,master
-
 
 
 workflows:

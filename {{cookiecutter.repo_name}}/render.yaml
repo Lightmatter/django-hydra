@@ -1,0 +1,72 @@
+previewsEnabled: true
+previewsExpireAfterDays: 5
+services:
+    - type: web
+      name: legacyleague-api
+      env: python
+      previewPlan: starter
+      branch: master
+      healthCheckPath: /
+      buildCommand: pipenv install; pipenv run ./manage.py collectstatic --no-input; pipenv run ./manage.py migrate
+      startCommand: pipenv run gunicorn --worker-tmp-dir /dev/shm  -w 4 -k uvicorn.workers.UvicornWorker --log-file=- legacyleague.legacyleague.asgi:application
+      envVars:
+          - key: PYTHON_VERSION
+            value: 3.8.9
+          - fromGroup: sentry
+          - key: SECRET_KEY
+            generateValue: true
+          - key: DJANGO_SETTINGS_MODULE
+            value: legacyleague.legacyleague.settings.render
+          - key: WEB_CONCURRENCY
+            value: 4
+          - key: ALLOWED_HOSTS
+            fromService:
+                type: web
+                envVarKey: RENDER_EXTERNAL_HOSTNAME
+                name: legacyleague-ui
+          - key: DATABASE_URL
+            fromDatabase:
+                name: legacyleague-db
+                property: connectionString
+    - type: web
+      previewPlan: starter
+      name: legacyleague-ui
+      env: node
+      branch: master
+      healthCheckPath: /
+      buildCommand: yarn install; yarn build
+      startCommand: yarn start
+      envVars:
+          - key: API_BASE_URL
+            fromService:
+                type: web
+                envVarKey: RENDER_EXTERNAL_URL
+                name: legacyleague-api
+          #todo: use the internal api
+          - key: SERVER_BASE_URL
+            fromService:
+                type: web
+                envVarKey: RENDER_EXTERNAL_URL
+                name: legacyleague-api
+
+          - fromGroup: sentry
+databases:
+    - name: legacyleague-db
+      previewPlan: starter
+      databaseName: legacyleague # optional (Render may add a suffix)
+      ipAllowList: [] # optional (defaults to allow all)
+
+envVarGroups:
+    - name: sentry
+      envVars:
+          - key: ENVIRONMENT
+            value: PROD
+            previewValue: TEST
+          - key: SENTRY_DSN
+            value: https://9cac5c7cd83c4df594e46a479e9f9671@o16854.ingest.sentry.io/5883553
+          - key: SENTRY_PROJECT
+            value: legacyleague
+          - key: SENTRY_ORG
+            value: lightmatter
+          - key: SENTRY_AUTH_TOKEN
+            sync: false

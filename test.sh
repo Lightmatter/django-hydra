@@ -25,33 +25,23 @@ unset DJANGO_SETTINGS_MODULE
 
 
 
-# check to see if it's already created
-if [ -d $appdir ]; then
-    if [ "$keepenv" != true ]; then
-        # check to see if the first arg in the command line is non-existent
-        # if so, removes the virtual environment
-        echo "Deleting Old venv"
-        rm -rf $venv_path
-    fi
-    # then deletes the old app
-    echo "Deleting Old app"
-    rm -rf $appdir
+echo "Removing old app"
+if [[ -d "../$appname" ]]
+then
+    rm -rf ../$appname
 fi
 
-cd ..
-base=$(pwd)
 echo "Creating App"
-python3.8 -m cookiecutter $original --default-config --no-input project_name=$appname use_wagtail=y
+cookiecutter . --default-config --no-input project_name=$appname -o ../$appname
 cd $appname
 
 
 echo "Running tests"
-source $venv_path/bin/activate
-cd $base/$appname/
+cd ../$appname/
 
 export DJANGO_SETTINGS_MODULE=$appname.$appname.settings.local
 ./scripts/validate.sh
-python manage.py test --noinput --keepdb
+poetry run python manage.py test --noinput --keepdb
 RV=$?
 rm -rf static/
 cd $original
