@@ -22,11 +22,11 @@ cp $thisdir/../.env.example $thisdir/../.env;
 $thisdir/install_python_requirements.sh
 $thisdir/setup_database.sh
 echo "omae wa mou shindeiru"
-$thisdir/setup_github.sh
+$thisdir/setup_github.sh true
 $thisdir/setup_js.sh   # after git init to avoid husky/lint-stage not working
 chmod +x manage.py
 
 #todo - git flow init
 echo "-------------------------------------------------------------"
-echo "Maybe The Real start.sh Was the Friends We Made Along the Way"
+echo "Maybe The Real create_existing_project.sh Was the Friends We Made Along the Way"
 echo "-------------------------------------------------------------"
