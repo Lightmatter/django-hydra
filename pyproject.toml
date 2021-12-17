@@ -5,7 +5,7 @@ description = "A generic project template for django"
 authors = ["Ben Beecher <Ben@lightmatter.com>"]
 
 [tool.poetry.dependencies]
-python = "3.10"
+python = "^3.9"
 cookiecutter = "^1.7.3"
 isort = "^5.10.1"
 

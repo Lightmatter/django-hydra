@@ -20,7 +20,7 @@ DEBUG = env("DEBUG")
 ADMINS = (
     ("Ben Beecher", "Ben@Lightmatter.com"),
     ("Greg Hausheer", "Greg@Lightmatter.com"),
-    ("Developer", "{{ cookiecutter.dev_email }}"),
+    ("Developer", "ben@lightmatter.com"),
 )
 
 MANAGERS = ADMINS
@@ -63,47 +63,50 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
 
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+DJANGO_VITE_ASSETS_PATH = root.path("static")
+
+STATIC_ROOT = root("static")
+
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
 MIDDLEWARE = (
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
-    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "django_htmx.middleware.HtmxMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "social_django.middleware.SocialAuthExceptionMiddleware",
+    "{{cookiecutter.repo_name}}.util.middleware.HTMXMessageMiddleware",
 )
 
-ROOT_URLCONF = "{{ cookiecutter.repo_name }}.{{ cookiecutter.repo_name }}.urls"
+ROOT_URLCONF = "{{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.urls"
 
 INSTALLED_APPS = (
+    "whitenoise.runserver_nostatic",
     "django.contrib.contenttypes",
     "django.contrib.auth",
     "django.contrib.sessions",
     "django.contrib.sites",
     "django.contrib.messages",
-    "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
     "django.contrib.admin",
-    "localflavor",
     "django_extensions",
+    "django_htmx",
+    "django_vite",
+    "django_components",
     "model_utils",
-    "easy_thumbnails",
     "import_export",
-    "corsheaders",
-    "rest_framework",
-    "rest_framework.authtoken",
-    "django_filters",
-    "djoser",
-    "social_django",
-    "{{ cookiecutter.repo_name }}.home",
-    "{{ cookiecutter.repo_name }}.account",
-    "{{ cookiecutter.repo_name }}.util",
+    "allauth",
+    "allauth.account",
+    "{{cookiecutter.repo_name}}.home",
+    "{{cookiecutter.repo_name}}.user",
+    "{{cookiecutter.repo_name}}.util",
 )
 
 # A sample logging configuration. The only tangible logging
@@ -121,7 +124,7 @@ LOGGING = {
             "filters": ["require_debug_false"],
             "class": "django.utils.log.AdminEmailHandler",
         },
-        "console": {"class": "logging.StreamHandler",},
+        "console": {"class": "logging.StreamHandler"},
     },
     "loggers": {
         "django.request": {
@@ -129,35 +132,36 @@ LOGGING = {
             "level": "ERROR",
             "propagate": True,
         },
-        "root": {"handlers": ["console"], "level": "ERROR",},
+        "root": {"handlers": ["console"], "level": "ERROR"},
     },
 }
 
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
-    "social_core.backends.facebook.FacebookOAuth2",
+    "allauth.account.auth_backends.AuthenticationBackend",
 )
 
-AUTH_USER_MODEL = "account.User"
+AUTH_USER_MODEL = "user.User"
 LOGIN_REDIRECT_URL = "/"
-LOGIN_URL = "/account/login/"
+
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_VERIFICATION = "none"
+
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 
 
 def prefixed_cookie(name):
-    return "{{ cookiecutter.repo_name }}_{}".format(name)
+    return "{{cookiecutter.repo_name}}_{}".format(name)
 
 
 SESSION_COOKIE_NAME = prefixed_cookie("sessionid")
 CSRF_COOKIE_NAME = prefixed_cookie("csrftoken")
 LANGUAGE_COOKIE_NAME = prefixed_cookie("django_language")
-
-TEST_RUNNER = "{{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.testrunner.TestRunner"
-
-ALLOWED_HOSTS = ["localhost" ".herokuapp.com"]
-
 
 CONTEXT_PROCESSORS = [
     "django.contrib.auth.context_processors.auth",
@@ -169,8 +173,6 @@ CONTEXT_PROCESSORS = [
     "django.template.context_processors.tz",
     "django.contrib.messages.context_processors.messages",
     "{{cookiecutter.repo_name}}.home.context_processors.settings",
-    "social_django.context_processors.backends",
-    "social_django.context_processors.login_redirect",
 ]
 
 
@@ -178,40 +180,27 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [root("templates")],
-        "APP_DIRS": True,
         "OPTIONS": {
-            "builtins": ["django.templatetags.static"],
+            "builtins": [
+                "django.templatetags.static",
+                "django_components.templatetags.component_tags",
+            ],
             "context_processors": CONTEXT_PROCESSORS,
+            "loaders": [
+                (
+                    "django.template.loaders.cached.Loader",
+                    [
+                        "django.template.loaders.filesystem.Loader",
+                        "django.template.loaders.app_directories.Loader",
+                        "django_components.template_loader.Loader",
+                    ],
+                )
+            ],
         },
-    },
+    }
 ]
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-#  social
-SOCIAL_AUTH_PIPELINE = (
-    "social_core.pipeline.social_auth.social_details",
-    "social_core.pipeline.social_auth.social_uid",
-    "social_core.pipeline.social_auth.auth_allowed",
-    "social_core.pipeline.social_auth.social_user",
-    "social_core.pipeline.user.get_username",
-    "social_core.pipeline.user.create_user",
-    "social_core.pipeline.social_auth.associate_user",
-    "social_core.pipeline.social_auth.load_extra_data",
-    "social_core.pipeline.user.user_details",
-    "social_core.pipeline.social_auth.associate_by_email",
-    "account.pipeline.save_facebook_details",
-)
-
-
-SOCIAL_AUTH_ENABLED_BACKENDS = "facebook"
-SOCIAL_AUTH_USER_MODEL = "account.User"
-SOCIAL_AUTH_DEFAULT_USERNAME = "new_social_auth_user"
-
-{% if cookiecutter.stripe  == "y" %}
-STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY", default="")
-STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY", default="")
-{% endif %}
 try:
     from model_bakery import random_gen  # noqa
 
@@ -220,83 +209,3 @@ try:
     }
 except ImportError:
     pass
-
-CORS_ALLOW_CREDENTIALS = True
-
-REST_FRAMEWORK = {
-    "PAGE_SIZE": env("PAGE_SIZE", default=10),
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
-    "DEFAULT_AUTHENTICATION_CLASSES": (
-        "rest_framework.authentication.SessionAuthentication",
-        "rest_framework.authentication.TokenAuthentication",
-    ),
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
-    # Filtering/Sorting
-    "DEFAULT_FILTER_BACKENDS": [
-        "django_filters.rest_framework.DjangoFilterBackend",
-        "rest_framework.filters.OrderingFilter",
-        "rest_framework.filters.SearchFilter",
-    ],
-}
-
-DJOSER = {
-    "SERIALIZERS": {"token_create": "{{cookiecutter.repo_name}}.account.serializers.TokenCreateSerializer",},
-    "USER_CREATE_PASSWORD_RETYPE": True,
-    "CREATE_SESSION_ON_LOGIN": True,
-    "PASSWORD_RESET_CONFIRM_URL": "account/reset/confirm/{uid}/{token}",  # TODO: prefix with frontend url
-    "PASSWORD_RESET_CONFIRM_RETYPE": True,
-    "SET_USERNAME_RETYPE": True,
-    "SET_PASSWORD_RETYPE": True,
-}
-
-# fmt: off
-{% if cookiecutter.use_wagtail == "y" -%}
-# Wagtail specific settings
-INSTALLED_APPS += (
-
-    'wagtail.contrib.forms',
-    'wagtail.contrib.postgres_search',
-    'wagtail.contrib.redirects',
-    'wagtail.contrib.search_promotions',
-    'wagtail.contrib.settings',
-    'django.contrib.sitemaps',
-    'wagtail.contrib.table_block',
-    'wagtail.embeds',
-    'wagtail.sites',
-    'wagtail.users',
-    'wagtail.snippets',
-    'wagtail.documents',
-    'wagtail.images',
-    'wagtail.search',
-    'wagtail.admin',
-    'wagtail.core',
-    'wagtail.contrib.modeladmin',
-    'wagtail.api.v2',
-
-    'modelcluster',
-    'taggit',
-
-    '{{ cookiecutter.repo_name }}.wagtailapp',
-)
-
-MIDDLEWARE += (
-    'wagtail.contrib.redirects.middleware.RedirectMiddleware',
-)
-
-CONTEXT_PROCESSORS += (
-    'wagtail.contrib.settings.context_processors.settings',
-)
-
-WAGTAILSEARCH_BACKENDS = {
-    'default': {
-        'BACKEND': 'wagtail.contrib.postgres_search.backend'
-    }
-}
-
-WAGTAIL_SITE_NAME = '{{ cookiecutter.project_name }}'
-WAGTAIL_APPEND_SLASH = 'settings.APPEND_SLASH'
-WAGTAILADMIN_NOTIFICATION_FROM_EMAIL = 'wagtail@{{cookiecutter.repo_name}}.com'
-WAGTAILIMAGES_IMAGE_MODEL = 'wagtailapp.CustomImage'
-WAGTAILIMAGES_MAX_UPLOAD_SIZE = 10 * 1024 * 1024 # 10MB which is default
-WAGTAILIMAGES_MAX_IMAGE_PIXELS = 128000000  # i.e. 128 megapixels
-{% endif -%}

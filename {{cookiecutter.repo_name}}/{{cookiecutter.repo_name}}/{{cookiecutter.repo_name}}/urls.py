@@ -6,12 +6,9 @@ from django.contrib import admin
 from urllib.parse import urlparse
 
 urlpatterns = [
-    path("auth/", include("{{cookiecutter.repo_name}}.account.urls")),
-    path("auth/", include("djoser.urls")),
-    path("auth/", include("djoser.urls.authtoken")),
+    path("auth/", include("{{cookiecutter.repo_name}}.user.urls")),
     path("admin/", admin.site.urls),
-    path("social/", include("social_django.urls", namespace="social")),
-    path("backend/", include("{{cookiecutter.repo_name}}.home.urls")),
+    path("", include("{{cookiecutter.repo_name}}.home.urls")),
 ]
 
 if settings.DEBUG:

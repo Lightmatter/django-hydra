@@ -12,7 +12,7 @@ else
     #todo - add all and make initial push
 fi
 
-if first_time; then
+if $first_time; then
     echo "Setting up the git repo for the first time"
     git add .
     git commit -am "initial commit"

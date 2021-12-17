@@ -1,99 +1,24 @@
 {
   "name": "{{cookiecutter.repo_name}}",
-  "version": "{{cookiecutter.version}}",
-  "description": "",
-  "author": "Lightmatter Team",
-  "license": "UNLICENSED",
-  "engines": {
-    "node": ">=10.14.2"
-  },
+  "version": "0.0.0",
   "scripts": {
-    "dev": "next",
-    "build": "next build",
-    "start": "next start",
-    "debug": "NODE_OPTIONS='--inspect=0.0.0.0:9229' next",
-    "test:debug": "node --inspect node_modules/.bin/jest --runInBand",
-    "test": "jest --watch",
-    "test:ci": "jest --ci -runInBand --reporters=default --reporters=jest-junit --no-cache",
-    "postinstall": "husky install",
-    "prepublishOnly": "pinst --disable",
-    "postpublish": "pinst --enable"
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "serve": "vite preview"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.11.1",
-    "@testing-library/react": "^10.4.7",
-    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.1",
-    "babel-eslint": "^10.1.0",
-    "babel-jest": "^26.1.0",
-    "cypress": "^7.2.0",
-    "enzyme": "^3.11.0",
-    "enzyme-to-json": "^3.5.0",
-    "eslint": "^7.5.0",
-    "eslint-config-airbnb": "^18.2.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-import-resolver-node": "^0.3.4",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-jest-dom": "^3.8.1",
-    "eslint-plugin-jsx-a11y": "^6.3.1",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.20.4",
-    "eslint-plugin-react-hooks": "^4.2.0",
-    "husky": "^6.0.0",
-    "identity-obj-proxy": "^3.0.0",
-    "jest": "^26.1.0",
-    "jest-junit": "^11.1.0",
-    "jest-watch-typeahead": "^0.6.0",
-    "lint-staged": "^10.2.11",
-    "miragejs": "^0.1.40",
-    "pinst": "^2.0.0",
-    "prettier": "^2.0.5",
-    "react-test-renderer": "^17.0.2"
+    "autoprefixer": "^10.4.0",
+    "fast-glob": "^3.2.7",
+    "postcss": "^8.3.11",
+    "tailwindcss": "^2.2.19",
+    "typescript": "^4.3.2",
+    "vite": "^2.6.4",
+    "@vitejs/plugin-vue": "^1.9.3",
+    "vue-tsc": "^0.3.0",
+    "vue": "^3.2.16"
   },
   "dependencies": {
-    "@babel/core": "^7.14.0",
-    "@babel/runtime": "^7.14.0",
-    "@date-io/date-fns": "^2.8.0",
-    "@material-ui/core": "^4.11.0",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/lab": "^4.0.0-alpha.58",
-    "@sentry/nextjs": "^6.8.0",
-    "axios": "^0.21.1",
-    "axios-case-converter": "^0.7.0",
-    "clsx": "^1.1.1",
-    "constate": "^3.2.0",
-    "dotenv": "^8.2.0",
-    "formik": "^2.1.5",
-    "formik-material-ui": "^3.0.1",
-    "formik-material-ui-lab": "^0.0.8",
-    "import": "^0.0.6",
-    "lodash": "^4.17.20",
-    "material-ui-popup-state": "^1.6.1",
-    "next": "^10.2.0",
-    "next-build-id": "^3.0.0",
-    "notistack": "^1.0.6",
-    "nprogress": "^0.2.0",
-    "prop-types": "^15.7.2",
-    "qs": "^6.9.4",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "swr": "^0.4.2",
-    "tiny-warning": "^1.0.3",
-    "yup": "^0.28.3"
-  },
-  "lint-staged": {
-    "*.{js,jsx,ts,tsx,json,md,css,scss}": [
-      "yarn prettier --config .prettierrc.json --write"
-    ],
-    "*.{js,jsx,ts,tsx}": [
-      "yarn eslint src/**/*.js --fix",
-      "yarn eslint src/**/*.jsx --fix"
-    ],
-    "*.py": [
-      "pipenv run isort {{cookiecutter.repo_name}}",
-      "pipenv run black --exclude=/migrations/ {{cookiecutter.repo_name}}/"
-    ]
-  },
-  "eslintIgnore": [
-    "__tests__"
-  ]
+    "htmx.org": "^1.6.0",
+    "petite-vue": "^0.3.0"
+  }
 }
