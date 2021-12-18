@@ -42,6 +42,8 @@ cd ../$appname/
 
 export DJANGO_SETTINGS_MODULE=$appname.$appname.settings.local
 
+
+npm run build
 ./scripts/validate.sh
 poetry run python manage.py test --noinput --keepdb
 

@@ -33,6 +33,7 @@ CSRF_TRUSTED_ORIGINS = [
 ]
 
 STATIC_ROOT = root("static")
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 redis_url = urlparse(env("REDIS_URL", default="redis://localhost:6959"))
 CACHES = {

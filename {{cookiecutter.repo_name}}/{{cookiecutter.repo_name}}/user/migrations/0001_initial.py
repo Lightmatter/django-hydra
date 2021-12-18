@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
+from django.db import migrations, models
+
 import django.utils.timezone
-from {{cookiecutter.repo_name}}.user.models import UserManager
 import model_utils.fields
+
+from {{cookiecutter.repo_name}}.user.models import UserManager
 
 
 class Migration(migrations.Migration):

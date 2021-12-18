@@ -63,7 +63,6 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 DJANGO_VITE_ASSETS_PATH = root.path("static")
 
 STATIC_ROOT = root("static")
