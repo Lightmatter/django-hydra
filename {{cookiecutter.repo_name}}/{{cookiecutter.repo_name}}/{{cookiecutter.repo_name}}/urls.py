@@ -11,6 +11,7 @@ urlpatterns = [
     path("", include("{{cookiecutter.repo_name}}.home.urls")),
 ]
 
+
 if settings.DEBUG:
     import debug_toolbar
 

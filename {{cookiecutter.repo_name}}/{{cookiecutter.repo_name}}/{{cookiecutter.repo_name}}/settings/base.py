@@ -7,7 +7,6 @@ from environ import Env, Path
 
 DEBUG = False
 
-
 root = Path(__file__) - 3
 repo_root = root - 1
 
@@ -141,14 +140,6 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
-AUTH_USER_MODEL = "user.User"
-LOGIN_REDIRECT_URL = "/"
-
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = "email"
-ACCOUNT_EMAIL_VERIFICATION = "none"
 
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
@@ -198,6 +189,26 @@ TEMPLATES = [
         },
     }
 ]
+
+
+#components settings
+COMPONENTS = {
+    "template_cache_size": 256,
+    "libraries": [
+        "{{cookiecutter.repo_name}}.util.forms",
+        "{{cookiecutter.repo_name}}.util.buttons",
+    ],
+}
+
+#Authentication settings
+AUTH_USER_MODEL = "user.User"
+LOGIN_REDIRECT_URL = "/"
+
+## AllAuth user management settings
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
 
 
 try:
