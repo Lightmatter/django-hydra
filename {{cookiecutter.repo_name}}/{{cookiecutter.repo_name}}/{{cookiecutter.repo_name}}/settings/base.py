@@ -191,7 +191,7 @@ TEMPLATES = [
 ]
 
 
-#components settings
+# components settings
 COMPONENTS = {
     "template_cache_size": 256,
     "libraries": [
@@ -200,7 +200,7 @@ COMPONENTS = {
     ],
 }
 
-#Authentication settings
+# Authentication settings
 AUTH_USER_MODEL = "user.User"
 LOGIN_REDIRECT_URL = "/"
 
@@ -208,7 +208,7 @@ LOGIN_REDIRECT_URL = "/"
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
-ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_AUTHENTICATION_METHOD = "email"
 
 
 try:
