@@ -4,6 +4,11 @@
 ## Overview
 {{ cookiecutter.description }}
 
+
+### DIRENV
+
+
+
 ## Project Structure
 This project is divided into 2 major parts: Next.js frontend and Django backend.
 It's deployed on a docker image, with a nginx server to direct traffic between the two services

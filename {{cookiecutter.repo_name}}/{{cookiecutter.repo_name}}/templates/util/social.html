@@ -1,4 +1,4 @@
-<title>{% if page.seo_title %}{{ page.seo_title }}{% else %}Lightmatter{% endif %}</title>
+<title>{% if page.seo_title %}{{ page.seo_title }}{% else %}{% endif %}</title>
 <meta name="description" content="{% if page.search_description %}{{ page.search_description }}{% elif settings.wagtailapp.SocialMediaSettings.default_meta_description %}{{ settings.wagtailapp.SocialMediaSettings.default_meta_description }}{% endif %}" />
 <meta name="twitter:title" content="{% if page.seo_title %}{{ page.seo_title }}{% endif %}" />
 <meta name="twitter:description" content="{% if page.search_description %}{{ page.search_description }}{% elif settings.wagtailapp.SocialMediaSettings.default_meta_description %}{{ settings.wagtailapp.SocialMediaSettings.default_meta_description }}{% endif %}" />
