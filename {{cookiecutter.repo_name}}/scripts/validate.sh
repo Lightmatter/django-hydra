@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+echo 'asdfasdf'
+echo '$DJANGO_SETTINGS_MODULE'
 poetry run bandit -r {{cookiecutter.repo_name}}/ -l -x tests.py
 poetry run isort --check-only {{cookiecutter.repo_name}}/**/*.py
 poetry run black --check --diff --exclude=/migrations/ {{cookiecutter.repo_name}}/

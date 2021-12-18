@@ -8,12 +8,6 @@ echo "Setting up a previously created project"
 thisdir="${0%/*}"
 
 
-echo "Making Virtual Environment for {{cookiecutter.repo_name}}"
-export ENV_NAME="{{cookiecutter.repo_name}}"
-os="`uname -a`"
-WORKON_HOME=${WORKON_HOME:-~/.virtualenvs}  # set default value for workon home
-python3 -m venv $WORKON_HOME/$ENV_NAME
-source $WORKON_HOME/$ENV_NAME/bin/activate
 
 export DJANGO_SETTINGS_MODULE=$ENV_NAME.$ENV_NAME.settings.local
 
