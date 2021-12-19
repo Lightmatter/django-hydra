@@ -1,15 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+
+    {% load django_vite %}
+    {% vite_hmr_client %}
+    {% vite_asset 'js/system.ts' %}
+    {% vite_asset 'js/main.ts' %}
+    {% vite_asset 'js/htmx.js' %}
+    {% vite_asset 'fontawesome/fontawesome.js' %}
+
+    {% load django_htmx %}
+    {% django_htmx_script %}
+
     {% block extra_head %}
     <title>Lightmatter</title>
     {% endblock extra_head %}
+
+
   </head>
-  <body>
-      <div id="swup" class="swup-container transition-fade {% block body_class %}{% endblock body_class %}">
+  <body hx-boost="true" hx-push-url="true" v-scope class="{% block body_class %}{% endblock body_class %}" >
       {% include "header.html" %}
 
       <div id="main">
@@ -17,7 +28,14 @@
           {% endblock content %}
       </div>
 
+      <ul class="messages" id="messages" >
+      {% include "messages.html" with no_oob=True %}
+      </ul>
       {% include "footer.html" %}
-      </div>
   </body>
+  <script>
+    document.body.addEventListener('htmx:configRequest', (event) => {
+      event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+  })
+  </script>
 </html>

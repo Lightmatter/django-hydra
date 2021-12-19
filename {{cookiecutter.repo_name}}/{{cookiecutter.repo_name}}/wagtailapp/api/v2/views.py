@@ -1,6 +1,6 @@
 from django.http import Http404
-from rest_framework import permissions
 
+from rest_framework import permissions
 from wagtail.api.v2.views import PagesAPIViewSet
 from wagtail.core.models import Site
 

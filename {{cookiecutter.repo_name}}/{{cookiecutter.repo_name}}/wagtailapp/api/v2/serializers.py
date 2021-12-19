@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from rest_framework.fields import Field
-
 from wagtail.api.v2.serializers import PageSerializer
 from wagtail.core import fields as wagtailcore_fields
 from wagtail.core.blocks import StreamBlock

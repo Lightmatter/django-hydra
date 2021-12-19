@@ -4,9 +4,12 @@ from django.test import LiveServerTestCase, TestCase, tag
 
 import atexit
 import datetime
+import os
 import subprocess
 import time
 import unittest
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from playwright.sync_api import sync_playwright
 
 from .models import TestFileModel
 from .util import file_url, random_string
@@ -56,6 +59,21 @@ class FileUrlTest(TestCase):
             )
         )
         self.assertEqual(actual, expected)
+
+
+class PlaywrightTestCase(StaticLiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
+        super().setUpClass()
+        cls.playwright = sync_playwright().start()
+        cls.browser = cls.playwright.chromium.launch()
+
+    @classmethod
+    def tearDownClass(cls):
+        super().tearDownClass()
+        cls.browser.close()
+        cls.playwright.stop()
 
 
 # TODO: Write this test

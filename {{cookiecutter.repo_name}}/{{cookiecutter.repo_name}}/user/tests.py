@@ -2,9 +2,12 @@ from django.test import TestCase
 from django.urls import reverse
 
 from django.contrib.auth.hashers import make_password
+from http import HTTPStatus
 from model_bakery import baker
 
 from .models import User
+
+from {{cookiecutter.repo_name}}.util.tests import PlaywrightTestCase
 
 
 class UserManagerTest(TestCase):
@@ -15,48 +18,124 @@ class UserManagerTest(TestCase):
         User.objects.get(id=user.id)
 
 
-class LoginTest(TestCase):
+class LoginTest(PlaywrightTestCase):
     def setUp(self):
-        pass
+        self.password = "IwouldLikeToKnowMore"
+        self.user = baker.make_recipe(
+            "{{cookiecutter.repo_name}}.user.user",
+            is_superuser=True,
+            is_staff=True,
+            password=make_password(self.password),
+        )
+        self.url = reverse("account_login")
+
+    def test_login(self):
+        page = self.browser.new_page()
+        page.goto(f"{self.live_server_url}{self.url}")
+        page.wait_for_selector("text=Sign In")
+        page.fill("[name=login]", self.user.email)
+        page.fill("[name=password]", self.password)
+        page.click(".primaryAction")
+        actual = page.url.removeprefix(self.live_server_url)
+        self.assertEqual(actual, "/")
+
+    def test_login_email_case_insensitive(self):
+        page = self.browser.new_page()
+        page.goto(f"{self.live_server_url}{self.url}")
+        page.wait_for_selector("text=Sign In")
+        page.fill("[name=login]", self.user.email.upper())
+        page.fill("[name=password]", self.password)
+        page.click(".primaryAction")
+        actual = page.url.removeprefix(self.live_server_url)
+        self.assertEqual(actual, "/")
+
+    def test_login_badpass(self):
+        page = self.browser.new_page()
+        page.goto(f"{self.live_server_url}{self.url}")
+        page.wait_for_selector("text=Sign In")
+        page.fill("[name=login]", self.user.email.upper())
+        page.fill("[name=password]", self.password.upper())
+        page.click(".primaryAction")
+        error = page.text_content(
+            "text=The e-mail address and/or password you specified are not correct."
+        )
+        self.assertTrue(error)
 
 
-# class RegistrationTest(TestCase):
-#     def setUp(self):
-#         self.form_data = self.login_form_data = {
-#             "email": "ben@coolguy.com",
-#             "password": "yeahman",
-#             "re_password": "yeahman",
-#             "first_name": "ben",
-#             "last_name": "beecher",
-#         }
-#         self.url = reverse("account_signup")
+class RegistrationTest(TestCase):
+    def setUp(self):
+        self.password = "yeahman"
+        self.form_data = self.login_form_data = {
+            "email": "ben@coolguy.com",
+            "password1": self.password,
+            "password2": "yeahman",
+            "first_name": "ben",
+            "last_name": "beecher",
+        }
+        self.url = reverse("account_signup")
 
-#     def test_register(self):
-#         response = self.client.post(self.url, self.form_data)
-#         self.assertEqual(response.status_code, s.HTTP_201_CREATED)
+    def test_register(self):
+        actual = User.objects.count()
+        self.assertEqual(0, actual)
+        response = self.client.post(self.url, self.form_data)
+        self.assertRedirects(response, "/", status_code=302)
+        actual = User.objects.count()
+        self.assertEqual(1, actual)
+        coolguy = User.objects.first()
+        self.assertTrue(coolguy.check_password(self.password))
 
-#     def test_register_bad_repeat_email(self):
-#         response = self.client.post(self.url, self.form_data)
-#         self.assertEqual(response.status_code, s.HTTP_201_CREATED)
-#         self.form_data["password"] = "oh no"
-#         response = self.client.post(self.url, self.form_data)
-#         self.assertEqual(response.status_code, s.HTTP_400_BAD_REQUEST)
+    def test_register_bad_repeat_email(self):
+        email = self.form_data["email"]
+        baker.make(User, email=email)
 
-#     def test_register_bad_repeat_pass(self):
-#         self.form_data["re_password"] = "oh no"
-#         response = self.client.post(self.url, self.form_data)
-#         self.assertEqual(response.status_code, s.HTTP_400_BAD_REQUEST)
+        actual = User.objects.count()
+        self.assertEqual(1, actual)
 
-#     def test_register_no_repeat_pass(self):
-#         del self.form_data["re_password"]
-#         response = self.client.post(self.url, self.form_data)
-#         self.assertEqual(response.status_code, s.HTTP_400_BAD_REQUEST)
+        response = self.client.post(self.url, self.form_data)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
 
-#     def test_register_but_really_login(self):
-#         response = self.client.post(self.url, self.form_data)
-#         self.assertEqual(response.status_code, s.HTTP_201_CREATED)
-#         response = self.client.post(self.url, self.form_data)
-#         self.assertEqual(response.status_code, s.HTTP_200_OK)
+        actual = User.objects.count()
+        self.assertEqual(1, actual)
+
+        self.form_data["email"] = email.upper()
+
+        response = self.client.post(self.url, self.form_data)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+        actual = User.objects.count()
+        self.assertEqual(1, actual)
+
+    def test_register_bad_repeat_pass1(self):
+        self.form_data["password1"] = "oh no, oh no"
+        response = self.client.post(self.url, self.form_data)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        actual = User.objects.count()
+        self.assertEqual(0, actual)
+
+    def test_register_bad_repeat_pass(self):
+        self.form_data["password2"] = "oh no, oh no"
+        response = self.client.post(self.url, self.form_data)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        actual = User.objects.count()
+        self.assertEqual(0, actual)
+
+    def test_register_no_repeat_pass(self):
+        del self.form_data["password2"]
+        response = self.client.post(self.url, self.form_data)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+        actual = User.objects.count()
+        self.assertEqual(0, actual)
+
+    ## TODO: Would be nice to see an attempt to register w/ good credentials as a login
+    # def test_register_but_really_login(self):
+    #     actual = User.objects.count()
+    #     self.assertEqual(0, actual)
+    #     response = self.client.post(self.url, self.form_data)
+    #     self.assertRedirects(response, "/", status_code=302)
+    #     self.client.logout()
+
+    #     response = self.client.post(self.url, self.form_data)
+    #     self.assertRedirects(response, "/", status_code=302)
 
 
 class UserAdminTest(TestCase):

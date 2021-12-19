@@ -17,10 +17,9 @@ export default defineConfig({
         system: resolve(__dirname, './frontend/js/system.ts'),
       }
     },
-    outDir:  '../{{cookiecutter.repo_name}}/static', // puts the manifest.json in PROJECT_ROOT/theme/static/
+    outDir:  '../{{cookiecutter.repo_name}}/static', // puts the manifest.json in PROJECT_ROOT/static/
   },
   plugins: [
-    vue(),
     {
       name: 'watch-external', // https://stackoverflow.com/questions/63373804/rollup-watch-include-directory/63548394#63548394
       async buildStart(){

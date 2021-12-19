@@ -1,6 +1,5 @@
 ((python-mode . (
                     (python-shell-interpreter . "python")
-                    (pyvenv-workon . "{{cookiecutter.repo_name}}")
                     (eval . (progn
                                 (setq
                                     python-shell-process-environment  (list "DJANGO_SETTINGS_MODULE={{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.settings.local")

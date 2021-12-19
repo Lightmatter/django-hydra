@@ -99,7 +99,6 @@ INSTALLED_APPS = (
     "django_vite",
     "django_components",
     "model_utils",
-    "import_export",
     "allauth",
     "allauth.account",
     "{{cookiecutter.repo_name}}.home",
@@ -177,14 +176,9 @@ TEMPLATES = [
             ],
             "context_processors": CONTEXT_PROCESSORS,
             "loaders": [
-                (
-                    "django.template.loaders.cached.Loader",
-                    [
-                        "django.template.loaders.filesystem.Loader",
-                        "django.template.loaders.app_directories.Loader",
-                        "django_components.template_loader.Loader",
-                    ],
-                )
+                "django.template.loaders.filesystem.Loader",
+                "django.template.loaders.app_directories.Loader",
+                "django_components.template_loader.Loader",
             ],
         },
     }
