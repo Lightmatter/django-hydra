@@ -46,6 +46,16 @@ unittest-xml-reporting = "^3.0.4"
 playwright = "^1.17.2"
 prospector = "^1.5.1"
 
+[tool.isort]
+line_length = "88"
+multi_line_output = "3"
+include_trailing_comma = "True"
+use_parentheses = "True"
+combine_as_imports = "True"
+skip_glob = "*migrations/*.py"
+known_standard_library = "django"
+known_third_party = "django.contrib,django.utils"
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"

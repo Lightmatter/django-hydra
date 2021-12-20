@@ -1,4 +1,6 @@
 /* eslint-disable import/first */
+
+// @ts-expect-error
 if (import.meta.env.MODE !== 'development') {
     // @ts-expect-error
     import('vite/modulepreload-polyfill')

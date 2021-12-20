@@ -5,7 +5,7 @@ from django.contrib.messages import get_messages
 
 def attach_messages(response):
     messages = render_to_string(
-        "messages.html", {"messages": get_messages(response._request)}  # NOQA
+        "util/messages.html", {"messages": get_messages(response._request)}  # NOQA
     )
     response.content = response.content + messages.encode(response.charset)
     return response

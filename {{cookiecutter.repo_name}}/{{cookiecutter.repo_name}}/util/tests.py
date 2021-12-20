@@ -69,6 +69,10 @@ class PlaywrightTestCase(StaticLiveServerTestCase):
         cls.playwright = sync_playwright().start()
         cls.browser = cls.playwright.chromium.launch()
 
+    def setUp(self):
+        self.context = self.browser.new_context()
+        self.context.set_default_timeout(3000)
+
     @classmethod
     def tearDownClass(cls):
         super().tearDownClass()

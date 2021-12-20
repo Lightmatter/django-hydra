@@ -5,9 +5,9 @@ from django.contrib.auth.hashers import make_password
 from http import HTTPStatus
 from model_bakery import baker
 
-from .models import User
-
 from {{cookiecutter.repo_name}}.util.tests import PlaywrightTestCase
+
+from .models import User
 
 
 class UserManagerTest(TestCase):
@@ -20,6 +20,7 @@ class UserManagerTest(TestCase):
 
 class LoginTest(PlaywrightTestCase):
     def setUp(self):
+        super().setUp()
         self.password = "IwouldLikeToKnowMore"
         self.user = baker.make_recipe(
             "{{cookiecutter.repo_name}}.user.user",
@@ -30,7 +31,7 @@ class LoginTest(PlaywrightTestCase):
         self.url = reverse("account_login")
 
     def test_login(self):
-        page = self.browser.new_page()
+        page = self.context.new_page()
         page.goto(f"{self.live_server_url}{self.url}")
         page.wait_for_selector("text=Sign In")
         page.fill("[name=login]", self.user.email)
@@ -40,7 +41,7 @@ class LoginTest(PlaywrightTestCase):
         self.assertEqual(actual, "/")
 
     def test_login_email_case_insensitive(self):
-        page = self.browser.new_page()
+        page = self.context.new_page()
         page.goto(f"{self.live_server_url}{self.url}")
         page.wait_for_selector("text=Sign In")
         page.fill("[name=login]", self.user.email.upper())
@@ -50,7 +51,7 @@ class LoginTest(PlaywrightTestCase):
         self.assertEqual(actual, "/")
 
     def test_login_badpass(self):
-        page = self.browser.new_page()
+        page = self.context.new_page()
         page.goto(f"{self.live_server_url}{self.url}")
         page.wait_for_selector("text=Sign In")
         page.fill("[name=login]", self.user.email.upper())

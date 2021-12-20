@@ -6,8 +6,13 @@
 
 
 ### DIRENV
+### PLAYWRIGHT
+# setting up
 
-
+### UPGRADING PYTHON PACKAGES
+https://github.com/python-poetry/poetry/issues/1387
+###UPGRADING NODE PACKAGES
+https://shouts.dev/upgrade-all-npm-packages-to-the-latest-versions
 
 ## Project Structure
 This project is divided into 2 major parts: Next.js frontend and Django backend.
