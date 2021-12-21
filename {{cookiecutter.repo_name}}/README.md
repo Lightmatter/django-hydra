@@ -6,6 +6,7 @@
 
 
 ### DIRENV
+### pdbpp and sticky by default config
 ### PLAYWRIGHT
 # setting up
 

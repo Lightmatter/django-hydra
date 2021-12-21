@@ -57,6 +57,10 @@ skip_glob = "*migrations/*.py"
 known_standard_library = "django"
 known_third_party = "django.contrib,django.utils"
 
+[tool.ipdb]
+context = 10
+
+
 [build-system]
 requires = ["poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"
