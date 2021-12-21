@@ -128,15 +128,14 @@ LOGGING = {
         }
     },
     "root": {"level": "INFO", "handlers": ["console"]},
-    'loggers': {
-        'django.utils.autoreload': {  # if you take this out, runserver logs it twice and it's annoying
-            'handlers': ['console'],
-            'level': 'INFO',
-            'propagate': False,
+    "loggers": {
+        "django.utils.autoreload": {  # if you take this out, runserver logs twice, annoying
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
         },
-    }
+    },
 }
-
 
 
 AUTHENTICATION_BACKENDS = (
