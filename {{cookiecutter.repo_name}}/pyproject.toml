@@ -45,6 +45,7 @@ flake8-polyfill = "==1.0.2"
 unittest-xml-reporting = "^3.0.4"
 playwright = "^1.17.2"
 prospector = "^1.5.1"
+pywatchman = "^1.4.1"
 
 [tool.isort]
 line_length = "88"
