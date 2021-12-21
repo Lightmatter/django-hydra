@@ -31,6 +31,7 @@ INTERNAL_IPS = ("127.0.0.1",)
 
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
+WSGI_APPLICATION="{{cookiecutter.repo_name}}.config.wsgi.application"
 
 TEMPLATES[0]["OPTIONS"]["debug"] = True
 
