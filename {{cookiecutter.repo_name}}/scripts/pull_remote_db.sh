@@ -1,6 +1,7 @@
 #!/bin/bash
 
-source scripts/get-env-secrets.sh;
+
+export ENV_NAME="{{cookiecutter.repo_name}}"
 
 dropdb $ENV_NAME
 heroku pg:pull DATABASE_URL $ENV_NAME --app $ENV_NAME-development

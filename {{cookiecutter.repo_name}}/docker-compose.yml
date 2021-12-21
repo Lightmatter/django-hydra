@@ -36,7 +36,7 @@ services:
       - ALLOWED_HOSTS="*"
       - SECRET_KEY="foobar"
       - DATABASE_URL=psql://{{cookiecutter.repo_name}}:{{cookiecutter.repo_name}}@db/{{cookiecutter.repo_name}}
-      - DJANGO_SETTINGS_MODULE={{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.settings.local
+      - DJANGO_SETTINGS_MODULE={{cookiecutter.repo_name}}.config.settings.local
       - API_BASE_URL=
       - PORT=4000
       - ENVIRONMENT=local

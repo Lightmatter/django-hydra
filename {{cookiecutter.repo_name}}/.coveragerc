@@ -20,4 +20,4 @@ exclude_lines =
     if __name__ == .__main__.:
 
 ignore_errors = True
-omit = */migrations/*,manage.py,{{cookiecutter.repo_name}}/{{cookiecutter.repo_name}}/*
+omit = */migrations/*,manage.py,{{cookiecutter.repo_name}}/config/*

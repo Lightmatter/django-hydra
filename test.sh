@@ -52,12 +52,12 @@ fi
 echo "Running tests"
 cd ../$appname/
 
-export DJANGO_SETTINGS_MODULE=$appname.$appname.settings.local
+export DJANGO_SETTINGS_MODULE=$appname.config.settings.local
 
 
 npm run build
 ./scripts/validate.sh
-poetry run python manage.py test --noinput --keepdb  --parallel
+poetry run python manage.py test --noinput  --parallel
 
 RV=$?
 rm -rf static/

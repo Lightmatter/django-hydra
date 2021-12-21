@@ -83,7 +83,7 @@ MIDDLEWARE = (
     "{{cookiecutter.repo_name}}.util.middleware.HTMXMessageMiddleware",
 )
 
-ROOT_URLCONF = "{{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.urls"
+ROOT_URLCONF = "{{cookiecutter.repo_name}}.config.urls"
 
 INSTALLED_APPS = (
     "whitenoise.runserver_nostatic",

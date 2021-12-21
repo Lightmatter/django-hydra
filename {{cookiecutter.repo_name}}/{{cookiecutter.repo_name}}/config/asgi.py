@@ -12,12 +12,12 @@ from django.core.asgi import get_asgi_application
 import os
 
 # Import websocket application here, so apps from django_application are loaded first
-from {{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.websocket import websocket_application  # noqa isort:skip
+from {{cookiecutter.repo_name}}.config.websocket import websocket_application  # noqa isort:skip
 
 # fmt: off
 os.environ.setdefault(
     "DJANGO_SETTINGS_MODULE",
-    "{{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.settings.heroku",
+    "{{cookiecutter.repo_name}}.config.settings.prod",
 )
 # fmt: on
 

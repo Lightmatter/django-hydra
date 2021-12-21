@@ -12,7 +12,7 @@ echo "Making Virtual Environment for {{cookiecutter.repo_name}}"
 export ENV_NAME="{{cookiecutter.repo_name}}"
 
 
-export DJANGO_SETTINGS_MODULE=$ENV_NAME.$ENV_NAME.settings.local
+export DJANGO_SETTINGS_MODULE=$ENV_NAME.config.settings.local
 cp $thisdir/../.env.example $thisdir/../.env;
 
 $thisdir/install_python_requirements.sh

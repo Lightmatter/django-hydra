@@ -9,7 +9,7 @@ thisdir="${0%/*}"
 
 
 
-export DJANGO_SETTINGS_MODULE=$ENV_NAME.$ENV_NAME.settings.local
+export DJANGO_SETTINGS_MODULE=$ENV_NAME.config.settings.local
 
 $thisdir/install_python_requirements.sh
 $thisdir/setup_database.sh
