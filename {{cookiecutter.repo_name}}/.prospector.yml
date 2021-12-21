@@ -2,6 +2,7 @@ strictness: medium
 member-warnings: true
 ignore-patterns:
   - (^|/)migrations(/|$)
+  - (^|/)manage.py(/|$)
 pep8:
     full: true
     disable:

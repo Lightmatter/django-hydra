@@ -114,24 +114,29 @@ INSTALLED_APPS = (
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": False,
-    "filters": {"require_debug_false": {"()": "django.utils.log.RequireDebugFalse"}},
+    "formatters": {
+        "verbose": {
+            "format": "%(levelname)s %(asctime)s %(module)s "
+            "%(process)d %(thread)d %(message)s"
+        }
+    },
     "handlers": {
-        "mail_admins": {
-            "level": "ERROR",
-            "filters": ["require_debug_false"],
-            "class": "django.utils.log.AdminEmailHandler",
-        },
-        "console": {"class": "logging.StreamHandler"},
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        }
     },
-    "loggers": {
-        "django.request": {
-            "handlers": ["mail_admins", "console"],
-            "level": "ERROR",
-            "propagate": True,
+    "root": {"level": "INFO", "handlers": ["console"]},
+    'loggers': {
+        'django.utils.autoreload': {  # if you take this out, runserver logs it twice and it's annoying
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': False,
         },
-        "root": {"handlers": ["console"], "level": "ERROR"},
-    },
+    }
 }
+
 
 
 AUTHENTICATION_BACKENDS = (
@@ -203,13 +208,3 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = "email"
-
-
-try:
-    from model_bakery import random_gen  # noqa
-
-    MOMMY_CUSTOM_FIELDS_GEN = {
-        "localflavor.us.models.USZipCodeField": random_gen.gen_string
-    }
-except ImportError:
-    pass
