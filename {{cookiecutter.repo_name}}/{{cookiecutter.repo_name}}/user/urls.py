@@ -1,5 +1,10 @@
-from django.urls import include, path  # NOQA
+from django.urls import path
 
+from .views import (
+    user_redirect_view,
+)
+
+app_name = "user"
 urlpatterns = [
-    path("", include("allauth.urls")),
+    path("~redirect/", view=user_redirect_view, name="redirect"),
 ]

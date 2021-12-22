@@ -1,26 +1,49 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import include, path
+from django.views import defaults as default_views
 
 from django.contrib import admin
 from urllib.parse import urlparse
 
-urlpatterns = [
-    path("auth/", include("{{cookiecutter.repo_name}}.user.urls")),
+urlpatterns = []
+
+if settings.DEBUG:
+    # This allows the error pages to be debugged during development, just visit
+    # these url in browser to see how these error pages look like.
+    urlpatterns += [
+        path(
+            "400/",
+            default_views.bad_request,
+            kwargs={"exception": Exception("Bad Request!")},
+        ),
+        path(
+            "403/",
+            default_views.permission_denied,
+            kwargs={"exception": Exception("Permission Denied")},
+        ),
+        path(
+            "404/",
+            default_views.page_not_found,
+            kwargs={"exception": Exception("Page not Found")},
+        ),
+        path("500/", default_views.server_error),
+    ]
+    if "debug_toolbar" in settings.INSTALLED_APPS:
+        import debug_toolbar
+
+        urlpatterns = [path("__debug__/", include(debug_toolbar.urls))] + urlpatterns
+
+
+
+urlpatterns += [
+    path("users/", include("{{cookiecutter.repo_name}}.user.urls", namespace="user")),
+    path("account/", include("allauth.urls")),
     path("admin/", admin.site.urls),
     path("", include("{{cookiecutter.repo_name}}.home.urls")),
 ]
 
-
-if settings.DEBUG:
-    import debug_toolbar
-
-    media_url = urlparse(settings.MEDIA_URL).path
-    urlpatterns += static(media_url, document_root=settings.MEDIA_ROOT)
-    urlpatterns += [path(r"__debug__/", include(debug_toolbar.urls))]
-
 {%- if cookiecutter.use_wagtail == 'y' %}
-
 # This needs to come after static and debug calls
 urlpatterns += [
     path("", include("{{ cookiecutter.repo_name }}.wagtailapp.urls")),

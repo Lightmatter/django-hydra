@@ -1,41 +1,54 @@
-from .base import *
+from .base import *  # noqa
+from .base import env
 
-# if you want to test with debug off
-env.read_env(repo_root(".env"), SECRET_KEY="changeme")  # nosec
 
-ALLOWED_HOSTS = [u"127.0.0.1", "localhost", "localhost:8000"]
-DEBUG = True
-DJANGO_VITE_DEV_MODE = DEBUG
+# GENERAL
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
+ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1"]
 
-DATABASES = {"default": env.db()}
-
+# CACHES
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#caches
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-        "LOCATION": "unique-snowflake",
+        "LOCATION": "radio-kaikan",
     }
 }
 
-MEDIA_ROOT = root("media")
-MEDIA_URL = "http://127.0.0.1:8000/media/"
+# EMAIL
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
+EMAIL_BACKEND = env(
+    "DJANGO_EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend"
+)
 
-STATIC_ROOT = root("static")
+# WhiteNoise
+# ------------------------------------------------------------------------------
+# http://whitenoise.evans.io/en/latest/django.html#using-whitenoise-in-development
+INSTALLED_APPS = ["whitenoise.runserver_nostatic"] + INSTALLED_APPS  # noqa F405
 
-INSTALLED_APPS += ("debug_toolbar",)
+# django-debug-toolbar
+# ------------------------------------------------------------------------------
+# https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#prerequisites
+INSTALLED_APPS += ["debug_toolbar"]  # noqa F405
+# https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#middleware
+MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware"]  # noqa F405
+# https://django-debug-toolbar.readthedocs.io/en/latest/configuration.html#debug-toolbar-config
+DEBUG_TOOLBAR_CONFIG = {
+    "DISABLE_PANELS": ["debug_toolbar.panels.redirects.RedirectsPanel"],
+    "SHOW_TEMPLATE_CONTEXT": True,
+}
+# https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#internal-ips
+INTERNAL_IPS = ["127.0.0.1", "10.0.2.2"]
 
-MIDDLEWARE += ("debug_toolbar.middleware.DebugToolbarMiddleware",)
 
-DEBUG_TOOLBAR_CONFIG = {"INTERCEPT_REDIRECTS": False}
+class InvalidVariable(str):
+    def __bool__(self):
+        return False
 
-INTERNAL_IPS = ("127.0.0.1",)
 
-EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-
-WSGI_APPLICATION = "{{cookiecutter.repo_name}}.config.wsgi.application"
-
-TEMPLATES[0]["OPTIONS"]["debug"] = True
-
-SECRET_KEY = env("SECRET_KEY")
-
-DEFAULT_FROM_EMAIL = "hello@{{cookiecutter.repo_name}}.com"
-SERVER_EMAIL = "error@{{cookiecutter.repo_name}}.com"
+TEMPLATES[0]["OPTIONS"]["string_if_invalid"] = InvalidVariable(
+    "BAD TEMPLATE VARIABLE: %s"
+)

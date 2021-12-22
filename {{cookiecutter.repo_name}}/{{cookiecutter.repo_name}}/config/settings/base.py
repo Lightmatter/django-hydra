@@ -5,25 +5,18 @@ import pathlib
 from datetime import timedelta
 from environ import Env, Path
 
-DEBUG = False
-
 root = Path(__file__) - 3
 repo_root = root - 1
 
-env = Env(DEBUG=(bool, False))
-Env.read_env(repo_root(".env"))
+env = Env()
 
-PROJECT_ROOT = root()
-DEBUG = env("DEBUG")
+READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
+if READ_DOT_ENV_FILE:
+    # OS environment variables take precedence over variables from .env
+    env.read_env(repo_root(".env"))
 
-ADMINS = (
-    ("Ben Beecher", "Ben@Lightmatter.com"),
-    ("Greg Hausheer", "Greg@Lightmatter.com"),
-    ("Developer", "ben@lightmatter.com"),
-)
-
-MANAGERS = ADMINS
-
+DEBUG = env.bool("DJANGO_DEBUG", False)
+SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -33,7 +26,7 @@ TIME_ZONE = "UTC"
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = "en"
+LANGUAGE_CODE = "en-us"
 
 SITE_ID = 1
 
@@ -48,52 +41,40 @@ USE_L10N = True
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
-# URL prefix for static files.
-# Example: "http://example.com/static/", "http://static.example.com/"
-STATIC_URL = "/static/"
-
-# Additional locations of static files
-STATICFILES_DIRS = (str(root.path("static_source")),)
-
-# List of finder classes that know how to find static files in
-# various locations.
-STATICFILES_FINDERS = (
-    "django.contrib.staticfiles.finders.FileSystemFinder",
-    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-)
-
-DJANGO_VITE_ASSETS_PATH = root.path("static")
-
-STATIC_ROOT = root("static")
 
 
+# DATABASES
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#databases
+DATABASES = {"default": env.db("DATABASE_URL")}
+DATABASES["default"]["ATOMIC_REQUESTS"] = True
+DATABASES["default"]["CONN_MAX_AGE"] = env.int("CONN_MAX_AGE", default=60)  # noqa F405
+# https://docs.djangoproject.com/en/stable/ref/settings/#std:setting-DEFAULT_AUTO_FIELD
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-MIDDLEWARE = (
-    "django.middleware.security.SecurityMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",
-    "django.middleware.common.CommonMiddleware",
-    "django.contrib.sessions.middleware.SessionMiddleware",
-    "django_htmx.middleware.HtmxMiddleware",
-    "django.middleware.csrf.CsrfViewMiddleware",
-    "django.contrib.auth.middleware.AuthenticationMiddleware",
-    "django.contrib.messages.middleware.MessageMiddleware",
-    "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "{{cookiecutter.repo_name}}.util.middleware.HTMXMessageMiddleware",
-)
-
+# URLS
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#root-urlconf
 ROOT_URLCONF = "{{cookiecutter.repo_name}}.config.urls"
+# https://docs.djangoproject.com/en/dev/ref/settings/#wsgi-application
+WSGI_APPLICATION = "{{cookiecutter.repo_name}}.config.wsgi.application"
 
-INSTALLED_APPS = (
-    "whitenoise.runserver_nostatic",
-    "django.contrib.contenttypes",
+
+# APPS
+# ------------------------------------------------------------------------------
+DJANGO_APPS = [
     "django.contrib.auth",
+    "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.sites",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # "django.contrib.humanize", # Handy template tags
     "django.contrib.admin",
+    "django.forms",
+]
+THIRD_PARTY_APPS = [
     "django_extensions",
     "django_htmx",
     "django_vite",
@@ -101,15 +82,187 @@ INSTALLED_APPS = (
     "model_utils",
     "allauth",
     "allauth.account",
+]
+
+LOCAL_APPS = [
     "{{cookiecutter.repo_name}}.home",
     "{{cookiecutter.repo_name}}.user",
     "{{cookiecutter.repo_name}}.util",
-)
+    # Your stuff: custom apps go here
+]
+# https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
+INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
-# A sample logging configuration. The only tangible logging
-# performed by this configuration is to send an email to
-# the site admins on every HTTP 500 error when DEBUG=False.
-# See http://docs.djangoproject.com/en/dev/topics/logging for
+
+
+# AUTHENTICATION
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#authentication-backends
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "allauth.account.auth_backends.AuthenticationBackend",
+]
+# https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
+AUTH_USER_MODEL = "user.User"
+# https://docs.djangoproject.com/en/dev/ref/settings/#login-redirect-url
+LOGIN_REDIRECT_URL = "user:redirect"
+# https://docs.djangoproject.com/en/dev/ref/settings/#login-url
+LOGIN_URL = "account_login"
+
+
+# PASSWORDS
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#password-hashers
+PASSWORD_HASHERS = [
+    # https://docs.djangoproject.com/en/dev/topics/auth/passwords/#using-argon2-with-django
+    "django.contrib.auth.hashers.Argon2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+    "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+    "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
+]
+
+# https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+    },
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
+]
+
+
+# MIDDLEWARE
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#middleware
+MIDDLEWARE = [
+    "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django_htmx.middleware.HtmxMiddleware",
+    "django.middleware.locale.LocaleMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.common.BrokenLinkEmailsMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "{{cookiecutter.repo_name}}.util.middleware.HTMXMessageMiddleware",
+]
+
+
+# STATIC
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#static-root
+STATIC_ROOT = root.path("static")
+# https://docs.djangoproject.com/en/dev/ref/settings/#static-url
+STATIC_URL = "/static/"
+# https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
+STATICFILES_DIRS = (str(root.path("static_source")),)
+# https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
+STATICFILES_FINDERS = [
+    "django.contrib.staticfiles.finders.FileSystemFinder",
+    "django.contrib.staticfiles.finders.AppDirectoriesFinder",
+]
+
+DJANGO_VITE_ASSETS_PATH = root.path("static")
+DJANGO_VITE_DEV_MODE = DEBUG
+
+# MEDIA
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#media-root
+MEDIA_ROOT =  root.path("media")
+# https://docs.djangoproject.com/en/dev/ref/settings/#media-url
+MEDIA_URL = "/media/"
+
+
+
+# TEMPLATES
+# ------------------------------------------------------------------------------
+
+# https://docs.djangoproject.com/en/dev/ref/templates/api/#using-requestcontext
+CONTEXT_PROCESSORS = [
+    "django.template.context_processors.debug",
+    "django.template.context_processors.request",
+    "django.contrib.auth.context_processors.auth",
+    "django.template.context_processors.i18n",
+    "django.template.context_processors.media",
+    "django.template.context_processors.static",
+    "django.template.context_processors.tz",
+    "django.contrib.messages.context_processors.messages",
+]
+
+
+# https://docs.djangoproject.com/en/dev/ref/settings/#templates
+TEMPLATES = [
+    {
+        # https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-TEMPLATES-BACKEND
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        # https://docs.djangoproject.com/en/dev/ref/settings/#template-dirs
+        "DIRS": [root("templates")],
+        "OPTIONS": {
+            # https://docs.djangoproject.com/en/dev/ref/settings/#template-loaders
+            # https://docs.djangoproject.com/en/dev/ref/templates/api/#loader-types
+            "loaders": [
+                "django.template.loaders.filesystem.Loader",
+                "django.template.loaders.app_directories.Loader",
+                "django_components.template_loader.Loader",
+            ],
+            # https://docs.djangoproject.com/en/dev/ref/settings/#template-context-processors
+            "context_processors": CONTEXT_PROCESSORS,
+        },
+    }
+]
+
+# components settings
+COMPONENTS = {
+    "template_cache_size": 256,
+    "libraries": [
+        "{{cookiecutter.repo_name}}.util.forms",
+        "{{cookiecutter.repo_name}}.util.buttons",
+    ],
+}
+
+# https://docs.djangoproject.com/en/dev/ref/settings/#form-renderer
+FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
+
+
+# SECURITY
+# ------------------------------------------------------------------------------
+
+def prefixed_cookie(name):
+    return "{{cookiecutter.repo_name}}_{}".format(name)
+
+
+SESSION_COOKIE_NAME = prefixed_cookie("sessionid")
+# https://docs.djangoproject.com/en/dev/ref/settings/#session-cookie-httponly
+SESSION_COOKIE_HTTPONLY = True
+
+CSRF_COOKIE_NAME = prefixed_cookie("csrftoken")
+# https://docs.djangoproject.com/en/dev/ref/settings/#csrf-cookie-httponly
+CSRF_COOKIE_HTTPONLY = True
+# https://docs.djangoproject.com/en/dev/ref/settings/#secure-browser-xss-filter
+SECURE_BROWSER_XSS_FILTER = True
+# https://docs.djangoproject.com/en/dev/ref/settings/#x-frame-options
+X_FRAME_OPTIONS = "DENY"
+
+LANGUAGE_COOKIE_NAME = prefixed_cookie("language")
+
+# ADMIN
+# ------------------------------------------------------------------------------
+# Django Admin URL.
+ADMIN_URL = "admin/"
+# https://docs.djangoproject.com/en/dev/ref/settings/#admins
+ADMINS = [("""{{cookiecutter.author_name}}""", "{{cookiecutter.email}}")]
+# https://docs.djangoproject.com/en/dev/ref/settings/#managers
+MANAGERS = ADMINS
+
+
+
+# LOGGING
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#logging
+# See https://docs.djangoproject.com/en/dev/topics/logging for
 # more details on how to customize your logging configuration.
 LOGGING = {
     "version": 1,
@@ -138,72 +291,12 @@ LOGGING = {
 }
 
 
-AUTHENTICATION_BACKENDS = (
-    "django.contrib.auth.backends.ModelBackend",
-    "allauth.account.auth_backends.AuthenticationBackend",
-)
-
-
-SECURE_BROWSER_XSS_FILTER = True
-SECURE_CONTENT_TYPE_NOSNIFF = True
-
-
-def prefixed_cookie(name):
-    return "{{cookiecutter.repo_name}}_{}".format(name)
-
-
-SESSION_COOKIE_NAME = prefixed_cookie("sessionid")
-CSRF_COOKIE_NAME = prefixed_cookie("csrftoken")
-LANGUAGE_COOKIE_NAME = prefixed_cookie("django_language")
-
-CONTEXT_PROCESSORS = [
-    "django.contrib.auth.context_processors.auth",
-    "django.template.context_processors.debug",
-    "django.template.context_processors.request",
-    "django.template.context_processors.i18n",
-    "django.template.context_processors.media",
-    "django.template.context_processors.static",
-    "django.template.context_processors.tz",
-    "django.contrib.messages.context_processors.messages",
-    "{{cookiecutter.repo_name}}.home.context_processors.settings",
-]
-
-
-TEMPLATES = [
-    {
-        "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [root("templates")],
-        "OPTIONS": {
-            "builtins": [
-                "django.templatetags.static",
-                "django_components.templatetags.component_tags",
-            ],
-            "context_processors": CONTEXT_PROCESSORS,
-            "loaders": [
-                "django.template.loaders.filesystem.Loader",
-                "django.template.loaders.app_directories.Loader",
-                "django_components.template_loader.Loader",
-            ],
-        },
-    }
-]
-
-
-# components settings
-COMPONENTS = {
-    "template_cache_size": 256,
-    "libraries": [
-        "{{cookiecutter.repo_name}}.util.forms",
-        "{{cookiecutter.repo_name}}.util.buttons",
-    ],
-}
-
-# Authentication settings
-AUTH_USER_MODEL = "user.User"
-LOGIN_REDIRECT_URL = "/"
-
-## AllAuth user management settings
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-ACCOUNT_EMAIL_REQUIRED = True
+# django-allauth
+# ------------------------------------------------------------------------------
+# https://django-allauth.readthedocs.io/en/latest/configuration.html
+ACCOUNT_ALLOW_REGISTRATION = env.bool("DJANGO_ACCOUNT_ALLOW_REGISTRATION", True)
 ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_AUTHENTICATION_METHOD = "email"
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = "none"

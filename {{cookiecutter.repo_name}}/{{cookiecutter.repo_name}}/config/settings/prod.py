@@ -1,111 +1,156 @@
+import logging
+
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
-from sentry_sdk.integrations.redis import RedisIntegration
-from urllib.parse import urlparse
+from sentry_sdk.integrations.logging import LoggingIntegration
 
-from .base import *
+from .base import *  # noqa
+from .base import env
 
-SESSION_COOKIE_SECURE = True
-SECURE_SSL_REDIRECT = False  # let nginx handle
-DATABASES = {}
-DATABASES["default"] = env.db()
 
-# Honor the 'X-Forwarded-Proto' header for request.is_secure()
+# GENERAL
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
+ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
+
+# SECURITY
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#secure-proxy-ssl-header
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-
-
-ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1"] + env(  # nosec
-    "ALLOWED_HOSTS", default="*"
-).split("|")
-
-# NOTE: this is related to allowing the app to accept incoming requests from external sources
-CORS_ALLOWED_ORIGINS = [
-    f"https://{item}"
-    for item in env("ALLOWED_HOSTS", None).split("|")
-    if env("ALLOWED_HOSTS", None)
-]
-
-# NOTE: this is related to allowing the app to accept incoming requests from external sources
-CSRF_TRUSTED_ORIGINS = [
-    f"{item}"
-    for item in env("ALLOWED_HOSTS", None).split("|")
-    if env("ALLOWED_HOSTS", None)
-]
-
-STATIC_ROOT = root("static")
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
-
-redis_url = urlparse(env("REDIS_URL", default="redis://localhost:6959"))
-CACHES = {
-    "default": {
-        "BACKEND": "redis_cache.RedisCache",
-        "LOCATION": "%s:%s" % (redis_url.hostname, redis_url.port),
-        "OPTIONS": {
-            "DB": 0,
-            "PASSWORD": redis_url.password,
-            "PARSER_CLASS": "redis.connection.HiredisParser",
-            "PICKLE_VERSION": -1,
-        },
-    }
-}
-
-SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
-
-MIDDLEWARE += ("django.middleware.gzip.GZipMiddleware",)
-
-SECRET_KEY = env("SECRET_KEY")
-
-# TODO:
-# MEDIA_ROOT??
-
-DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
-AWS_QUERYSTRING_AUTH = False
-
-
-INSTALLED_APPS += ("anymail",)
-ANYMAIL = {
-    "MAILGUN_API_KEY": env("MAILGUN_API_KEY", default=""),
-}
-EMAIL_BACKEND = "anymail.backends.mailgun.EmailBackend"
-# mailgun will refuse to send mail not from a whitelisted domain.
-DEFAULT_FROM_EMAIL = "hello@" + env("MAILGUN_DOMAIN", default="")
-SERVER_EMAIL = "error@" + env("MAILGUN_DOMAIN", default="")
-
-STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY", default="")
-STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY", default="")
-
-AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID", default="")
-AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY", default="")
-AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME", default="")
-# cloudfront distro
-AWS_S3_CUSTOM_DOMAIN = env("AWS_S3_CUSTOM_DOMAIN", default="")
-
-
-AWS_IS_GZIPPED = True
-AWS_S3_REGION_NAME = "us-east-1"
-
-STATIC_URL = "//{}/static/".format(AWS_S3_CUSTOM_DOMAIN)
-
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# GEOS_LIBRARY_PATH = '/app/.heroku/vendor/lib/libgeos_c.so'
-# GDAL_LIBRARY_PATH = '/app/.heroku/vendor/lib/libgdal.so'
-
-# SOCIAL_AUTH_FACEBOOK_KEY = env('SOCIAL_AUTH_FACEBOOK_KEY')
-# SOCIAL_AUTH_FACEBOOK_SECRET = env('SOCIAL_AUTH_FACEBOOK_SECRET')
-
-sentry_sdk.init(
-    dsn=env("SENTRY_DSN"),
-    integrations=[DjangoIntegration(), RedisIntegration()],
-    # If you wish to associate users to errors (assuming you are using
-    # django.contrib.auth) you may enable sending PII data.
-    send_default_pii=True,
-    environment=env("ENVIRONMENT"),
-    release=env("APP_VERSION_RELEASE"),
+# https://docs.djangoproject.com/en/dev/ref/settings/#secure-ssl-redirect
+SECURE_SSL_REDIRECT = env.bool("DJANGO_SECURE_SSL_REDIRECT", default=True)
+# https://docs.djangoproject.com/en/dev/ref/settings/#session-cookie-secure
+SESSION_COOKIE_SECURE = True
+# https://docs.djangoproject.com/en/dev/ref/settings/#csrf-cookie-secure
+CSRF_COOKIE_SECURE = True
+# https://docs.djangoproject.com/en/dev/topics/security/#ssl-https
+# https://docs.djangoproject.com/en/dev/ref/settings/#secure-hsts-seconds
+# TODO: set this to 60 seconds first and then to 518400 once you prove the former works
+SECURE_HSTS_SECONDS = 60
+# https://docs.djangoproject.com/en/dev/ref/settings/#secure-hsts-include-subdomains
+SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
+    "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True
+)
+# https://docs.djangoproject.com/en/dev/ref/settings/#secure-hsts-preload
+SECURE_HSTS_PRELOAD = env.bool("DJANGO_SECURE_HSTS_PRELOAD", default=True)
+# https://docs.djangoproject.com/en/dev/ref/middleware/#x-content-type-options-nosniff
+SECURE_CONTENT_TYPE_NOSNIFF = env.bool(
+    "DJANGO_SECURE_CONTENT_TYPE_NOSNIFF", default=True
 )
 
-CSRF_COOKIE_SECURE = True
-CSRF_COOKIE_SAMESITE = "None"
-SESSION_COOKIE_SAMESITE = "None"
+# STORAGES
+# ------------------------------------------------------------------------------
+# https://django-storages.readthedocs.io/en/latest/#installation
+INSTALLED_APPS += ["storages"]  # noqa F405
+# https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
+AWS_ACCESS_KEY_ID = env("DJANGO_AWS_ACCESS_KEY_ID")
+# https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
+AWS_SECRET_ACCESS_KEY = env("DJANGO_AWS_SECRET_ACCESS_KEY")
+# https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
+AWS_STORAGE_BUCKET_NAME = env("DJANGO_AWS_STORAGE_BUCKET_NAME")
+# https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
+AWS_QUERYSTRING_AUTH = False
+# DO NOT change these unless you know what you're doing.
+_AWS_EXPIRY = 60 * 60 * 24 * 7
+# https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
+AWS_S3_OBJECT_PARAMETERS = {
+    "CacheControl": f"max-age={_AWS_EXPIRY}, s-maxage={_AWS_EXPIRY}, must-revalidate"
+}
+# https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#settings
+AWS_S3_REGION_NAME = env("DJANGO_AWS_S3_REGION_NAME", default=None)
+# https://django-storages.readthedocs.io/en/latest/backends/amazon-S3.html#cloudfront
+AWS_S3_CUSTOM_DOMAIN = env("DJANGO_AWS_S3_CUSTOM_DOMAIN", default=None)
+aws_s3_domain = AWS_S3_CUSTOM_DOMAIN or f"{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com"
 
-# NOTE: Refer to README for Multi domain set up for CSRF_COOKIE_DOMAIN
-# CSRF_COOKIE_DOMAIN = env("CSRF_COOKIE_DOMAIN")
+
+# STATIC
+# ------------------------
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# MEDIA
+# ------------------------------------------------------------------------------
+DEFAULT_FILE_STORAGE = "{{cookiecutter.repo_name}}.utils.storages.MediaRootS3Boto3Storage"
+MEDIA_URL = f"https://{aws_s3_domain}/media/"
+
+
+# EMAIL
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
+DEFAULT_FROM_EMAIL = env(
+    "DJANGO_DEFAULT_FROM_EMAIL", default="{{cookiecutter.repo_name}} <noreply@{{cookiecutter.domain_name}}>"
+)
+# https://docs.djangoproject.com/en/dev/ref/settings/#server-email
+SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-subject-prefix
+EMAIL_SUBJECT_PREFIX = env(
+    "DJANGO_EMAIL_SUBJECT_PREFIX",
+    default="[{{cookiecutter.project_name_verbose}}]",
+)
+# Anymail
+# ------------------------------------------------------------------------------
+# https://anymail.readthedocs.io/en/stable/installation/#installing-anymail
+INSTALLED_APPS += ["anymail"]  # noqa F405
+# https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
+# https://anymail.readthedocs.io/en/stable/installation/#anymail-settings-reference
+# https://anymail.readthedocs.io/en/stable/esps
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+ANYMAIL = {}
+
+
+# LOGGING
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#logging
+# See https://docs.djangoproject.com/en/dev/topics/logging for
+# more details on how to customize your logging configuration.
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": True,
+    "formatters": {
+        "verbose": {
+            "format": "%(levelname)s %(asctime)s %(module)s "
+            "%(process)d %(thread)d %(message)s"
+        }
+    },
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        }
+    },
+    "root": {"level": "INFO", "handlers": ["console"]},
+    "loggers": {
+        "django.db.backends": {
+            "level": "ERROR",
+            "handlers": ["console"],
+            "propagate": False,
+        },
+        # Errors logged by the SDK itself
+        "sentry_sdk": {"level": "ERROR", "handlers": ["console"], "propagate": False},
+        "django.security.DisallowedHost": {
+            "level": "ERROR",
+            "handlers": ["console"],
+            "propagate": False,
+        },
+    },
+}
+
+# Sentry
+# ------------------------------------------------------------------------------
+SENTRY_DSN = env("SENTRY_DSN")
+SENTRY_LOG_LEVEL = env.int("DJANGO_SENTRY_LOG_LEVEL", logging.INFO)
+
+sentry_logging = LoggingIntegration(
+    level=SENTRY_LOG_LEVEL,  # Capture info and above as breadcrumbs
+    event_level=logging.ERROR,  # Send errors as events
+)
+
+integrations = [sentry_logging, DjangoIntegration()]
+
+sentry_sdk.init(
+    dsn=SENTRY_DSN,
+    integrations=integrations,
+    environment=env("SENTRY_ENVIRONMENT", default="production"),
+    release=env("SENTRY_RELEASE", default=""),
+    traces_sample_rate=env.float("SENTRY_TRACES_SAMPLE_RATE", default=0.0),
+)
