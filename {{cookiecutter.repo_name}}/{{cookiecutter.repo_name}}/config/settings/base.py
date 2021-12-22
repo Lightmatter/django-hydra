@@ -42,7 +42,6 @@ USE_L10N = True
 USE_TZ = True
 
 
-
 # DATABASES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
@@ -92,7 +91,6 @@ LOCAL_APPS = [
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
-
 
 
 # AUTHENTICATION
@@ -171,10 +169,9 @@ DJANGO_VITE_DEV_MODE = DEBUG
 # MEDIA
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-MEDIA_ROOT =  root.path("media")
+MEDIA_ROOT = root.path("media")
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = "/media/"
-
 
 
 # TEMPLATES
@@ -230,6 +227,7 @@ FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 # SECURITY
 # ------------------------------------------------------------------------------
 
+
 def prefixed_cookie(name):
     return "{{cookiecutter.repo_name}}_{}".format(name)
 
@@ -256,7 +254,6 @@ ADMIN_URL = "admin/"
 ADMINS = [("""{{cookiecutter.author_name}}""", "{{cookiecutter.email}}")]
 # https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
-
 
 
 # LOGGING

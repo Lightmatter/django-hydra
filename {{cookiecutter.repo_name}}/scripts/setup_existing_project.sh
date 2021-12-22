@@ -8,9 +8,8 @@ echo "Setting up a previously created project"
 thisdir="${0%/*}"
 
 
-
-export DJANGO_SETTINGS_MODULE=$ENV_NAME.config.settings.local
-
+cp $thisdir/../.env.example $thisdir/../.env;
+direnv allow . && eval "$(direnv export bash)"
 $thisdir/install_python_requirements.sh
 $thisdir/setup_database.sh
 
@@ -20,6 +19,8 @@ $thisdir/setup_github.sh
 $thisdir/setup_js.sh   # after git init to avoid husky/lint-stage not working
 
 chmod +x manage.py
+
+unset DJANGO_SECRET_KEY
 
 #todo - git flow init
 echo "-------------------------------------------------------------"

@@ -44,12 +44,11 @@ cookiecutter . --default-config --no-input project_name=$appname -o ../
 echo "Running tests"
 cd ../$appname/
 
-export DJANGO_SETTINGS_MODULE=$appname.config.settings.local
-
-
+eval "$(direnv export bash)"
 npm run build
 ./scripts/validate.sh
 poetry run python manage.py test --noinput  --parallel
+
 
 RV=$?
 rm -rf static/

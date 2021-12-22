@@ -65,11 +65,11 @@ class LoginTest(PlaywrightTestCase):
 
 class RegistrationTest(TestCase):
     def setUp(self):
-        self.password = "yeahman"
+        self.password = "yeahmanitsarealpass"
         self.form_data = self.login_form_data = {
             "email": "ben@coolguy.com",
             "password1": self.password,
-            "password2": "yeahman",
+            "password2": self.password,
             "first_name": "ben",
             "last_name": "beecher",
         }
@@ -78,8 +78,8 @@ class RegistrationTest(TestCase):
     def test_register(self):
         actual = User.objects.count()
         self.assertEqual(0, actual)
-        response = self.client.post(self.url, self.form_data)
-        self.assertRedirects(response, "/", status_code=302)
+        response = self.client.post(self.url, self.form_data, follow=True)
+        self.assertRedirects(response, "/")
         actual = User.objects.count()
         self.assertEqual(1, actual)
         coolguy = User.objects.first()
