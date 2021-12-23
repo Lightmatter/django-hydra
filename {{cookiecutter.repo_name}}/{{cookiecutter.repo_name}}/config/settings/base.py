@@ -205,6 +205,10 @@ TEMPLATES = [
                 "django.template.loaders.app_directories.Loader",
                 "django_components.template_loader.Loader",
             ],
+            "builtins": [
+                "django.templatetags.static",
+                "django_components.templatetags.component_tags",
+            ],
             # https://docs.djangoproject.com/en/dev/ref/settings/#template-context-processors
             "context_processors": CONTEXT_PROCESSORS,
         },

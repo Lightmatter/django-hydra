@@ -24,6 +24,7 @@ Pillow = "^8.4.0"
 django-anymail = {extras = ["sendgrid"], version = "^8.4"}
 django-vite = "^1.2.1"
 django-components = "^0.17"
+tblib = "^1.7.0"
 
 [tool.poetry.dev-dependencies]
 ipython = "^7.29.0"

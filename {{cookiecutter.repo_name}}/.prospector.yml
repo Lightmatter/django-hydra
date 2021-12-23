@@ -14,6 +14,7 @@ pylint:
       - arguments-differ
       - signature-differs
       - unused-argument
+      - too-many-function-args
 mccabe:
   options:
     max-complexity: 9

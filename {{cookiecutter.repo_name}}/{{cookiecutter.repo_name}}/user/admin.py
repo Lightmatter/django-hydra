@@ -12,7 +12,7 @@ from .models import User
 class UserCreationForm(DjangoUserCreationForm):
     class Meta:
         model = User
-        fields = "__all__"
+        fields = ("email",)
 
 
 class UserChangeForm(DjangoUserChangeForm):
@@ -21,6 +21,7 @@ class UserChangeForm(DjangoUserChangeForm):
         fields = "__all__"
 
 
+@admin.register(User)
 class UserAdmin(DjangoUserAdmin):
     fieldsets = (
         (None, {"fields": ("email", "password")}),
@@ -48,8 +49,5 @@ class UserAdmin(DjangoUserAdmin):
     # list_per_page = 25
     search_fields = ("email", "first_name", "last_name")
     readonly_fields = ("created", "last_login")
-    list_display = ("email", "first_name", "last_name", "created")
+    list_display = ("email", "first_name", "last_name", "created", "is_superuser")
     ordering = ("email",)
-
-
-admin.site.register(User, UserAdmin)
