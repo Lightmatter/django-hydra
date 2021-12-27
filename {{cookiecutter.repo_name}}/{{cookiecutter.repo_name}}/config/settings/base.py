@@ -301,3 +301,17 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "none"
+
+
+# Install https://github.com/gruns/icecream for better printing
+try:
+    from icecream import ic
+    from icecream import install
+    install()
+except ImportError:  # Graceful fallback if IceCream isn't installed.
+    try:
+        builtins = __import__('__builtin__')
+    except ImportError:
+        builtins = __import__('builtins')
+    ic = lambda *a: None if not a else (a[0] if len(a) == 1 else a)  # noqa
+    setattr(builtins, "ic", ic)
