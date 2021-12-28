@@ -57,10 +57,16 @@ DEBUG_TOOLBAR_PANELS = [
     "cachalot.panels.CachalotPanel",
 ]
 
+
+def show_toolbar(request):
+    return True
+
 DEBUG_TOOLBAR_CONFIG = {
     "DISABLE_PANELS": [
         "debug_toolbar.panels.redirects.RedirectsPanel",
     ],
+    "INSERT_BEFORE": '</head>',
+    "SHOW_TOOLBAR_CALLBACK" : show_toolbar,
     "SHOW_TEMPLATE_CONTEXT": True,
     "RENDER_PANELS": False,
 }
