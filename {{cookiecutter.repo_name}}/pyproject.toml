@@ -25,6 +25,7 @@ django-anymail = {extras = ["sendgrid"], version = "^8.4"}
 django-vite = "^1.2.1"
 django-components = "^0.17"
 tblib = "^1.7.0"
+django-cachalot = "^2.4.5"
 
 [tool.poetry.dev-dependencies]
 ipython = "^7.29.0"

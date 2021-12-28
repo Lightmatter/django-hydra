@@ -74,6 +74,7 @@ DJANGO_APPS = [
     "django.forms",
 ]
 THIRD_PARTY_APPS = [
+    "cachalot",
     "django_extensions",
     "django_htmx",
     "django_vite",
@@ -82,7 +83,6 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
 ]
-
 LOCAL_APPS = [
     "{{cookiecutter.repo_name}}.home",
     "{{cookiecutter.repo_name}}.user",
@@ -307,11 +307,12 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 try:
     from icecream import ic
     from icecream import install
+
     install()
 except ImportError:  # Graceful fallback if IceCream isn't installed.
     try:
-        builtins = __import__('__builtin__')
+        builtins = __import__("__builtin__")
     except ImportError:
-        builtins = __import__('builtins')
+        builtins = __import__("builtins")
     ic = lambda *a: None if not a else (a[0] if len(a) == 1 else a)  # noqa
     setattr(builtins, "ic", ic)

@@ -329,6 +329,17 @@ dev = ["flake8", "sphinx", "sphinx-rtd-theme", "tox", "twine", "wheel"]
 postal = ["cryptography"]
 
 [[package]]
+name = "django-cachalot"
+version = "2.4.5"
+description = "Caches your Django ORM queries and automatically invalidates them."
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+Django = ">=2.2,<4.1"
+
+[[package]]
 name = "django-components"
 version = "0.17"
 description = "A way to create simple reusable template components in Django."
@@ -1395,7 +1406,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "bf952697f5bc6060061ce8c64fc81f3266935d4bd8daa424b3d7839dc7cb994e"
+content-hash = "e41ecb2c749b6f1797b63b97429a35e2d83062d825b1dcfb5180f64ec13ace59"
 
 [metadata.files]
 appdirs = [
@@ -1675,6 +1686,10 @@ django-annoying = [
 django-anymail = [
     {file = "django-anymail-8.4.tar.gz", hash = "sha256:671a338de43b8e414d48c6d16aac1df54d2f24f916e1073f9f60aef5acffaf89"},
     {file = "django_anymail-8.4-py3-none-any.whl", hash = "sha256:2e8307e84f0a12f9283469017094a8246db9a0fc608ac17dd1027ee011ece986"},
+]
+django-cachalot = [
+    {file = "django-cachalot-2.4.5.tar.gz", hash = "sha256:2423017353f64263d939ac972ec397c65267b2c2ae923da7c78a6fe9ea4f81e6"},
+    {file = "django_cachalot-2.4.5-py3-none-any.whl", hash = "sha256:4a1ef18d9e3db09871da9933a84d60b129f5806e84186a871145568e68c8a0c7"},
 ]
 django-components = [
     {file = "django_components-0.17-py3-none-any.whl", hash = "sha256:eb5828e9cc74264f10ca3285c47e6e283377c7019dd3aac5cb8d4113043dffe7"},
