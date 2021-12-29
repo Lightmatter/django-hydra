@@ -19,7 +19,14 @@
     {% block extra_head %}
     <title>Lightmatter</title>
     {% endblock extra_head %}
+
     <script>
+      // django debug toolbar
+      document.addEventListener("htmx:beforeRequest", (event) => {
+        if ("djdt" in window) {
+          window.djdt.abort();
+        }
+      });
       document.addEventListener("htmx:afterSettle", (event) => {
         if ("djdt" in window) {
           window.djdt.init();
