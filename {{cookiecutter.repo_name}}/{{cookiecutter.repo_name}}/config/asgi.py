@@ -23,8 +23,6 @@ os.environ.setdefault(
 
 django_application = get_asgi_application()
 # Apply ASGI middleware here.
-# from helloworld.asgi import HelloWorldApplication
-# application = HelloWorldApplication(application)
 
 
 async def application(scope, receive, send):

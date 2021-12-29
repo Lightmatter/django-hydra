@@ -37,5 +37,4 @@ then
 else
     echo "could not apply patch cleanly"
 fi
-
-{% endraw %}
+{%- endraw -%}

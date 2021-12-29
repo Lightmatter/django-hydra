@@ -1,33 +1,15 @@
 from django.conf import settings
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import LiveServerTestCase, TestCase, tag
+from django.test import TestCase
 
-import atexit
 import datetime
 import os
-import subprocess
 import time
-import unittest
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from playwright.sync_api import sync_playwright
 
 from .models import TestFileModel
-from .util import file_url, random_string
-
-
-class RandomStringTest(TestCase):
-    def test_random_string(self):
-        alphanumeric = "[a-zA-Z0-9]*"
-        string = random_string(3)
-        actual = len(string)
-        expected = 3
-        self.assertEqual(actual, expected)
-        self.assertRegexpMatches(string, alphanumeric)
-        string = random_string(8)
-        actual = len(string)
-        expected = 8
-        self.assertEqual(actual, expected)
-        self.assertRegexpMatches(string, alphanumeric)
+from .util import file_url
 
 
 class FileUrlTest(TestCase):

@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-from __future__ import unicode_literals
-
 from django.db import migrations, models
 
 import django.utils.timezone
@@ -31,9 +28,7 @@ class Migration(migrations.Migration):
                 ("password", models.CharField(verbose_name="password", max_length=128)),
                 (
                     "last_login",
-                    models.DateTimeField(
-                        blank=True, null=True, verbose_name="last login"
-                    ),
+                    models.DateTimeField(blank=True, null=True, verbose_name="last login"),
                 ),
                 (
                     "is_superuser",
@@ -72,15 +67,11 @@ class Migration(migrations.Migration):
                 ),
                 (
                     "first_name",
-                    models.CharField(
-                        max_length=30, blank=True, verbose_name="first name"
-                    ),
+                    models.CharField(max_length=30, blank=True, verbose_name="first name"),
                 ),
                 (
                     "last_name",
-                    models.CharField(
-                        max_length=30, blank=True, verbose_name="last name"
-                    ),
+                    models.CharField(max_length=30, blank=True, verbose_name="last name"),
                 ),
                 (
                     "is_staff",
@@ -121,7 +112,12 @@ class Migration(migrations.Migration):
                     ),
                 ),
             ],
-            options={"verbose_name": "user", "verbose_name_plural": "users",},
-            managers=[("objects", UserManager()),],
+            options={
+                "verbose_name": "user",
+                "verbose_name_plural": "users",
+            },
+            managers=[
+                ("objects", UserManager()),
+            ],
         ),
     ]

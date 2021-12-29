@@ -46,7 +46,7 @@ class UserAdmin(DjangoUserAdmin):
 
     add_form = UserCreationForm
     form = UserChangeForm
-    # list_per_page = 25
+    list_per_page = 25
     search_fields = ("email", "first_name", "last_name")
     readonly_fields = ("created", "last_login")
     list_display = ("email", "first_name", "last_name", "created", "is_superuser")

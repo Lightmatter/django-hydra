@@ -1,7 +1,6 @@
 from .base import *  # noqa
 from .base import env
 
-
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
@@ -84,6 +83,4 @@ class InvalidVariable(str):
         return False
 
 
-TEMPLATES[0]["OPTIONS"]["string_if_invalid"] = InvalidVariable(
-    "BAD TEMPLATE VARIABLE: %s"
-)
+TEMPLATES[0]["OPTIONS"]["string_if_invalid"] = InvalidVariable("BAD TEMPLATE VARIABLE: %s")

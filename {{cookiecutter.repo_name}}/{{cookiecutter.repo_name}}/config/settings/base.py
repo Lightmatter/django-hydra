@@ -127,9 +127,7 @@ PASSWORD_HASHERS = [
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
-    },
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
@@ -239,7 +237,7 @@ FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 
 
 def prefixed_cookie(name):
-    return "{{cookiecutter.repo_name}}_{}".format(name)
+    return f"{{cookiecutter.repo_name}}_{name}"
 
 
 SESSION_COOKIE_NAME = prefixed_cookie("sessionid")
@@ -311,8 +309,7 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 
 # Install https://github.com/gruns/icecream for better printing
 try:
-    from icecream import ic
-    from icecream import install
+    from icecream import ic, install
 
     install()
 except ImportError:  # Graceful fallback if IceCream isn't installed.

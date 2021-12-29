@@ -12,7 +12,7 @@ from .models import User
 
 class UserManagerTest(TestCase):
     def test_create_user(self):
-        user = User.objects.create_user(
+        user = User.objects.create_user(  # noqa: S106
             "jonnyrico@fednet.gov", password="iwanttoknowmore"
         )  # nosec
         User.objects.get(id=user.id)
@@ -127,17 +127,6 @@ class RegistrationTest(TestCase):
         actual = User.objects.count()
         self.assertEqual(0, actual)
 
-    ## TODO: Would be nice to see an attempt to register w/ good credentials as a login
-    # def test_register_but_really_login(self):
-    #     actual = User.objects.count()
-    #     self.assertEqual(0, actual)
-    #     response = self.client.post(self.url, self.form_data)
-    #     self.assertRedirects(response, "/", status_code=302)
-    #     self.client.logout()
-
-    #     response = self.client.post(self.url, self.form_data)
-    #     self.assertRedirects(response, "/", status_code=302)
-
 
 class UserAdminTest(TestCase):
     def setUp(self):
@@ -180,7 +169,7 @@ class UserAdminTest(TestCase):
             "password1": "deadoraliveyourecomingwithme",
             "password2": "deadoraliveyourecomingwithme",
         }
-        actual = response = self.client.post(url, form_data)
+        actual = self.client.post(url, form_data)
         new_user = User.objects.latest("created")
         self.assertEqual(new_user.email, "robertcop@ocp.com")
 
@@ -206,6 +195,6 @@ class UserAdminTest(TestCase):
             "last_login_0": "2015-05-20",
             "last_login_1": "03:38:28",
         }
-        actual = response = self.client.post(url, form_data)
+        actual = self.client.post(url, form_data)
         expected = reverse("admin:user_user_changelist")
         self.assertRedirects(actual, expected, target_status_code=302)

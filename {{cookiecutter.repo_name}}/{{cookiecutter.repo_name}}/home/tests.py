@@ -11,6 +11,6 @@ class SimpleTest(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_error_route(self):
-        visit = lambda: self.client.get(reverse("error"))
+        visit = lambda: self.client.get(reverse("error"))  # noqa:E731
         self.assertRaises(Exception, error)
         self.assertRaises(Exception, visit)

@@ -1,7 +1,5 @@
 import datetime
-import random
 import re
-import string
 import time
 from django.utils.deconstruct import deconstructible
 
@@ -19,8 +17,3 @@ class file_url:  # NOQA
         now = datetime.datetime.now()
         timestamp = int(time.time())
         return self.path.format(self.category, now, timestamp, filename)
-
-
-def random_string(length):
-    alphanumeric = string.ascii_letters + string.digits
-    return "".join(random.choice(alphanumeric) for i in range(length))  # nosec

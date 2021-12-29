@@ -3,11 +3,7 @@ from django.db import models
 
 from django.contrib import auth
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import (
-    AbstractBaseUser,
-    BaseUserManager,
-    PermissionsMixin,
-)
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.utils.translation import gettext_lazy as _
 from model_utils.models import TimeStampedModel
 
@@ -49,9 +45,7 @@ class UserManager(BaseUserManager):
 
         return self._create_user(email, password, **extra_fields)
 
-    def get_by_natural_key(
-        self, username
-    ):  # Used by contrib.auth.backends.ModelBackend
+    def get_by_natural_key(self, username):  # Used by contrib.auth.backends.ModelBackend
         return self.get(email__iexact=username)
 
     def with_perm(  # noqa
