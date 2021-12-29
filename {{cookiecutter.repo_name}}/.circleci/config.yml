@@ -26,6 +26,31 @@ jobs:
     working_directory: /home/circleci/project
     steps:
       - checkout
+      - run: sudo apt-get update && sudo apt-get install -y gdal-bin python-gdal python3-gdal
+      - python/install-packages:
+          pkg-manager: pip
+          # NOTE: if having pip issues, use legacy resolver
+          # args: --use-deprecated=legacy-resolver
+          include-python-in-cache-key: false
+        #TODO: caching the dev requirements requires caching the bins they install as well, figure out how to do that
+        # NOTE: if having pip issues, use legacy resolver
+      - run: pip install --user -r requirements-dev.txt # --use-deprecated=legacy-resolver
+
+      - run: scripts/validate.sh
+      - run: coverage run --rcfile=pyproject.toml --source='.' manage.py test
+      - store_test_results:
+          path: test_reports
+      - slack/status:
+          fail_only: true
+          channel: "#{{cookiecutter.repo_name}}-internal"
+          only_for_branches: develop,master
+
+  test-nextjs:
+    docker:
+      - image: circleci/node:12.13.0
+    working_directory: /home/circleci/project
+    steps:
+      - checkout
       - node/install-packages:
           pkg-manager: npm
       - run: npm run build
