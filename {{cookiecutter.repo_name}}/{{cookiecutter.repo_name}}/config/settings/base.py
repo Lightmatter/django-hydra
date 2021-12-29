@@ -108,6 +108,12 @@ LOGIN_REDIRECT_URL = "user:redirect"
 LOGIN_URL = "account_login"
 
 
+# SESSIONS
+# ------------------------------------------------------------------------------
+# https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-SESSION_ENGINE
+SESSION_ENGINE = "django.contrib.sessions.backends.cached_db"
+
+
 # PASSWORDS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#password-hashers
