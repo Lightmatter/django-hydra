@@ -17,12 +17,11 @@ RUN npm run build
 FROM base AS python-deps
 # Install poetry and compilation dependencies
 RUN pip install poetry
-
 # Install python dependencies in /.venv
 COPY pyproject.toml .
 COPY poetry.lock .
-poetry install --no-dev
-
+ENV POETRY_VIRTUALENVS_IN_PROJECT true
+run poetry install --no-dev
 
 
 FROM base AS runtime
@@ -36,7 +35,7 @@ WORKDIR app
 
 # Install application into container
 COPY . .
-COPY --from=js-deps //static ./{{cookiecutter.repo_name}}/static
+COPY --from=js-deps /{{cookiecutter.repo_name}}/static ./{{cookiecutter.repo_name}}/static
 
-RUN APP_VERSION_RELEASE="build" ENVIRONMENT="build" SENTRY_DSN="" REDIS_URL="" DATABASE_URL="" ALLOWED_HOSTS="*" SECRET_KEY="foobar" python ./manage.py collectstatic --noinput
+RUN DJANGO_SECRET_KEY="!!! CHANGE ME !!!" DJANGO_ALLOWED_HOSTS="*" APP_VERSION_RELEASE="build" ENVIRONMENT="build" SENTRY_DSN="" REDIS_URL="" DATABASE_URL="" ALLOWED_HOSTS="*" SECRET_KEY="foobar" python ./manage.py collectstatic --noinput
 CMD gunicorn {{cookiecutter.repo_name}}.config.asgi:application --bind 0.0.0.0:8080  -k uvicorn.workers.UvicornWorker --access-logfile - --preload
