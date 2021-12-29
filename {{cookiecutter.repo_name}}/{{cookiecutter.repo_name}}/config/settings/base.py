@@ -82,6 +82,7 @@ THIRD_PARTY_APPS = [
     "model_utils",
     "allauth",
     "allauth.account",
+    "axes",
 ]
 LOCAL_APPS = [
     "{{cookiecutter.repo_name}}.home",
@@ -97,6 +98,7 @@ INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#authentication-backends
 AUTHENTICATION_BACKENDS = [
+    "axes.backends.AxesBackend",
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 ]
@@ -152,6 +154,7 @@ MIDDLEWARE = [
     "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "{{cookiecutter.repo_name}}.util.middleware.HTMXMessageMiddleware",
+    "axes.middleware.AxesMiddleware",
 ]
 
 
@@ -308,6 +311,10 @@ ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "none"
 
+# django-axes
+# ------------------------------------------------------------------------------
+# https://django-axes.readthedocs.io/en/latest/6_integration.html
+AXES_USERNAME_FORM_FIELD = 'login'
 
 # Install https://github.com/gruns/icecream for better printing
 try:

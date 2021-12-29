@@ -62,6 +62,24 @@ class LoginTest(PlaywrightTestCase):
         )
         self.assertTrue(error)
 
+    def test_login_programmatic(self):
+        data = {
+            "login": self.user.email,
+            "password": self.password,
+        }
+        response = self.client.post(self.url, data=data, follow=True)
+        self.assertRedirects(response, "/")
+
+    def test_bad_login_programmatic(self):
+        data = {
+            "login": "eddieco",
+            "password": "abc123",
+        }
+        response = self.client.post(self.url, data=data)
+        self.assertEqual(response.status_code, HTTPStatus.OK)
+
+
+
 
 class RegistrationTest(TestCase):
     def setUp(self):
