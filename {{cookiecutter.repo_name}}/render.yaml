@@ -2,71 +2,99 @@ previewsEnabled: true
 previewsExpireAfterDays: 5
 services:
     - type: web
-      name: legacyleague-api
+      name: {{cookiecutter.repo_name}}-prod
       env: python
       previewPlan: starter
-      branch: master
+      branch: main
       healthCheckPath: /
-      buildCommand: pipenv install; pipenv run ./manage.py collectstatic --no-input; pipenv run ./manage.py migrate
-      startCommand: pipenv run gunicorn --worker-tmp-dir /dev/shm  -w 4 -k uvicorn.workers.UvicornWorker --log-file=- legacyleague.legacyleague.asgi:application
+      buildCommand: "./build.sh"
+      startCommand: poetry run gunicorn --worker-tmp-dir /dev/shm  -w 4 -k uvicorn.workers.UvicornWorker --log-file=- {{cookiecutter.repo_name}}.config.asgi:application --preload
       envVars:
-          - key: PYTHON_VERSION
-            value: 3.8.9
-          - fromGroup: sentry
-          - key: SECRET_KEY
-            generateValue: true
-          - key: DJANGO_SETTINGS_MODULE
-            value: legacyleague.legacyleague.settings.render
-          - key: WEB_CONCURRENCY
-            value: 4
-          - key: ALLOWED_HOSTS
-            fromService:
-                type: web
-                envVarKey: RENDER_EXTERNAL_HOSTNAME
-                name: legacyleague-ui
-          - key: DATABASE_URL
-            fromDatabase:
-                name: legacyleague-db
-                property: connectionString
-    - type: web
-      previewPlan: starter
-      name: legacyleague-ui
-      env: node
-      branch: master
-      healthCheckPath: /
-      buildCommand: yarn install; yarn build
-      startCommand: yarn start
-      envVars:
-          - key: API_BASE_URL
-            fromService:
-                type: web
-                envVarKey: RENDER_EXTERNAL_URL
-                name: legacyleague-api
-          #todo: use the internal api
-          - key: SERVER_BASE_URL
-            fromService:
-                type: web
-                envVarKey: RENDER_EXTERNAL_URL
-                name: legacyleague-api
+        - key: PYTHON_VERSION
+          value: 3.10.1
+        - fromGroup: sentry
+        - key: DJANGO_SECRET_KEY
+          generateValue: true
+        - key: DJANGO_SETTINGS_MODULE
+          generateValue: "{{cookiecutter.repo_name}}.config.settings.prod"
+        - key: DJANGO_ALLOWED_HOSTS
+          fromService:
+            type: web
+            envVarKey: RENDER_EXTERNAL_HOSTNAME
+            name: {{cookiecutter.repo_name}}-prod
+        - key: DJANGO_DEBUG
+          value: false
+        - key: DATABASE_URL
+          fromDatabase:
+            name: {{cookiecutter.repo_name}}-db
+            property: connectionString
+        - key: SENTRY_ENVIRONMENT
+          fromService:
+            type: web
+            envVarKey: RENDER_SERVICE_NAME
+            name: {{cookiecutter.repo_name}}-prod
+            previewValue: TEST
+        - key: SENTRY_RELEASE
+          fromService:
+            type: web
+            envVarKey: RENDER_GIT_COMMIT
+            name: {{cookiecutter.repo_name}}-prod
+        - key: DJANGO_AWS_ACCESS_KEY_ID
+          fromService:
+            type: web
+            envVarKey: MINIO_ROOT_USER
+            name: minio
+        - key: DJANGO_AWS_SECRET_ACCESS_KEY
+          fromService:
+            type: web
+            envVarKey: MINIO_ROOT_USER
+            name: minio
+        - key: DJANGO_AWS_STORAGE_BUCKET_NAME
+          value: {{cookiecutter.repo_name}}-prod
 
-          - fromGroup: sentry
+    - type: web
+      name: minio
+      healthCheckPath: /minio/health/live
+      env: docker
+      dockerfilePath: ./compose/prod/minio/Dockerfile
+      dockerContext: ./compose/prod/minio/
+      disk:
+        name: data
+        mountPath: /data
+        sizeGB: 10
+      envVars:
+        - key: MINIO_ROOT_USER
+          generateValue: true
+        - key: MINIO_ROOT_PASSWORD
+          generateValue: true
+        - key: PORT
+          value: 10000
+
+    - type: pserv
+      name: redis
+      dockerfilePath: ./compose/prod/redis/Dockerfile
+      dockerContext: ./compose/prod/redis
+      env: docker
+      disk:
+          name: data
+          mountPath: /var/lib/redis
+          sizeGB: 10
+
+
 databases:
-    - name: legacyleague-db
+    - name: {{cookiecutter.repo_name}}-db
       previewPlan: starter
-      databaseName: legacyleague # optional (Render may add a suffix)
+      databaseName: {{cookiecutter.repo_name}} # optional (Render may add a suffix)
       ipAllowList: [] # optional (defaults to allow all)
 
 envVarGroups:
     - name: sentry
       envVars:
-          - key: ENVIRONMENT
-            value: PROD
-            previewValue: TEST
-          - key: SENTRY_DSN
-            value: https://9cac5c7cd83c4df594e46a479e9f9671@o16854.ingest.sentry.io/5883553
-          - key: SENTRY_PROJECT
-            value: legacyleague
-          - key: SENTRY_ORG
-            value: lightmatter
-          - key: SENTRY_AUTH_TOKEN
-            sync: false
+        - key: SENTRY_DSN
+          sync: false
+        - key: SENTRY_PROJECT
+          value: {{cookiecutter.repo_name}}
+        - key: SENTRY_ORG
+          value: lightmatter
+        - key: SENTRY_AUTH_TOKEN
+          sync: false

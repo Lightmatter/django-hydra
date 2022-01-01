@@ -5,7 +5,7 @@ description = ""
 authors = ["Ben Beecher <Ben@lightmatter.com>"]
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 django-environ = "^0.8.1"
 psycopg2-binary = "^2.9.1"
 django-extensions = "^3.1.3"

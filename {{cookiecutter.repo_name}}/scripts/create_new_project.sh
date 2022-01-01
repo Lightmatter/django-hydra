@@ -17,11 +17,13 @@ direnv allow . && eval "$(direnv export bash)"
 export DJANGO_SETTINGS_MODULE=$ENV_NAME.config.settings.local
 export DJANGO_SECRET_KEY="testkey"
 
-$thisdir/install_python_requirements.sh
+$thisdir/setup_python.sh
+$thisdir/setup_js.sh
 $thisdir/setup_database.sh
 echo "omae wa mou shindeiru"
 $thisdir/setup_github.sh true
-$thisdir/setup_js.sh   # after git init to avoid husky/lint-stage not working
+
+poetry run pre-commit install
 chmod +x manage.py
 
 #todo - git flow init

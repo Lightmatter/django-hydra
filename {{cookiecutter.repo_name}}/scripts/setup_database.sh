@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#TODO: This doesn't handle test databases correctly
 RESULT=`psql -l | grep "{{ cookiecutter.repo_name }}" | wc -l | awk '{print $1}'`;
 if test $RESULT -eq 0; then
     echo "Creating Database";

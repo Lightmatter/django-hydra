@@ -5,6 +5,8 @@ ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONFAULTHANDLER 1
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONHASHSEED=random
 ENV DJANGO_SETTINGS_MODULE={{ cookiecutter.repo_name }}.config.settings.prod
 
 
@@ -21,7 +23,7 @@ RUN pip install poetry
 COPY pyproject.toml .
 COPY poetry.lock .
 ENV POETRY_VIRTUALENVS_IN_PROJECT true
-run poetry install --no-dev
+run poetry install --no-dev --no-interaction
 
 
 FROM base AS runtime

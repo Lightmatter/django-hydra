@@ -10,15 +10,16 @@ thisdir="${0%/*}"
 
 cp $thisdir/../.env.example $thisdir/../.env;
 direnv allow . && eval "$(direnv export bash)"
-$thisdir/install_python_requirements.sh
+$thisdir/setup_python.sh
+$thisdir/setup_js.sh
 $thisdir/setup_database.sh
 
 echo "omae wa mou shindeiru"
 
 $thisdir/setup_github.sh
-$thisdir/setup_js.sh   # after git init to avoid husky/lint-stage not working
 
 chmod +x manage.py
+poetry run pre-commit install
 
 unset DJANGO_SECRET_KEY
 

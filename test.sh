@@ -46,7 +46,7 @@ cd ../$appname/
 
 eval "$(direnv export bash)"
 npm run build
-./scripts/validate.sh
+pre-commit run --all-files
 poetry run python manage.py test --noinput  --parallel
 
 

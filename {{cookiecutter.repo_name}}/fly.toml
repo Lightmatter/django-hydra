@@ -6,6 +6,9 @@ kill_signal = "SIGINT"
 kill_timeout = 5
 processes = []
 
+[build]
+  dockerfile = "compose/prod/django/Dockerfile"
+
 [deploy]
   release_command = "python /app/manage.py migrate"
 

@@ -1,3 +1,4 @@
+# this file tells emacs not to grep these files
 migrations
 fontawesome.css
 fontawesome.min.css
