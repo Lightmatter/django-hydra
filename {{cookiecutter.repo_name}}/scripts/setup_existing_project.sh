@@ -9,8 +9,9 @@ thisdir="${0%/*}"
 
 
 cp $thisdir/../.env.example $thisdir/../.env;
-direnv allow . && eval "$(direnv export bash)"
 $thisdir/setup_python.sh
+# allow python to setup the venv before switching into it
+direnv allow . && eval "$(direnv export bash)"
 $thisdir/setup_js.sh
 $thisdir/setup_database.sh
 

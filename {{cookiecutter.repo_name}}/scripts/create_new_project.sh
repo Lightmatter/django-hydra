@@ -11,13 +11,14 @@ thisdir="${0%/*}"
 echo "Making Virtual Environment for {{cookiecutter.repo_name}}"
 export ENV_NAME="{{cookiecutter.repo_name}}"
 
-
 cp $thisdir/../.env.example $thisdir/../.env;
-direnv allow . && eval "$(direnv export bash)"
 export DJANGO_SETTINGS_MODULE=$ENV_NAME.config.settings.local
 export DJANGO_SECRET_KEY="testkey"
 
 $thisdir/setup_python.sh
+# allow python to setup the venv before switching into it
+direnv allow . && eval "$(direnv export bash)"
+
 $thisdir/setup_js.sh
 $thisdir/setup_database.sh
 echo "omae wa mou shindeiru"
