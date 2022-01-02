@@ -9,161 +9,37 @@ orbs:
 jobs:
   test-django:
     docker:
-      - image: circleci/python:3.8
-      - image: circleci/postgres:12-alpine-postgis-ram
+      - image: cimg/python:3.10.1-browsers
+      - image: cimg/postgres:14.1
         environment:
           POSTGRES_USER: ubuntu
           POSTGRES_DB: circle_test
-      - image: circleci/redis
+
+      - image: cimg/redis:6.2.6
     environment:
-      DJANGO_SETTINGS_MODULE: {{cookiecutter.repo_name}}.{{cookiecutter.repo_name}}.settings.circleci
+      DATABASE_URL: "psql://ubuntu:@localhost/circle_test"
+      DJANGO_SETTINGS_MODULE: {{cookiecutter.repo_name}}.config.settings.test
+      DJANGO_SECRET_KEY: "!!!! Change me !!!!"
+      DJANGO_DEBUG: False
       REDIS_URL: redis://localhost:6379
 
     working_directory: /home/circleci/project
     steps:
       - checkout
-      - run: sudo apt-get update && sudo apt-get install -y gdal-bin python-gdal python3-gdal
-      - python/install-packages:
-          pkg-manager: pip
-          # NOTE: if having pip issues, use legacy resolver
-          # args: --use-deprecated=legacy-resolver
-          include-python-in-cache-key: false
-        #TODO: caching the dev requirements requires caching the bins they install as well, figure out how to do that
-        # NOTE: if having pip issues, use legacy resolver
-      - run: pip install --user -r requirements-dev.txt # --use-deprecated=legacy-resolver
-
-      - run: scripts/validate.sh
-      - run: coverage run --source='.' manage.py test
-      - store_test_results:
-          path: test_reports
-      - slack/status:
-          fail_only: true
-          channel: "#{{cookiecutter.repo_name}}-internal"
-          only_for_branches: develop,master
-
-  test-nextjs:
-    docker:
-      - image: circleci/node:12.13.0
-    working_directory: /home/circleci/project
-    steps:
-      - checkout
       - node/install-packages:
-          pkg-manager: yarn
-      - run: scripts/validate_js.sh
-      - run:
-          name: Run tests with JUnit as reporter
-          command: npx jest --ci --runInBand --reporters=default --reporters=jest-junit
-          environment:
-            JEST_JUNIT_OUTPUT_DIR: ./test_reports/next/
+          pkg-manager: npm
+      - run: npm run build
+      - python/install-packages:
+          pkg-manager: poetry
+      - run: poetry run pre-commit run --all-files
+      - run: poetry run playwright install
+      - run: poetry run coverage run --source='.' manage.py test
       - store_test_results:
           path: test_reports
       - slack/status:
           fail_only: true
           channel: "#{{cookiecutter.repo_name}}-internal"
-          only_for_branches: develop,master
-
-  # deploy: #building the app on heroku
-  #   parameters:
-  #     app-name:
-  #       description: destination app
-  #       type: string
-  #       default: {{cookiecutter.repo_name}}-development
-  #   docker:
-  #     - image: cimg/base:2020.01
-  #   working_directory: /home/circleci/project
-  #   steps:
-  #     - checkout
-  #     - heroku/install
-  #     - run: curl -sL https://sentry.io/get-cli/ | bash # install sentry cli
-  #     - run: sentry-cli releases new -p {{cookiecutter.repo_name}} $CIRCLE_SHA1
-  #     - run: sentry-cli releases set-commits --auto $CIRCLE_SHA1
-  #     - heroku/deploy-via-git:
-  #         app-name: << parameters.app-name >>
-  #     - run: heroku config:set BUILD_TIME="$(date)" APP_VERSION_RELEASE="$CIRCLE_SHA1" -a << parameters.app-name >>
-  #     - run: sentry-cli releases finalize $CIRCLE_SHA1
-
-  #     - slack/status:
-  #         channel: "#{{cookiecutter.repo_name}}"
-
-
-  build: #build and deploy on circle
-    docker:
-      - image: cimg/base:2020.01
-    parameters:
-      environment:
-        description: environment string
-        type: string
-        default: development
-      app-name:
-        description: destination app
-        type: string
-        default: {{cookiecutter.repo_name}}-development
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-          version: 19.03.8
-
-      # could probably put this into the docker image vs installing everytime
-      - heroku/install
-      - run: heroku container:login
-      - run:
-          name: Define Environment Variable at Runtime
-          command: |
-            echo "export SENTRY_DSN=$(heroku config:get SENTRY_DSN -a << parameters.app-name >>)" >> $BASH_ENV #make sure to use double quotes
-            echo "export AWS_ACCESS_KEY_ID=$(heroku config:get AWS_ACCESS_KEY_ID -a << parameters.app-name >>)" >> $BASH_ENV #make sure to use double quotes
-            echo "export AWS_SECRET_ACCESS_KEY=$(heroku config:get AWS_SECRET_ACCESS_KEY -a << parameters.app-name >>)" >> $BASH_ENV #make sure to use double quotes
-            echo "export AWS_S3_CUSTOM_DOMAIN=$(heroku config:get AWS_S3_CUSTOM_DOMAIN -a << parameters.app-name >>)" >> $BASH_ENV #make sure to use double quotes
-            echo "export BUILD_TIME='$(date)'" >> $BASH_ENV #make sure to use double quotes
-
-            source $BASH_ENV
-      - run: >
-            DOCKER_BUILDKIT=1 docker build . --target app --tag registry.heroku.com/<< parameters.app-name >>/web
-            --build-arg ENVIRONMENT="<< parameters.environment >>"
-            --build-arg APP_VERSION_RELEASE=$CIRCLE_SHA1
-            --build-arg BUILD_TIME
-            --build-arg SENTRY_DSN
-            --build-arg SENTRY_AUTH_TOKEN
-            --build-arg AWS_ACCESS_KEY_ID
-            --build-arg AWS_SECRET_ACCESS_KEY
-            --build-arg AWS_S3_CUSTOM_DOMAIN
-
-      - run: >
-            DOCKER_BUILDKIT=1 docker build . --target release --tag registry.heroku.com/<< parameters.app-name >>/release
-            --build-arg ENVIRONMENT="<< parameters.environment >>"
-            --build-arg APP_VERSION_RELEASE=$CIRCLE_SHA1
-            --build-arg BUILD_TIME="$(date)"
-            --build-arg SENTRY_DSN
-            --build-arg SENTRY_AUTH_TOKEN
-            --build-arg AWS_ACCESS_KEY_ID
-            --build-arg AWS_SECRET_ACCESS_KEY
-            --build-arg AWS_S3_CUSTOM_DOMAIN
-
-      - run: docker push registry.heroku.com/<< parameters.app-name >>/web
-      - run: docker push registry.heroku.com/<< parameters.app-name >>/release
-      - slack/status:
-          fail_only: true
-          channel: "#{{cookiecutter.repo_name}}-internal"
-          only_for_branches: develop,master
-
-
-
-  deploy: #build and deploy on circle
-    machine: true
-    parameters:
-      app-name:
-        description: destination app
-        type: string
-        default: {{cookiecutter.repo_name}}-development
-    steps:
-      # could probably put this into the docker image vs installing everytime
-      - run:  curl https://cli-assets.heroku.com/install.sh | sh
-      - run: heroku container:login
-      - run: heroku container:release web release -a << parameters.app-name >>
-
-      - slack/status:
-          channel: "#{{cookiecutter.repo_name}}-internal"
-
+          only_for_branches: develop,main
 
   sentry: #issue a new sentry release
     docker:
@@ -176,83 +52,30 @@ jobs:
       - run: sentry-cli releases finalize $CIRCLE_SHA1
 
 
-  # ghostinspector:
-  #   docker:
-  #     - image: cimg/base:2020.01
-  #   steps:
-  #     - test-runner/execute-suite:
-  #         start-url: '<URL GOES HERE>'
-  #         id: ID_GOES_HERE
-
 workflows:
   version: 2.1
   deploy:
     jobs:
       - test-django:
           context: lightmatter
-      - test-nextjs:
-          context: lightmatter
 
-      - build:
-          environment: production
-          name: build-prod
-          context: lightmatter
-          app-name: {{cookiecutter.repo_name}}-production
-          filters:
-            branches:
-              only: master
+      # - sentry:
+      #     name: sentry-prod
+      #     context: lightmatter
+      #     requires:
+      #       - deploy-prod
+      #     filters:
+      #       branches:
+      #         only: main
 
-      - deploy:
-          name: deploy-prod
-          context: lightmatter
-          app-name: {{cookiecutter.repo_name}}-production
-          requires:
-            - build-prod
-            - test-django
-            - test-nextjs
-          filters:
-            branches:
-              only: master
-
-      - sentry:
-          name: sentry-prod
-          context: lightmatter
-          requires:
-            - deploy-prod
-          filters:
-            branches:
-              only: master
-
-
-      - build:
-          environment: development
-          name: build-dev
-          context: lightmatter
-          app-name: {{cookiecutter.repo_name}}-development
-          filters:
-            branches:
-              only: develop
-
-      - deploy:
-          name: deploy-dev
-          context: lightmatter
-          app-name: {{cookiecutter.repo_name}}-development
-          requires:
-            - build-dev
-            - test-django
-            - test-nextjs
-          filters:
-            branches:
-              only: develop
-
-      - sentry:
-          name: sentry-dev
-          context: lightmatter
-          requires:
-            - deploy-dev
-          filters:
-            branches:
-              only: develop
+      # - sentry:
+      #     name: sentry-dev
+      #     context: lightmatter
+      #     requires:
+      #       - deploy-dev
+      #     filters:
+      #       branches:
+      #         only: develop
 
 
 
