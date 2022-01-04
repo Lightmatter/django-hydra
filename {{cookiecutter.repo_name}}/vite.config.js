@@ -12,7 +12,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         fontawesome: resolve(__dirname, './frontend/fontawesome/fontawesome.js'),
-        htmx: resolve(__dirname, './frontend/js/htmx.js'),
         main: resolve(__dirname, './frontend/js/main.ts'),
         system: resolve(__dirname, './frontend/js/system.ts'),
       }

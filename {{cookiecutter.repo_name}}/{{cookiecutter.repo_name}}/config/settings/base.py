@@ -246,7 +246,8 @@ SESSION_COOKIE_HTTPONLY = True
 
 CSRF_COOKIE_NAME = prefixed_cookie("csrftoken")
 # https://docs.djangoproject.com/en/dev/ref/settings/#csrf-cookie-httponly
-CSRF_COOKIE_HTTPONLY = True
+# Flipping this to true will break htmx's csrf protection
+CSRF_COOKIE_HTTPONLY = False
 # https://docs.djangoproject.com/en/dev/ref/settings/#secure-browser-xss-filter
 SECURE_BROWSER_XSS_FILTER = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#x-frame-options
