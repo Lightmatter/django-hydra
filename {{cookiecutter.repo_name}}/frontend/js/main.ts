@@ -1,12 +1,12 @@
 /* eslint-disable import/first */
 
-// @ts-expect-error
+// @ts-expect-error // this whole system is broken w/ vite
 if (import.meta.env.MODE !== "development") {
-    // @ts-expect-error
-    import("vite/modulepreload-polyfill");
+  // @ts-expect-error  // this whole system is broken w/ vite
+  import("vite/modulepreload-polyfill"); // eslint-disable-line import/no-unresolved
 }
 
 // Import our CSS
-import "/css/app-base.css";
-import "/css/app-components.css";
-import "/css/app-utilities.css";
+import "@/css/app-base.css";
+import "@/css/app-components.css";
+import "@/css/app-utilities.css";

@@ -6,12 +6,16 @@ import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
   base: "/static/",
-  root: resolve('./frontend/'),
+  resolve:{
+    alias:{
+      '@' : resolve('./frontend')
+    },
+  },
   build: {
     manifest: true, // adds a manifest.json
     rollupOptions: {
       input: {
-        fontawesome: resolve(__dirname, './frontend/fontawesome/fontawesome.js'),
+        fontawesome: resolve(__dirname, './frontend/fontawesome/fontawesome.ts'),
         main: resolve(__dirname, './frontend/js/main.ts'),
         system: resolve(__dirname, './frontend/js/system.ts'),
       }

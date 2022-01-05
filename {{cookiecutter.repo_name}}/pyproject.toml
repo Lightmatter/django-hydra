@@ -60,7 +60,7 @@ isort = "^5.10.1"
 line-length = 92
 target-version = ['py310']
 include = '\.pyi?$'
-exclude = '''
+force-exclude = '''
 (
   /migrations/
 )

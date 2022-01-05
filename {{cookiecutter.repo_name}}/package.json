@@ -7,8 +7,15 @@
     "serve": "vite preview"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.9.0",
+    "@typescript-eslint/parser": "^5.9.0",
     "@vitejs/plugin-vue": "^2.0.1",
     "autoprefixer": "^10.4.1",
+    "eslint": "^8.6.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-vue": "^8.2.0",
     "fast-glob": "^3.2.7",
     "postcss": "^8.4.5",
     "tailwindcss": "^3.0.10",

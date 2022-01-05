@@ -53,3 +53,11 @@ repos:
     -   id: prettier
         files: ^frontend/
         types_or: [javascript, ts]
+-   repo: local
+    hooks:
+    -   id: eslint
+        name: eslint
+        entry: npx eslint --fix
+        files: ^frontend/
+        language: system
+        types_or: [javascript, ts]
