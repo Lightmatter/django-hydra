@@ -1,11 +1,11 @@
 {% extends "base.html" %}
-
 {% block title %}
-Lightmatter Base Install
+    Lightmatter Base Install
 {% endblock title %}
-
-
 {% block content %}
-  Hello - it is now <p id="current-time" > {% include 'current_time.html' %}</p>
-  <button hx-push-url="false" hx-get="/current-time/" hx-target="#current-time">Refresh time</button>
+    Hello - it is now
+    <p id="current-time">
+        {% include 'current_time.html' %}
+    </p>
+    <button hx-push-url="false" hx-get="/current-time/" hx-target="#current-time">Refresh time</button>
 {% endblock content %}
