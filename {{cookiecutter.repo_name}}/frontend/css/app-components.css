@@ -2,7 +2,7 @@
  * This injects any component classes registered by plugins.
  *
  */
-@import 'tailwindcss/components';
+@import "tailwindcss/components";
 
 /**
  * Here we add custom component classes; stuff we want loaded
@@ -12,13 +12,16 @@
  */
 
 /* @import './components/global.pcss'; */
+
 /* @import './components/typography.pcss'; */
+
 /* @import './components/webfonts.pcss'; */
 
 /**
  * Include styles for individual pages
  *
  */
+
 /* @import './pages/homepage.pcss'; */
 
-@import '@/css/messages.scss';
+@import "@/css/messages.scss";

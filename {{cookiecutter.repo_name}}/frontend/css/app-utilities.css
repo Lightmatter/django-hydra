@@ -3,10 +3,11 @@
  * config file.
  *
  */
-@import 'tailwindcss/utilities';
+@import "tailwindcss/utilities";
 
 /**
  * Include any vendor css.
  *
  */
+
 /* @import 'vendor.pcss'; */
