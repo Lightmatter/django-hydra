@@ -2,26 +2,25 @@ previewsEnabled: true
 previewsExpireAfterDays: 5
 services:
     - type: web
-      name: {{cookiecutter.repo_name}}-prod
+      name: {{cookiecutter.repo_name}}
       env: python
       previewPlan: starter
-      branch: main
       healthCheckPath: /
       buildCommand: "./build.sh"
       startCommand: poetry run gunicorn --worker-tmp-dir /dev/shm  -w 4 -k uvicorn.workers.UvicornWorker --log-file=- {{cookiecutter.repo_name}}.config.asgi:application --preload
       envVars:
         - key: PYTHON_VERSION
-          value: 3.10.1
+          value: 3.9.7
         - fromGroup: sentry
         - key: DJANGO_SECRET_KEY
           generateValue: true
         - key: DJANGO_SETTINGS_MODULE
-          generateValue: "{{cookiecutter.repo_name}}.config.settings.prod"
+          value: "{{cookiecutter.repo_name}}.config.settings.prod"
         - key: DJANGO_ALLOWED_HOSTS
           fromService:
             type: web
             envVarKey: RENDER_EXTERNAL_HOSTNAME
-            name: {{cookiecutter.repo_name}}-prod
+            name: {{cookiecutter.repo_name}}
         - key: DJANGO_DEBUG
           value: false
         - key: DATABASE_URL
@@ -32,13 +31,14 @@ services:
           fromService:
             type: web
             envVarKey: RENDER_SERVICE_NAME
-            name: {{cookiecutter.repo_name}}-prod
-            previewValue: TEST
+            name: {{cookiecutter.repo_name}}
         - key: SENTRY_RELEASE
           fromService:
             type: web
             envVarKey: RENDER_GIT_COMMIT
-            name: {{cookiecutter.repo_name}}-prod
+            name: {{cookiecutter.repo_name}}
+        - key: DJANGO_AWS_STORAGE_BUCKET_NAME
+          value: {{cookiecutter.repo_name}}
         - key: DJANGO_AWS_ACCESS_KEY_ID
           fromService:
             type: web
@@ -47,10 +47,13 @@ services:
         - key: DJANGO_AWS_SECRET_ACCESS_KEY
           fromService:
             type: web
-            envVarKey: MINIO_ROOT_USER
+            envVarKey: MINIO_ROOT_PASSWORD
             name: minio
-        - key: DJANGO_AWS_STORAGE_BUCKET_NAME
-          value: {{cookiecutter.repo_name}}-prod
+        - key: DJANGO_AWS_S3_ENDPOINT_URL
+          fromService:
+            type: web
+            envVarKey: RENDER_EXTERNAL_URL
+            name: minio
 
     - type: web
       name: minio
@@ -68,7 +71,7 @@ services:
         - key: MINIO_ROOT_PASSWORD
           generateValue: true
         - key: PORT
-          value: 10000
+          value: 9000
 
     - type: pserv
       name: redis
@@ -94,7 +97,3 @@ envVarGroups:
           sync: false
         - key: SENTRY_PROJECT
           value: {{cookiecutter.repo_name}}
-        - key: SENTRY_ORG
-          value: lightmatter
-        - key: SENTRY_AUTH_TOKEN
-          sync: false

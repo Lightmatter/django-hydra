@@ -9,9 +9,9 @@
         <link rel="icon" href="{% static 'img/favicons/favicon.ico' %}" />
         {% load django_vite %}
         {% vite_hmr_client %}
-        {% vite_asset 'js/system.ts' %}
-        {% vite_asset 'js/main.ts' %}
-        {% vite_asset 'fontawesome/fontawesome.js' %}
+        {% vite_asset 'frontend/js/system.ts' %}
+        {% vite_asset 'frontend/js/main.ts' %}
+        {% vite_asset 'frontend/fontawesome/fontawesome.ts' %}
         {% load django_htmx %}
         {% django_htmx_script %}
         {% block extra_head %}

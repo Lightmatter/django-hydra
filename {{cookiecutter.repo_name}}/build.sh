@@ -4,8 +4,11 @@ set -o errexit
 
 poetry install --no-dev
 
+npm install --no-fund
+npm run build
+
 python manage.py collectstatic --no-input
 python manage.py migrate
 
-npm install --no-fund
-npm run build
+
+poetry run python ./scripts/create_bucket.py
