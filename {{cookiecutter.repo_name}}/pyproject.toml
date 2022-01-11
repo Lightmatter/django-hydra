@@ -26,6 +26,9 @@ django-vite = "^1.2.1"
 django-components = "^0.17"
 tblib = "^1.7.0"
 django-cachalot = "^2.4.5"
+redis = "^4.1.0"
+hiredis = "^2.0.0"
+django-redis = "^5.2.0"
 
 [tool.poetry.dev-dependencies]
 ipython = "^7.29.0"

@@ -63,7 +63,5 @@ def create_bucket():
             print(e)
 
 
-breakpoint()
-
 if __name__ == "__main__":
     create_bucket()
