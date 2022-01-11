@@ -54,6 +54,16 @@ services:
             type: web
             envVarKey: RENDER_EXTERNAL_URL
             name: minio
+        - key: REDIS_HOST
+          fromService:
+            name: redis
+            type: pserv
+            property: host # available properties are listed below
+        - key: REDIS_PORT
+          fromService:
+            name: redis
+            type: pserv
+            property: port
 
     - type: web
       name: minio
