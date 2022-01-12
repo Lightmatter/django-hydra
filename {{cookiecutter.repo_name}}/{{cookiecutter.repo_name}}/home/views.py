@@ -2,6 +2,8 @@
 
 from django.template.response import TemplateResponse
 
+from django.contrib import messages
+
 
 def error(request):
     """Generate an exception. Useful for e.g. configuing Sentry"""
@@ -10,4 +12,5 @@ def error(request):
 
 def current_time(request):
     """Generate the current time. Useful for testing htxm"""
+    messages.info(request, "updated the current time")
     return TemplateResponse(request, "current_time.html")

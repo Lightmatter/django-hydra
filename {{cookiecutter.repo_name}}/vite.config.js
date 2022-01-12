@@ -6,6 +6,7 @@ import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
   base: "/static/",
+  root: resolve('./frontend/'),
   resolve:{
     alias:{
       '@' : resolve('./frontend')
