@@ -43,29 +43,6 @@ jobs:
           channel: "#{{cookiecutter.repo_name}}-internal"
           only_for_branches: develop,main
 
-  test-nextjs:
-    docker:
-      - image: circleci/node:12.13.0
-    working_directory: /home/circleci/project
-    steps:
-      - checkout
-      - node/install-packages:
-          pkg-manager: npm
-      - run: npm run build
-      - python/install-packages:
-          pkg-manager: poetry
-      - run: poetry run pre-commit run --all-files
-      - run: poetry run playwright install
-      - run: poetry run coverage run --source='.' manage.py test
-      - store_test_results:
-          path: test_reports
-      - run: poetry run coverage xml
-      - codecov/upload
-      - slack/status:
-          fail_only: true
-          channel: "#{{cookiecutter.repo_name}}-internal"
-          only_for_branches: develop,main
-
   sentry: #issue a new sentry release
     docker:
       - image: cimg/base:2020.01
