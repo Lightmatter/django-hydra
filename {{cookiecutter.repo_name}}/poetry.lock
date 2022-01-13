@@ -541,18 +541,6 @@ optional = false
 python-versions = "*"
 
 [[package]]
-name = "fancycompleter"
-version = "0.9.1"
-description = "colorful TAB completion for Python prompt"
-category = "dev"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-pyreadline = {version = "*", markers = "platform_system == \"Windows\""}
-pyrepl = ">=0.8.2"
-
-[[package]]
 name = "filelock"
 version = "3.4.2"
 description = "A platform independent file lock."
@@ -985,23 +973,6 @@ optional = false
 python-versions = ">=2.6"
 
 [[package]]
-name = "pdbpp"
-version = "0.10.3"
-description = "pdb++, a drop-in replacement for pdb"
-category = "dev"
-optional = false
-python-versions = "*"
-
-[package.dependencies]
-fancycompleter = ">=0.8"
-pygments = "*"
-wmctrl = "*"
-
-[package.extras]
-funcsigs = ["funcsigs"]
-testing = ["funcsigs", "pytest"]
-
-[[package]]
 name = "pexpect"
 version = "4.8.0"
 description = "Pexpect allows easy control of interactive console applications."
@@ -1115,6 +1086,21 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "pudb"
+version = "2022.1"
+description = "A full-screen, console-based Python debugger"
+category = "dev"
+optional = false
+python-versions = "~=3.6"
+
+[package.dependencies]
+jedi = ">=0.18,<1"
+packaging = ">=20.0"
+pygments = ">=2.7.4"
+urwid = ">=1.1.1"
+urwid_readline = "*"
+
+[[package]]
 name = "pycodestyle"
 version = "2.7.0"
 description = "Python style guide checker"
@@ -1224,22 +1210,6 @@ python-versions = ">=3.6"
 
 [package.extras]
 diagrams = ["jinja2", "railroad-diagrams"]
-
-[[package]]
-name = "pyreadline"
-version = "2.1"
-description = "A python implmementation of GNU readline."
-category = "dev"
-optional = false
-python-versions = "*"
-
-[[package]]
-name = "pyrepl"
-version = "0.9.0"
-description = "A library for building flexible command line interfaces"
-category = "dev"
-optional = false
-python-versions = "*"
 
 [[package]]
 name = "python-dateutil"
@@ -1515,6 +1485,28 @@ secure = ["pyOpenSSL (>=0.14)", "cryptography (>=1.3.4)", "idna (>=2.0.0)", "cer
 socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
+name = "urwid"
+version = "2.1.2"
+description = "A full-featured console (xterm et al.) user interface library"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[[package]]
+name = "urwid-readline"
+version = "0.13"
+description = "A textbox edit widget for urwid that supports readline shortcuts"
+category = "dev"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+urwid = "*"
+
+[package.extras]
+dev = ["black", "pytest"]
+
+[[package]]
 name = "uvicorn"
 version = "0.16.0"
 description = "The lightning-fast ASGI server."
@@ -1601,14 +1593,6 @@ Brotli = {version = "*", optional = true, markers = "extra == \"brotli\""}
 brotli = ["brotli"]
 
 [[package]]
-name = "wmctrl"
-version = "0.4"
-description = "A tool to programmatically control windows inside X"
-category = "dev"
-optional = false
-python-versions = "*"
-
-[[package]]
 name = "wrapt"
 version = "1.13.3"
 description = "Module for decorators, wrappers and monkey patching."
@@ -1619,7 +1603,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "e744ccf6d222ed5bed9e5fdd65715df744052ca809ee0a873f170619c9591637"
+content-hash = "686a631efc0126061b9c28058dbb4c23689e180ef32c69faf70266ccef74e1c9"
 
 [metadata.files]
 appdirs = [
@@ -1971,10 +1955,6 @@ executing = [
     {file = "executing-0.8.2-py2.py3-none-any.whl", hash = "sha256:32fc6077b103bd19e6494a72682d66d5763cf20a106d5aa7c5ccbea4e47b0df7"},
     {file = "executing-0.8.2.tar.gz", hash = "sha256:c23bf42e9a7b9b212f185b1b2c3c91feb895963378887bb10e64a2e612ec0023"},
 ]
-fancycompleter = [
-    {file = "fancycompleter-0.9.1-py3-none-any.whl", hash = "sha256:dd076bca7d9d524cc7f25ec8f35ef95388ffef9ef46def4d3d25e9b044ad7080"},
-    {file = "fancycompleter-0.9.1.tar.gz", hash = "sha256:09e0feb8ae242abdfd7ef2ba55069a46f011814a80fe5476be48f51b00247272"},
-]
 filelock = [
     {file = "filelock-3.4.2-py3-none-any.whl", hash = "sha256:cf0fc6a2f8d26bd900f19bf33915ca70ba4dd8c56903eeb14e1e7a2fd7590146"},
     {file = "filelock-3.4.2.tar.gz", hash = "sha256:38b4f4c989f9d06d44524df1b24bd19e167d851f19b50bf3e3559952dddc5b80"},
@@ -2244,10 +2224,6 @@ pbr = [
     {file = "pbr-5.8.0-py2.py3-none-any.whl", hash = "sha256:176e8560eaf61e127817ef93d8a844803abb27a4d4637f0ff3bb783129be2e0a"},
     {file = "pbr-5.8.0.tar.gz", hash = "sha256:672d8ebee84921862110f23fcec2acea191ef58543d34dfe9ef3d9f13c31cddf"},
 ]
-pdbpp = [
-    {file = "pdbpp-0.10.3-py2.py3-none-any.whl", hash = "sha256:79580568e33eb3d6f6b462b1187f53e10cd8e4538f7d31495c9181e2cf9665d1"},
-    {file = "pdbpp-0.10.3.tar.gz", hash = "sha256:d9e43f4fda388eeb365f2887f4e7b66ac09dce9b6236b76f63616530e2f669f5"},
-]
 pexpect = [
     {file = "pexpect-4.8.0-py2.py3-none-any.whl", hash = "sha256:0b48a55dcb3c05f3329815901ea4fc1537514d6ba867a152b581d69ae3710937"},
     {file = "pexpect-4.8.0.tar.gz", hash = "sha256:fc65a43959d153d0114afe13997d439c22823a27cefceb5ff35c2178c6784c0c"},
@@ -2386,6 +2362,9 @@ ptyprocess = [
     {file = "ptyprocess-0.7.0-py2.py3-none-any.whl", hash = "sha256:4b41f3967fce3af57cc7e94b888626c18bf37a083e3651ca8feeb66d492fef35"},
     {file = "ptyprocess-0.7.0.tar.gz", hash = "sha256:5c5d0a3b48ceee0b48485e0c26037c0acd7d29765ca3fbb5cb3831d347423220"},
 ]
+pudb = [
+    {file = "pudb-2022.1.tar.gz", hash = "sha256:e827a4b489dcad561189535db6677becbf32164b2b44df00786eb2d5e00c587e"},
+]
 pycodestyle = [
     {file = "pycodestyle-2.7.0-py2.py3-none-any.whl", hash = "sha256:514f76d918fcc0b55c6680472f0a37970994e07bbb80725808c17089be302068"},
     {file = "pycodestyle-2.7.0.tar.gz", hash = "sha256:c389c1d06bf7904078ca03399a4816f974a1d590090fecea0c63ec26ebaf1cef"},
@@ -2425,14 +2404,6 @@ pylint-plugin-utils = [
 pyparsing = [
     {file = "pyparsing-3.0.6-py3-none-any.whl", hash = "sha256:04ff808a5b90911829c55c4e26f75fa5ca8a2f5f36aa3a51f68e27033341d3e4"},
     {file = "pyparsing-3.0.6.tar.gz", hash = "sha256:d9bdec0013ef1eb5a84ab39a3b3868911598afa494f5faa038647101504e2b81"},
-]
-pyreadline = [
-    {file = "pyreadline-2.1.win-amd64.exe", hash = "sha256:9ce5fa65b8992dfa373bddc5b6e0864ead8f291c94fbfec05fbd5c836162e67b"},
-    {file = "pyreadline-2.1.win32.exe", hash = "sha256:65540c21bfe14405a3a77e4c085ecfce88724743a4ead47c66b84defcf82c32e"},
-    {file = "pyreadline-2.1.zip", hash = "sha256:4530592fc2e85b25b1a9f79664433da09237c1a270e4d78ea5aa3a2c7229e2d1"},
-]
-pyrepl = [
-    {file = "pyrepl-0.9.0.tar.gz", hash = "sha256:292570f34b5502e871bbb966d639474f2b57fbfcd3373c2d6a2f3d56e681a775"},
 ]
 python-dateutil = [
     {file = "python-dateutil-2.8.2.tar.gz", hash = "sha256:0123cacc1627ae19ddf3c27a5de5bd67ee4586fbdd6440d9748f8abb483d3e86"},
@@ -2633,6 +2604,12 @@ urllib3 = [
     {file = "urllib3-1.26.7-py2.py3-none-any.whl", hash = "sha256:c4fdf4019605b6e5423637e01bc9fe4daef873709a7973e195ceba0a62bbc844"},
     {file = "urllib3-1.26.7.tar.gz", hash = "sha256:4987c65554f7a2dbf30c18fd48778ef124af6fab771a377103da0585e2336ece"},
 ]
+urwid = [
+    {file = "urwid-2.1.2.tar.gz", hash = "sha256:588bee9c1cb208d0906a9f73c613d2bd32c3ed3702012f51efe318a3f2127eae"},
+]
+urwid-readline = [
+    {file = "urwid_readline-0.13.tar.gz", hash = "sha256:018020cbc864bb5ed87be17dc26b069eae2755cb29f3a9c569aac3bded1efaf4"},
+]
 uvicorn = [
     {file = "uvicorn-0.16.0-py3-none-any.whl", hash = "sha256:d8c839231f270adaa6d338d525e2652a0b4a5f4c2430b5c4ef6ae4d11776b0d2"},
     {file = "uvicorn-0.16.0.tar.gz", hash = "sha256:eacb66afa65e0648fcbce5e746b135d09722231ffffc61883d4fac2b62fbea8d"},
@@ -2727,9 +2704,6 @@ werkzeug = [
 whitenoise = [
     {file = "whitenoise-5.3.0-py2.py3-none-any.whl", hash = "sha256:d963ef25639d1417e8a247be36e6aedd8c7c6f0a08adcb5a89146980a96b577c"},
     {file = "whitenoise-5.3.0.tar.gz", hash = "sha256:d234b871b52271ae7ed6d9da47ffe857c76568f11dd30e28e18c5869dbd11e12"},
-]
-wmctrl = [
-    {file = "wmctrl-0.4.tar.gz", hash = "sha256:66cbff72b0ca06a22ec3883ac3a4d7c41078bdae4fb7310f52951769b10e14e0"},
 ]
 wrapt = [
     {file = "wrapt-1.13.3-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:e05e60ff3b2b0342153be4d1b597bbcfd8330890056b9619f4ad6b8d5c96a81a"},
