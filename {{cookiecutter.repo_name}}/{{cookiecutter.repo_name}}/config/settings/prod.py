@@ -41,7 +41,8 @@ CSRF_COOKIE_SECURE = True
 # https://docs.djangoproject.com/en/dev/topics/security/#ssl-https
 # https://docs.djangoproject.com/en/dev/ref/settings/#secure-hsts-seconds
 # TODO: set this to 60 seconds first and then to 518400 once you prove the former works
-SECURE_HSTS_SECONDS = 60
+SECURE_HSTS_SECONDS = env.bool("DJANGO_SECURE_HSTS_SECONDS", default=60)
+
 # https://docs.djangoproject.com/en/dev/ref/settings/#secure-hsts-include-subdomains
 SECURE_HSTS_INCLUDE_SUBDOMAINS = env.bool(
     "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS", default=True
@@ -92,7 +93,8 @@ MEDIA_URL = f"https://{aws_s3_domain}/media/"
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#default-from-email
 DEFAULT_FROM_EMAIL = env(
-    "DJANGO_DEFAULT_FROM_EMAIL", default="{{cookiecutter.repo_name}} <noreply@{{cookiecutter.domain_name}}>"
+    "DJANGO_DEFAULT_FROM_EMAIL",
+    default="{{cookiecutter.repo_name}} <noreply@{{cookiecutter.domain_name}}>",
 )
 # https://docs.djangoproject.com/en/dev/ref/settings/#server-email
 SERVER_EMAIL = env("DJANGO_SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)
@@ -135,6 +137,11 @@ LOGGING = {
     },
     "root": {"level": "INFO", "handlers": ["console"]},
     "loggers": {
+        # This logs everything to the console - remove if too noisy
+        "django": {
+            "handlers": ["console"],
+            "level": "INFO",
+        },
         "django.db.backends": {
             "level": "ERROR",
             "handlers": ["console"],
