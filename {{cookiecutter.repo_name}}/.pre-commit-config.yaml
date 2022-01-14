@@ -53,6 +53,7 @@ repos:
     rev: 0.10.1
     hooks:
     -   id: doc8
+# TODO:  https://github.com/adamchainz/pre-commit-oxipng
 
 ## frontend
 -   repo: https://github.com/pre-commit/mirrors-prettier
