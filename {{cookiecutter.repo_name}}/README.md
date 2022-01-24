@@ -113,7 +113,7 @@ NOTE: you must be at the project root to run these commands
 This application model is unique in that we are running two applications simultaneously - one managing the frontend of the application and one managing the api. We run both servers on the same box in production as well. This tight coupling gives us a couple of strong guarantees:
 1) all communication between server side communication and api is done over localhost, and so doesn't pay a network cost. With next.js tools like getServerSideProps, which will funnel all requests through the backend, this allows us to make multiple api requests per page load concurrently using async syntax, but only pay the cost of a single network request.
 2) A shared domain allows for http only cookie based authentication, giving strong protection against xss attacks.
-3) environment variables and build artifacts can be shared between processes. This ensures things like the build id are shared between frontend and backend, or static assets can go through django's cachebusting collectstatic process.
+3) Environment variables and build artifacts can be shared between processes. This ensures things like the build id are shared between frontend and backend, or static assets can go through django's cachebusting collectstatic process.
 
 
 
