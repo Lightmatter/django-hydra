@@ -72,20 +72,20 @@ These commands are embedded in the proc file at the root of the repo - you may a
 ## Environment Variables
 - `.env` This handles the environment variables for Next.js and django. If you want access to an env variable at build time in Next.js it must start with `NEXT_PUBLIC`
 
-## Adding a new envrionment variable to DJANGO
+## Adding a new environment variable to DJANGO
 
 Store all django environment variables inside of heroku
 1. heroku stores secrets, so add variable to heroku through `heroku config:set foo=bar`
-2. instruct django to use the envrionment variable by adding a line to a settings file `foo = env("foo")`
+2. instruct django to use the environment variable by adding a line to a settings file `foo = env("foo")`
 
-## Adding a new envrionment variable to NEXT
+## Adding a new environment variable to NEXT
 
 note - next only uses variables provided to it at build. All new variables will require a rebuild of the application.
 
 1. Circle stores build time secrets, so add secret to circle through web ui OR store in heroku and use `heroku config:get VARIABLE`
 2. Make sure secret is passed to docker build process by adding a --build-arg line in circleci/config.yml
 3. make sure docker picks up secret at build time by adding an ARG statement to docker file
-4. Update next.js config file to pick up envrionment variable.
+4. Update next.js config file to pick up environment variable.
 
 
 ### How to debug the node server
@@ -110,10 +110,10 @@ NOTE: you must be at the project root to run these commands
 - or run `yarn run cypress run` or `yarn cypress run` to run the cypress integration tests - this requires the next dev server to be running in another tab
 
 ## Why use two processes as the same application
-This application model is unique in that we are running two applications simultaniously - one managing the frontend of the application and one managing the api. We run both servers on the same box in production as well. This tight coupling gives us a couple of strong guarentees:
-1) all communication between server side communication and api is done over locahost, and so doesn't pay a network cost. With next.js tools like getServerSideProps, which will funnel all requests through the backend, this allows us to make multiple api requests per page load concurrently using async syntax, but only pay the cost of a single network request.
+This application model is unique in that we are running two applications simultaneously - one managing the frontend of the application and one managing the api. We run both servers on the same box in production as well. This tight coupling gives us a couple of strong guarantees:
+1) all communication between server side communication and api is done over localhost, and so doesn't pay a network cost. With next.js tools like getServerSideProps, which will funnel all requests through the backend, this allows us to make multiple api requests per page load concurrently using async syntax, but only pay the cost of a single network request.
 2) A shared domain allows for http only cookie based authentication, giving strong protection against xss attacks.
-3) Envrionment variables and build artifacts can be shared between processes. This ensures things like the build id are shared between frontend and backend, or static assets can go through django's cachebusting collectstatic process.
+3) environment variables and build artifacts can be shared between processes. This ensures things like the build id are shared between frontend and backend, or static assets can go through django's cachebusting collectstatic process.
 
 
 
@@ -128,7 +128,7 @@ Setup for the remote environment is handled through terraform.
   a) To get the auth token, in the sentry webapp dashboard, go to User Menu > API Keys
   b) Note that the .env file isn't read by terraform - so set this variable in your .bashrc or through export
 3) Ensure you're logged in to Heroku through the Heroku cli
-4) Finally Remote Heroku servers and AWS infrastructure can be created by going to the terraform/environments folder and running `terraform init` followed by `terraform apply`
+4) Finally, Remote Heroku servers and AWS infrastructure can be created by going to the terraform/environments folder and running `terraform init` followed by `terraform apply`
 
 ## Multiple domain setup process
 
@@ -149,7 +149,7 @@ NOTE: Heroku is an exception to this rule and will not allow you to set cookies 
    - Remotely next will first run `yarn build` to create a set of static assets and then run `yarn start` to handle routing traffic and doing SSR
 
 ## Github
-- This repo is setup to use [lint-staged](https://github.com/okonet/lint-staged) and [husky](https://github.com/typicode/husky) in order to do some clean up prior to committing your code. If js, css or scss files are present in your commit they will be linted. If you notice your files are not being linted every time you commit (with information printed from Husky... 'Running tasks...') then you should try removing node_modules and running `yarn` again. If git is not initialized before node_modules installed this will fail continually.
+- This repo is set up to use [lint-staged](https://github.com/okonet/lint-staged) and [husky](https://github.com/typicode/husky) in order to do some clean up prior to committing your code. If js, css or scss files are present in your commit they will be linted. If you notice your files are not being linted every time you commit (with information printed from Husky... 'Running tasks...') then you should try removing node_modules and running `yarn` again. If git is not initialized before node_modules installed this will fail continually.
 
 
 ## Useful Commands
@@ -157,7 +157,7 @@ NOTE: you must be at the project root to run any `./manage.py ...` or `./scripts
 
 ### Pulling remote database
 - Pull Remote Database (to replace the local {{ cookiecutter.project_name }} database with one of the live databases):
-    - Install and log into the the Heroku CLI:
+    - Install and log into the Heroku CLI:
         - For Mac: use Homebrew: `brew tap heroku/brew && brew install heroku` from <https://devcenter.heroku.com/articles/heroku-cli>
     - run `./scripts/pull_remote_db.sh`
     - in order to pull a database besides the dev database change `$ENV_NAME-dev` in line 6 of the pull_remote_db.sh file to match the correct Heroku app
@@ -168,7 +168,7 @@ NOTE: you must be at the project root to run any `./manage.py ...` or `./scripts
 
 ### Heroku
 - Django Shell on Remote Server ***<span style="color:red;">(caution: this can potentially change/delete production data. Use with a healthy amount of caution and capture a database backup first (see below for instructions))</span>***:
-    - Install and log into the the Heroku CLI:
+    - Install and log into the Heroku CLI:
         - For Mac: use Homebrew: `brew tap heroku/brew && brew install heroku` from <https://devcenter.heroku.com/articles/heroku-cli>
     - open a bash shell on the remote server: run: `heroku run bash --app [app name such as {{ cookiecutter.project_name }}-dev]`
     - once in the shell on the Heroku server run: `python3.8 manage.py shell_plus`
@@ -196,9 +196,9 @@ If it's not working you will see "Watching for file changes with StatReloader"
 
 ## Wagtail
 
-If the project is using wagtail a new app will be included called `wagtailapp`. Additionally in the settings/base.py file there will be new wagtail specific settings.
+If the project is using wagtail a new app will be included called `wagtailapp`. Additionally, in the settings/base.py file there will be new wagtail specific settings.
 
-Several blocks have been included to start TitleBlock, LinkBlock, ColumnBlock, RowBlock, SectionBlock, and SocialBlock. These are used in wagtail streamfields set up and ready to use. No styling has been included for them so they will need styling, but do have templates present. Currently the main block you can add to a ContentPage is a SectionBlock. This contains a Row or a Spacer. Rows contain Columns and Columns contain title, link, text and image. These are commonly seen patterns in our projects and are not necessary if you need to remove them/have no need for them.
+Several blocks have been included to start TitleBlock, LinkBlock, ColumnBlock, RowBlock, SectionBlock, and SocialBlock. These are used in wagtail streamfields set up and ready to use. No styling has been included for them, so they will need styling, but do have templates present. Currently the main block you can add to a ContentPage is a SectionBlock. This contains a Row or a Spacer. Rows contain Columns and Columns contain title, link, text and image. These are commonly seen patterns in our projects and are not necessary if you need to remove them/have no need for them.
 
 We have added h1 and h5 to the wagtail cms richtext editor as they do not come out of the box.
 
@@ -215,7 +215,7 @@ The nginx service that directs all incoming traffic has several paths hardcoded 
 
 ## Managing subdomains
 
-Because the django server and the nextjs server are sharing authentication through cookies, it's important they stay on the same domain. There's three parts to consider when looking at how to arrange the domains serving the app - the api domain, the nextjs domain and the domain used between the two servers. A simple example would be the production hosting of both sides of the app on foo.com - the api would be reachable on foo.com/api, the next.js server would be on foo.com, and server to server communication would be over 127.0.0.1. In this case when loading a page from scratch you'd load on foo.com, then the next.js would forward the cookies to 127.0.0.1 (but still use the cookies from foo.com), and then return an authenticated response. When communicating directly to the api to login or make a post request, you'd address foo.com/api, and so cookies would still be correctly set for both frontend and backend, because they would both live under foo.com . For local development, you'd need a similar guarentee - that's why we force local development onto 127.0.0.1 and not localhost, because if the api domain doesn't match how you're addressing the client, things will break in strange ways.
+Because the django server and the nextjs server are sharing authentication through cookies, it's important they stay on the same domain. There's three parts to consider when looking at how to arrange the domains serving the app - the api domain, the nextjs domain and the domain used between the two servers. A simple example would be the production hosting of both sides of the app on foo.com - the api would be reachable on foo.com/api, the next.js server would be on foo.com, and server to server communication would be over 127.0.0.1. In this case when loading a page from scratch you'd load on foo.com, then the next.js would forward the cookies to 127.0.0.1 (but still use the cookies from foo.com), and then return an authenticated response. When communicating directly to the api to login or make a post request, you'd address foo.com/api, and so cookies would still be correctly set for both frontend and backend, because they would both live under foo.com . For local development, you'd need a similar guarantee - that's why we force local development onto 127.0.0.1 and not localhost, because if the api domain doesn't match how you're addressing the client, things will break in strange ways.
 If you decide in the future that you want to move the two applications to different subdomains, say www and api, you can do that as long as you configure the cookie to be shared by domain rather than subdomain
 
 ## Formik Fields
@@ -270,7 +270,7 @@ or field that uses the OPTIONS feature of DRF to grab choices for a field
 ## Important Libraries in project
 
 -   [date-fns](https://date-fns.org/docs/Getting-Started) - An alternative and SIGNIFICANTLY smaller to Moment.js. MomentJS should not be needed.
--   [Material UI](https://material-ui.com/) - Pretty self explanatory but before you build a component you may want to check here because they likely have it or things you can use to build it. - [Material UI Icons](https://material-ui.com/components/material-icons/) - useful list of icons for project and how to import them.
+-   [Material UI](https://material-ui.com/) - Pretty self-explanatory, but before you build a component you may want to check here because they likely have it or things you can use to build it. - [Material UI Icons](https://material-ui.com/components/material-icons/) - useful list of icons for project and how to import them.
 -   [Constate](https://github.com/diegohaz/constate) - Write local state using [React Hooks](https://reactjs.org/docs/hooks-intro.html) and lift it up to [React Context](https://reactjs.org/docs/context.html) only when needed with minimum effort.
 -   [Formik](https://jaredpalmer.com/formik/docs/overview) - All forms on the site use Formik - [Formik Material UI](https://github.com/stackworx/formik-material-ui) - bindings for formik with Material UI input fields - [Yup](https://github.com/jquense/yup) - Schema for formik forms
 -   [Axios](https://github.com/axios/axios) - Promise based HTTP client
@@ -301,7 +301,7 @@ New react libraries
     Testing + Debugging
 -   debug watcher
 -   browser based debugging for node
--   seperate threads when in debugging
+-   separate threads when in debugging
 -   cypress
 -   jest
 -   cypress + django
