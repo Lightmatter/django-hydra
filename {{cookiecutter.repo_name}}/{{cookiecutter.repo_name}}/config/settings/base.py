@@ -320,3 +320,20 @@ except ImportError:  # Graceful fallback if IceCream isn't installed.
         builtins = __import__("builtins")
     ic = lambda *a: None if not a else (a[0] if len(a) == 1 else a)  # noqa
     setattr(builtins, "ic", ic)
+
+
+{% if cookiecutter.use_analytics == "y" -%}
+INSTALLED_APPS += (
+    "{{ cookiecutter.repo_name }}.analytics",
+    "rest_framework",
+)
+
+MIDDLEWARE += ("{{ cookiecutter.repo_name }}.analytics.middleware.IpMiddleware",)
+
+SEGMENT_KEY = env("SEGMENT_KEY", default="KEY_MISSING")
+
+TRACK_ID_KEY = "{{cookiecutter.repo_name}}-id"
+ANALYTICS_CLIENT_SIDE_LOGGING = False
+LOCAL_TRACK_API_URL = "http://127.0.0.1:8000"
+LIVE_TRACK_API_URL = "http://127.0.0.1:8000"
+{% endif -%}

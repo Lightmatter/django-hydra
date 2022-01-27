@@ -1,0 +1,151 @@
+from django.shortcuts import render
+from django.conf import settings
+from django.dispatch import receiver
+from rest_framework import status
+from rest_framework.decorators import (
+    api_view,
+    authentication_classes,
+    permission_classes,
+)
+from rest_framework.response import Response
+
+import analytics
+from django.contrib.auth.signals import user_logged_in
+
+from {{cookiecutter.repo_name}}.analytics.serializers import (
+    AliasSerializer,
+    GroupSerializer,
+    IdentifySerializer,
+    TrackSerializer,
+    ViewEventSerializer,
+)
+from {{cookiecutter.repo_name}}.analytics.utils import get_analytics_payload
+
+
+# Healthcheck for Analytics Endpoint
+@api_view(["GET"])
+def healthcheck(request):
+    return Response({"status": 200}, status=status.HTTP_200_OK)
+
+
+# Get Events Object for tracking client side
+@api_view(["GET"])
+def get_events(request):
+    # TODO: implement dictionary with Models
+    return Response({
+        "name": "Event Name",
+        "url": "url",
+        "traits": {
+            "object": "of traits"
+        },
+        "properties": {
+            "object": "of properties"
+        }
+    }, status=status.HTTP_200_OK)
+
+
+# Get templates/track.js file
+@api_view(["GET"])
+def get_track_js(request):
+    return render(request, 'track.js', {
+        "anonymousIdKey": settings.TRACK_ID_KEY,
+        "logging": settings.ANALYTICS_CLIENT_SIDE_LOGGING,
+        "endpoints": {
+            "local_tracking_api": settings.LOCAL_TRACK_API_URL,
+            "tracking_api": settings.LIVE_TRACK_API_URL
+        }
+    }, content_type='application/x-javascript')
+
+
+# Alias call for Segment
+def alias(request):
+    serializer = AliasSerializer(data=request.data, context={"request": request})
+
+    if serializer.is_valid():
+        payload = get_analytics_payload(serializer.data, "alias")
+        analytics.alias(*payload)
+        return True
+
+    return False
+
+
+# Identify call for Segment
+def identify(request):
+    serializer = IdentifySerializer(data=request.data, context={"request": request})
+
+    if serializer.is_valid():
+        payload = get_analytics_payload(serializer.data, "identify")
+        analytics.identify(*payload)
+        return True
+
+    return False
+
+
+# Identify call for Segment
+@receiver(user_logged_in)
+def login_or_register(request, **kwargs):
+    return alias(request) and identify(request)
+
+
+# Group call for Segment
+@api_view(["POST"])
+@authentication_classes([])
+@permission_classes([])
+def group(request):
+    serializer = GroupSerializer(data=request.data, context={"request": request})
+
+    if serializer.is_valid():
+        payload = get_analytics_payload(serializer.data, "group")
+        analytics.group(*payload)
+
+        return Response({"status": 200}, status=status.HTTP_200_OK)
+
+    return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+
+# Page View Event
+@api_view(["POST"])
+@authentication_classes([])
+@permission_classes([])
+def page_view(request):
+    serializer = ViewEventSerializer(data=request.data, context={"request": request})
+
+    if serializer.is_valid():
+        payload = get_analytics_payload(serializer.data, "view")
+        analytics.page(*payload)
+
+        return Response({"status": 200}, status=status.HTTP_200_OK)
+
+    return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+
+# Screen View Event
+@api_view(["POST"])
+@authentication_classes([])
+@permission_classes([])
+def screen_view(request):
+    serializer = ViewEventSerializer(data=request.data, context={"request": request})
+
+    if serializer.is_valid():
+        payload = get_analytics_payload(serializer.data, "view")
+        analytics.screen(*payload)
+
+        return Response({"status": 200}, status=status.HTTP_200_OK)
+
+    return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+
+# Tracking call for Segment
+@api_view(["POST"])
+@authentication_classes([])
+@permission_classes([])
+def track(request):
+    serializer = TrackSerializer(data=request.data, context={"request": request})
+
+    if serializer.is_valid():
+        payload = get_analytics_payload(serializer.data, "track")
+        analytics.track(*payload)
+
+        return Response({"status": 200}, status=status.HTTP_200_OK)
+
+    return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)

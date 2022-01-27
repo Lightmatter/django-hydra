@@ -45,3 +45,9 @@ urlpatterns += [
 urlpatterns += [
     path("", include("{{ cookiecutter.repo_name }}.wagtailapp.urls")),
 ]{% endif %}
+
+{% if cookiecutter.use_analytics == 'y' -%}
+urlpatterns += [
+    path("analytics/api/", include("{{ cookiecutter.repo_name }}.analytics.urls")),
+]
+{%- endif %}

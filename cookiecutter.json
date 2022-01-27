@@ -11,10 +11,12 @@
   "version": "0.1.0",
   "use_local_docker_db": "n",
   "use_wagtail": "n",
+  "use_analytics": "y",
   "_copy_without_render": [
     "*.html",
     "templates/**/*.txt",
     "*.jinja",
-    ".yarn/*"
+    ".yarn/*",
+    "{{cookiecutter.repo_name}}/analytics/templates/track.js"
   ]
 }

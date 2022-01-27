@@ -1,0 +1,12 @@
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path("healthcheck", views.healthcheck, name="healthcheck"),
+    path("track.js", views.get_track_js, name="get_track_js"),
+    path("events", views.get_events, name="events"),
+    path("group", views.group, name="group"),
+    path("page_view", views.page_view, name="page_view"),
+    path("screen_view", views.screen_view, name="screen_view"),
+    path("track", views.track, name="track"),
+]
