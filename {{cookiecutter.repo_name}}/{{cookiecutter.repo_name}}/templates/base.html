@@ -32,17 +32,16 @@
         </script>
     </head>
     <body hx-boost="true"
-          hx-push-url="true"
           v-scope
           class="{% block body_class %}{% endblock body_class %}">
         {% include "header.html" %}
         <div id="main">
             {% block content %}
             {% endblock content %}
+            <ul class="messages" id="messages">
+                {% include "util/messages.html" %}
+            </ul>
         </div>
-        <ul class="messages" id="messages">
-            {% include "util/messages.html" %}
-        </ul>
         {% include "footer.html" %}
     </body>
     <script>

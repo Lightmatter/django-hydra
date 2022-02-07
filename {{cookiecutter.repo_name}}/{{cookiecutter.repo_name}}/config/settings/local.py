@@ -65,7 +65,6 @@ DEBUG_TOOLBAR_CONFIG = {
     "DISABLE_PANELS": [
         "debug_toolbar.panels.redirects.RedirectsPanel",
     ],
-    "INSERT_BEFORE": "</head>",
     "SHOW_TEMPLATE_CONTEXT": True,
     "RENDER_PANELS": False,
 }
