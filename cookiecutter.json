@@ -17,6 +17,7 @@
     "templates/**/*.txt",
     "*.jinja",
     ".yarn/*",
+    "{{cookiecutter.repo_name}}/analytics/templates/analytics_daashboard.html",
     "{{cookiecutter.repo_name}}/analytics/templates/track.js"
   ]
 }

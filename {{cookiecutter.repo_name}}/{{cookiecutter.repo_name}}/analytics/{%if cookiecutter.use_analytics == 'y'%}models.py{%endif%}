@@ -1,0 +1,82 @@
+from django.db import models  # NOQA
+from model_utils.models import TimeStampedModel  # NOQA
+
+
+class IdentifyUsers(TimeStampedModel):
+    user_id = models.CharField(max_length=255)
+    anonymous_id = models.CharField(max_length=255)
+    email = models.CharField(max_length=255)
+    city = models.CharField(max_length=255)
+    state = models.CharField(max_length=255)
+    country = models.CharField(max_length=255)
+    continent = models.CharField(max_length=255)
+
+class PageViews(TimeStampedModel):
+    anonymous_id = models.CharField(max_length=255)
+    category = models.CharField(max_length=255)
+    name = models.CharField(max_length=255)
+    url = models.CharField(max_length=510)
+    user_agent = models.CharField(max_length=510)
+
+class FormInteraction(TimeStampedModel):
+    anonymous_id = models.CharField(max_length=255)
+    event_name = models.CharField(max_length=255)
+    form_name = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
+    url = models.CharField(max_length=510)
+    user_agent = models.CharField(max_length=510)
+
+class FormSubmitted(TimeStampedModel):
+    anonymous_id = models.CharField(max_length=255)
+    event_name = models.CharField(max_length=255)
+    form_name = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
+    fields = models.CharField(max_length=510)
+    url = models.CharField(max_length=510)
+    user_agent = models.CharField(max_length=510)
+
+class PageInteraction(TimeStampedModel):
+    anonymous_id = models.CharField(max_length=255)
+    event_name = models.CharField(max_length=255)
+    page_name = models.CharField(max_length=255)
+    category = models.CharField(max_length=255)
+    seconds = models.DecimalField(max_digits=10, decimal_places=2)
+    percentage = models.DecimalField(max_digits=5, decimal_places=2),
+    url = models.CharField(max_length=510)
+    user_agent = models.CharField(max_length=510)
+
+class Selected(TimeStampedModel):
+    anonymous_id = models.CharField(max_length=255)
+    event_name = models.CharField(max_length=255)
+    label = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
+    url = models.CharField(max_length=510)
+    user_agent = models.CharField(max_length=510)
+
+class PageDictionary(TimeStampedModel):
+    name = models.CharField(max_length=255)
+    category = models.CharField(max_length=255)
+    url = models.CharField(max_length=510)
+    
+    def __str__(self):
+        return f"""Name: {self.name}, Category: {self.category}, URL: {self.url}"""
+
+class SelectedDictionary(TimeStampedModel):
+    name = models.CharField(max_length=255)
+    label = models.CharField(max_length=255)
+    url = models.CharField(max_length=510)
+    location = models.CharField(max_length=255)
+    xpath = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"""Name: {self.name}, Label: {self.label}"""
+
+class FormDictionary(TimeStampedModel):
+    name = models.CharField(max_length=255)
+    location = models.CharField(max_length=255)
+    form_xpath = models.CharField(max_length=255)
+    submit_btn_xpath = models.CharField(max_length=255)
+    url = models.CharField(max_length=510)
+
+    def __str__(self):
+        return f"""Name: {self.name}, Label: {self.location}"""

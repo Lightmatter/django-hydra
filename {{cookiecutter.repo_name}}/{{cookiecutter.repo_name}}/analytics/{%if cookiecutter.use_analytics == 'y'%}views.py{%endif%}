@@ -1,6 +1,10 @@
-from django.shortcuts import render
+import json
+
+from django.shortcuts import redirect, render
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.dispatch import receiver
+
 from rest_framework import status
 from rest_framework.decorators import (
     api_view,
@@ -9,18 +13,28 @@ from rest_framework.decorators import (
 )
 from rest_framework.response import Response
 
+
 import analytics
 from django.contrib.auth.signals import user_logged_in
+from .models import (
+    PageDictionary,
+    SelectedDictionary,
+    FormDictionary
+)
 
-from {{cookiecutter.repo_name}}.analytics.serializers import (
+from {{ cookiecutter.repo_name }}.analytics.serializers import (
     AliasSerializer,
     GroupSerializer,
     IdentifySerializer,
     TrackSerializer,
     ViewEventSerializer,
 )
-from {{cookiecutter.repo_name}}.analytics.utils import get_analytics_payload
-
+from {{ cookiecutter.repo_name }}.analytics.utils import get_analytics_payload
+from .forms import (
+    PageViewForm,
+    SelectedForm,
+    FormForm
+)
 
 # Healthcheck for Analytics Endpoint
 @api_view(["GET"])
@@ -31,17 +45,19 @@ def healthcheck(request):
 # Get Events Object for tracking client side
 @api_view(["GET"])
 def get_events(request):
-    # TODO: implement dictionary with Models
-    return Response({
-        "name": "Event Name",
-        "url": "url",
-        "traits": {
-            "object": "of traits"
-        },
-        "properties": {
-            "object": "of properties"
-        }
-    }, status=status.HTTP_200_OK)
+    try:
+        referer = request.GET.get('referer', '')
+        filename = referer.lower().replace(" ", "_")
+
+        with open(f"""{{ cookiecutter.repo_name }}/analytics/dictionary.json""") as json_file:
+            data = json.load(json_file)
+            return Response(data[referer], status=status.HTTP_200_OK)
+
+    except:
+        return Response({
+            "error": True,
+            "message": f"""no dictionary for referer url: {referer}"""
+        })
 
 
 # Get templates/track.js file
@@ -59,24 +75,24 @@ def get_track_js(request):
 
 # Alias call for Segment
 def alias(request):
-    serializer = AliasSerializer(data=request.data, context={"request": request})
+    # serializer = AliasSerializer(data=request.data, context={"request": request})
 
-    if serializer.is_valid():
-        payload = get_analytics_payload(serializer.data, "alias")
-        analytics.alias(*payload)
-        return True
+    # if serializer.is_valid():
+    #     payload = get_analytics_payload(serializer.data, "alias")
+    #     analytics.alias(*payload)
+    #     return True
 
     return False
 
 
 # Identify call for Segment
 def identify(request):
-    serializer = IdentifySerializer(data=request.data, context={"request": request})
+    # serializer = IdentifySerializer(data=request.data, context={"request": request})
 
-    if serializer.is_valid():
-        payload = get_analytics_payload(serializer.data, "identify")
-        analytics.identify(*payload)
-        return True
+    # if serializer.is_valid():
+    #     payload = get_analytics_payload(serializer.data, "identify")
+    #     analytics.identify(*payload)
+    #     return True
 
     return False
 
@@ -92,13 +108,13 @@ def login_or_register(request, **kwargs):
 @authentication_classes([])
 @permission_classes([])
 def group(request):
-    serializer = GroupSerializer(data=request.data, context={"request": request})
+    # serializer = GroupSerializer(data=request.data, context={"request": request})
 
-    if serializer.is_valid():
-        payload = get_analytics_payload(serializer.data, "group")
-        analytics.group(*payload)
+    # if serializer.is_valid():
+    #     payload = get_analytics_payload(serializer.data, "group")
+    #     analytics.group(*payload)
 
-        return Response({"status": 200}, status=status.HTTP_200_OK)
+    #     return Response({"status": 200}, status=status.HTTP_200_OK)
 
     return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -108,13 +124,13 @@ def group(request):
 @authentication_classes([])
 @permission_classes([])
 def page_view(request):
-    serializer = ViewEventSerializer(data=request.data, context={"request": request})
+    # serializer = ViewEventSerializer(data=request.data, context={"request": request})
 
-    if serializer.is_valid():
-        payload = get_analytics_payload(serializer.data, "view")
-        analytics.page(*payload)
+    # if serializer.is_valid():
+    #     payload = get_analytics_payload(serializer.data, "view")
+    #     analytics.page(*payload)
 
-        return Response({"status": 200}, status=status.HTTP_200_OK)
+    #     return Response({"status": 200}, status=status.HTTP_200_OK)
 
     return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -124,13 +140,13 @@ def page_view(request):
 @authentication_classes([])
 @permission_classes([])
 def screen_view(request):
-    serializer = ViewEventSerializer(data=request.data, context={"request": request})
+    # serializer = ViewEventSerializer(data=request.data, context={"request": request})
 
-    if serializer.is_valid():
-        payload = get_analytics_payload(serializer.data, "view")
-        analytics.screen(*payload)
+    # if serializer.is_valid():
+    #     payload = get_analytics_payload(serializer.data, "view")
+    #     analytics.screen(*payload)
 
-        return Response({"status": 200}, status=status.HTTP_200_OK)
+    #     return Response({"status": 200}, status=status.HTTP_200_OK)
 
     return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -140,12 +156,189 @@ def screen_view(request):
 @authentication_classes([])
 @permission_classes([])
 def track(request):
-    serializer = TrackSerializer(data=request.data, context={"request": request})
+    # serializer = TrackSerializer(data=request.data, context={"request": request})
 
-    if serializer.is_valid():
-        payload = get_analytics_payload(serializer.data, "track")
-        analytics.track(*payload)
+    # if serializer.is_valid():
+    #     payload = get_analytics_payload(serializer.data, "track")
+    #     analytics.track(*payload)
 
-        return Response({"status": 200}, status=status.HTTP_200_OK)
+    #     return Response({"status": 200}, status=status.HTTP_200_OK)
 
     return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+
+# Need to keep this to admin only permissions
+@login_required
+@api_view(["GET"])
+def dashboard(request):
+    dictionary_type = request.GET.get('dictionary_type')
+
+    # test = FormDictionary.objects.create(name="Sample Form Name", url="/testing.com")
+    return render(request, 'analytics_dashboard.html', {
+        'pagesDictionary': PageDictionary.objects.all().values(),
+        'selectedDictionary': SelectedDictionary.objects.all().values(),
+        'formDictionary': FormDictionary.objects.all().values(),
+        'PageViewForm': PageViewForm,
+        'SelectedForm': SelectedForm,
+        'FormForm': FormForm,
+        'dictionary_type': dictionary_type
+    })
+
+
+@login_required
+@api_view(["POST"])
+def create_event(request):        
+    if request.POST['dictionary_type'] == 'page':
+        form = PageViewForm(request.POST)
+
+        if form.is_valid():
+            if len(request.POST['event_id']) == 0:
+                page_view = PageDictionary(
+                    name=request.POST['name'],
+                    category=request.POST['category'],
+                    url=request.POST['url']
+                )
+                page_view.save()
+            else:
+                PageDictionary.objects.filter(id=request.POST['event_id']).update(
+                    name=request.POST['name'],
+                    category=request.POST['category'],
+                    url=request.POST['url']
+                )
+
+    elif request.POST['dictionary_type'] == 'selected':
+        form = SelectedForm(request.POST)
+
+        if form.is_valid():    
+            if len(request.POST['event_id']) == 0:
+                selected = SelectedDictionary(
+                    name=request.POST['name'],
+                    label=request.POST['label'],
+                    url=request.POST['url'],
+                    location=request.POST['location'],
+                    xpath=request.POST['xpath']
+                )
+                selected.save()
+            else:
+                SelectedDictionary.objects.filter(id=request.POST['event_id']).update(
+                    name=request.POST['name'],
+                    label=request.POST['label'],
+                    url=request.POST['url'],
+                    location=request.POST['location'],
+                    xpath=request.POST['xpath']
+                )
+
+    elif request.POST['dictionary_type'] == 'form':
+        form = FormForm(request.POST)
+
+        if form.is_valid():        
+            if len(request.POST['event_id']) == 0:
+                form = FormDictionary(
+                    name=request.POST['name'],
+                    location=request.POST['location'],
+                    form_xpath=request.POST['form_xpath'],
+                    submit_btn_xpath=request.POST['submit_btn_xpath'],
+                    url=request.POST['url']
+                )
+                form.save()
+            else:
+                FormDictionary.objects.filter(id=request.POST['event_id']).update(
+                    name=request.POST['name'],
+                    location=request.POST['location'],
+                    form_xpath=request.POST['form_xpath'],
+                    submit_btn_xpath=request.POST['submit_btn_xpath'],
+                    url=request.POST['url']
+                )
+
+    return redirect(f"""/analytics/api/dashboard?dictionary_type={request.POST['dictionary_type']}""")
+
+@login_required
+@api_view(["POST"])
+def delete_event(request):
+    dictionary_id=request.POST["dictionary_id"]
+    
+    if request.POST['dictionary_type'] == 'page':
+        page_view = PageDictionary.objects.filter(id=dictionary_id)
+
+        if page_view is not None:
+            page_view.delete()
+
+    elif request.POST['dictionary_type'] == 'selected':
+        selected = SelectedDictionary.objects.filter(id=dictionary_id)
+
+        if selected is not None:
+            selected.delete()
+    
+    elif request.POST['dictionary_type'] == 'form':
+        form = FormDictionary.objects.filter(id=dictionary_id)
+
+        if form is not None:
+            form.delete()
+
+    return redirect(f"""/analytics/api/dashboard?dictionary_type={request.POST['dictionary_type']}""")
+
+
+@login_required
+@api_view(["POST"])
+def publish_page(request):
+    dictionary = None
+
+    try:
+        referer = request.GET.get('referer', '')
+        filename = referer.lower().replace(" ", "_")
+
+        with open(f"""{{ cookiecutter.repo_name }}/analytics/dictionary.json""") as json_file:
+            dictionary = json.load(json_file)
+
+    except:
+        print('you failed in life')
+        return Response({"error": true, "messag": "dictionary.json file issue"}, status=status.HTTP_400_BAD_REQUEST)
+        
+    page_view = PageDictionary.objects.filter(id=request.POST["dictionary_id"])
+    if len(page_view):
+        page_view = page_view[0]
+        url = page_view.url
+        selected_queryset = SelectedDictionary.objects.filter(url=url)
+        forms_queryset = FormDictionary.objects.filter(url=url)
+
+        selected_arr = []
+        for select in list(selected_queryset):
+            obj = {
+                "eventName": select.name,
+                "eventType": "Selected",
+                "label": select.label,
+                "location": select.location,
+                "url": select.url,
+                "xpath": select.xpath,
+            }
+            selected_arr.append(obj)
+
+        forms_arr = []
+        for form in list(forms_queryset):
+            obj = {
+                "formName": form.name,
+                "location": form.location,
+                "xpath": form.form_xpath,
+                "xpathSubmitBtn": form.submit_btn_xpath,
+                "url": form.url
+            }
+            forms_arr.append(obj)
+
+        response = {
+            "url": url,
+            "category": page_view.category,
+            "name": page_view.name,
+            "events": selected_arr,
+            "forms": forms_arr
+        }
+
+        dictionary[request.POST["page_url"]] = {
+            "dictionary": response
+        }
+        with open(f"""{{ cookiecutter.repo_name }}/analytics/dictionary.json""", 'w') as outfile:
+            json.dump(dictionary, outfile)
+
+    else:
+        return Response({"error": true, "messag": "no page_view data exists"}, status=status.HTTP_400_BAD_REQUEST)
+
+    return redirect(f"""/analytics/api/dashboard""")

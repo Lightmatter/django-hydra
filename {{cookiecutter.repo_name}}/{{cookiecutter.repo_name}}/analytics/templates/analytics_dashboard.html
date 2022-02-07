@@ -1,0 +1,380 @@
+<section id="heading">
+    <h1>Data Dictionary</h1>
+</section>
+
+<div id="dashboard">
+    <div id="left">
+        <select id="event-type" onchange="eventChange(this)">
+            <option>Page</option>
+            <option>Selected</option>
+            <option>Form</option>
+        </select>
+
+        <form id="page" action="{% url 'create_event' %}" method="post" class="show">
+            {% csrf_token %}
+            {{ PageViewForm }}
+            <input class="event-id" type="hidden" value="" name="event_id" />
+            <input type="hidden" value="page" name="dictionary_type" />
+            <input class="submit-update" type="submit" value="Create Event">
+            <a class="clear-form" href="#" onclick="clearForm(this)">Create New Event</a>
+        </form>
+
+        <form id="selected" action="{% url 'create_event' %}" method="post">
+            {% csrf_token %}
+            {{ SelectedForm }}
+            <input class="event-id" type="hidden" value="" name="event_id" />
+            <input type="hidden" value="selected" name="dictionary_type" />
+            <input class="submit-update" type="submit" value="Create Event">
+            <a class="clear-form" href="" onclick="clearForm()">Create New Event</a>
+        </form>
+
+        <form id="form" action="{% url 'create_event' %}" method="post">
+            {% csrf_token %}
+            {{ FormForm }}
+            <input class="event-id" type="hidden" value="" name="event_id" />
+            <input type="hidden" value="form" name="dictionary_type" />
+            <input class="submit-update" type="submit" value="Create Event">
+            <a  class="clear-form"href="" onclick="clearForm()">Create New Event</a>
+        </form>
+    </div> <!-- left -->
+
+    <div id="right">
+        <h2 id="current-view">Page View</h2>
+        <table id="page-table" class="show">
+            <tr class="header">
+                {% for page in pagesDictionary %}
+                    {% if forloop.counter0 == 0 %}
+                        {% for key, _ in page.items %}
+                            <td>{{ key }}</td>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+                <td>Manage</td>
+            </tr>
+
+            {% for page in pagesDictionary %}
+                <tr data-page-id="{{ page.id }}">
+                    {% for _, value in page.items %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                    <td class="manage-forms">
+                        <form class="manage publish" action="{% url 'publish_page' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" value="page" name="dictionary_type" />
+                            <input type="hidden" value="{{ page.id }}" name="dictionary_id" />
+                            <input type="hidden" value="{{ page.url }}" name="page_url" />
+                            <input type="submit" value="Publish" />
+                        </form>
+                        <form class="manage view" onsubmit="return viewEvents('{{ page.url }}');">
+                            <input type="submit" value="View Events" />
+                        </form>
+                        <form class="manage update" onsubmit="return updateForm('page', '{{ page.id }}');" data-id="{{ page.id }}">
+                            <input type="hidden" value="{{ page.id }}" name="dictionary_id" />
+                            <input type="submit" value="Update" />
+                        </form>
+                        <form class="manage delete" action="{% url 'delete_event' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" value="page" name="dictionary_type" />
+                            <input type="hidden" value="{{ page.id }}" name="dictionary_id" />
+                            <input type="submit" value="Delete" />
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <table id="selected-table">
+            <tr>
+                {% for selected in selectedDictionary %}
+                    {% if forloop.counter0 == 0 %}
+                        {% for key, _ in selected.items %}
+                            <td>{{ key }}</td>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+                <td>Manage</td>
+            </tr>
+
+            {% for selected in selectedDictionary %}
+                <tr data-selected-id="{{ selected.id }}">
+                    {% for _, value in selected.items %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                    <td class="manage-forms">
+                        <form class="manage update" onsubmit="return updateForm('selected', '{{ selected.id }}');" data-id="{{ selected.id }}">
+                            <input type="hidden" value="{{ selected.id }}" name="dictionary_id" />
+                            <input type="submit" value="Update" />
+                        </form>
+                        <form class="manage" action="{% url 'delete_event' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" value="selected" name="dictionary_type" />
+                            <input type="hidden" value="{{ selected.id }}" name="dictionary_id" />
+                            <input type="submit" value="Delete" />
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <table id="form-table">
+            <tr>
+                {% for form in formDictionary %}
+                    {% if forloop.counter0 == 0 %}
+                        {% for key, _ in form.items %}
+                            <td>{{ key }}</td>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+                <td>Manage</td>
+            </tr>
+
+            {% for form in formDictionary %}
+                <tr data-form-id="{{ form.id }}">
+                    {% for _, value in form.items %}
+                        <td>{{ value }}</td>
+                    {% endfor %}
+                    <td class="manage-forms">
+                        <form class="manage update" onsubmit="return updateForm('form', '{{ form.id }}');" data-id="{{ form.id }}">
+                            <input type="hidden" value="{{ form.id }}" name="dictionary_id" />
+                            <input type="submit" value="Update" />
+                        </form>
+                        <form class="manage" action="{% url 'delete_event' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" value="form" name="dictionary_type" />
+                            <input type="hidden" value="{{ form.id }}" name="dictionary_id" />
+                            <input type="submit" value="Delete" />
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+
+    </div> <!-- right -->
+</div> <!-- dashboard -->
+
+<script>
+    const currentView = document.getElementById('current-view')
+    const pageForm = document.getElementById('page')
+    const pageTable = document.getElementById('page-table')
+    const selectedForm = document.getElementById('selected')
+    const selectedTable = document.getElementById('selected-table')
+    const formForm = document.getElementById('form')
+    const formTable = document.getElementById('form-table')
+
+    function eventChange(selectObject) {
+        var value = selectObject.value; 
+        
+        if (value == 'Page') {
+            currentView.innerText = 'Page View'
+            pageForm.classList.add("show")
+            pageTable.classList.add("show")
+            selectedForm.classList.remove("show")
+            selectedTable.classList.remove("show")
+            formForm.classList.remove("show")
+            formTable.classList.remove("show")
+        } else if (value == 'Selected') {
+            currentView.innerText = 'Selected'
+            pageForm.classList.remove("show")
+            pageTable.classList.remove("show")
+            selectedForm.classList.add("show")
+            selectedTable.classList.add("show")
+            formForm.classList.remove("show")
+            formTable.classList.remove("show")
+        } else if (value == 'Form') {
+            currentView.innerText = 'Forms'
+            pageForm.classList.remove("show");
+            pageTable.classList.remove("show");
+            selectedForm.classList.remove("show");
+            selectedTable.classList.remove("show");
+            formForm.classList.add("show");
+            formTable.classList.add("show");
+        }
+            
+        pageForm.querySelector('a.clear-form').classList.remove('show')
+        selectedForm.querySelector('a.clear-form').classList.remove('show')
+        formForm.querySelector('a.clear-form').classList.remove('show')
+    }
+
+    function updateForm(eventType, id) {
+        const form = eventType === 'page' ? pageForm :
+            eventType === 'selected' ? selectedForm : formForm
+
+        const inputs = form.getElementsByTagName("input")
+        const rowId = `data-${eventType}-id`
+
+        const columns = document.querySelectorAll(`[${rowId}='${id}'] td`)
+
+        for(let i = 3; i < columns.length - 1; i++) { // skip id and date columns
+            inputs[i-2].value = columns[i].innerText
+        }
+
+        form.querySelector('.event-id').value = id
+        form.querySelector('.submit-update').value = 'Update'
+        form.querySelector('.clear-form').classList.add('show')
+
+        return false
+    }
+
+    function viewEvents(pageName) {
+        const referer = pageName.replace(' ', '_').toLowerCase()
+        window.open(`/analytics/api/events?referer=${referer}`, '_blank').focus()
+
+        return false
+    }
+
+    function clearForm(btn) {
+        btn.classList.remove('show')
+
+        const form = document.querySelector('form.show')
+        form.reset()
+        form.querySelector('.event-id').value = ''
+        form.querySelector('a.clear-form').classList.remove('show')
+        form.querySelector('.submit-update').value = 'Create Event'
+
+        return false
+    }
+</script>
+
+<style>
+    body {
+        font-family: "GT Walsheim Pro", Helvetica, Roboto, Arial, sans-serif;
+        font-size: 20px;
+        padding: 0;
+        margin: 0;
+    }
+
+    #heading { 
+        padding: 20px;
+        position: fixed;
+        background-color: white;
+        width: 100%;
+        z-index: 2;
+    }
+    #heading h1 {
+        margin: 0;
+        letter-spacing: -2px;
+        color: #2d36a8;
+    }
+
+    #dashboard {
+        display: flex;
+        height: calc(100% - 40px);
+        padding-top: 70px;
+    }
+    #dashboard #left, #dashboard #right {
+        display: inline-block;
+    }
+    #dashboard #left {
+        background-color: #2d36a8;
+        color: white;
+        padding: 55px 60px 20px 20px;
+        align-items: stretch;
+    }
+    #dashboard #left form {
+        margin-top: 50px;
+    }
+    #dashboard #left form input {
+        border: 0;
+        border-radius: 4px;
+        color: #2d36a8;
+        font-size: 16px;
+        height: 40px;
+    }
+    #dashboard #left form [type=submit] {
+        color: white;
+        margin-top: 50px;
+        transition: all .2s linear;
+    }
+    #dashboard #left form [type=submit]:hover {
+        background-color: #df443b;
+    }
+    #dashboard #right {
+        padding: 50px 20px 50px 60px;
+    }
+    #dashboard #right h2 {
+        color: #2d36a8;
+        margin: 0 0 20px;
+        letter-spacing: -2px;
+    }
+
+    form, table {
+        display: none;
+    }
+    form [type=submit] {
+        padding: 10px 20px;
+        font-size: 20px;
+        background-color: #ff5c5a;
+        color: white;
+        border: 0;
+        border-radius: 4px;
+    }
+
+    form [type=submit]:hover {
+        cursor: pointer;
+    }
+    form.manage {
+        display: block;
+        margin: 0 5px;
+    }
+    form:not(.manage) {
+        margin-bottom: 60px;
+    }
+
+    form input {
+        display: block;
+        font-size: 20px;
+        margin: 5px 0 10px;
+        padding: 5px 10px;
+    }
+    form.manage input {
+        display: inline-block;
+        font-size: 14px;
+        padding: 5px 10px;
+        background-color: #DCDCDC;
+        color: #2d36a8;
+    }
+
+    table {
+        position: relative;
+        max-height: 600px;
+        overflow-y: scroll;
+    }
+
+    table tr:nth-child(odd){
+        background: #2d36a8;
+        color: white;
+    }
+    table tr:nth-child(even){
+        color: #2d36a8;
+    }
+    table td {
+        padding: 5px 10px;
+    }
+    table td.manage-forms {
+        display: flex;
+    }
+
+    select {
+        margin-bottom: 20px;
+        padding: 5px 10px;
+        font-size: 16px;
+        width: 100%;
+        background: transparent;
+        color: white;
+        border: 1px solid white;
+        border-radius: 4px;
+    }
+    select:hover {
+        cursor: pointer;
+    }
+
+    .show {
+        display: block !important;
+    }
+
+    a.clear-form {
+        display: none;
+        font-size: 14px;
+        color: white;
+    }
+</style>

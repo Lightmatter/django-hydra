@@ -9,4 +9,8 @@ urlpatterns = [
     path("page_view", views.page_view, name="page_view"),
     path("screen_view", views.screen_view, name="screen_view"),
     path("track", views.track, name="track"),
+    path("dashboard", views.dashboard, name="dashboard"),
+    path("create_event", views.create_event, name="create_event"),
+    path("delete_event", views.delete_event, name="delete_event"),
+    path("publish_page", views.publish_page, name="publish_page"),
 ]

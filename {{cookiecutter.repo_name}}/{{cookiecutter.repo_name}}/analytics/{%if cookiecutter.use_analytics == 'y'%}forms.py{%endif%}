@@ -1,0 +1,20 @@
+from django import forms
+
+class PageViewForm(forms.Form):
+    name = forms.CharField(label='name', max_length=255)
+    category = forms.CharField(label='category', max_length=255)
+    url = forms.CharField(label='url', max_length=510)
+
+class SelectedForm(forms.Form):
+    name = forms.CharField(label='name', max_length=255)
+    label = forms.CharField(label='label', max_length=255)
+    url = forms.CharField(label='url', max_length=510)
+    location = forms.CharField(label='location', max_length=255)
+    xpath = forms.CharField(label='xpath', max_length=255)
+
+class FormForm(forms.Form):
+    name = forms.CharField(label='name', max_length=255)
+    location = forms.CharField(label='location', max_length=255)
+    form_xpath = forms.CharField(label='form_xpath', max_length=255)
+    submit_btn_xpath = forms.CharField(label='submit_btn_xpath', max_length=255)
+    url = forms.CharField(label='url', max_length=510)
