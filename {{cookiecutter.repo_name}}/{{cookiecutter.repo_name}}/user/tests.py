@@ -36,7 +36,7 @@ class LoginTest(PlaywrightTestCase):
         page.wait_for_selector("text=Sign In")
         page.fill("[name=login]", self.user.email)
         page.fill("[name=password]", self.password)
-        page.click(".primaryAction")
+        page.click("button")
         actual = page.url.removeprefix(self.live_server_url)
         self.assertEqual(actual, "/")
 
@@ -46,7 +46,7 @@ class LoginTest(PlaywrightTestCase):
         page.wait_for_selector("text=Sign In")
         page.fill("[name=login]", self.user.email.upper())
         page.fill("[name=password]", self.password)
-        page.click(".primaryAction")
+        page.click("button")
         actual = page.url.removeprefix(self.live_server_url)
         self.assertEqual(actual, "/")
 
@@ -56,7 +56,7 @@ class LoginTest(PlaywrightTestCase):
         page.wait_for_selector("text=Sign In")
         page.fill("[name=login]", self.user.email.upper())
         page.fill("[name=password]", self.password.upper())
-        page.click(".primaryAction")
+        page.click("button")
         error = page.text_content(
             "text=The e-mail address and/or password you specified are not correct."
         )

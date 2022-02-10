@@ -6,14 +6,8 @@ from datetime import timedelta
 from environ import Env, Path
 
 root = Path(__file__) - 3
-repo_root = root - 1
 
 env = Env()
-
-READ_DOT_ENV_FILE = env.bool("DJANGO_READ_DOT_ENV_FILE", default=False)
-if READ_DOT_ENV_FILE:
-    # OS environment variables take precedence over variables from .env
-    env.read_env(repo_root(".env"))
 
 DEBUG = env.bool("DJANGO_DEBUG", False)
 SECRET_KEY = env("DJANGO_SECRET_KEY")

@@ -1,24 +1,14 @@
-import { createApp, reactive } from "petite-vue";
 import "htmx.org";
+// @ts-expect-error // todo: make a types file for x-widget
+import xWidget from "x-widget";
+import Alpine from "alpinejs";
 
-const store = reactive({});
+declare global {
+  interface Window {
+    Alpine?: any;
+  }
+}
 
-const app = createApp({
-  store,
-  $delimiters: ["${", "}"],
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  // catch template jitter
-  app.mount(document.body);
-
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  document.body.addEventListener("htmx:afterSwap", (evt: any) => {
-    app.mount(evt.target);
-  });
-
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  document.body.addEventListener("htmx:load", (evt: any) => {
-    app.mount(evt.detail.elt);
-  });
-});
+window.Alpine = Alpine;
+Alpine.plugin(xWidget);
+Alpine.start();
