@@ -5,7 +5,6 @@ module.exports = {
   },
   "extends": [
     "plugin:@typescript-eslint/recommended",
-    "plugin:vue/essential",
     "airbnb-base"
   ],
   "parserOptions": {
@@ -15,7 +14,6 @@ module.exports = {
     "project": ['./tsconfig.json']
   },
   "plugins": [
-    "vue",
     "@typescript-eslint"
   ],
   "settings": {

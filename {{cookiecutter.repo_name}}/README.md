@@ -8,6 +8,7 @@
 ### DIRENV
 ### pdbpp and sticky by default config
 ### PLAYWRIGHT
+webcomponents w/ alpine
 # setting up
 
 ### UPGRADING PYTHON PACKAGES
