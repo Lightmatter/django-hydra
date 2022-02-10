@@ -91,12 +91,12 @@ class IdentifySerializer(UserBaseSerializer):
         }
 
 
-class ViewEventSerializer(EventBaseSerializer):
+class ViewEventSerializer(serializers.Serializer): #EventBaseSerializer
     name = serializers.CharField(max_length=200)
     category = serializers.CharField(required=False)
 
 
-class TrackSerializer(EventBaseSerializer):
+class TrackSerializer(serializers.Serializer): # EventBaseSerializer
     event = serializers.CharField(max_length=200)
 
 

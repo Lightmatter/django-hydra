@@ -6,7 +6,10 @@ class BaseMiddleware:
         self.get_response = get_response
 
     def __call__(self, request):
-        return self.get_response(request)
+        response = self.get_response(request)
+        response["Access-Control-Allow-Origin"] = "*"
+        response["Access-Control-Allow-Headers"] = "*"
+        return response
 
 
 class IpMiddleware(BaseMiddleware):

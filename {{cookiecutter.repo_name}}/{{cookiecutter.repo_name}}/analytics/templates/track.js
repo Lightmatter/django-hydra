@@ -104,14 +104,14 @@
     }
     
     /* Tracking Identity */
-    var trackIdentify = (email) => httpPost(apiEndpoint + '/events', {
+    var trackIdentify = (email) => httpPost(apiEndpoint + '/track', {
         type: 'Identify',
         anonymousId,
         traits: { email }
     })
             
     /* Page Viewed */
-    var trackPageView = () => httpPost(apiEndpoint + '/events', {
+    var trackPageView = () => httpPost(apiEndpoint + '/page_view', {
         type: "PageView",
         anonymousId, 
         category: pageAnalytics.category || null, 
@@ -124,7 +124,7 @@
 
     /* Tracking Event */
     var trackEvent = (event, properties) => {
-        httpPost(apiEndpoint + '/events', { type: 'Track', anonymousId, event, properties })
+        httpPost(apiEndpoint + '/track', { type: 'Track', anonymousId, event, properties })
     }
 
     /* Before Page Unloaded */
@@ -262,7 +262,7 @@
                 } else {
                     response = xmlhttp.responseText
                     const responseObj = JSON.parse(response)
-                    pageAnalytics = responseObj.events
+                    pageAnalytics = responseObj.dictionary
                     if(analyticsLogging) window.testing = pageAnalytics
                     setAnonymousId(responseObj.uuid)
                     setup()
@@ -302,7 +302,7 @@
                 }, 3000)
             };
     
-            const target = document.getElementById("root")
+            const target = document.body
             const observer = new MutationObserver(callbackDOMChange)
             observer.observe(target, { childList: true, subtree: true })
         }

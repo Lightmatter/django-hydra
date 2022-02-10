@@ -75,24 +75,24 @@ def get_track_js(request):
 
 # Alias call for Segment
 def alias(request):
-    # serializer = AliasSerializer(data=request.data, context={"request": request})
+    serializer = AliasSerializer(data=request.data, context={"request": request})
 
-    # if serializer.is_valid():
+    if serializer.is_valid():
     #     payload = get_analytics_payload(serializer.data, "alias")
     #     analytics.alias(*payload)
-    #     return True
+        return True
 
     return False
 
 
 # Identify call for Segment
 def identify(request):
-    # serializer = IdentifySerializer(data=request.data, context={"request": request})
+    serializer = IdentifySerializer(data=request.data, context={"request": request})
 
-    # if serializer.is_valid():
+    if serializer.is_valid():
     #     payload = get_analytics_payload(serializer.data, "identify")
     #     analytics.identify(*payload)
-    #     return True
+        return True
 
     return False
 
@@ -108,13 +108,13 @@ def login_or_register(request, **kwargs):
 @authentication_classes([])
 @permission_classes([])
 def group(request):
-    # serializer = GroupSerializer(data=request.data, context={"request": request})
+    serializer = GroupSerializer(data=request.data, context={"request": request})
 
-    # if serializer.is_valid():
+    if serializer.is_valid():
     #     payload = get_analytics_payload(serializer.data, "group")
     #     analytics.group(*payload)
 
-    #     return Response({"status": 200}, status=status.HTTP_200_OK)
+        return Response({"status": 200}, status=status.HTTP_200_OK)
 
     return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -124,13 +124,13 @@ def group(request):
 @authentication_classes([])
 @permission_classes([])
 def page_view(request):
-    # serializer = ViewEventSerializer(data=request.data, context={"request": request})
+    serializer = ViewEventSerializer(data=request.data, context={"request": request})
 
-    # if serializer.is_valid():
+    if serializer.is_valid():
     #     payload = get_analytics_payload(serializer.data, "view")
     #     analytics.page(*payload)
 
-    #     return Response({"status": 200}, status=status.HTTP_200_OK)
+        return Response({"status": 200}, status=status.HTTP_200_OK)
 
     return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -140,13 +140,12 @@ def page_view(request):
 @authentication_classes([])
 @permission_classes([])
 def screen_view(request):
-    # serializer = ViewEventSerializer(data=request.data, context={"request": request})
+    serializer = ViewEventSerializer(data=request.data, context={"request": request})
 
-    # if serializer.is_valid():
+    if serializer.is_valid():
     #     payload = get_analytics_payload(serializer.data, "view")
     #     analytics.screen(*payload)
-
-    #     return Response({"status": 200}, status=status.HTTP_200_OK)
+        return Response({"status": 200}, status=status.HTTP_200_OK)
 
     return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -156,13 +155,12 @@ def screen_view(request):
 @authentication_classes([])
 @permission_classes([])
 def track(request):
-    # serializer = TrackSerializer(data=request.data, context={"request": request})
+    serializer = TrackSerializer(data=request.data, context={"request": request})
 
-    # if serializer.is_valid():
-    #     payload = get_analytics_payload(serializer.data, "track")
-    #     analytics.track(*payload)
-
-    #     return Response({"status": 200}, status=status.HTTP_200_OK)
+    if serializer.is_valid():
+        # payload = get_analytics_payload(serializer.data, "track")
+        # analytics.track(*payload)
+        return Response({"status": 200}, status=status.HTTP_200_OK)
 
     return Response({"error": serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -173,7 +171,6 @@ def track(request):
 def dashboard(request):
     dictionary_type = request.GET.get('dictionary_type')
 
-    # test = FormDictionary.objects.create(name="Sample Form Name", url="/testing.com")
     return render(request, 'analytics_dashboard.html', {
         'pagesDictionary': PageDictionary.objects.all().values(),
         'selectedDictionary': SelectedDictionary.objects.all().values(),
