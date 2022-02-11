@@ -1,7 +1,4 @@
-
-***************************
-Lightmatter Django Template
-***************************
+# Lightmatter Django Template
 
 # About
 
@@ -271,8 +268,7 @@ $ npm run dev
 ```
 
 
-Debugging
-============
+# Debugging
 To access a python shell pre-populated with Django models and local env
 ```bash
 $ ./manage.py shell_plus
@@ -291,8 +287,7 @@ If the above fails or you prefer a more immediate solution, you can add the foll
 import pudb; pu.db
 ```
 
-Deployment
-==========
+# Deployment
 This will be run automatically when you attempt to commit code but if you want to manually validate/fix your code syntax during development you can run
 ```bash
 $ poetry run pre-commit run --all-files
@@ -306,13 +301,11 @@ $ poetry run playwright install
 $ poetry run coverage run --source='.' manage.py test
 ```
 
-WORKFLOW to write back to template
-====
+# WORKFLOW to write back to template
 Create an instance of the template using the test.sh script. Create changes in the sample app, commit to git and run the script create_patch. This will attempt to take the git diff of the prior commit and apply it back to the template. It's not always perfect so you might have to do a comparison to the rej files that were unable to cleanly apply.
 
 
-Todo
-====
+# Todo
 Things we still want to do
 ```
   caching everything possible (middleware for sure)
