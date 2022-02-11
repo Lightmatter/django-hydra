@@ -5,7 +5,7 @@ Lightmatter Django Template
 
 # About
 
-A generic template for Django 4 using htmx based templates, Vite and Petite-vue that can be easily extended for various needs including, but not limited to, using Wagtail as a CMS
+A generic template for Django 4 using htmx based templates, Vite and Alpine.js that can be easily extended for various needs including, but not limited to, using Wagtail as a CMS
 
 # Prerequisites
 
