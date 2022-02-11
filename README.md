@@ -106,8 +106,7 @@ There are two main scripts that you need to know about in this template, `create
 These both do pretty much what they say, however here is an expanded list of what each will do when run:
 
 * Create a poetry/direnv virtual environment
-* install python and js requirements (dev and regular) via poetry and yarn
-* Yarn install requirements
+* install python and js requirements (dev and regular) via poetry and npm (or optionally yarn)
 * Create a database
 * Run the django migrations
 * Setup git
@@ -120,7 +119,7 @@ Run the below commands in order:
 
 The recommended start pattern is described below. The create_new_project.sh command will
 * Create a poetry/direnv virtual environment 
-* install python and js requirements (dev and regular) via poetry and yarn
+* install python and js requirements (dev and regular) via poetry and npm (or optionally yarn)
 * create a database
 * run the migrations
 * and setup git
@@ -170,7 +169,7 @@ $ npm run dev
 Run the below commands in order:
 
 The recommended start pattern is described below. The setup_existing_project.sh command will
-*  install python and js requirements (dev and regular) via poetry and yarn
+* install python and js requirements (dev and regular) via poetry and (or optionally yarn)
 * create a database
 * run the migrations
 * and setup git
