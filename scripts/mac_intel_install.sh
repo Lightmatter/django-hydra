@@ -79,6 +79,15 @@ echo "export CPPFLAGS=\"-I/usr/local/opt/openssl/include\"" >> ~/.zshrc
 
 echo "# END LM 3.0 Configuration" >> ~/.zshrc
 
+echo "${prefix}Sourcing .zshrc"
+source ~/.zshrc
+
+
+echo "${prefix}Creating default DB for postgres"
+db_name=$(whoami)
+
+createdb db_name
+
 
 echo "Provided everything in this script executed without error"
 echo "You should now be setup"
