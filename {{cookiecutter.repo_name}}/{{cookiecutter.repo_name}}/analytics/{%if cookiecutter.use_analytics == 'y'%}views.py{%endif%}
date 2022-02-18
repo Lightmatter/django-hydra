@@ -75,6 +75,9 @@ def get_track_js(request):
 
 # Alias call for Segment
 def alias(request):
+    if not hasattr(request, 'data'):
+        return False
+
     serializer = AliasSerializer(data=request.data, context={"request": request})
 
     if serializer.is_valid():
@@ -87,6 +90,9 @@ def alias(request):
 
 # Identify call for Segment
 def identify(request):
+    if not hasattr(request, 'data'):
+        return False
+
     serializer = IdentifySerializer(data=request.data, context={"request": request})
 
     if serializer.is_valid():

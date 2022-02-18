@@ -64,14 +64,14 @@ class EventBaseSerializer(UserBaseSerializer):
         )
 
 
-class AliasSerializer(UserBaseSerializer):
+class AliasSerializer(serializers.Serializer): # UserBaseSerializer
     uuid = serializers.SerializerMethodField()
 
     def get_uuid(self, obj):
         return get_uuid_helper(self.context["request"])
 
 
-class IdentifySerializer(UserBaseSerializer):
+class IdentifySerializer(serializers.Serializer): # UserBaseSerializer
     id_traits = serializers.SerializerMethodField()
 
     def get_id_traits(self, obj):

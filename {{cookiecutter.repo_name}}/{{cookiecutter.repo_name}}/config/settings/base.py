@@ -328,6 +328,6 @@ SEGMENT_KEY = env("SEGMENT_KEY", default="KEY_MISSING")
 
 TRACK_ID_KEY = "{{cookiecutter.repo_name}}-id"
 ANALYTICS_CLIENT_SIDE_LOGGING = False
-LOCAL_TRACK_API_URL = "http://127.0.0.1:8000"
-LIVE_TRACK_API_URL = "http://127.0.0.1:8000"
+LOCAL_TRACK_API_URL = "http://127.0.0.1:8000/analytics/api"
+LIVE_TRACK_API_URL = "http://127.0.0.1:8000/analytics/api"
 {% endif -%}
