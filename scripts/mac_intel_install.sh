@@ -19,6 +19,9 @@ fi
 echo "${prefix}Installing node"
 brew install node
 
+echo "${prefix}Installing node version manager (nvm)"
+brew install nvm
+
 echo "${prefix}Installing pyenv"
 brew install pyenv
 
@@ -37,8 +40,6 @@ brew install libpq
 echo "${prefix}Installing watchman"
 brew install watchman
 
-echo "${prefix}Installing gsl"
-brew install gsl
 
 
 echo "${prefix}Adding pyenv, direnv, poetry and path config to .zshrc"
@@ -54,26 +55,13 @@ echo "${prefix}Reloading zsh"
 source ~/.zshrc
 
 
-echo "${prefix}Attemping to change pyenv version to 3.10.0"
-pyenv global 3.10.0
+echo "${prefix}Attemping to change pyenv version to 3.10.2"
+pyenv global 3.10.2
 
 
 echo "${prefix}Attempting to install poetry"
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -
+curl -sSL https://install.python-poetry.org | python3 -
 
-
-echo "${prefix}Adding postgres configuration to .zshrc"
-
-echo "alias pg_start=\"launchctl load ~/Library/LaunchAgents\"" >> ~/.zshrc
-echo "alias pg_stop=\"launchctl unload ~/Library/LaunchAgents\"" >> ~/.zshrc
-echo "export PGDATA=\"/usr/local/var/postgres/\"" >> ~/.zshrc
-
-
-echo "${prefix}Adding GSL / SSL config to .zshrc"
-
-echo "export LIBRARY_PATH=/usr/local/Cellar/gsl/2.7/lib/" >> ~/.zshrc
-echo "export LDFLAGS=\"-L/usr/local/opt/openssl/lib\"" >> ~/.zshrc
-echo "export CPPFLAGS=\"-I/usr/local/opt/openssl/include\"" >> ~/.zshrc
 
 echo "# END LM 3.0 Configuration" >> ~/.zshrc
 
