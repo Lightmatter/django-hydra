@@ -8,6 +8,8 @@ A generic template for Django 4 using htmx based templates, Vite and Alpine.js t
 
 The following items are required in order for this template to work.
 
+Note: There are scripts to install what you need for mac based operating systems automatically.
+
 ## Dependencies
 
 * [node](https://nodejs.org/en/download/):
@@ -32,55 +34,17 @@ There is also a certain amount of environmental configuration that must be done 
 
 ### macOS
 
-Below is a sample configuration for macOS 11 Big Sur, but it should mostly work for any linux, unix, *nix based distribution.
+To install on a mac based operating system, you can use the install script to setup everything.
 
-#### Dependencies
+Run the following script block to get setup:
 
-* It is highly recommended to install the above dependencies, as well as anything below via homebrew. If you do not have homebrew, get the install command [here](https://brew.sh/)
-* You likely need to install libpq-dev, `brew install libpq-dev`, although if you install with homebrew it will have installed this already most likely. If your postgres instance is not working, run this command.
-* For file watching and debugging, install [watchman](https://facebook.github.io/watchman/). `brew install watchman`
-* You will likely need GSL as well, `brew install gsl`.
-* You will need to install Poetry (which requires python 3.10 or greater at the moment), `curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -`
-    * In order for poetry to run on the correct python version, you will want to make sure that python3 resolves to python 3.10 in your shell
-* you will need to install direnv, `brew install direnv` and follow the shell specific instructions here <https://direnv.net/docs/hook.html>
-
-You must have postgres, python, poetry, and direnv ready to go on your system.
-
-#### Run-commands / profile
-
-You should have the following in your `.bashrc` or `.zshrc` or equivalent.
-
-1. Setup the Path Variable (This is for Pyenv)
-
-```bash
-# PATH definition using Pyenv
-export PATH="$(pyenv root)/shims:$PATH"
+``` bash
+git clone git@github.com:Lightmatter/generic-django-conf.git
+./generic-django-conf/scripts/mac_intel_install.sh
 ```
 
-2. Trigger pyenv, direnv inits, add poetry to PATH.
-```bash
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
-eval "$(direnv hook zsh)"
-export PATH="$HOME/.poetry/bin:$PATH"
-```
-
-* the direnv command will be slight different depending on your shell, follow the instructions at <https://direnv.net/docs/hook.html>
-
-3. Set up the environment variables for Postgres
-```bash
-alias pg_start="launchctl load ~/Library/LaunchAgents"
-alias pg_stop="launchctl unload ~/Library/LaunchAgents"
-export PGDATA="/usr/local/var/postgres/"
-```
-
-4. If you had to install the Gnu-scientific-library (GSL), setup the library path and the following environment variables.
-```bash
-export LIBRARY_PATH=/usr/local/Cellar/gsl/2.7/lib/
-
-export LDFLAGS="-L/usr/local/opt/openssl/lib"
-export CPPFLAGS="-I/usr/local/opt/openssl/include"
-```
+It's recommended that you read the output of this script to ensure everything went smoothly,
+particularly if you are using Apple silicone (M1-based-mac). 
 
 ### Windows
 
