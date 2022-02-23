@@ -56,8 +56,13 @@ source ~/.zshrc
 
 
 echo "${prefix}Attemping to change pyenv version to 3.10.2"
+pyenv install 3.10.2
 pyenv global 3.10.2
 
+echo "${prefix}Attempting to change nvm version to v16.14.0(default)"
+nvm install v16.14.0
+nvm alias default v16.14.0
+nvm use default
 
 echo "${prefix}Attempting to install poetry"
 curl -sSL https://install.python-poetry.org | python3 -
