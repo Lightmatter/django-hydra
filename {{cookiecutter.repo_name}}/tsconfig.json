@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es6",
     "useDefineForClassFields": true,
     "module": "esnext",
     "moduleResolution": "node",

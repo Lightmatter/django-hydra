@@ -1,8 +1,7 @@
 from django.conf import settings
+from django.contrib import admin
 from django.urls import include, path
 from django.views import defaults as default_views
-
-from django.contrib import admin
 
 urlpatterns = []
 
@@ -34,7 +33,7 @@ if settings.DEBUG:
 
 
 urlpatterns += [
-    path("users/", include("{{cookiecutter.repo_name}}.user.urls", namespace="user")),
+    path("account/", include("{{cookiecutter.repo_name}}.user.urls", namespace="user")),
     path("account/", include("allauth.urls")),
     path("admin/", admin.site.urls),
     path("", include("{{cookiecutter.repo_name}}.home.urls")),

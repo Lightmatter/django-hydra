@@ -1,8 +1,10 @@
-import boto3
+# pylint: disable-all
 import json
+from os import environ as env
+
+import boto3
 from botocore.client import Config
 from botocore.exceptions import ClientError
-from os import environ as env
 
 aws_access_key_id = env["DJANGO_AWS_ACCESS_KEY_ID"]
 aws_secret_access_key = env["DJANGO_AWS_SECRET_ACCESS_KEY"]

@@ -17,22 +17,8 @@
         {% block extra_head %}
             <title>Lightmatter</title>
         {% endblock extra_head %}
-        <script>
-      // django debug toolbar
-      /* document.addEventListener("htmx:beforeRequest", (event) => {
-       *   if ("djdt" in window) {
-       *     window.djdt.abort();
-       *   }
-       * }); */
-      document.addEventListener("htmx:afterSettle", (event) => {
-        if ("djdt" in window) {
-          window.djdt.init();
-        }
-      });
-        </script>
     </head>
     <body hx-boost="true"
-          v-scope
           class="{% block body_class %}{% endblock body_class %}">
         {% include "header.html" %}
         <div id="main">
@@ -43,7 +29,6 @@
             </ul>
         </div>
         {% include "footer.html" %}
-        {% include "components.html" %}
     </body>
     <script>
     if (getCookie === undefined) {

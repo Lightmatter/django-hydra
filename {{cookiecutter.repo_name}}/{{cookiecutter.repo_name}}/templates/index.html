@@ -8,7 +8,7 @@
         {% include 'current_time.html' %}
     </p>
     <button hx-push-url="false" hx-get="/current-time/" hx-target="#current-time">Refresh time</button>
-    <x-modal>
+    <a href="{% url "user:redirect" %}">test redirect</a>
     <template slot="header">
         <h1>Panel Header</h1>
     </template>
@@ -17,5 +17,4 @@
             class="bg-white border border-black px-4 py-2">
         default slot time
     </button>
-    </x-modal>
 {% endblock content %}

@@ -1,0 +1,10 @@
+<div class="mt-20 sm:mx-auto sm:w-full sm:max-w-md" id="account-box">
+    <div class="bg-white space-y-12 py-8 px-4 shadow sm:rounded-lg sm:px-10 flex flex-col justify-center">
+        <img class="mx-auto h-12 w-auto"
+             src="{% static "img/logo.svg" %}"
+             alt="logo">
+        <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900"
+            slot="title">{% slot "title" %}{% endslot %}</h2>
+        {% slot "content" %}{% endslot %}
+    </div>
+</div>

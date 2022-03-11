@@ -1,7 +1,6 @@
-from django.db import migrations, models
-
 import django.utils.timezone
 import model_utils.fields
+from django.db import migrations, models
 
 from {{cookiecutter.repo_name}}.user.models import UserManager
 

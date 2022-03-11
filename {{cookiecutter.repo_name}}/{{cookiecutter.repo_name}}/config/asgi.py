@@ -1,3 +1,5 @@
+# pylint: disable-all
+
 """
 ASGI config for asgi project.
 
@@ -7,9 +9,9 @@ For more information on this file, see
 https://docs.djangoproject.com/en/3.0/howto/deployment/asgi/
 """
 
-from django.core.asgi import get_asgi_application
-
 import os
+
+from django.core.asgi import get_asgi_application
 
 # Import websocket application here, so apps from django_application are loaded first
 from {{cookiecutter.repo_name}}.config.websocket import websocket_application  # noqa isort:skip

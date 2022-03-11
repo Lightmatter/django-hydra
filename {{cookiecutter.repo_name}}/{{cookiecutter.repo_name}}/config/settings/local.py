@@ -1,3 +1,4 @@
+# pylint: skip-file
 from .base import *  # noqa
 from .base import env
 
@@ -38,7 +39,7 @@ MIDDLEWARE.remove("django_htmx.middleware.HtmxMiddleware")
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#middleware
 MIDDLEWARE = [
     "django_htmx.middleware.HtmxMiddleware",
-    "{{cookiecutter.repo_name}}.util.middleware.DebugToolbarMiddleware",
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
 ] + MIDDLEWARE  # noqa F405
 # https://django-debug-toolbar.readthedocs.io/en/latest/configuration.html#debug-toolbar-config
 
@@ -78,3 +79,15 @@ class InvalidVariable(str):
 
 
 TEMPLATES[0]["OPTIONS"]["string_if_invalid"] = InvalidVariable("BAD TEMPLATE VARIABLE: %s")
+import sys
+
+TESTING = sys.argv[1:2] == ["test"]
+if TESTING:
+    MIDDLEWARE.remove("debug_toolbar.middleware.DebugToolbarMiddleware")
+    INSTALLED_APPS.remove("debug_toolbar")
+    PASSWORD_HASHERS = ("django.contrib.auth.hashers.MD5PasswordHasher",)
+    import subprocess
+
+    subprocess.run(["npm", "run", "build"])
+    DJANGO_VITE_DEV_MODE = False
+    TEMPLATE_DEBUG = False

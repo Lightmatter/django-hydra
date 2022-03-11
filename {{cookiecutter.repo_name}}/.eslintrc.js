@@ -27,6 +27,7 @@ module.exports = {
   },
   "rules": {
     "@typescript-eslint/no-unused-vars": "error",
+    "no-unused-vars": 0,
     "import/no-absolute-path": 0,
     "quotes": ["error", "double", { "avoidEscape": true }]
   },

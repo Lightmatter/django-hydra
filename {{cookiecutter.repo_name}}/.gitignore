@@ -1,3 +1,6 @@
+*/static_source/assets/*
+*/static_source/manifest.json
+
 static/
 bundles/*
 bundles/

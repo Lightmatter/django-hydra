@@ -29,6 +29,7 @@ django-cachalot = "^2.5.0"
 redis = "^4.1.2"
 hiredis = "^2.0.0"
 django-redis = "^5.2.0"
+flake8-django = {git = "https://github.com/rocioar/flake8-django"}
 
 [tool.poetry.dev-dependencies]
 ipython = "^7.31.1"
@@ -47,19 +48,21 @@ playwright = "^1.18.2"
 pywatchman = "^1.4.1"
 icecream = "^2.1.1"
 pre-commit = "^2.17.0"
-flake8 = "3.9.2"
-flakehell = "^0.9.0"
+flakeheaven = "^0.11.1"
 flake8-bandit = "^2.1.2"
-flake8-bugbear = "^21.11.29"
+flake8-bugbear = "^22.1.11"
 flake8-builtins = "^1.5.3"
 flake8-eradicate = "^1.2.0"
 flake8-mutable = "^1.2.0"
-flake8-django = "^1.1.2"
+# flake8-django = "^1.1.2"
 black = "^21.12b0"
 isort = "^5.10.1"
 djlint = "^0.7.4"
 pudb = "^2022.1"
 poetryup = "^0.5.1"
+pylint-celery = "^0.3"
+importmagic = "^0.1.7"
+epc = "^0.0.5"
 
 [tool.black]
 line-length = 92
@@ -103,20 +106,19 @@ include_trailing_comma = "True"
 use_parentheses = "True"
 combine_as_imports = "True"
 skip_glob = "*migrations/*.py"
-known_standard_library = "django"
-known_third_party = "django.contrib,django.utils"
+known_third_party = "django,django.contrib,django.utils"
 
 [tool.ipdb]
 context = 10
 
-[tool.flakehell]
+[tool.flakeheaven]
+base = "https://raw.githubusercontent.com/flakeheaven/flakeheaven/master/pyproject.toml"
 exclude = ["README.rst", "README.md", "*/settings/*", "*/migrations/*"]
-format = "colored"
+format = "grouped"
 max_line_length = 92
 show_source = true
-extended_default_ignore=[]  # https://github.com/flakehell/flakehell/issues/10#issuecomment-822720074
 
-[tool.flakehell.plugins]
+[tool.flakeheaven.plugins]
 flake8-bandit = ["+*", "-S322"]
 flake8-bugbear = ["+*"]
 flake8-builtins = ["+*"]
@@ -128,7 +130,16 @@ mccabe = ["+*"]
 pep8-naming = ["+*"]
 pycodestyle = ["+*", "-W503"]
 pyflakes = ["+*"]
-pylint = ["+*"]
+
+[tool.pylint]
+    [tool.pylint.master]
+    load-plugins="pylint_django, pylint_celery"
+
+    [tool.pylint.messages_control]
+    disable = "C0330, C0326, C0115, C0116, C0114, C0103, C0415, W0707, W0511, R0903, R0201, R0913, W0212"
+
+    [tool.pylint.format]
+    max-line-length = "139"
 
 [tool.djlint]
 profile="django"

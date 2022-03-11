@@ -1,8 +1,8 @@
-# Django settings for project project.
-from django.core.exceptions import ImproperlyConfigured
-
+# pylint: skip-file
 import pathlib
 from datetime import timedelta
+
+from django.core.exceptions import ImproperlyConfigured
 from environ import Env, Path
 
 root = Path(__file__) - 3
@@ -300,6 +300,13 @@ ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
+
+# https://django-allauth.readthedocs.io/en/latest/forms.html#account-forms
+ACCOUNT_FORMS = {
+    "login": "{{cookiecutter.repo_name}}.user.forms.LoginForm",
+    "signup": "{{cookiecutter.repo_name}}.user.forms.SignupForm",
+}
 
 
 # Install https://github.com/gruns/icecream for better printing

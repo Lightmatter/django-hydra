@@ -1,6 +1,5 @@
-from django.template.loader import render_to_string
-
 from django.contrib.messages import get_messages
+from django.template.loader import render_to_string
 
 
 def attach_messages(response):
@@ -23,28 +22,3 @@ class HTMXMessageMiddleware:
         if request.htmx and not request.htmx.boosted:
             response.add_post_render_callback(attach_messages)
         return response
-
-
-try:
-    from debug_toolbar.middleware import DebugToolbarMiddleware as DJDTMiddleware
-
-    class DebugToolbarMiddleware(DJDTMiddleware):
-        @staticmethod
-        def insert_toolbar(request, response, rendered):
-            if request.htmx and not request.htmx.boosted:
-                content = response.content.decode(response.charset)
-                response.content = content + rendered
-                return response, True
-            return DJDTMiddleware.insert_toolbar(request, response, rendered)
-
-        def configure_toolbar(self, request, toolbar):
-            extra_attrs = "hx-boost='false' hx-push-url='false'"
-            if request.htmx.boosted:
-                toolbar.root_tag_extra_attrs = extra_attrs
-                toolbar.should_render_js = toolbar.should_render_css = False
-            elif request.htmx:
-                toolbar.root_tag_extra_attrs = "hx-swap-oob='true' " + extra_attrs
-                toolbar.should_render_js = toolbar.should_render_css = False
-
-except ImportError:
-    pass

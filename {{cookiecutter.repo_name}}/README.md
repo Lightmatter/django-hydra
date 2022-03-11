@@ -24,7 +24,6 @@ These instructions will help you get you a copy of the project up and running on
 ## Prerequisites
 * [node](https://nodejs.org/en/download/)
   * [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-  * [yarn](https://classic.yarnpkg.com/en/docs/install/)
 * [python3 (preferrably python 3.10)](https://www.python.org/downloads/), although [pyenv](https://github.com/pyenv/pyenv) is recommended to manage versions
 * [git](https://git-scm.com/downloads)
 * bash ([WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10) or [Cygwin](https://cygwin.com/install.html) recommended for windows users)
@@ -235,6 +234,24 @@ We have added h1 and h5 to the wagtail cms richtext editor as they do not come o
 
 ---
 TO ADD
+
+
+
+### DIRENV
+### pdbpp and sticky by default config
+### PLAYWRIGHT
+webcomponents w/ alpine
+Alpine dev tools
+# setting up
+
+### UPGRADING PYTHON PACKAGES
+https://github.com/python-poetry/poetry/issues/1387
+###UPGRADING NODE PACKAGES
+https://shouts.dev/upgrade-all-npm-packages-to-the-latest-versions
+
+
+
+
 - build + serve vs dev
 - debug watcher
 - browser based debugging for node
