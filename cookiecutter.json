@@ -12,16 +12,7 @@
   "use_local_docker_db": "n",
   "use_wagtail": "n",
   "_copy_without_render": [
-    "*/templates/header.html",
-    "*/templates/403.html",
-    "*/templates/404.html",
-    "*/templates/500.html",
-    "*/templates/index.html",
-    "*/templates/current_time.html",
-    "*/templates/base.html",
-    "*/templates/components/*.html",
-    "*/templates/account/*.html",
-    "*/templates/util/*.html",
+    "*.html",
     "templates/**/*.txt",
     "*.jinja",
     ".yarn/*"
