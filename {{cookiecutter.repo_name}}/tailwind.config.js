@@ -17,5 +17,6 @@ module.exports = {
       addVariant('htmx-swapping', ['&.htmx-swapping', '.htmx-swapping &']);
       addVariant('htmx-added',    ['&.htmx-added',    '.htmx-added &']);
     }),
+    require('@tailwindcss/forms'),
   ],
 }

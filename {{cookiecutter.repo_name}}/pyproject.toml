@@ -129,14 +129,14 @@ flake8-mutable = ["+*"]
 mccabe = ["+*"]
 pep8-naming = ["+*"]
 pycodestyle = ["+*", "-W503"]
-pyflakes = ["+*"]
+pyflakes = ["+*", "-E5110"]
 
 [tool.pylint]
     [tool.pylint.master]
     load-plugins="pylint_django, pylint_celery"
 
     [tool.pylint.messages_control]
-    disable = "C0330, C0326, C0115, C0116, C0114, C0103, C0415, W0707, W0511, R0903, R0201, R0913, W0212"
+    disable = "C0330, C0326, C0115, C0116, C0114, C0103, C0415, W0707, W0511, R0903, R0201, R0913, W0212, W0221"
 
     [tool.pylint.format]
     max-line-length = "139"

@@ -62,9 +62,13 @@ login = LoginView.as_view()
 
 
 def welcome(request):
+    if not request.htmx or "email" not in request.GET:
+        return TemplateResponse(request, "account/welcome.html", {"form": HasAccountForm()})
+
     form = HasAccountForm(request.GET)
-    if not request.htmx or not form.is_valid():
+    if not form.is_valid():
         return TemplateResponse(request, "account/welcome.html", {"form": form})
+
     try:
         email = form.cleaned_data.get("email")
         request.prefetched_user = User.objects.get(email=email)

@@ -1,0 +1,7 @@
+{% if use_tag %}
+    <{{ tag|default:'label' }}
+    {% include 'django/forms/attrs.html' %}
+    class="block text-sm font-medium text-gray-700">{{ field.label }}</{{ tag|default:"label" }}>
+{% else %}
+    {{ field.label }}
+{% endif %}

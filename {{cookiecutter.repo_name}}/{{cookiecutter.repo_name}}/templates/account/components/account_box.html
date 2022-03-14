@@ -1,0 +1,28 @@
+<div class="mt-20 sm:mx-auto sm:w-full sm:max-w-md" id="account-box">
+    <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 flex flex-col justify-center relative">
+        {% slot "back" %}
+        <a class="absolute top-6 left-6"
+           hx-get="{% url 'user:account_welcome' %}"
+           hx-select="#account-box"
+           hx-target="#account-box"
+           hx-swap="outerHTML">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 class="h-6 w-6"
+                 fill="none"
+                 viewBox="0 0 24 24"
+                 stroke="currentColor"
+                 stroke-width="2">
+                <path stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M11 17l-5-5m0 0l5-5m-5 5h12"/>
+            </svg>
+        </a>
+    {% endslot %}
+    <img class="mx-auto h-12 w-auto"
+         src="{% static "img/logo.svg" %}"
+         alt="logo">
+    <h2 class="mt-2 mb-4 text-center text-xl font-bold text-gray-900"
+        slot="title">{% slot "title" %}{% endslot %}</h2>
+    {% slot "content" %}{% endslot %}
+</div>
+</div>

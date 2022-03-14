@@ -9,7 +9,7 @@ from .models import User
 
 
 class HasAccountForm(forms.Form):
-    email = forms.EmailField(required=True)
+    email = forms.EmailField(help_text=_("We won't spam you"), required=True)
 
     def clean_email(self):
         data = self.cleaned_data["email"]
@@ -17,12 +17,20 @@ class HasAccountForm(forms.Form):
 
 
 class LoginForm(AllAuthLoginForm):
+    template_name = "account/login_form.html"
+    remember = forms.BooleanField(
+        help_text=_("For 2 weeks"),
+        label=_("Remember Me"),
+        required=False,
+    )
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["login"].widget = forms.HiddenInput()
 
 
 class SignupForm(AllAuthSignupForm):
+    template_name = "account/signup_form.html"
 
     first_name = forms.CharField(
         label=_("First Name"),
@@ -45,3 +53,6 @@ class SignupForm(AllAuthSignupForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields["email"].widget.attrs["readonly"] = True
+        self.fields["email"].label = "Email"
+        self.fields["email2"].label = "Confirm Email"
+        self.fields["password2"].label = "Confirm Password"

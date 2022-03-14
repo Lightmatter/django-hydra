@@ -36,11 +36,11 @@ class LoginTest(PlaywrightTestCase):
         page.wait_for_selector("text=Log in/Sign up")
         page.fill("[name=email]", self.user.email)
         # TODO: Test for email is required attr
-        page.click("button")
+        page.click("#welcome-button")
         page.wait_for_selector(f"text=Welcome back, {self.user.first_name}!")
         # TODO: Test for password is required attr
         page.fill("[name=password]", self.password)
-        page.click("button")
+        page.click("#login-button")
         page.wait_for_load_state("networkidle")
         actual = page.url.removeprefix(self.live_server_url)
         self.assertEqual(actual, "/")
@@ -50,10 +50,10 @@ class LoginTest(PlaywrightTestCase):
         page.goto(f"{self.live_server_url}{self.url}")
         page.wait_for_selector("text=Log in/Sign up")
         page.fill("[name=email]", self.user.email.upper())
-        page.click("button")
+        page.click("#welcome-button")
         page.wait_for_selector(f"text=Welcome back, {self.user.first_name}!")
         page.fill("[name=password]", self.password)
-        page.click("button")
+        page.click("#login-button")
         page.wait_for_load_state("networkidle")
         actual = page.url.removeprefix(self.live_server_url)
         self.assertEqual(actual, "/")
@@ -63,9 +63,9 @@ class LoginTest(PlaywrightTestCase):
         page.goto(f"{self.live_server_url}{self.url}")
         page.wait_for_selector("text=Log in/Sign up")
         page.fill("[name=email]", self.user.email.upper())
-        page.click("button")
+        page.click("#welcome-button")
         page.fill("[name=password]", "BUGSRULE")
-        page.click("button")
+        page.click("#login-button")
         error = page.text_content(
             "text=The e-mail address and/or password you specified are not correct."
         )

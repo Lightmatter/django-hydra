@@ -1,29 +1,21 @@
 from django_components import component
 
 
-@component.register("account-box")
+@component.register("account_box")
 class AccountBox(component.Component):
-    # Note that Django will look for templates inside `[your app]/components` dir
-    # To customize which template to use based on context override get_template_name instead
-    template_name = "account/components/account-box.html"
+    template_name = "account/components/account_box.html"
 
 
-@component.register("welcome-box")
+@component.register("welcome_box")
 class WelcomeBox(component.Component):
-    # Note that Django will look for templates inside `[your app]/components` dir
-    # To customize which template to use based on context override get_template_name instead
-    template_name = "account/components/welcome-box.html"
+    template_name = "account/components/welcome_box.html"
 
 
-@component.register("login-box")
+@component.register("login_box")
 class LoginBox(component.Component):
-    # Note that Django will look for templates inside `[your app]/components` dir
-    # To customize which template to use based on context override get_template_name instead
-    template_name = "account/components/login-box.html"
+    template_name = "account/components/login_box.html"
 
 
-@component.register("signup-box")
+@component.register("signup_box")
 class SignupBox(component.Component):
-    # Note that Django will look for templates inside `[your app]/components` dir
-    # To customize which template to use based on context override get_template_name instead
-    template_name = "account/components/signup-box.html"
+    template_name = "account/components/signup_box.html"

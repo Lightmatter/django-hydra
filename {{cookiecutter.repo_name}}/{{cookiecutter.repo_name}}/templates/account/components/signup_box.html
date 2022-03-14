@@ -1,24 +1,15 @@
-{% component_block "account-box" %}
+{% component_block "account_box" %}
 {% slot title %}
-Log in/Sign up
+Sign up
 {% endslot title %}
 {% slot content %}
-<form hx-get="{% url 'user:account_welcome' %}"
-      hx-swap="outerHTML"
+<form hx-post="{% url 'account_signup' %}"
       hx-target="#account-box"
-      class="flex flex-col space-y-10">
-    <div>
-        <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
-        <div class="mt-1">
-            <input id="email"
-                   name="email"
-                   type="email"
-                   autocomplete="email"
-                   required
-                   class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-        </div>
-    </div>
-    <button class="">Continue</button>
+      hx-swap="outerHTML"
+      class="flex flex-col space-y-10 mb-10">
+    <div>{{ form }}</div>
+    <button class="btn-primary">Create Account</button>
+    {% csrf_token %}
 </form>
 <div class="relative">
     <div class="absolute inset-0 flex items-center">

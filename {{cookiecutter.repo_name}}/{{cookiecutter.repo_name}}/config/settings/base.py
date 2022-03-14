@@ -217,8 +217,7 @@ TEMPLATES = [
 COMPONENTS = {
     "template_cache_size": 256,
     "libraries": [
-        "{{cookiecutter.repo_name}}.util.forms",
-        "{{cookiecutter.repo_name}}.util.buttons",
+        "{{cookiecutter.repo_name}}.util.components",
     ],
 }
 

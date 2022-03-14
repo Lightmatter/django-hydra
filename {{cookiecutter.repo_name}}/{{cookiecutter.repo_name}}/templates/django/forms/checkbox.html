@@ -1,0 +1,9 @@
+<div class="relative flex items-start">
+    <div class="flex items-center h-5 field">{{ field }}</div>
+    <div class="ml-3 text-sm">
+        {% if field.label %}{{ field.label_tag }}{% endif %}
+        <p class="text-gray-500" id="email-description">
+            {{ field.help_text|safe }}
+        </p>
+    </div>
+</div>

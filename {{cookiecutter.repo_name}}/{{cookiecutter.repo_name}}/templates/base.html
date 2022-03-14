@@ -9,9 +9,7 @@
         <link rel="icon" href="{% static 'img/favicons/favicon.ico' %}" />
         {% load django_vite %}
         {% vite_hmr_client %}
-        {% vite_asset 'js/system.ts' %}
         {% vite_asset 'js/main.ts' %}
-        {% vite_asset 'fontawesome/fontawesome.ts' %}
         {% load django_htmx %}
         {% django_htmx_script %}
         {% block extra_head %}
@@ -20,7 +18,7 @@
     </head>
     <body hx-boost="true"
           class="{% block body_class %}{% endblock body_class %}">
-        {% include "header.html" %}
+        {% include "header/base.html" %}
         <div id="main">
             {% block content %}
             {% endblock content %}

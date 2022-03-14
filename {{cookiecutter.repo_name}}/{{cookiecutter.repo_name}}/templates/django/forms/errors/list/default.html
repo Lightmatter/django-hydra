@@ -1,0 +1,9 @@
+{% if errors %}
+    <span class="{{ error_class }}">
+        {% for error in errors %}
+            <p class="mt-2 text-sm text-red-600">
+                {{ error }}
+            </p>
+        {% endfor %}
+    </span>
+{% endif %}

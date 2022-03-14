@@ -34,7 +34,7 @@ repos:
           "-rn", # Only display messages
           "--output-format=colorized",
           "-sn", # Don't display the score
-          "--load-plugins=pylint.extensions.docparams", # Load an extension
+          "--load-plugins=pylint_django", # Load an extension
         ]
 -   repo: local
     hooks:

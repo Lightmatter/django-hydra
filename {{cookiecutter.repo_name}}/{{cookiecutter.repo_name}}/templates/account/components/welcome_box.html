@@ -1,16 +1,15 @@
-{% component_block "account-box" %}
+{% component_block "account_box" %}
 {% slot title %}
-Welcome back, {{ user.first_name }}!
+Log in/Sign up
 {% endslot title %}
+{% slot back %} {% endslot back %}
 {% slot content %}
-{{ user.email }}
-<form hx-post="{% url 'account_login' %}"
+<form hx-get="{% url 'user:account_welcome' %}"
       hx-swap="outerHTML"
       hx-target="#account-box"
-      class="flex flex-col space-y-10">
-    {% csrf_token %}
-    <div>{{ form }}</div>
-    <button class="">Continue</button>
+      class="flex flex-col space-y-10 mb-10">
+    {{ form }}
+    <button class="btn-primary" id="welcome-button">Continue</button>
 </form>
 <div class="relative">
     <div class="absolute inset-0 flex items-center">

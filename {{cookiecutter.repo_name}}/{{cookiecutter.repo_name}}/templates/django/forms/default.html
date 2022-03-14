@@ -1,0 +1,7 @@
+<div class="form-wrapper">
+    {{ errors }}
+    {% for field, errors in fields %}
+        {% include "django/forms/inputgroup.html" with field=field errors=errors %}
+    {% endfor %}
+    {% for field in hidden_fields %}{{ field }}{% endfor %}
+</div>

@@ -1,3 +1,4 @@
+/* sticky footer */
 body {
   display: flex;
   flex-direction: column;
@@ -6,6 +7,7 @@ body {
 
 #main {
   flex: 1;
+  margin-left: calc(100vw - 100%); /* prevent jump with scroll bar */
 }
 
 #loading-body {
@@ -15,10 +17,8 @@ body {
 }
 
 
-button {
-  @apply inline-flex items-center px-4 py-2 border border-transparent text-base font-medium
-    rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700
-    focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
-
-  justify-content: center;
+html {
+  -webkit-tap-highlight-color: transparent;
 }
+
+[x-cloak] { display: none !important; }

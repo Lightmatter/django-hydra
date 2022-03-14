@@ -236,25 +236,24 @@ We have added h1 and h5 to the wagtail cms richtext editor as they do not come o
 TO ADD
 
 
-
+documentation
+### record myself adding a component
+  - Django component py file
+  - Template creation in dedicated file
+     -  Does it exist in a third party component lib? (Alpinejs or TailwindUI) - move relevant parts in
+  - TS in frontend
+  - Using it in a template
 ### DIRENV
-### pdbpp and sticky by default config
 ### PLAYWRIGHT
 webcomponents w/ alpine
 Alpine dev tools
-# setting up
+
+
+
+Features:
+ get transitions between active states working in header
 
 ### UPGRADING PYTHON PACKAGES
 https://github.com/python-poetry/poetry/issues/1387
 ###UPGRADING NODE PACKAGES
 https://shouts.dev/upgrade-all-npm-packages-to-the-latest-versions
-
-
-
-
-- build + serve vs dev
-- debug watcher
-- browser based debugging for node
-- separate threads when in debugging
-- more high level stuff
-"django rest framework is used for the backend and djoser for the auth"
