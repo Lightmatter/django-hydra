@@ -111,6 +111,9 @@ known_third_party = "django,django.contrib,django.utils"
 [tool.ipdb]
 context = 10
 
+[tool.pydocstyle]
+ignore = "D103, D100, D101, D107"
+
 [tool.flakeheaven]
 base = "https://raw.githubusercontent.com/flakeheaven/flakeheaven/master/pyproject.toml"
 exclude = ["README.rst", "README.md", "*/settings/*", "*/migrations/*"]
