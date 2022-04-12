@@ -19,6 +19,9 @@ fi
 echo "${prefix}Installing node"
 brew install node
 
+echo "${prefix}Installing yarn"
+npm install yarn
+
 echo "${prefix}Installing node version manager (nvm)"
 brew install nvm
 
