@@ -25,6 +25,9 @@ brew install nvm
 echo "${prefix}Installing pyenv"
 brew install pyenv
 
+echo "${prefix}Installing pyenv-virtualenvwrapper"
+brew install pyenv-virtualenvwrapper
+
 echo "${prefix}Installing git"
 brew install git
 
@@ -45,10 +48,13 @@ brew install watchman
 echo "${prefix}Adding pyenv, direnv, poetry and path config to .zshrc"
 
 echo "# START LM 3.0 Configuration" >> ~/.zshrc
-
+echo "NVM_DIR=~/.nvm" >> ~/.zshrc
+echo "eval \"source \$(brew --prefix nvm)/nvm.sh\"" >> ~/.zshrc
 echo "eval \"\$(pyenv init --path)\"" >> ~/.zshrc
 echo "eval \"\$(pyenv init -)\"" >> ~/.zshrc
 echo "eval \"\$(direnv hook zsh)\"" >> ~/.zshrc
+echo "eval \"source \$(pyenv which virtualenvwrapper.sh)\"" >> ~/.zshrc
+echo "export WORKON_HOME=\"~/.virtualenvs\"" >> ~/.zshrc
 echo "export PATH=\"\$HOME/.poetry/bin:\$PATH\"" >> ~/.zshrc
 
 echo "${prefix}Reloading zsh"
