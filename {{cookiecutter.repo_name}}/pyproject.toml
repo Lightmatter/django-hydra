@@ -39,7 +39,7 @@ django-debug-toolbar = "^3.2.4"
 model-bakery = "^1.4.0"
 coverage = "^6.3.1"
 watchdog = "2.1.6"
-pylint-django = "2.4.4"
+pylint-django = "2.5.2"
 Werkzeug = "2.0.2"
 bandit = "1.7.2"
 honcho = "1.1.0"
@@ -49,7 +49,7 @@ pywatchman = "^1.4.1"
 icecream = "^2.1.1"
 pre-commit = "^2.17.0"
 flakeheaven = "^0.11.1"
-flake8-bandit = "^2.1.2"
+flake8-bandit = "^3.0.0"
 flake8-bugbear = "^22.1.11"
 flake8-builtins = "^1.5.3"
 flake8-eradicate = "^1.2.0"
@@ -112,7 +112,7 @@ known_third_party = "django,django.contrib,django.utils"
 context = 10
 
 [tool.pydocstyle]
-ignore = "D103, D100, D101, D107"
+select = ""
 
 [tool.flakeheaven]
 base = "https://raw.githubusercontent.com/flakeheaven/flakeheaven/master/pyproject.toml"
@@ -137,6 +137,7 @@ pyflakes = ["+*", "-E5110"]
 [tool.pylint]
     [tool.pylint.master]
     load-plugins="pylint_django, pylint_celery"
+    ignore-paths = [ "^.*/migrations/.*$",]
 
     [tool.pylint.messages_control]
     disable = "C0330, C0326, C0115, C0116, C0114, C0103, C0415, W0707, W0511, R0903, R0201, R0913, W0212, W0221"
