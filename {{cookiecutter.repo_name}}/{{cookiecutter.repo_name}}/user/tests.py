@@ -21,7 +21,7 @@ class UserManagerTest(TestCase):
 class LoginTest(PlaywrightTestCase):
     def setUp(self):
         super().setUp()
-        self.password = "IwouldLikeToKnowMore"
+        self.password = "IwouldLikeToKnowMore"  # noqa: S105
         self.user = baker.make_recipe(
             "{{cookiecutter.repo_name}}.user.user",
             is_superuser=True,
@@ -75,7 +75,7 @@ class LoginTest(PlaywrightTestCase):
 class RegistrationLiveTest(PlaywrightTestCase):
     def setUp(self):
         super().setUp()
-        self.password = "yeahmanitsarealpass"
+        self.password = "yeahmanitsarealpass"  # noqa: S105
         self.form_data = self.login_form_data = {
             "email": "ben@coolguy.com",
             "email2": "ben@coolguy.com",
@@ -174,7 +174,7 @@ class RegistrationLiveTest(PlaywrightTestCase):
 
 class RegistrationTest(TestCase):
     def setUp(self):
-        self.password = "yeahmanitsarealpass"
+        self.password = "yeahmanitsarealpass"  # noqa: S105
         self.form_data = self.login_form_data = {
             "email": "ben@coolguy.com",
             "email2": "ben@coolguy.com",
