@@ -1,60 +1,15 @@
 repos:
-
-#python
--   repo: local
-    hooks:
-    -   id: black
-        name: black
-        entry: poetry run black
-        types: [python]
-        language: system
--   repo: local
-    hooks:
-    -   id: isort
-        name: isort
-        language: system
-        entry: poetry run isort
-        types: [python]
--   repo: local
-    hooks:
-    -   id: flakeheaven
-        name: flakeheaven
-        entry: poetry run flakeheaven lint --config=pyproject.toml
-        types: [python]
-        language: system
-- repo: local
-  hooks:
-    - id: pylint
-      name: pylint
-      entry: poetry run pylint
-      language: system
-      types: [python]
-      args:
-        [
-          "-rn", # Only display messages
-          "--output-format=colorized",
-          "-sn", # Don't display the score
-          "--load-plugins=pylint_django", # Load an extension
-        ]
--   repo: local
-    hooks:
-    -   id: djlint
-        name: djlint
-        entry: poetry run djlint --reformat
-        language: system
-        types_or: [html]
-
 ## system
 -   repo: https://github.com/asottile/pyupgrade
     rev: v2.30.0
     hooks:
     -   id: pyupgrade
-        args: [--py39-plus]
+        args: [--py310-plus]
 -   repo: https://github.com/adamchainz/django-upgrade
     rev: 1.4.0
     hooks:
     -   id: django-upgrade
-        args: [--target-version, "3.2"]
+        args: [--target-version, "4.0"]
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.0.1
     hooks:
@@ -69,29 +24,58 @@ repos:
     -   id: doc8
 # TODO:  https://github.com/adamchainz/pre-commit-oxipng
 
-## frontend
+#python
+
 -   repo: local
     hooks:
-    -   id: tsc
-        name: tsc
-        entry: npx tsc --noEmit --skipLibCheck
-        files: ^frontend/
+    -   id: flakeheaven
+        name: flakeheaven
+        entry: poetry run flakeheaven lint --config=pyproject.toml
+        types: [python]
         language: system
-        types_or: [ts, javascript]
-        exclude: |
-            (?x)^(
-            postcss.config.js|
-            tailwind.config.js|
-            vite.config.js|
-            frontend/fontawesome/.*|
-            node_modules/.*
-            )
--   repo: https://github.com/pre-commit/mirrors-prettier
-    rev: v2.5.1
+
+- repo: local
+  hooks:
+    - id: pylint
+      name: pylint
+      entry: poetry run pylint
+      language: system
+      types: [python]
+      args:
+        [
+          "-rn", # Only display messages
+          "--output-format=colorized",
+          "-sn", # Don't display the score
+          "--load-plugins=pylint_django", # Load an extension
+          "--django-settings-module={{cookiecutter.repo_name}}.config.settings.local",
+        ]
+
+-   repo: local
     hooks:
-    -   id: prettier
-        files: ^frontend/
-        types_or: [javascript, ts]
+    -   id: isort
+        name: isort
+        language: system
+        entry: poetry run isort
+        types: [python]
+
+-   repo: local
+    hooks:
+    -   id: black
+        name: black
+        entry: poetry run black
+        types: [python]
+        language: system
+
+-   repo: local
+    hooks:
+    -   id: djlint
+        name: djlint
+        entry: poetry run djlint --reformat
+        language: system
+        types_or: [html]
+
+
+## frontend
 -   repo: local
     hooks:
     -   id: eslint

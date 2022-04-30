@@ -6,7 +6,6 @@ import "@/css/app-utilities.css";
 import "htmx.org";
 import Alpine from "alpinejs";
 
-
 // @ts-expect-error // needs to declare that htmx lives on window, auto added by import
 const { htmx } = window; // eslint-disable-line  @typescript-eslint/no-unused-vars
 
