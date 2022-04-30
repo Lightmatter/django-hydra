@@ -1,5 +1,8 @@
-import { Alpine as AlpineType } from "alpinejs"
+import { Alpine as AlpineType } from "alpinejs";
 
 declare global {
+  interface Window {
+    Alpine: AlpineType;
+  }
   const Alpine: AlpineType;
 }
