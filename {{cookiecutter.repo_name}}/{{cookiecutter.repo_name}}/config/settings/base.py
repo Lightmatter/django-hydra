@@ -300,6 +300,7 @@ ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
+ACCOUNT_ADAPTER = '{{cookiecutter.repo_name}}.user.adapter.HTMXAccountAdapter'
 
 # https://django-allauth.readthedocs.io/en/latest/forms.html#account-forms
 ACCOUNT_FORMS = {
