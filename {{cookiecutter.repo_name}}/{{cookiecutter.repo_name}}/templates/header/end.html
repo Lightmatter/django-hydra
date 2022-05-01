@@ -8,7 +8,7 @@
 {% else %}
     <div class="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
         <!-- Profile dropdown -->
-        {% component_block "menu" menu_style="origin-top-right absolute right-0 mt-2 w-48  py-1 bg-white focus:outline-none" button_style="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %}
+        {% component_block "flyout" menu_style="origin-top-right absolute right-0 mt-2 w-48  py-1 bg-white focus:outline-none" button_style="bg-white rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" %}
         {% slot button %}
         <span class="sr-only">Open user menu</span>
         <svg class="h-8 w-8 rounded-full"

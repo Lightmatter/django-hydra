@@ -1,0 +1,23 @@
+{% with timeout=3_000 %}
+    <div x-data="{ show: true }"
+         x-init="setTimeout(() => show = false, {{ timeout }})"
+         x-show="show"
+         x-cloak
+         x-transition
+         class="rounded-md p-4 mt-2 toast-{{ message.level_tag }} htmx-added:opacity-0 opacity-100 transition-all duration-200">
+        <div class="flex items-start">
+            <div class="toast-img">
+                <svg class="w-6 h-6 mt-1"
+                     viewBox="0 0 20 18"
+                     fill="currentColor"
+                     xmlns="http://www.w3.org/2000/svg">
+                    <path d="M2.47 18H17.53C19.07 18 20.03 16.33 19.26 15L11.73 1.98999C10.96 0.659993 9.04 0.659993 8.27 1.98999L0.739999 15C-0.0300008 16.33 0.929999 18 2.47 18ZM10 11C9.45 11 9 10.55 9 9.99999V7.99999C9 7.44999 9.45 6.99999 10 6.99999C10.55 6.99999 11 7.44999 11 7.99999V9.99999C11 10.55 10.55 11 10 11ZM11 15H9V13H11V15Z"/>
+                </svg>
+            </div>
+            <div class="ml-6">
+                <div class="text-lg font-semibold">{{ message.level_tag|title }}</div>
+                <div class="text-md">{{ message }}</div>
+            </div>
+        </div>
+    </div>
+{% endwith %}

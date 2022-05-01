@@ -101,10 +101,7 @@ omit = ["*/migrations/*","manage.py","sampleapp/config/*"]
 
 [tool.isort]
 line_length = "92"
-multi_line_output = "3"
-include_trailing_comma = "True"
-use_parentheses = "True"
-combine_as_imports = "True"
+profile = "black"
 skip_glob = "*migrations/*.py"
 known_third_party = "django,django.contrib,django.utils"
 

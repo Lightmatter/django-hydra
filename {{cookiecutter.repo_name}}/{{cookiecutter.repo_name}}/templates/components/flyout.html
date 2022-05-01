@@ -1,13 +1,13 @@
-<div x-data="dropdown"
+<div x-data="flyout"
      x-on:keydown.escape.prevent.stop="close($refs.button)"
      x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
-     x-id="['dropdown-button']"
+     x-id="['flyout-button']"
      class="relative">
     <!-- Item active: "text-gray-900", Item inactive: "text-gray-500" -->
     <button x-ref="button"
             @click="toggle()"
             :aria-expanded="open"
-            :aria-controls="$id('dropdown-button')"
+            :aria-controls="$id('flyout-button')"
             type="button"
             :class="open ? 'text-gray-900' : 'text-gray-500'"
             class="{{ button_style|default:'text-gray-500 group bg-white rounded-md inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' }}">
@@ -17,7 +17,7 @@
          x-ref="panel"
          x-show="open"
          x-on:click.outside="close($refs.button)"
-         :id="$id('dropdown-button')"
+         :id="$id('flyout-button')"
          style="display: none;"
          x-transition:enter="transition ease-out duration-200"
          x-transition:enter-start="opacity-0 translate-y-1"
