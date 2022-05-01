@@ -5,11 +5,13 @@ import { jsonDOMLoad } from "../util";
 interface args {
   dismissible: boolean;
   showModal: boolean;
+  showTitle: boolean;
 }
 
 interface Modal extends ComponentBase {
   dismissible: boolean;
   showModal: boolean;
+  showTitle: boolean;
   toggleModal: () => void;
 }
 

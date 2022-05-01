@@ -1,7 +1,7 @@
 import { ComponentBase } from ".";
 
 export function jsonDOMLoad(component: (data: any) => ComponentBase) {
-  return function () {
+  return function (this: any) {
     const elContent = this.$el.previousElementSibling!.textContent!;
 
     if (typeof elContent !== "string") {
