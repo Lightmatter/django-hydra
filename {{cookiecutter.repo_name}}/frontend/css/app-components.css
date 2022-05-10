@@ -11,20 +11,13 @@
  *
  */
 
-/* @import './components/global.pcss'; */
-
-/* @import './components/typography.pcss'; */
-
-/* @import './components/webfonts.pcss'; */
+@import "@/css/components/messages.scss";
+@import "@/css/components/buttons.scss";
+@import "@/css/components/links.scss";
+@import "@/css/components/forms.scss";
+@import "@/css/components/toasts.scss";
 
 /**
  * Include styles for individual pages
  *
  */
-
-/* @import './pages/homepage.pcss'; */
-
-@import "@/css/components/messages.scss";
-@import "@/css/components/buttons.scss";
-@import "@/css/components/links.scss";
-@import "@/css/components/forms.scss";
