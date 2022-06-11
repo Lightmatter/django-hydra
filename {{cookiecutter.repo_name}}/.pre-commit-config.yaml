@@ -34,22 +34,6 @@ repos:
         types: [python]
         language: system
 
-- repo: local
-  hooks:
-    - id: pylint
-      name: pylint
-      entry: poetry run pylint
-      language: system
-      types: [python]
-      args:
-        [
-          "-rn", # Only display messages
-          "--output-format=colorized",
-          "-sn", # Don't display the score
-          "--load-plugins=pylint_django", # Load an extension
-          "--django-settings-module={{cookiecutter.repo_name}}.config.settings.local",
-        ]
-
 -   repo: local
     hooks:
     -   id: isort
@@ -72,7 +56,7 @@ repos:
         name: djlint
         entry: poetry run djlint --reformat
         language: system
-        types_or: [html]
+        types_or: [html,jinja]
 
 
 ## frontend

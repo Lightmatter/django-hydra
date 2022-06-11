@@ -1,0 +1,17 @@
+{% from 'account/components/account_box.jinja' import account_box %}
+{% extends "base.jinja" %}
+{% set account_back %}
+{% block account_back %}
+{% endblock account_back %}
+{% endset %}
+{% set account_title %}
+{% block account_title %}
+{% endblock account_title %}
+{% endset %}
+{% set account_content %}
+{% block account_content %}
+{% endblock account_content %}
+{% endset %}
+{% block content %}
+    {{ account_box(account_title, account_content, back=account_back) }}
+{% endblock content %}

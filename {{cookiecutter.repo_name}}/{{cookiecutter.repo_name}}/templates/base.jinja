@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href={{ static("img/favicons/favicon.ico") }} />
+        {{ vite_hmr_client() }}
+        {{ vite_asset('js/main.ts') }}
+        {{ django_htmx_script() }}
+        {% block extra_head %}
+            <title>Lightmatter</title>
+        {% endblock extra_head %}
+    </head>
+    <body hx-boost="true"
+          class="{% block body_class %}{% endblock body_class %}">
+        {% include "header/base.jinja" %}
+        <div id="main">
+            {% block content %}
+            {% endblock content %}
+            <ul class="messages" id="messages">
+                {% include "util/messages.jinja" %}
+            </ul>
+        </div>
+        {% include "footer.jinja" %}
+    </body>
+    <script>
+    if (getCookie === undefined) {
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        document.body.addEventListener('htmx:configRequest', (event) => {
+            event.detail.headers['X-CSRFToken'] = getCookie('{{csrf_cookie_name}}');
+        })
+    };
+    </script>
+</html>

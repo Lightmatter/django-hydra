@@ -72,13 +72,6 @@ DEBUG_TOOLBAR_CONFIG = {
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#internal-ips
 INTERNAL_IPS = ["127.0.0.1", "10.0.2.2"]
 
-
-class InvalidVariable(str):
-    def __bool__(self):
-        return False
-
-
-TEMPLATES[0]["OPTIONS"]["string_if_invalid"] = InvalidVariable("BAD TEMPLATE VARIABLE: %s")
 import sys
 
 TESTING = sys.argv[1:2] == ["test"]

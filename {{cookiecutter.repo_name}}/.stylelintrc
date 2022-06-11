@@ -8,13 +8,25 @@
         "tailwind",
         "components",
         "utilities",
-        "screen"
+        "screen",
+        "layer"
       ]
     }],
     "block-no-empty": true,
     "color-no-invalid-hex": true,
     "declaration-colon-space-after": "always",
     "scss/at-import-partial-extension": null,
+    "scss/at-rule-no-unknown": [ true, {
+      "ignoreAtRules": [
+        "extends",
+        "apply",
+        "tailwind",
+        "components",
+        "utilities",
+        "screen",
+        "layer"
+      ]
+    }],
     "indentation": 2,
     "max-empty-lines": 2,
     "rule-empty-line-before": [

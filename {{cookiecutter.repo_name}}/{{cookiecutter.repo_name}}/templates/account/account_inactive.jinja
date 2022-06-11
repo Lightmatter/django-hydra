@@ -1,0 +1,13 @@
+{% extends "account/account_base.jinja" %}
+{% block account_title %}
+    {% trans %}
+        Account Inactive
+    {% endtrans %}
+{% endblock account_title %}
+{% block account_content %}
+    <p>
+        {% trans %}
+            This account is inactive.
+        {% endtrans %}
+    </p>
+{% endblock account_content %}

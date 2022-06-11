@@ -1,0 +1,8 @@
+{% macro label(field, tag='') %}
+    {% if tag %}
+        <{{ tag }}
+        class="block text-sm font-medium text-gray-700">{{ field.label }}</{{ tag }}>
+    {% else %}
+        {{ field.label }}
+    {% endif %}
+{% endmacro %}

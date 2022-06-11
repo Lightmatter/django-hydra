@@ -5,6 +5,11 @@ from .views import current_time, error
 
 urlpatterns = [
     path(r"current-time/", current_time, name="current_time"),
+    path(
+        "random-chart/",
+        TemplateView.as_view(template_name="samples/random_chart.jinja"),
+        name="random_chart",
+    ),
     path(r"error/", error, name="error"),
-    path(r"", TemplateView.as_view(template_name="index.html"), name="home"),
+    path(r"", TemplateView.as_view(template_name="index.jinja"), name="home"),
 ]

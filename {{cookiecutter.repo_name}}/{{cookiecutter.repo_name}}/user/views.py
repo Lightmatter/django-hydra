@@ -63,11 +63,13 @@ login = LoginView.as_view()
 
 def welcome(request):
     if not request.htmx or "email" not in request.GET:
-        return TemplateResponse(request, "account/welcome.html", {"form": HasAccountForm()})
+        return TemplateResponse(
+            request, "account/welcome.jinja", {"form": HasAccountForm()}
+        )
 
     form = HasAccountForm(request.GET)
     if not form.is_valid():
-        return TemplateResponse(request, "account/welcome.html", {"form": form})
+        return TemplateResponse(request, "account/welcome.jinja", {"form": form()})
 
     try:
         email = form.cleaned_data.get("email")
