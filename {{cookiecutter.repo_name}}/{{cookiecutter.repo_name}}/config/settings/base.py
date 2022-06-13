@@ -222,13 +222,6 @@ TEMPLATES = [
     },
 ]
 
-# components settings
-COMPONENTS = {
-    "template_cache_size": 256,
-    "libraries": [
-        "{{cookiecutter.repo_name}}.util.components",
-    ],
-}
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#form-renderer
 FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
