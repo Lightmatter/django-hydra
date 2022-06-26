@@ -309,8 +309,6 @@ ACCOUNT_TEMPLATE_EXTENSION = "jinja"
 ACCOUNT_FORMS = {
     "login": "{{cookiecutter.repo_name}}.user.forms.LoginForm",
     "signup": "{{cookiecutter.repo_name}}.user.forms.SignupForm",
-    "reset_password": "{{cookiecutter.repo_name}}.user.forms.ResetPasswordForm",
-    "reset_password_from_key": "{{cookiecutter.repo_name}}.user.forms.ResetPasswordKeyForm",
 }
 
 

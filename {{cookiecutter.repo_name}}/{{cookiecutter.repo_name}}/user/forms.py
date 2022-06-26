@@ -1,7 +1,5 @@
 from allauth.account.forms import (
     LoginForm as AllAuthLoginForm,
-    ResetPasswordForm as AllAuthResetPasswordForm,
-    ResetPasswordKeyForm as AllAuthResetPasswordKeyForm,
     SignupForm as AllAuthSignupForm,
 )
 from django import forms
@@ -11,7 +9,6 @@ from .models import User
 
 
 class HasAccountForm(forms.Form):
-    template_name = "forms/default.jinja"
     email = forms.EmailField(help_text=_("We won't spam you"), required=True)
 
     def clean_email(self):
@@ -59,11 +56,3 @@ class SignupForm(AllAuthSignupForm):
         self.fields["email"].label = "Email"
         self.fields["email2"].label = "Confirm Email"
         self.fields["password2"].label = "Confirm Password"
-
-
-class ResetPasswordForm(AllAuthResetPasswordForm):
-    template_name = "forms/default.jinja"
-
-
-class ResetPasswordKeyForm(AllAuthResetPasswordKeyForm):
-    template_name = "forms/default.jinja"
