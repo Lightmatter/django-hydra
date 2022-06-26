@@ -32,35 +32,22 @@ django-redis = "^5.2.0"
 flake8-django = {git = "https://github.com/rocioar/flake8-django"}
 
 [tool.poetry.dev-dependencies]
+coverage = {extras = ["toml"], version = "^6.4.1"}
 ipython = "^7.31.1"
 ipdb = "^0.13.9"
 ptpython = "^3.0.20"
 django-debug-toolbar = "^3.2.4"
 model-bakery = "^1.4.0"
-coverage = "^6.3.1"
 watchdog = "2.1.6"
-pylint-django = "2.4.4"
 Werkzeug = "2.0.2"
-bandit = "1.7.2"
 honcho = "1.1.0"
 unittest-xml-reporting = "^3.2.0"
 playwright = "^1.18.2"
 pywatchman = "^1.4.1"
 icecream = "^2.1.1"
 pre-commit = "^2.17.0"
-flakeheaven = "^0.11.1"
-flake8-bandit = "^2.1.2"
-flake8-bugbear = "^22.1.11"
-flake8-builtins = "^1.5.3"
-flake8-eradicate = "^1.2.0"
-flake8-mutable = "^1.2.0"
-# flake8-django = "^1.1.2"
-black = "^21.12b0"
-isort = "^5.10.1"
-djlint = "^0.7.4"
 pudb = "^2022.1"
 poetryup = "^0.5.1"
-pylint-celery = "^0.3"
 importmagic = "^0.1.7"
 epc = "^0.0.5"
 
@@ -150,5 +137,5 @@ ignore="H023"
 
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["setuptools", "poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"

@@ -1,3 +1,5 @@
+# flake8: noqa
+# pylint: skip-file
 from http import HTTPStatus
 
 from django.contrib.auth.hashers import make_password
