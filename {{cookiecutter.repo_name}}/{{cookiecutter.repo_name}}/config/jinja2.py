@@ -28,8 +28,12 @@ def convert_tf(item1: str | bool) -> bool:
     return ""
 
 
+# Match all extensions but ignore admin. Use jinja2 app dirname to match builtin forms
 options = {
-    "constants": {"csrftoken": settings.CSRF_COOKIE_NAME},
+    "match_extension": None,
+    "app_dirname": "jinja2",
+    "match_regex": r"^(?!admin/).*",
+    "constants": {"csrf_cookie_name": settings.CSRF_COOKIE_NAME},
     "filters": {
         "template_localtime": "django.utils.timezone.template_localtime",
     },

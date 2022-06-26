@@ -1,7 +1,3 @@
-// Import our CSS
-import "@/css/app-base.css";
-import "@/css/app-components.css";
-import "@/css/app-utilities.css";
 import focus from "@alpinejs/focus";
 
 import "htmx.org";

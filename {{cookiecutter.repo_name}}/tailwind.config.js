@@ -1,6 +1,9 @@
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
+  corePlugins: {
+    preflight: false,  //manually import this in app.css
+  },
   content: [
     './frontend/**/*.html',
     './frontend/**/*.js',
