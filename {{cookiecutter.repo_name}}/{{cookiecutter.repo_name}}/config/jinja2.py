@@ -5,6 +5,8 @@ from math import ceil, floor
 from django.conf import settings
 
 
+# Sample code from the template
+# TODO: Delete this
 def random_chart(
     num_times: int = 10, num_vars: int = 2, starting_val: int = 100
 ) -> list[list[int]]:
