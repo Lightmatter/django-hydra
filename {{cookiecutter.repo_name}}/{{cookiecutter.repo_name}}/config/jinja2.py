@@ -2,8 +2,6 @@ import datetime
 import random
 from math import ceil, floor
 
-from django.conf import settings
-
 
 # Sample code from the template
 # TODO: Delete this
@@ -30,12 +28,16 @@ def convert_tf(item1: str | bool) -> bool:
     return ""
 
 
+def prefixed_cookie(name):
+    return f"{{cookiecutter.repo_name}}_{name}"
+
+
 # Match all extensions but ignore admin. Use jinja2 app dirname to match builtin forms
 options = {
     "match_extension": None,
     "app_dirname": "jinja2",
     "match_regex": r"^(?!admin/).*",
-    "constants": {"csrf_cookie_name": settings.CSRF_COOKIE_NAME},
+    "constants": {"csrf_cookie_name": prefixed_cookie("csrftoken")},
     "filters": {
         "template_localtime": "django.utils.timezone.template_localtime",
     },
