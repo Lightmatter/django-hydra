@@ -40,5 +40,7 @@ module.exports = {
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "no-extra-semi": "off",
     "import/extensions": "off",
+    "no-else-return": "off",
+    "consistent-return": "off",
   },
 };

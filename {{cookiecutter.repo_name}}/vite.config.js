@@ -23,25 +23,31 @@ export default defineConfig({
     outDir:  '../{{cookiecutter.repo_name}}/static', // puts the manifest.json in PROJECT_ROOT/static/
   },
   plugins: [
-    // {
-    //   name: 'watch-external', // https://stackoverflow.com/questions/63373804/rollup-watch-include-directory/63548394#63548394
-    //   async buildStart(){
-    //     const files = await fg(['{{cookiecutter.repo_name}}/templates/**/*']);
-    //     for(let file of files){
-    //       this.addWatchFile(file);
-    //     }
-    //   }
-    // },
-    // {
-    //   name: 'reloadHtml',
-    //   handleHotUpdate({ file, server }) {
-    //     if (file.endsWith('.html')) {
-    //       server.ws.send({
-    //         type: 'full-reload',
-    //         path: '*',
-    //       });
-    //     }
-    //   },
-    // }
+    {
+      name: 'watch-external', // https://stackoverflow.com/questions/63373804/rollup-watch-include-directory/63548394#63548394
+      async buildStart(){
+        const htmls = await fg(['**/*.html']);
+        for(let file of htmls){
+          this.addWatchFile(file);
+        }
+
+        const jinjas = await fg(['**/*.jinja']);
+        for(let file of jinjas){
+          this.addWatchFile(file);
+        }
+      }
+    },
+    {
+      name: 'reloadHtml',
+      handleHotUpdate({ file, server }) {
+        if (file.endsWith('.html') || file.endsWith('.jinja') ){
+          server.ws.send({
+            type: 'custom',
+            event: 'template-hmr',
+            path: '*',
+          });
+        }
+      },
+    }
   ],
 });
