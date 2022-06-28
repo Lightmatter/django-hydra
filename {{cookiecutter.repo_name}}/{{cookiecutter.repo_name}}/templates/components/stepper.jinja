@@ -1,0 +1,151 @@
+{% set default_steps=[{'name': 'Step 1', 'description': 'Create Algorithmic Stablecoin', 'status': 'completed'},{'name': 'Step 2', 'description': 'Hype On Twitter', 'status': 'current'},{'name': 'Step 3', 'description': 'Profit, nothing can go wrong', 'status': 'upcoming', 'link': 'https://coinmarketcap.com/currencies/terra-luna/'}] %}
+{% macro stepper(steps=default_steps, direction="horizontal", style="line", color="primary") %}
+    <nav aria-label="Progress">
+        {% if style == "line" %}
+            <ol role="list"
+                class="space-y-4 {% if direction=='horizontal' %}flex space-y-0 space-x-8{% endif %}">
+                {% for step in steps %}
+                    <li {% if direction=="horizontal" %}class="flex-1"{% endif %}>
+                        {% if step.status == "completed" %}
+                            <a {% if "link" in step %}href="{{ step.link }}"{% endif %}
+                               class="group pl-4 py-2 flex flex-col border-l-4 border-{{ color }} hover:border-{{ color }}-focus {% if direction=='horizontal' %}pl-0 pt-4 pb-0 border-l-0 border-t-4{% endif %}">
+                                <span class="text-xs text-{{ color }} font-semibold tracking-wide uppercase group-hover:text-{{ color }}-focus">
+                                {% elif step.status == "current" %}
+                                    <a {% if "link" in step %}href="{{ step.link }}"{% endif %}
+                                       class="pl-4 py-2 flex flex-col border-l-4 border-{{ color }} {% if direction=='horizontal' %}pl-0 pt-4 pb-0 border-l-0 border-t-4{% endif %}"
+                                       aria-current="step">
+                                        <span class="text-xs text-{{ color }} font-semibold tracking-wide uppercase">
+                                        {% elif step.status == 'upcoming' %}
+                                            <a {% if "link" in step %}href="{{ step.link }}"{% endif %}
+                                               class="group pl-4 py-2 flex flex-col border-l-4 border-gray-200 hover:border-gray-300 {% if direction=='horizontal' %}pl-0 pt-4 pb-0 border-l-0 border-t-4{% endif %}">
+                                                <span class="text-xs text-gray-500 font-semibold tracking-wide uppercase group-hover:text-gray-700">
+                                                {% endif %}
+                                                {% if 'name' in step %}
+                                                    {{ step.name }}
+                                                {% else %}
+                                                    Step {{ loop.index1 }}
+                                                {% endif %}
+                                            </span>
+                                            <span class="text-sm font-medium">{{ step.description }}</span>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ol>
+                        {% elif style == "circle" %}
+                            {% if direction == "horizontal" %}
+                                <ol role="list" class="flex items-center">
+                                    {% for step in steps %}
+                                        {% if step.status == "completed" %}
+                                            <li class="relative {% if loop.index != steps|length %}pr-8 sm:pr-20{% endif %}">
+                                                <!-- Completed Step -->
+                                                <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                                                    {% if loop.index != steps|length %}<div class="h-0.5 w-full bg-{{ color }} mb-6"></div>{% endif %}
+                                                </div>
+                                                <a {% if "link" in step %}href="{{ step.link }}"{% endif %}
+                                                   class="relative w-8 h-8 flex items-center justify-center bg-{{ color }} rounded-full hover:bg-{{ color }}-focus">
+                                                    <!-- Heroicon name: solid/check -->
+                                                    <svg class="w-5 h-5 text-white"
+                                                         xmlns="http://www.w3.org/2000/svg"
+                                                         viewBox="0 0 20 20"
+                                                         fill="currentColor"
+                                                         aria-hidden="true">
+                                                        <path fill-rule="evenodd"
+                                                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                              clip-rule="evenodd"/>
+                                                    </svg>
+                                                </a>
+                                            {% elif step.status == "current" %}
+                                                <li class="relative {% if loop.index != steps|length %}pr-8 sm:pr-20{% endif %}">
+                                                    <!-- Current Step -->
+                                                    <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                                                        {% if loop.index != steps|length %}<div class="h-0.5 w-full bg-gray-200 mb-6"></div>{% endif %}
+                                                    </div>
+                                                    <a {% if "link" in step %}href="{{ step.link }}"{% endif %}
+                                                       class="relative w-8 h-8 flex items-center justify-center bg-white border-2 border-{{ color }} rounded-full"
+                                                       aria-current="step">
+                                                        <span class="h-2.5 w-2.5 bg-{{ color }} rounded-full" aria-hidden="true"></span>
+                                                    </a>
+                                                {% elif step.status == "upcoming" %}
+                                                    <li class="relative {% if loop.index != steps|length %}pr-8 sm:pr-20{% endif %}">
+                                                        <!-- Upcoming Step -->
+                                                        <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                                                            {% if loop.index != steps|length %}<div class="h-0.5 w-full bg-gray-200 mb-6"></div>{% endif %}
+                                                        </div>
+                                                        <a {% if "link" in step %}href="{{ step.link }}"{% endif %}
+                                                           class="group relative w-8 h-8 flex items-center justify-center bg-white border-2 border-gray-300 rounded-full hover:border-gray-400">
+                                                            <span class="h-2.5 w-2.5 bg-transparent rounded-full group-hover:bg-gray-300"
+                                                                  aria-hidden="true"></span>
+                                                        </a>
+                                                    {% endif %}
+                                                    <span class="pt-4 text-xs font-semibold tracking-wide uppercase">
+                                                        {% if 'name' in step %}
+                                                            {{ step.name }}
+                                                        {% else %}
+                                                            Step {{ loop.index }}
+                                                        {% endif %}
+                                                    </span>
+                                                </li>
+                                            {% endfor %}
+                                        </ol>
+                                    {% elif direction == "vertical" %}
+                                        <ol role="list" class="overflow-hidden">
+                                            {% for step in steps %}
+                                                <li class="relative pb-10">
+                                                    {% if loop.index != steps|length %}
+                                                        {% if step.status == "completed" %}
+                                                            <div class="-ml-px absolute mt-0.5 top-4 left-4 w-0.5 h-full bg-{{ color }}"
+                                                                 aria-hidden="true"></div>
+                                                        {% else %}
+                                                            <div class="-ml-px absolute mt-0.5 top-4 left-4 w-0.5 h-full bg-gray-300"
+                                                                 aria-hidden="true"></div>
+                                                        {% endif %}
+                                                    {% endif %}
+                                                    {% if step.status == "completed" %}
+                                                        <a {% if "link" in step %}href="{{ step.link }}"{% endif %}
+                                                           class="relative flex items-start group">
+                                                            <span class="h-9 flex items-center">
+                                                                <span class="relative z-10 w-8 h-8 flex items-center justify-center bg-{{ color }} rounded-full group-hover:bg-{{ color }}-focus">
+                                                                    <!-- Heroicon name: solid/check -->
+                                                                    <svg class="w-5 h-5 text-white"
+                                                                         xmlns="http://www.w3.org/2000/svg"
+                                                                         viewBox="0 0 20 20"
+                                                                         fill="currentColor"
+                                                                         aria-hidden="true">
+                                                                        <path fill-rule="evenodd"
+                                                                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                                              clip-rule="evenodd"/>
+                                                                    </svg>
+                                                                {% elif step.status == "current" %}
+                                                                    <a {% if "link" in step %}href="{{ step.link }}"{% endif %}
+                                                                       class="relative flex items-start group"
+                                                                       aria-current="step">
+                                                                        <span class="h-9 flex items-center" aria-hidden="true">
+                                                                            <span class="relative z-10 w-8 h-8 flex items-center justify-center bg-white border-2 border-{{ color }} rounded-full">
+                                                                                <span class="h-2.5 w-2.5 bg-{{ color }} rounded-full"></span>
+                                                                            {% elif step.status == "upcoming" %}
+                                                                                <a {% if "link" in step %}href="{{ step.link }}"{% endif %}
+                                                                                   class="relative flex items-start group">
+                                                                                    <span class="h-9 flex items-center" aria-hidden="true">
+                                                                                        <span class="relative z-10 w-8 h-8 flex items-center justify-center bg-white border-2 border-gray-300 rounded-full group-hover:border-gray-400">
+                                                                                            <span class="h-2.5 w-2.5 bg-transparent rounded-full group-hover:bg-gray-300"></span>
+                                                                                        {% endif %}
+                                                                                    </span>
+                                                                                </span>
+                                                                                <span class="ml-4 min-w-0 flex flex-col">
+                                                                                    <span class="text-xs font-semibold tracking-wide uppercase">
+                                                                                        {% if 'name' in step %}
+                                                                                            {{ step.name }}
+                                                                                        {% else %}
+                                                                                            Step {{ loop.index1 }}
+                                                                                        {% endif %}
+                                                                                    </span>
+                                                                                    <span class="text-sm text-gray-500">{{ step.description }}</span>
+                                                                                </span>
+                                                                            </a>
+                                                                        </li>
+                                                                    {% endfor %}
+                                                                </ol>
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    </nav>
+                                                {% endmacro %}
