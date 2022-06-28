@@ -1,5 +1,5 @@
 {% macro inputgroup(field, errors='', layout_classes='w-full', css_classes='') %}
-    <div class="{{ layout_classes }} {{ field.css_classes }}">
+    <div class="{{ layout_classes }} {{ field.css_classes() }}">
         {% if field.label %}{{ field.label_tag() }}{% endif %}
         <div class="mt-1 field relative {% if errors %} error{% endif %}">
             {{ field }}
