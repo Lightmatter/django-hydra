@@ -15,7 +15,10 @@
             <title>Lightmatter</title>
         {% endblock extra_head %}
     </head>
-    <body hx-boost="true" class="{% block bodyclass %}{% endblock bodyclass %}">
+    <body hx-boost="true"
+          class="{% block bodyclass %}{% endblock bodyclass %}"
+          hx-ext="nanomorph-swap"
+          hx-swap="nanomorph">
         {% include "header/base.jinja" %}
         <div id="app">
             {% block content %}

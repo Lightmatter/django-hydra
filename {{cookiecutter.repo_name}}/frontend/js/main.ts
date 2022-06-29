@@ -1,3 +1,4 @@
+import morph from "nanomorph";
 import focus from "@alpinejs/focus";
 
 import "htmx.org";
@@ -7,9 +8,6 @@ import "./components/modal";
 import "./components/flyout";
 import "./links";
 
-// @ts-expect-error // needs to declare that htmx lives on window, auto added by import
-const { htmx } = window; // eslint-disable-line  @typescript-eslint/no-unused-vars
-
 // @ts-expect-error // this whole system is broken w/ vite
 if (import.meta.env.MODE !== "development") {
   // // @ts-expect-error  // this whole system is broken w/ vite
@@ -17,10 +15,32 @@ if (import.meta.env.MODE !== "development") {
   // https://github.com/vitejs/vite/issues/4786
 }
 
-// TODO: when  https://github.com/vitejs/vite/issues/5808 is fixed, setup HMR for html through htmx.ajax
-// if (import.meta.hot) {
-//   import.meta.hot.on("special-update", (data) => {});
-// }
+// @ts-expect-error // needs to declare that htmx lives on window, auto added by import
+const { htmx } = window; // eslint-disable-line  @typescript-eslint/no-unused-vars
+
+htmx.defineExtension("nanomorph-swap", {
+  isInlineSwap(swapStyle) {
+    return swapStyle === "nanomorph";
+  },
+  handleSwap(swapStyle, target, fragment) {
+    if (swapStyle === "nanomorph") {
+      if (fragment.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+        morph(target, fragment.firstElementChild);
+        return [target];
+      } else {
+        morph(target, fragment);
+        return [target];
+      }
+    }
+  },
+});
+
+if (import.meta.hot) {
+  import.meta.hot.on("template-hmr", () => {
+    const dest = document.location.href;
+    htmx.ajax("GET", dest, { target: "body", swap: "morphdom" });
+  });
+}
 
 window.Alpine = Alpine;
 Alpine.plugin(focus);
