@@ -78,3 +78,13 @@ repos:
         language: system
         exclude: frontent/fontawesome/.*
         types_or: [css, scss]
+
+- repo: local
+  hooks:
+    - id: tsc
+      name: tsc
+      entry: npx tsc --noEmit
+      files: ^frontend/
+      language: system
+      types_or: [javascript, ts]
+      pass_filenames: false

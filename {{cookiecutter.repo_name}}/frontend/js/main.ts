@@ -8,7 +8,6 @@ import "./components/modal";
 import "./components/flyout";
 import "./links";
 
-// @ts-expect-error // this whole system is broken w/ vite
 if (import.meta.env.MODE !== "development") {
   // // @ts-expect-error  // this whole system is broken w/ vite
   // import("vite/modulepreload-polyfill"); // eslint-disable-line import/no-unresolved
@@ -19,13 +18,13 @@ if (import.meta.env.MODE !== "development") {
 const { htmx } = window; // eslint-disable-line  @typescript-eslint/no-unused-vars
 
 htmx.defineExtension("nanomorph-swap", {
-  isInlineSwap(swapStyle) {
+  isInlineSwap(swapStyle: string) {
     return swapStyle === "nanomorph";
   },
-  handleSwap(swapStyle, target, fragment) {
+  handleSwap(swapStyle: string, target: HTMLElement, fragment: HTMLElement) {
     if (swapStyle === "nanomorph") {
       if (fragment.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
-        morph(target, fragment.firstElementChild);
+        morph(target, <Element>fragment.firstElementChild);
         return [target];
       } else {
         morph(target, fragment);
