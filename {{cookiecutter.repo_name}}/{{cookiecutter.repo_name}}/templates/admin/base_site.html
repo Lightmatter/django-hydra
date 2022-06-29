@@ -4,7 +4,7 @@
     {{ block.super }}
     {% vite_hmr_client %}
     {% vite_asset 'js/main.ts' %}
-    {% vite_asset 'css/tailwind.css' %}
+    {% vite_asset 'css/tailwind.js' %}
 {% endblock %}
 {% block title %}
     {% if subtitle %}{{ subtitle }} |{% endif %}

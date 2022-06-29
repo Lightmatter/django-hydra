@@ -16,8 +16,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, './frontend/js/main.ts'),
-        base: resolve(__dirname, './frontend/css/base.scss'),
-        raw_tailwind: resolve(__dirname, './frontend/css/tailwind.css'),
+        base: resolve(__dirname, './frontend/css/base.js'),
+        raw_tailwind: resolve(__dirname, './frontend/css/tailwind.js'),
       }
     },
     outDir:  '../{{cookiecutter.repo_name}}/static', // puts the manifest.json in PROJECT_ROOT/static/
