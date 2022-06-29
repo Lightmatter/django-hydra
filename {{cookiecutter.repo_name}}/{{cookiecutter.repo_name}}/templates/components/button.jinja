@@ -3,7 +3,7 @@
     {# Color support: primary, secondary, accent, success, info, warning, error #}
     {# Shape support: rounded, square, circle #}
     {# Size support: xs, sm, md, lg, xl #}
-    {% set class="inline-flex items-center shadow-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-"+color+"-600" %}
+    {% set class="inline-flex items-center justify-center shadow-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-"+color+"-600" %}
     {% if size == 'xs' %}
         {% set class = class + " px-2.5 py-1.5 text-xs" %}
     {% elif size == 'sm' %}
