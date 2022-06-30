@@ -26,12 +26,12 @@ export default defineConfig({
     {
       name: 'watch-external', // https://stackoverflow.com/questions/63373804/rollup-watch-include-directory/63548394#63548394
       async buildStart(){
-        const htmls = await fg(['**/*.html']);
+        const htmls = await fg(['{{cookiecutter.repo_name}}/templates/**/*.html']);
         for(let file of htmls){
           this.addWatchFile(file);
         }
 
-        const jinjas = await fg(['**/*.jinja']);
+        const jinjas = await fg(['{{cookiecutter.repo_name}}/templates/**/*.jinja']);
         for(let file of jinjas){
           this.addWatchFile(file);
         }
