@@ -29,6 +29,7 @@
     "vite": "^2.9.9"
   },
   "dependencies": {
+    "@alpinejs/mask": "^3.10.2",
     "@alpinejs/focus": "^3.10.2",
     "@alpinejs/morph": "^3.10.2",
     "alpinejs": "^3.10.2",

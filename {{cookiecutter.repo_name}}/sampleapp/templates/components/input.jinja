@@ -1,0 +1,102 @@
+{% set default_left_icon %}
+<svg class="h-5 w-5 text-gray-400"
+     xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 20 20"
+     fill="currentColor"
+     aria-hidden="true">
+    <path fill-rule="evenodd"
+          d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z"
+          clip-rule="evenodd"/>
+</svg>
+{% endset %}
+{% macro input(label="How does Chewbacca Sound", help_text="Hwararagarwr", error="", model="input", color='primary', status='', read_only_value='', left_icon=default_left_icon, right_icon='') %}
+    {% if status == 'disabled' %}
+        <div x-id="['input']" class="cursor-not-allowed">
+            <label class="absolute z-10 text-gray-400 translate-y-2 cursor-not-allowed {% if left_icon %}translate-x-10{% else %}translate-x-3{% endif %}"
+                   :for="$id('input')">
+                {{ label }}
+            </label>
+            <div class="mt-1 relative rounded-md shadow-sm cursor-not-allowed">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none cursor-not-allowed">
+                    {{ left_icon }}
+                </div>
+                <input :id="$id('input')"
+                       disabled
+                       type="text"
+                       class="cursor-not-allowed shadow-sm focus:ring-{{ color }} focus:border-{{ color }} block w-full sm:text-sm border-gray-400 placeholder:text-gray-400 rounded-md {% if left_icon %} pl-10{% endif %} {% if right_icon %} pr-10{% endif %}"/>
+                <div class="cursor-not-allowed absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                    {{ right_icon }}
+                </div>
+            </div>
+            {% if help_text %}
+                {% if error != '' %}
+                    <p class="text-error-focus text-sm">
+                        {{ error }}
+                    </p>
+                {% else %}
+                    <p class="text-gray-500">
+                        {{ help_text }}
+                    </p>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% elif status == 'read_only' %}
+        <div x-id="['input']" class="cursor-not-allowed">
+            <label class="absolute z-10 text-gray-400 -translate-y-2 translate-x-2 text-xs bg-white px-1 cursor-not-allowed {% if left_icon %}translate-x-10{% else %}translate-x-3{% endif %}"
+                   :for="$id('input')">
+                {{ label }}
+            </label>
+            <div class="mt-1 relative rounded-md shadow-sm cursor-not-allowed">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none cursor-not-allowed">
+                    {{ left_icon }}
+                </div>
+                <input :id="$id('input')"
+                       disabled
+                       type="text"
+                       value="{{ read_only_value }}"
+                       class="cursor-not-allowed shadow-sm focus:ring-{{ color }} focus:border-{{ color }} block w-full sm:text-sm border-gray-400 placeholder:text-gray-400 rounded-md {% if left_icon %} pl-10{% endif %} {% if right_icon %} pr-10{% endif %}"/>
+                <div class="cursor-not-allowed absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                    {{ right_icon }}
+                </div>
+            </div>
+            {% if help_text %}
+                {% if error != '' %}
+                    <p class="text-error-focus text-sm">
+                        {{ error }}
+                    </p>
+                {% else %}
+                    <p class="text-gray-500">
+                        {{ help_text }}
+                    </p>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% else %}
+        <div x-data="{ {{ model }}: ''}" x-id="['input']">
+            <label class="absolute z-10 {% if error %}text-error-focus{% else %}text-gray-400{% endif %} cursor-text transition"
+                :for="$id('input')"
+                {# djlint:off #} :class="{{ model }}.length > 0 ? '-translate-y-2 translate-x-2 text-xs bg-white px-1' : 'translate-y-2 {% if left_icon %}translate-x-10{% else %}translate-x-3{% endif %}'" {# djlint:on #}>
+                {{ label }}
+            </label>
+            <div class="mt-1 relative rounded-md shadow-sm">
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">{{ left_icon }}</div>
+                <input :id="$id('input')"
+                       type="text"
+                       class="shadow-sm {% if error %}focus:ring-error-focus border-error-focus{% else %}focus:ring-{{ color }} focus:border-{{ color }} border-gray-400{% endif %} block w-full sm:text-sm placeholder:text-gray-400 rounded-md {% if left_icon %} pl-10{% endif %} {% if right_icon %} pr-10{% endif %}"
+                       x-model="{{ model }}"/>
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">{{ right_icon }}</div>
+            </div>
+            {% if help_text %}
+                {% if error != '' %}
+                    <p class="text-error-focus">
+                        {{ error }}
+                    </p>
+                {% else %}
+                    <p class="text-gray-500">
+                        {{ help_text }}
+                    </p>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}

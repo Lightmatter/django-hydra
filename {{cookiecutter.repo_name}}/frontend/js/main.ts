@@ -1,4 +1,5 @@
 import focus from "@alpinejs/focus";
+import mask from "@alpinejs/mask";
 
 import "htmx.org";
 import Alpine from "alpinejs";
@@ -33,4 +34,5 @@ if (import.meta.hot) {
 
 window.Alpine = Alpine;
 Alpine.plugin(focus);
+Alpine.plugin(mask)
 Alpine.start();
