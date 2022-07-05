@@ -1,0 +1,159 @@
+{% macro select(name="Favorite Darth", options=['Darth Bane', 'Darth Maul', 'Darth Plagueis', 'Darth Sidious', 'Darth Tenebrous', 'Darth Tyranus', 'Darth Vader'], help_text="From Star Wars!", status="", dispatch_name="select", read_only_index=0, placeholder="", error="") %}
+    {% if status == 'disabled' %}
+        <div class="relative">
+            <button type="button"
+                    class="bg-white relative w-full border border-gray-500 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-not-allowed max-h-min"
+                    disabled
+                    aria-labelledby="listbox-label">
+                <span class="block truncate text-gray-600">{{ name }}</span>
+                <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                    <svg version="1.1"
+                         class="h-5 w-5 text-gray-400 transition"
+                         xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                         x="0px"
+                         y="0px"
+                         viewBox="0 0 330 330"
+                         style="enable-background:new 0 0 330 330;"
+                         xml:space="preserve"
+                         fill="currentColor">
+                        <path id="XMLID_225_"
+                              d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"/>
+                    </svg>
+                </span>
+            </button>
+            {% if help_text %}
+                <p class="text-gray-500">
+                    {{ help_text }}
+                </p>
+            {% endif %}
+        </div>
+    {% elif status == 'read_only' %}
+        <div class="mt-1 relative">
+            <button type="button"
+                    class="bg-white relative w-full border border-gray-500 rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-not-allowed max-h-fit"
+                    disabled
+                    aria-labelledby="listbox-label">
+                <legend class="-translate-y-4 text-gray-700 text-xs bg-white px-1 max-w-fit m-0">
+                    {{ name }}
+                </legend>
+                <span class="block truncate text-gray-600">{{ options[read_only_index] }}</span>
+                <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                    <svg version="1.1"
+                         class="h-5 w-5 text-gray-400 transition"
+                         xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                         x="0px"
+                         y="0px"
+                         viewBox="0 0 330 330"
+                         style="enable-background:new 0 0 330 330;"
+                         xml:space="preserve"
+                         fill="currentColor">
+                        <path id="XMLID_225_"
+                              d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"/>
+                    </svg>
+                </span>
+            </button>
+            {% if help_text %}
+                <p class="text-gray-500">
+                    {{ help_text }}
+                </p>
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="mt-1 relative"
+             x-data="{ modelName: 'selected', open: false, anySelected: false, selectedIndex: -1, activeIndex: 0, items: [ {%- for option in options -%} {id: {{ loop.index }}, name: '{{ option }}' },{%- endfor -%} ] }">
+            <button type="button"
+                    class="bg-white relative w-full border {% if error != '' %} border-error-focus {% else %} border-gray-500 {% endif %} rounded-md shadow-sm pl-3 pr-10 py-2 text-left cursor-default focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary max-h-fit"
+                    x-ref="button"
+                    @click="open = !open"
+                    aria-haspopup="listbox"
+                    :aria-expanded="open"
+                    aria-labelledby="listbox-label"
+                    aria-expanded="true">
+                <label :class="anySelected || '{{ placeholder }}' !== ''  ? 'absolute -translate-y-4 text-xs bg-white -translate-x-1 px-1 max-w-fit m-0 {% if error != '' %} text-error-focus {% else %} text-gray-700 {% endif %}' : '{% if error != '' %} text-error-focus {% else %} text-gray-600 {% endif %}'"
+                       class="transition">
+                    {{ name }}
+                </label>
+                <span x-text="selectedIndex >=0 || '{{ placeholder }}' !== '' ? (selectedIndex >=0 ? items[selectedIndex].name : '{{ placeholder }}') : ''"
+                      class="block truncate max-h-fit"
+                      :class="'{{ placeholder }}' !== '' && !anySelected ? 'text-gray-400' : 'text-gray-700'"></span>
+                <span class="absolute inset-y-0 right-0 flex items-center pr-2 pointer-events-none">
+                    <svg version="1.1"
+                         class="h-5 w-5 text-gray-400 transition"
+                         xmlns="http://www.w3.org/2000/svg"
+                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                         x="0px"
+                         y="0px"
+                         viewBox="0 0 330 330"
+                         style="enable-background:new 0 0 330 330;"
+                         xml:space="preserve"
+                         fill="currentColor"
+                         :class="open ? 'rotate-180' : 'rotate-0'">
+                        <path id="XMLID_225_"
+                              d="M325.607,79.393c-5.857-5.857-15.355-5.858-21.213,0.001l-139.39,139.393L25.607,79.393 c-5.857-5.857-15.355-5.858-21.213,0.001c-5.858,5.858-5.858,15.355,0,21.213l150.004,150c2.813,2.813,6.628,4.393,10.606,4.393 s7.794-1.581,10.606-4.394l149.996-150C331.465,94.749,331.465,85.251,325.607,79.393z"/>
+                    </svg>
+                </span>
+            </button>
+            <ul x-show="open"
+                x-transition:leave="transition ease-in duration-100"
+                x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0"
+                class="absolute z-10 w-full bg-white shadow-lg max-h-60 rounded-md p-1 gap-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm"
+                x-max="1"
+                @click.away="open = false"
+                x-description="Select popover, show/hide based on select state."
+                x-ref="listbox"
+                tabindex="-1"
+                role="listbox"
+                aria-labelledby="listbox-label">
+                {% for option in options %}
+                    <li x-state:on="Highlighted"
+                        x-state:off="Not Highlighted"
+                        class="cursor-default select-none relative py-3 px-4 text-gray-900 rounded-sm"
+                        x-description="Select option, manage highlight styles based on mouseenter/mouseleave and keyboard navigation."
+                        id="listbox-option-{{ loop.index0 }}"
+                        role="option"
+                        @click="selectedIndex = {{ loop.index0 }}; anySelected = true; open = false; $dispatch('{{ dispatch_name }}', items[selectedIndex]);"
+                        @mouseenter="activeIndex = {{ loop.index0 }}"
+                        @mouseleave="activeIndex = null"
+                        :class="{ 'bg-gray-300': activeIndex === {{ loop.index0 }}, 'text-gray-900': !(activeIndex === {{ loop.index0 }}) }">
+                        <span x-state:on="Selected"
+                              x-state:off="Not Selected"
+                              class="font-normal block truncate"
+                              :class="{ 'font-semibold': selectedIndex === {{ loop.index0 }}, 'font-normal': !(selectedIndex === {{ loop.index0 }}) }">
+                            {{ option }}
+                        </span>
+                        <span x-description="Checkmark, only display for selected option."
+                              x-state:on="Highlighted"
+                              x-state:off="Not Highlighted"
+                              class="absolute inset-y-0 right-0 flex items-center pr-4 text-primary"
+                              x-show="selectedIndex === {{ loop.index0 }}">
+                            <svg class="h-5 w-5"
+                                 x-description="Heroicon name: solid/check"
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 viewBox="0 0 20 20"
+                                 fill="currentColor"
+                                 aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                      clip-rule="evenodd"/>
+                            </svg>
+                        </span>
+                    </li>
+                {% endfor %}
+            </ul>
+            {% if help_text %}
+                {% if error != '' %}
+                    <p class="text-error-focus text-xs">
+                        {{ error }}
+                    </p>
+                {% else %}
+                    <p class="text-gray-500 text-xs">
+                        {{ help_text }}
+                    </p>
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endif %}
+{% endmacro %}
