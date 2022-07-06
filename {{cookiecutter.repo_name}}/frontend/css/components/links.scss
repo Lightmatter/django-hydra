@@ -1,6 +1,24 @@
 .link {
+  @apply link-primary;
+}
+
+.link-primary {
   @apply cursor-pointer no-underline;
-  @apply text-indigo-600;
+  @apply text-primary;
   @apply hover:underline;
-  @apply hover:text-indigo-800;
+  @apply hover:text-primary-focus;
+}
+
+.link-secondary {
+  @apply cursor-pointer no-underline;
+  @apply text-secondary;
+  @apply hover:underline;
+  @apply hover:text-secondary-focus;
+}
+
+.link-accent {
+  @apply cursor-pointer no-underline;
+  @apply text-accent;
+  @apply hover:underline;
+  @apply hover:text-accent-focus;
 }

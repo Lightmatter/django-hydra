@@ -16,3 +16,47 @@
  *
  */
 @import "tailwindcss/utilities";
+
+
+@layer base {
+    h1 {
+      @apply text-8xl font-bold;
+  
+      line-height: 6rem;
+    }
+  
+    h2 {
+      @apply text-7xl font-bold;
+  
+      line-height: 4.5rem;
+    }
+  
+    h3 {
+      @apply text-6xl font-bold;
+  
+      line-height: 3.75rem;
+    }
+  
+    h4 {
+      @apply text-5xl font-bold;
+  
+      line-height: 3rem;
+    }
+  
+    h5 {
+      @apply text-4xl font-semibold;
+  
+      line-height: 2.5rem;
+    }
+  
+    h6 {
+      @apply text-3xl font-semibold;
+  
+      line-height: 2.25rem;
+    }
+  
+    .display {
+      @apply text-9xl font-bold;
+    }
+  }
+  
