@@ -1,0 +1,41 @@
+{% set default_radios = [{'name': 'C-3PO'}, {'name': 'R2-D2', 'help_text': 'These hyphens confuse nobody'}, {'name': 'BD-1', 'help_text': 'From the video game!'}, {'name': 'IG-11', 'help_text': 'From Mando'}] %}
+{% macro radio(radios=default_radios, title="Favorite Droid", subtitle="", dispatch_name='radio', color='primary') %}
+    <form>
+        <div x-data="{value: null, select(option) { this.value = option }, isSelected(option) { return this.value === option }, hasRovingTabindex(option, el) { if (this.value === null && Array.from(el.parentElement.children).indexOf(el) === 0) {return true}  return this.isSelected(option) } }"
+             role="radiogroup"
+             :aria-labelledby="$id('radio-group-label')"
+             x-id="['radio-group-label']">
+            <label class="text-base font-medium text-gray-900"
+                   :id="$id('radio-group-label')"
+                   role="none">{{ title }}</label>
+            <p class="text-sm leading-5 text-gray-500">
+                {{ subtitle }}
+            </p>
+            <fieldset class="mt-4">
+                <div class="space-y-4">
+                    {% for radio in radios %}
+                        <div class="flex items-center"
+                             x-data="{ option: '{{ radio.name }}' }"
+                             @click="select(option); $dispatch('{{ dispatch_name }}', '{{ radio.name }}')"
+                             x-id="['radio-option-label', 'radio-option-description']"
+                             role="radio">
+                            <input name="notification-method"
+                                   type="radio"
+                                   class="focus:ring-{{ color }}-focus h-4 w-4 text-{{ color }} border-gray-300"/>
+                            <div class="ml-3 text-sm">
+                                <label class="font-medium text-gray-700" :id="$id('radio-option-label')">{{ radio.name }}</label>
+                                {% if 'help_text' in radio and radio.help_text != '' %}
+                                    <p id="small-description"
+                                       class="text-gray-500"
+                                       :id="$id('radio-option-description')">
+                                        {{ radio.help_text }}
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </fieldset>
+        </div>
+    </form>
+{% endmacro %}
