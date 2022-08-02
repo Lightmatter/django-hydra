@@ -94,11 +94,12 @@ jobs:
           installer-parallel: true
 
       - uses: actions/setup-python@v4
+        id: setup_python
         with:
           python-version-file: ".python-version"
           cache: "poetry"
 
-      - run: poetry env use 3.10.2 #TODO: get this dynamic on python version
+      - run: poetry env use ${{ steps.setup_python.outputs.python-version }}
       - run: poetry install
       - run: poetry run playwright install
       - run: poetry run coverage run --source='.' manage.py test
