@@ -1,7 +1,8 @@
 name: Django CI
 on: pull_request
+
 jobs:
-  # uncomment when using docker
+  # # uncomment when using docker
   # docker:
   #   name: Build the docker image
   #   runs-on: ubuntu-latest
@@ -122,6 +123,10 @@ jobs:
   dependabot_approve:
     name: Approve Dependabot prs
     runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: write
+
     if: ${{ github.actor == 'dependabot[bot]' }}
     needs: test
     steps:
@@ -140,6 +145,11 @@ jobs:
   dependabot_merge:
     name: Auto Merge Dependabot prs
     runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: write
+      contents: write
+
     if: ${{ github.actor == 'dependabot[bot]' }}
     needs: dependabot_approve
     steps:
