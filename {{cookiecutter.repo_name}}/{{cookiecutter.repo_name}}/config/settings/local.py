@@ -1,4 +1,11 @@
 # pylint: skip-file
+import logging
+import sys
+import traceback
+
+from django.template import Context, VariableDoesNotExist, defaultfilters
+from django.template.base import FilterExpression
+
 from .base import *  # noqa
 from .base import env
 
@@ -16,6 +23,53 @@ CACHES = {
         "LOCATION": "radio-kaikan",
     }
 }
+
+
+def skip_invalid_tags(record):
+    if record.exc_info:
+        exc_type, exc_value = record.exc_info[:2]
+        if exc_type is VariableDoesNotExist:
+            return False
+
+    return True
+
+
+# Logging
+# ------------------------------------------------------------------------------
+# Turn on debugging logging
+LOGGING["formatters"] = {
+    "verbose": {
+        "format": "{levelname} {asctime} {module} {message}",
+        "style": "{",
+    },
+    "simple": {
+        "format": "{levelname} {message}",
+        "style": "{",
+    },
+}
+
+if "filters" not in LOGGING:
+    LOGGING["filters"] = {}
+
+LOGGING["filters"]["skip_invalid_tags"] = {
+    "()": "django.utils.log.CallbackFilter",
+    "callback": skip_invalid_tags,
+}
+
+LOGGING["loggers"]["urllib3"] = {
+    "handlers": ["console"],
+    "level": "DEBUG",
+    "propagate": True,
+}
+
+LOGGING["loggers"]["django"] = {
+    "handlers": ["console"],
+    "level": "DEBUG",
+    "propagate": True,
+}
+
+LOGGING["handlers"]["console"]["formatter"] = "simple"
+LOGGING["handlers"]["console"]["filters"] = ["skip_invalid_tags"]
 
 # EMAIL
 # ------------------------------------------------------------------------------
@@ -71,15 +125,62 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#internal-ips
 INTERNAL_IPS = ["127.0.0.1", "10.0.2.2"]
+LOG_TEMPLATE_INVALIDS = env.bool("LOG_TEMPLATE_INVALIDS", True)
 
 
 class InvalidVariable(str):
+    def __init__(self, *args):
+        self._filtered = False
+
+    def __str__(self):
+        if self._filtered:
+            return ""
+
+        return super(self, str).__str__()
+
+    @staticmethod
+    def log(exception, var_name, context):
+        msg = "%s: {{ %s }} in %s"
+        if isinstance(context, Context):
+            template_name = context.template.name
+            render_template = context.render_context.template.name
+            args = [exception.__class__.__name__, var_name, render_template]
+
+            if render_template != template_name:
+                msg += " (origin %s)"
+                args.append(template_name)
+        else:
+            args = [exception.__class__.__name__, var_name, type(context)]
+
+        logging.getLogger("django").warning(msg, *args)
+
     def __bool__(self):
-        return False
+        """
+        Determine if replacement text is appropriate
+        given the context around the undefined var.
+        returning True will fill in with replacement text
+        returning False will leave it empty
+        :return: bool
+        """
+        err_class, exception, trace = sys.exc_info()
+        if err_class is not VariableDoesNotExist:
+            return False
+
+        var_name, context = exception.params
+
+        for (frame, _frame_id) in traceback.walk_tb(trace):
+            former_self = frame.f_locals.get("self", None)
+            if isinstance(former_self, FilterExpression):
+                var_name = str(former_self.var)
+                self._filtered = bool(len(former_self.filters))
+
+        if LOG_TEMPLATE_INVALIDS:
+            InvalidVariable.log(exception, var_name, context)
+
+        return not self._filtered
 
 
 TEMPLATES[0]["OPTIONS"]["string_if_invalid"] = InvalidVariable("BAD TEMPLATE VARIABLE: %s")
-import sys
 
 TESTING = sys.argv[1:2] == ["test"]
 if TESTING:
