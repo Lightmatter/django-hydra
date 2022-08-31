@@ -111,7 +111,7 @@ class RegistrationLiveTest(PlaywrightTestCase):
         # Fill [placeholder="Password\ \(again\)"]
         page.fill('[placeholder="Password\\ \\(again\\)"]', self.password)
         with page.expect_navigation(wait_until="networkidle"):
-            page.click("text=Continue")
+            page.click("text=Create Account")
         actual = page.url.removeprefix(self.live_server_url)
         self.assertEqual(actual, "/")
 
@@ -138,7 +138,7 @@ class RegistrationLiveTest(PlaywrightTestCase):
         # Fill [placeholder="Password\ \(again\)"]
         page.fill('[placeholder="Password\\ \\(again\\)"]', "somethingwronggarbage")
 
-        page.click("text=Continue")
+        page.click("text=Create Account")
 
         error = page.text_content("text=You must type the same email each time.")
         self.assertTrue(error)
@@ -167,7 +167,7 @@ class RegistrationLiveTest(PlaywrightTestCase):
         page.click('[placeholder="Password\\ \\(again\\)"]')
         # Fill [placeholder="Password\ \(again\)"]
         page.fill('[placeholder="Password\\ \\(again\\)"]', "somethingwronggarbage")
-        page.click("text=Continue")
+        page.click("text=Create Account")
         error = page.text_content("text=You must type the same password each time.")
         self.assertTrue(error)
 
