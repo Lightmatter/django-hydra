@@ -84,6 +84,17 @@ SILKY_MAX_REQUEST_BODY_SIZE = 1024  # If request body>1kb, don't log
 SILKY_MAX_RESPONSE_BODY_SIZE = 1024  # If response body>1kb, don't log
 SILKY_META = True  # Record how much time silky is adding to each request
 
+CACHALOT_UNCACHABLE_TABLES = frozenset(
+    (
+        "django_migrations",
+        "silk_response",
+        "silk_sqlquery",
+        "silk_profile",
+        "silk_request",
+    )
+)
+
+
 import sys
 
 TESTING = sys.argv[1:2] == ["test"]
