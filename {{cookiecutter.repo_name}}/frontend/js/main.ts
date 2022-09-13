@@ -1,9 +1,8 @@
-import morph from "nanomorph";
 import focus from "@alpinejs/focus";
 
 import "htmx.org";
 import Alpine from "alpinejs";
-
+import Cookies from "js-cookie";
 import "./components/modal";
 import "./components/flyout";
 import "./links";
@@ -17,19 +16,10 @@ if (import.meta.env.MODE !== "development") {
 // @ts-expect-error // needs to declare that htmx lives on window, auto added by import
 const { htmx } = window; // eslint-disable-line  @typescript-eslint/no-unused-vars
 
-htmx.defineExtension("nanomorph-swap", {
-  isInlineSwap(swapStyle: string) {
-    return swapStyle === "nanomorph";
-  },
-  handleSwap(swapStyle: string, target: HTMLElement, fragment: HTMLElement) {
-    if (swapStyle === "nanomorph") {
-      if (fragment.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
-        morph(target, <Element>fragment.firstElementChild);
-        return [target];
-      } else {
-        morph(target, fragment);
-        return [target];
-      }
+htmx.defineExtension("get-csrf", {
+  onEvent: function (name: string, evt: any) {
+    if (name === "htmx:configRequest") {
+      evt.detail.headers["X-CSRFToken"] = Cookies.get("{{cookiecutter.repo_name}}_csrftoken");
     }
   },
 });

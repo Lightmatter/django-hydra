@@ -16,9 +16,8 @@
         {% endblock extra_head %}
     </head>
     <body hx-boost="true"
-          class="{% block bodyclass %}{% endblock bodyclass %}"
-          hx-ext="nanomorph-swap"
-          hx-swap="nanomorph">
+          hx-ext="get-csrf"
+          class="{% block bodyclass %}{% endblock bodyclass %}">
         {% include "header/base.jinja" %}
         <div id="app">
             {% block content %}
