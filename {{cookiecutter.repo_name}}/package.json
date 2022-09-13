@@ -9,6 +9,7 @@
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.2",
     "@types/alpinejs": "^3.7.0",
+    "@types/js-cookie": "^3.0.2",
     "@typescript-eslint/eslint-plugin": "^5.25.0",
     "@typescript-eslint/parser": "^5.25.0",
     "autoprefixer": "^10.4.7",
@@ -31,6 +32,7 @@
     "@alpinejs/focus": "^3.10.2",
     "@alpinejs/morph": "^3.10.2",
     "alpinejs": "^3.10.2",
-    "htmx.org": "^1.7.0"
+    "htmx.org": "^1.7.0",
+    "js-cookie": "^3.0.1"
   }
 }
