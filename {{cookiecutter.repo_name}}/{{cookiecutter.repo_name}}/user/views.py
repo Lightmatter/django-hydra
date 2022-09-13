@@ -1,7 +1,5 @@
-from allauth.account.views import (
-    LoginView as AllAuthLoginView,
-    SignupView as AllAuthSignupView,
-)
+from allauth.account.views import LoginView as AllAuthLoginView
+from allauth.account.views import SignupView as AllAuthSignupView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template.response import TemplateResponse
 from django.views.generic import RedirectView

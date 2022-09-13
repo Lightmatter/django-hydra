@@ -1,7 +1,5 @@
-from allauth.account.forms import (
-    LoginForm as AllAuthLoginForm,
-    SignupForm as AllAuthSignupForm,
-)
+from allauth.account.forms import LoginForm as AllAuthLoginForm
+from allauth.account.forms import SignupForm as AllAuthSignupForm
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
