@@ -37,6 +37,10 @@ options = {
     "match_extension": None,
     "app_dirname": "jinja2",
     "match_regex": r"^(?!admin/).*",
+    "context_processors": [
+        "django.template.context_processors.request",
+        "django.contrib.messages.context_processors.messages",
+    ],
     "constants": {"csrf_cookie_name": prefixed_cookie("csrftoken")},
     "filters": {
         "template_localtime": "django.utils.timezone.template_localtime",

@@ -9,6 +9,7 @@ from django.views.defaults import (
     server_error,
 )
 
+from django_htmx.http import HttpResponseClientRedirect, HttpResponseClientRefresh
 
 def error(request):
     """Generate an exception. Useful for e.g. configuring Sentry"""
@@ -20,6 +21,13 @@ def current_time(request):
     messages.info(request, "updated the current time")
     return TemplateResponse(request, "samples/current_time.jinja")
 
+def test_message_redirect(request):
+    messages.info(request, "testing redirect")
+    return HttpResponseClientRedirect("/")
+
+def test_message_refresh(request):
+    messages.info(request, "testing refresh")
+    return HttpResponseClientRefresh()
 
 def FourHundy(request, exception):
     return bad_request(request, exception, template_name="400.jinja")
