@@ -17,23 +17,6 @@ if (import.meta.env.MODE !== "development") {
 // @ts-expect-error // needs to declare that htmx lives on window, auto added by import
 const { htmx } = window; // eslint-disable-line  @typescript-eslint/no-unused-vars
 
-htmx.defineExtension("nanomorph-swap", {
-  isInlineSwap(swapStyle: string) {
-    return swapStyle === "nanomorph";
-  },
-  handleSwap(swapStyle: string, target: HTMLElement, fragment: HTMLElement) {
-    if (swapStyle === "nanomorph") {
-      if (fragment.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
-        morph(target, <Element>fragment.firstElementChild);
-        return [target];
-      } else {
-        morph(target, fragment);
-        return [target];
-      }
-    }
-  },
-});
-
 if (import.meta.hot) {
   import.meta.hot.on("template-hmr", () => {
     const dest = document.location.href;
