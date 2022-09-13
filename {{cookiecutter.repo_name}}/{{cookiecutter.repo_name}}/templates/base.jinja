@@ -16,6 +16,7 @@
         {% endblock extra_head %}
     </head>
     <body hx-boost="true"
+          hx-ext="get-csrf"
           class="{% block bodyclass %}{% endblock bodyclass %}">
         {% include "header/base.jinja" %}
         <div id="app">
