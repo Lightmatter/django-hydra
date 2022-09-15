@@ -1,10 +1,6 @@
 {% from 'forms/attrs.jinja' import form_attrs %}
 
-{% set default_left_icon %}
-{% endset %}
-
-
-{% macro input(type="text", name=None, value=None, model="input", color='primary', attrs={}, left_icon=default_left_icon, right_icon='') %}
+{% macro input(type="text", name=None, value=None, model="input", color='primary', attrs={}, left_icon='', right_icon='') %}
     {% set disabled = attrs.disabled %}
     {% set readonly = attrs.readonly %}
     {% set noedit = disabled or readonly %}
