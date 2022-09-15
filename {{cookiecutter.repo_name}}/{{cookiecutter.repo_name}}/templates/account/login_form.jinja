@@ -1,4 +1,4 @@
-{% from 'forms/inputgroup.jinja' import inputgroup %}
+{% from 'forms/field.jinja' import field as f %}
 {% from 'forms/checkbox.jinja' import checkbox %}
 <div class="form-wrapper justify-between">
     {{ errors }}
@@ -6,7 +6,7 @@
         {% if field.name == 'remember' %}
             {{ checkbox(field) }}
         {% else %}
-            {{ inputgroup(field, errors) }}
+            {{ f(field, errors) }}
         {% endif %}
     {% endfor %}
     <a href="{{ url("account_reset_password") }}"

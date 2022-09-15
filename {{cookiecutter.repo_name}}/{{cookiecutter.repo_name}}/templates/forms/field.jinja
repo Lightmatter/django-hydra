@@ -1,0 +1,20 @@
+{% macro field(field, errors='', layout_classes='w-full') %}
+    <div x-data="{ {{ field.auto_id }}: '{{field.initial if field.initial else ""}}'}" x-id="['{{field.auto_id}}']" class="{{ layout_classes }} {{ field.css_classes() }}">
+        {% if field.label %}{{ field.label_tag() }}{% endif %}
+        <div class="mt-1 field relative {% if errors %} error{% endif %}">
+            {{ field }}
+            {% if errors %}
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                    {% include "svg/exclamation_circle.svg" %}
+                </div>
+            {% endif %}
+        </div>
+        {% if errors %}
+            <div class="text-red">{{ errors }}</div>
+        {% elif field.help_text %}
+            <p class="mt-2 text-sm text-gray-500" id="email-description">
+                {{ field.help_text|safe }}
+            </p>
+        {% endif %}
+    </div>
+{% endmacro %}
