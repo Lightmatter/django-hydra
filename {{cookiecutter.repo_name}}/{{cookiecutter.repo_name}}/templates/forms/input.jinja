@@ -4,9 +4,8 @@
     {% set disabled = attrs.disabled %}
     {% set readonly = attrs.readonly %}
     {% set noedit = disabled or readonly %}
-
-    <div {% if noedit %} class="cursor-not-allowed" {% endif %} >
-        <div class="mt-1 relative rounded-md shadow-sm">
+    {% do attrs.pop('placeholder', '') %} {# default design doesn't allow for placeholder text, uses labels instead #}
+        <div class="rounded-md shadow-sm">
             {% if left_icon %}
             <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                 {{ left_icon }}
@@ -33,7 +32,6 @@
             </div>
             {% endif %}
         </div>
-    </div>
 {% endmacro %}
 
 
