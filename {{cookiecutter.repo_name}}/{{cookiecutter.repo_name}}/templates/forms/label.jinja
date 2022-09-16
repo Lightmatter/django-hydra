@@ -5,7 +5,7 @@
     {% if tag %}
         <{{ tag }}
         class="{{class}} {{attrs.pop('class', '')}}  absolute z-10 {% if error %}text-error-focus{% else %}text-gray-400{% endif %}"
-        :class="{{ target }}.length > 0 ? '-translate-y-2 translate-x-2 text-xs bg-white px-1' : 'translate-y-2 translate-x-3'"
+        :class="{{ target }}.length > 0 ? '-translate-y-1 translate-x-2 text-xs bg-white px-1 text-black' : 'translate-y-2.5 translate-x-3'"
         for={{target}}
         {{form_attrs(attrs)}}
         >
@@ -15,7 +15,9 @@
         {{ label }}
     {% endif %}
 {% endmacro %}
-
+{# force tailwind to use this
+translate-y-2.5
+#}
 
 {% macro django_label(field, label_text, use_tag, tag, attrs={}) %}
     {% set disabled = field.field.disabled %}
