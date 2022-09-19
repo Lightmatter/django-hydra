@@ -19,7 +19,9 @@
 translate-y-2.5
 #}
 
-{% macro django_label(field, label_text, use_tag, tag, attrs={}) %}
+
+{# called in the django label template, and calls our label macro with the appropriate args #}
+{% macro django_to_label(field, label_text, use_tag, tag, attrs={}) %}
     {% set disabled = field.field.disabled %}
     {% set readonly = field.field.widget.attrs.readonly %}
     {% if disabled %} {% set class = "translate-y-2 cursor-not-allowed" %}
