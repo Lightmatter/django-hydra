@@ -8,6 +8,7 @@
 {% block account_content %}
     <form hx-get="{{ url('user:account_welcome') }}"
           hx-swap="outerHTML"
+          hx-select="#account-box"
           hx-target="#account-box"
           class="flex flex-col space-y-10 mb-10">
         {{ form }}

@@ -1,0 +1,39 @@
+{% from 'forms/attrs.jinja' import form_attrs %}
+
+{% macro input(type="text", name=None, value=None, model="input", color='primary', attrs={}, left_icon='', right_icon='') %}
+    {% set disabled, readonly = attrs.disabled, attrs.readonly %}
+    {% set noedit = disabled or readonly %}
+    {% do attrs.pop('placeholder', '') %} {# default design doesn't allow for placeholder text, uses labels instead #}
+        <div class="rounded-md shadow-sm">
+            {% if left_icon %}
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                {{ left_icon }}
+            </div>
+            {% endif %}
+            <input
+                {{form_attrs(attrs)}}
+                type="{{type}}"
+                {% if name %}name="{{ name }}"{% endif %}
+                {% if value %}value="{{ value }}"{% endif %}
+                x-model="{{ model }}"
+                class="
+                {% if error %}focus:ring-error-focus border-error-focus
+                {% else %}focus:ring-{{ color }} focus:border-{{ color }}
+                {% endif %}
+                {% if noedit %} cursor-not-allowed border-gray-400{% endif %}
+                {% if left_icon %} pl-10{% endif %}
+                {% if right_icon %} pr-10{% endif %}
+                shadow-sm block w-full sm:text-sm  placeholder:text-gray-400 rounded-md"
+            />
+            {% if right_icon %}
+            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                {{ right_icon }}
+            </div>
+            {% endif %}
+        </div>
+{% endmacro %}
+
+{# takes a django widget and calls our input macro with the appropriate args #}
+{% macro widget_to_input(widget) %}
+    {{input(type=widget.type, name=widget.name, value=widget.value, model=widget.attrs.id, attrs=widget.attrs )}}
+{% endmacro %}
