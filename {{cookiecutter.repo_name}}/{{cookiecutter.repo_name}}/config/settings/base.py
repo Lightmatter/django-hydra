@@ -78,6 +78,7 @@ THIRD_PARTY_APPS = [
     "model_utils",
     "allauth",
     "allauth.account",
+    "heroicons",
 ]
 LOCAL_APPS = [
     "{{cookiecutter.repo_name}}.home",
@@ -304,6 +305,7 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
 ACCOUNT_ADAPTER = "{{cookiecutter.repo_name}}.user.adapter.HTMXAccountAdapter"
 ACCOUNT_TEMPLATE_EXTENSION = "jinja"
+
 
 # https://django-allauth.readthedocs.io/en/latest/forms.html#account-forms
 ACCOUNT_FORMS = {

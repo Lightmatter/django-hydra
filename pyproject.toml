@@ -2,7 +2,7 @@
 name = "generic-django-conf"
 version = "3.0"
 description = "A generic project template for django"
-authors = ["Ben Beecher <Ben@lightmatter.com>"]
+authors = ["Ben Beecher <ben@lightmatter.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"

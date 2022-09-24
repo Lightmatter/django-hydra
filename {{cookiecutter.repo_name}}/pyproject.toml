@@ -2,7 +2,7 @@
 name = "{{cookiecutter.repo_name}}"
 version = "0.1.0"
 description = ""
-authors = ["Ben Beecher <Ben@lightmatter.com>"]
+authors = ["Ben Beecher <ben@lightmatter.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -29,6 +29,7 @@ redis = "^4.1.2"
 hiredis = "^2.0.0"
 django-redis = "^5.2.0"
 django-jinja = "^2.10.2"
+heroicons = {extras = ["jinja"], version = "^1.8.0"}
 
 [tool.poetry.dev-dependencies]
 Werkzeug = "2.0.2"

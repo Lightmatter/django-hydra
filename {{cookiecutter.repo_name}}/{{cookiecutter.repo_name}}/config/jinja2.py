@@ -1,6 +1,7 @@
 import datetime
 import random
 from math import ceil, floor
+from heroicons.jinja import heroicon_outline, heroicon_solid
 
 
 # Sample code from the template
@@ -49,6 +50,8 @@ options = {
         "vite_asset": "django_vite.templatetags.django_vite.vite_asset",
         "vite_hmr_client": "django_vite.templatetags.django_vite.vite_hmr_client",
         "django_htmx_script": "django_htmx.templatetags.django_htmx.django_htmx_script",
+        "heroicon_outline": heroicon_outline,
+        "heroicon_solid": heroicon_solid,
         "now": datetime.datetime.utcnow,
         "template_localtime": "django.utils.timezone.template_localtime",
         "random_chart": random_chart,
