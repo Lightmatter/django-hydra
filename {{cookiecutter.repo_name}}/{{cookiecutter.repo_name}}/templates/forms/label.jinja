@@ -4,8 +4,6 @@
 {% macro label(label, tag='label', target='', error=False, class='', attrs={}) %}
     {% if tag %}
         <{{ tag }}
-        class="{{class}} {{attrs.pop('class', '')}}  absolute z-10 {% if error %}text-error-focus{% else %}text-gray-400{% endif %}"
-        :class="{{ target }}.length > 0 ? '-translate-y-1 translate-x-2 text-xs bg-white px-1 text-black' : 'translate-y-2.5 translate-x-3'"
         for={{target}}
         {{form_attrs(attrs)}}
         >

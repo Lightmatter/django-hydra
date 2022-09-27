@@ -8,17 +8,17 @@
 
 
 /**
+ * This injects any component classes registered by plugins.
+ *
+ */
+@import "tailwindcss/components";
+
+/**
  *  Import our main application styling, site chrome and defaults
  *
  */
 
 @import "@/css/app.scss";
-
-/**
- * This injects any component classes registered by plugins.
- *
- */
-@import "tailwindcss/components";
 
 /**
  * Here we add custom component classes;  we load
@@ -29,7 +29,6 @@
 
 @import "@/css/components/messages.scss";
 @import "@/css/components/links.scss";
-@import "@/css/components/forms.scss";
 @import "@/css/components/toasts.scss";
 
 

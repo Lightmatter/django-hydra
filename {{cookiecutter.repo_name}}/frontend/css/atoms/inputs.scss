@@ -1,0 +1,245 @@
+/* stylelint-disable no-descending-specificity */
+
+
+.field input[type="checkbox"] {
+  @apply focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded;
+}
+
+.form-wrapper {
+  @apply space-y-5 flex flex-row flex-wrap;
+}
+
+.select {
+  overflow-x: visible !important;
+
+  select {
+    border-width: 0;
+    width: 100%;
+  }
+
+  select + label {
+    color: var(--primary-accent) !important;
+    transform: translate(0, -25%) scale(0.75);
+    max-width: 130%;
+  }
+}
+
+.field {
+  @apply mt-1;
+
+  border: 1px solid;
+  border-color: var(--silver);
+  border-radius: 10px;
+  background-color: #fff;
+  position: relative;
+
+  &.error {
+    @apply block w-full border-red-300 text-red-900 placeholder-red-300;
+    @apply focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm;
+  }
+
+  & + .errorlist {
+    margin-top: -1.25rem;
+  }
+
+  &:focus-within {
+    border-color: var(--primary-accent);
+  }
+
+  > .input-box { // div with styling hook
+    @apply mx-4 flex items-center;
+
+    height: 100%;
+    position: relative;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+
+    input:not(:focus)::placeholder {
+      transition: color 200ms;
+      color: transparent;
+    }
+
+    input:focus + label,
+    .ts-wrapper.focus + label,
+    textarea:focus + label {
+      color: var(--primary-accent) !important;
+      transform: translate(0, -250%) scale(0.75);
+      max-width: 130%;
+    }
+
+    input + label,
+    .ts-wrapper + label,
+    select + label,
+    textarea + label {
+      transform-origin: top left;
+      text-align: left;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      max-width: 100%;
+    }
+
+    input:focus + label,
+    input:not(:placeholder-shown) + label,
+    .ts-wrapper.focus + label,
+    .ts-wrapper.has-items + label,
+    textarea:focus + label,
+    textarea:not(:placeholder-shown) + label,
+    input:-webkit-autofill + label,
+    input:-webkit-autofill:hover + label,
+    input:-webkit-autofill:focus + label,
+    textarea:-webkit-autofill + label,
+    textarea:-webkit-autofill:hover + label,
+    textarea:-webkit-autofill:focus + label,
+    select:-webkit-autofill + label,
+    select:-webkit-autofill:hover + label,
+    select:-webkit-autofill:focus + label {
+      color: var(--slate);
+      transform: translate(0, -10%) scale(0.75);
+    }
+
+    .ts-wrapper {
+      @apply ring-0;
+
+      width: 100%;
+      height: 50px;
+      left: 0;
+      border-radius: 5px;
+      border: 1px;
+      background: transparent;
+      padding-right: 0;
+
+      .ts-control {
+        border: 0;
+        width: 100%;
+        background-color: transparent;
+        padding-top: 20px;
+        padding-left: 0;
+      }
+
+      .ts-dropdown {
+        margin: 4px 0 0;
+        border-radius: 8px;
+        left: -22px;
+        width: calc(100% + 44px);
+
+        .ts-dropdown-content {
+          padding: 0;
+
+          .option {
+            line-height: 48px;
+            border-radius: 6px;
+            margin: 4px;
+          }
+        }
+      }
+    }
+
+    input,
+    textarea {
+      @apply px-0 ring-0;
+
+      padding-right: 22px;
+      width: 100%;
+      height: 50px;
+      border-radius: 5px;
+      border: 1px;
+      background: transparent;
+
+      &:not(:placeholder-shown) {
+        padding-top: 20px;
+      }
+
+      &:focus {
+        padding-top: 20px;
+      }
+    }
+
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus {
+      background-clip: text;
+      font-size: inherit;
+    }
+
+
+    label {
+      @apply absolute pointer-events-none block;
+
+      display: block;
+      position: absolute;
+      pointer-events: none;
+      top: 0;
+      line-height: 50px;
+      transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms, transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+      color: var(--slate);
+    }
+  }
+}
+
+.ts-wrapper {
+  @apply px-4 ring-0;
+
+  &.focus {
+    .ts-control {
+      box-shadow: none;
+      border-color: var(--primary-accent);
+    }
+  }
+
+  &.has-items {
+    .ts-control {
+      input {
+        opacity: 0;
+      }
+    }
+  }
+
+  .ts-control {
+    input {
+      height: inherit;
+      width: auto;
+    }
+  }
+
+  .ts-dropdown {
+    margin: 4px 0 0;
+    border-radius: 8px;
+
+    .active {
+      background-color: var(--pearl);
+      font-weight: 600;
+      color: var(--primary-accent);
+    }
+
+    .option {
+      padding-left: 16px;
+      margin: 4px;
+    }
+
+    .ts-dropdown-content {
+      padding: 0;
+
+      .option {
+        line-height: 48px;
+        border-radius: 6px;
+        margin: 4px;
+      }
+    }
+  }
+}
+
+
+.left-icon {
+  @apply absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none;
+}
+
+.right-icon {
+  @apply absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none;
+}

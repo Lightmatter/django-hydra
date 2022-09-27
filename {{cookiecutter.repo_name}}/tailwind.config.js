@@ -15,19 +15,19 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: '#2D36A8',
-          focus: '#00075e',
-          content: '#ffffff'
+          DEFAULT: "var(--primary)",
+          focus: 'var(--primary-focus)',
+          content: 'var(--primary-content)'
         },
         secondary: {
-          DEFAULT: '#D1D5DB',
-          focus: '#e5e8ed',
-          content: '#000000'
+          DEFAULT: 'var(--secondary)',
+          focus: 'var(--secondary-focus)',
+          content: 'var(--secondary-content)'
         },
         accent: {
-          DEFAULT: '#111827',
-          'focus': '#030509',
-          'content': '#ffffff'
+          DEFAULT: 'var(--accent)',
+          'focus': 'var(--accent-focus)',
+          'content': 'var(--accent-content)'
         },
         neutral: {
           '100': '#F3F6FA',
@@ -41,24 +41,24 @@ module.exports = {
           '900': '#111827',
         },
         info: {
-          DEFAULT: '#60a5fa',
-          'focus': '#1e40af',
-          'content': '#eff6ff'
+          DEFAULT: 'var(--info)',
+          'focus': 'var(--info-focus)',
+          'content': 'var(--info-content)'
         },
         success: {
-          DEFAULT: '#4ade80',
-          'focus': '#166534',
-          'content':'#f0fdf4',
+          DEFAULT: 'var(--success)',
+          'focus': 'var(--success-focus)',
+          'content':'var(--success-content)',
         },
         warning: {
-          DEFAULT: '#FACC15',
-          'focus': '#854D0E',
-          'content': '#fefce8'
+          DEFAULT: 'var(--warning)',
+          'focus': 'var(--warning-focus)',
+          'content': 'var(--warning-content)'
         },
         error: {
-          DEFAULT: '#F87171',
-          'focus': '#991b1b',
-          'content': '#FEF2F2'
+          DEFAULT: 'var(--error)',
+          'focus': 'var(--error-focus)',
+          'content': 'var(--error-content)'
         },
       }
     },

@@ -6,6 +6,7 @@ import Alpine from "alpinejs";
 import Cookies from "js-cookie";
 import "./components/modal";
 import "./components/flyout";
+import "./components/select";
 import "./links";
 
 if (import.meta.env.MODE !== "development") {
