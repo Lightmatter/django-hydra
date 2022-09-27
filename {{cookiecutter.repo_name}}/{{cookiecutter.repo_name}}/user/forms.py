@@ -7,7 +7,11 @@ from .models import User
 
 
 class HasAccountForm(forms.Form):
-    email = forms.EmailField(help_text=_("We won't spam you"), required=True)
+    email = forms.EmailField(
+        help_text=_("We won't spam you"),
+        required=True,
+        widget=forms.TextInput(attrs={"placeholder": _("Email"), "autocomplete": "email"}),
+    )
 
     def clean_email(self):
         data = self.cleaned_data["email"]

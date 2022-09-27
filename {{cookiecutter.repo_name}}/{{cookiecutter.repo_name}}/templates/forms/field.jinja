@@ -9,7 +9,7 @@
 {%- endmacro -%}
 
 {% macro field(field, errors='', layout_classes='w-full') %}
-    <div x-data="{ {{ field.auto_id }}: '{{field.value() if field.value() else ""}}', 'type':''}" x-id="['{{field.auto_id}}']" class="{{ layout_classes }} {{ field.css_classes() }}">
+    <div x-data="{ {{ field.auto_id }}: '{{field.value() if field.value() else ""}}'}" x-id="['{{field.auto_id}}']" class="{{ layout_classes }} {{ field.css_classes() }}">
         <div class="field {% if errors %} error{% endif %}">
             <div class="input-box {{ input_widget_hook(field) -}}">
             {{ field }}

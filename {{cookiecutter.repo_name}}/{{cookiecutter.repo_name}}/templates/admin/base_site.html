@@ -5,6 +5,9 @@
     {% vite_hmr_client %}
     {% vite_asset 'js/main.ts' %}
     {% vite_asset 'css/tailwind.js' %}
+  <style>
+    [x-cloak] { display: none !important; }
+  </style>
 {% endblock %}
 {% block title %}
     {% if subtitle %}{{ subtitle }} |{% endif %}
