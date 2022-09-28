@@ -15,6 +15,7 @@
     "*.html",
     "templates/**/*.txt",
     "*.jinja",
-    ".yarn/*"
+    ".yarn/*",
+    ".github/workflows/django_ci.yml"
   ]
 }
