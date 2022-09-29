@@ -1,13 +1,11 @@
 # pylint: skip-file
-import pathlib
-from datetime import timedelta
-
-from django.core.exceptions import ImproperlyConfigured
 from environ import Env, Path
 
-root = Path(__file__) - 3
+APPDIR = Path(__file__) - 3
+PROJDIR = Path(APPDIR) - 1
 
 env = Env()
+env.read_env(Path(PROJDIR, ".env"))
 
 DEBUG = env.bool("DJANGO_DEBUG", False)
 SECRET_KEY = env("DJANGO_SECRET_KEY")
@@ -150,24 +148,24 @@ MIDDLEWARE = [
 # STATIC
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-root
-STATIC_ROOT = root.path("static")
+STATIC_ROOT = APPDIR.path("static")
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-url
 STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
-STATICFILES_DIRS = (str(root.path("static_source")),)
+STATICFILES_DIRS = (str(APPDIR.path("static_source")),)
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-DJANGO_VITE_ASSETS_PATH = root.path("static")
+DJANGO_VITE_ASSETS_PATH = APPDIR.path("static")
 DJANGO_VITE_DEV_MODE = DEBUG
 
 # MEDIA
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-MEDIA_ROOT = root.path("media")
+MEDIA_ROOT = APPDIR.path("media")
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = "/media/"
 
@@ -194,7 +192,7 @@ TEMPLATES = [
         # https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-TEMPLATES-BACKEND
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         # https://docs.djangoproject.com/en/dev/ref/settings/#template-dirs
-        "DIRS": [root("templates")],
+        "DIRS": [APPDIR("templates")],
         "OPTIONS": {
             # https://docs.djangoproject.com/en/dev/ref/settings/#template-loaders
             # https://docs.djangoproject.com/en/dev/ref/templates/api/#loader-types
@@ -301,7 +299,7 @@ ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = True
-ACCOUNT_ADAPTER = '{{cookiecutter.repo_name}}.user.adapter.HTMXAccountAdapter'
+ACCOUNT_ADAPTER = "{{cookiecutter.repo_name}}.user.adapter.HTMXAccountAdapter"
 
 # https://django-allauth.readthedocs.io/en/latest/forms.html#account-forms
 ACCOUNT_FORMS = {
