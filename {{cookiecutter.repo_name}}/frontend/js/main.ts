@@ -2,15 +2,14 @@
 import "@/css/app-base.css";
 import "@/css/app-components.css";
 import "@/css/app-utilities.css";
+import focus from "@alpinejs/focus";
 
 import "htmx.org";
 import Alpine from "alpinejs";
 
-declare global {
-  interface Window {
-    Alpine?: any;
-  }
-}
+import "./components/modal";
+import "./components/flyout";
+import "./links";
 
 // @ts-expect-error // needs to declare that htmx lives on window, auto added by import
 const { htmx } = window; // eslint-disable-line  @typescript-eslint/no-unused-vars
@@ -27,33 +26,6 @@ if (import.meta.env.MODE !== "development") {
 //   import.meta.hot.on("special-update", (data) => {});
 // }
 
-interface DropDown {
-  open: boolean;
-  toggle(): void;
-  close(): void;
-}
-function dropdown(this: DropDown) {
-  return {
-    open: false,
-    toggle() {
-      if (this.open) {
-        this.close();
-      }
-
-      this.open = true;
-    },
-    close(focusAfter?: HTMLElement) {
-      if (!this.open) return;
-
-      this.open = false;
-
-      if (focusAfter) {
-        focusAfter.focus();
-      }
-    },
-  };
-}
-Alpine.data("dropdown", dropdown);
-
 window.Alpine = Alpine;
+Alpine.plugin(focus);
 Alpine.start();

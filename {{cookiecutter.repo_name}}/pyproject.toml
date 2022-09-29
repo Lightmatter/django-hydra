@@ -15,7 +15,7 @@ django-storages = "^1.12.3"
 uvicorn = "^0.17.1"
 gunicorn = "^20.1.0"
 sentry-sdk = "^1.5.4"
-Django = {extras = ["argon2"], version = "^4.0.3"}
+Django = {extras = ["argon2"], version = "^4.0.4"}
 whitenoise = {extras = ["brotli"], version = "^5.3.0"}
 django-allauth = "^0.47.0"
 django-htmx = "^1.8.0"
@@ -39,17 +39,29 @@ ptpython = "^3.0.20"
 django-debug-toolbar = "^3.2.4"
 model-bakery = "^1.4.0"
 watchdog = "2.1.6"
+pylint-django = "2.5.3"
 Werkzeug = "2.0.2"
+bandit = "1.7.4"
 honcho = "1.1.0"
 unittest-xml-reporting = "^3.2.0"
 playwright = "^1.18.2"
 pywatchman = "^1.4.1"
 icecream = "^2.1.1"
 pre-commit = "^2.17.0"
+flakeheaven = "^0.11.1"
+flake8-bugbear = "^22.1.11"
+flake8-builtins = "^1.5.3"
+flake8-eradicate = "^1.2.0"
+flake8-mutable = "^1.2.0"
+# flake8-django = "^1.1.2"
+black = "22.3.0"
+isort = "^5.10.1"
+djlint = "^0.7.4"
 pudb = "^2022.1"
 poetryup = "^0.5.1"
 importmagic = "^0.1.7"
 epc = "^0.0.5"
+flake8-bandit = "^3.0.0"
 
 [tool.black]
 line-length = 92
@@ -88,10 +100,7 @@ omit = ["*/migrations/*","manage.py","sampleapp/config/*"]
 
 [tool.isort]
 line_length = "92"
-multi_line_output = "3"
-include_trailing_comma = "True"
-use_parentheses = "True"
-combine_as_imports = "True"
+profile = "black"
 skip_glob = "*migrations/*.py"
 known_third_party = "django,django.contrib,django.utils"
 
@@ -99,7 +108,7 @@ known_third_party = "django,django.contrib,django.utils"
 context = 10
 
 [tool.pydocstyle]
-ignore = "D103, D100, D101, D107"
+select = ""
 
 [tool.flakeheaven]
 base = "https://raw.githubusercontent.com/flakeheaven/flakeheaven/master/pyproject.toml"
@@ -120,10 +129,13 @@ mccabe = ["+*"]
 pep8-naming = ["+*"]
 pycodestyle = ["+*", "-W503"]
 pyflakes = ["+*", "-E5110"]
+pylint = ["-*"]
+
 
 [tool.pylint]
     [tool.pylint.master]
     load-plugins="pylint_django, pylint_celery"
+    ignore-paths = [ "^.*/migrations/.*$",]
 
     [tool.pylint.messages_control]
     disable = "C0330, C0326, C0115, C0116, C0114, C0103, C0415, W0707, W0511, R0903, R0201, R0913, W0212, W0221"

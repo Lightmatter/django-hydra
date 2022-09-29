@@ -23,7 +23,7 @@ class UserManagerTest(TestCase):
 class LoginTest(PlaywrightTestCase):
     def setUp(self):
         super().setUp()
-        self.password = "IwouldLikeToKnowMore"
+        self.password = "IwouldLikeToKnowMore"  # noqa: S105
         self.user = baker.make_recipe(
             "{{cookiecutter.repo_name}}.user.user",
             is_superuser=True,
@@ -77,7 +77,7 @@ class LoginTest(PlaywrightTestCase):
 class RegistrationLiveTest(PlaywrightTestCase):
     def setUp(self):
         super().setUp()
-        self.password = "yeahmanitsarealpass"
+        self.password = "yeahmanitsarealpass"  # noqa: S105
         self.form_data = self.login_form_data = {
             "email": "ben@coolguy.com",
             "email2": "ben@coolguy.com",
@@ -113,7 +113,7 @@ class RegistrationLiveTest(PlaywrightTestCase):
         # Fill [placeholder="Password\ \(again\)"]
         page.fill('[placeholder="Password\\ \\(again\\)"]', self.password)
         with page.expect_navigation(wait_until="networkidle"):
-            page.click("text=Continue")
+            page.click("text=Create Account")
         actual = page.url.removeprefix(self.live_server_url)
         self.assertEqual(actual, "/")
 
@@ -140,7 +140,7 @@ class RegistrationLiveTest(PlaywrightTestCase):
         # Fill [placeholder="Password\ \(again\)"]
         page.fill('[placeholder="Password\\ \\(again\\)"]', "somethingwronggarbage")
 
-        page.click("text=Continue")
+        page.click("text=Create Account")
 
         error = page.text_content("text=You must type the same email each time.")
         self.assertTrue(error)
@@ -169,14 +169,14 @@ class RegistrationLiveTest(PlaywrightTestCase):
         page.click('[placeholder="Password\\ \\(again\\)"]')
         # Fill [placeholder="Password\ \(again\)"]
         page.fill('[placeholder="Password\\ \\(again\\)"]', "somethingwronggarbage")
-        page.click("text=Continue")
+        page.click("text=Create Account")
         error = page.text_content("text=You must type the same password each time.")
         self.assertTrue(error)
 
 
 class RegistrationTest(TestCase):
     def setUp(self):
-        self.password = "yeahmanitsarealpass"
+        self.password = "yeahmanitsarealpass"  # noqa: S105
         self.form_data = self.login_form_data = {
             "email": "ben@coolguy.com",
             "email2": "ben@coolguy.com",
