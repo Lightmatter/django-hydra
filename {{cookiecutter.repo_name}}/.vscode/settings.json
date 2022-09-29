@@ -1,0 +1,29 @@
+{
+  "[python]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  },
+  "editor.rulers": [92],
+  "eslint.workingDirectories": ["."],
+  "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
+  "files.trimTrailingWhitespace": true,
+  "prettier.configPath": ".prettierrc.json",
+  "python.formatting.provider": "black",
+  "python.linting.flake8Args": [
+    "--extend-exclude",
+    "README.rst,README.md,*/settings/*,*/migrations/*",
+    "--extend-ignore",
+    "S322,W503,E5110,S101",
+    "--format",
+    "grouped",
+    "--max-line-length",
+    "92",
+    "--show-source"
+  ],
+  "python.linting.flake8Enabled": true,
+  "python.testing.pytestEnabled": true,
+  "python.testing.unittestEnabled": false,
+  "scss.lint.unknownAtRules": "ignore"
+}
