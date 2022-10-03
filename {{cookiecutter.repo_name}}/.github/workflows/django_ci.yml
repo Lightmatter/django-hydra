@@ -1,4 +1,4 @@
-name: Django CI
+{% raw %}name: Django CI
 on: pull_request
 
 jobs:
@@ -62,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DATABASE_URL: "psql://postgres:postgres@localhost/postgres"
-      DJANGO_SETTINGS_MODULE: "{{cookiecutter.repo_name}}.config.settings.test"
+      DJANGO_SETTINGS_MODULE: {% endraw %}"{{cookiecutter.repo_name}}.config.settings.test"{% raw %}
       DJANGO_SECRET_KEY: "!!!! Change me !!!!"
       ACUITY_USER_KEY: ""
       ACUITY_SECRET_KEY: ""
@@ -157,4 +157,4 @@ jobs:
         run: gh pr merge --auto --squash "$PR_URL"
         env:
           PR_URL: ${{github.event.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}{% endraw %}
