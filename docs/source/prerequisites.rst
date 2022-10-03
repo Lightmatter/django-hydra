@@ -22,7 +22,6 @@ Dependencies
 * `git <https://git-scm.com/downloads>`_
 *  bash (`WSL2 <https://docs.microsoft.com/en-us/windows/wsl/install-win10>`_ or `Cygwin <https://cygwin.com/install.html>`_ recommended for windows users)
 * `postgres <https://www.postgresql.org/download/>`_
-* `terraform <https://www.terraform.io/>`_ Used with Heroku for our CI
 * `poetry <https://python-poetry.org/docs/>`_ virtual environment/package manager
 * `direnv <https://direnv.net/docs/installation.html>`_ handles activating your virtual env when you enter the project directory
 
