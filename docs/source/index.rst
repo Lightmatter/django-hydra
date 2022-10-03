@@ -18,7 +18,8 @@ This is a generic template for Django 4 using htmx based templates, Vite and Alp
    prerequisites
    setup
    testing
-   running_debugging
+   structure
+   debugging
    deployment
    workflow
 
