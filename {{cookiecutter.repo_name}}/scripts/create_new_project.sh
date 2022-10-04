@@ -24,7 +24,7 @@ $thisdir/setup_database.sh
 echo "omae wa mou shindeiru"
 $thisdir/setup_github.sh true
 
-poetry run pre-commit install
+poetry run install
 chmod +x manage.py
 
 # This must be run on a new project each time it's instantiated in order for linting to pass out of the box. Running it on 
