@@ -27,9 +27,16 @@ $thisdir/setup_github.sh true
 poetry run install
 chmod +x manage.py
 
+# Pre-commit won't run unless files have been staged.
+git add .
+
 # This must be run on a new project each time it's instantiated in order for linting to pass out of the box. Running it on 
 # the template itself isn't idempotent when the project is created.
 pre-commit run --all-files
+
+echo "Setting up the git repo for the first time"
+git commit -am "initial commit" -q
+echo "Added everything and committed initially"
 
 
 
