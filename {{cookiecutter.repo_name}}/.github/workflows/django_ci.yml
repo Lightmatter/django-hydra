@@ -98,7 +98,18 @@ jobs:
           cache: "poetry"
 
       - run: poetry env use ${{ steps.setup_python.outputs.python-version }}
-      - run: poetry install
+
+      - name: Load cached venv if cache exists
+        id: cached-poetry-dependencies
+        uses: actions/cache@v2
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install dependencies if cache does not exist
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root
+
       - run: poetry run playwright install
       - run: poetry run coverage run --source='.' manage.py test
       - run: poetry run ./manage.py collectstatic --noinput
