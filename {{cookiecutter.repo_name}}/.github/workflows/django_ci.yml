@@ -65,7 +65,7 @@ jobs:
     runs-on: ubuntu-latest{% endraw %}
     env:
       DATABASE_URL: "psql://postgres:postgres@localhost/postgres"
-      DJANGO_SETTINGS_MODULE: {% endraw %}"{{cookiecutter.repo_name}}.config.settings.test"{% raw %}
+      DJANGO_SETTINGS_MODULE: "{{cookiecutter.repo_name}}.config.settings.test"
       DJANGO_SECRET_KEY: "!!!! Change me !!!!"
       ACUITY_USER_KEY: ""
       ACUITY_SECRET_KEY: ""
