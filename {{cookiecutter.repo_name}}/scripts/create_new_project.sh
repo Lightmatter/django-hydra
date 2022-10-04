@@ -27,6 +27,12 @@ $thisdir/setup_github.sh true
 poetry run pre-commit install
 chmod +x manage.py
 
+# This must be run on a new project each time it's instantiated in order for linting to pass out of the box. Running it on 
+# the template itself isn't idempotent when the project is created.
+pre-commit run --all-files
+
+
+
 #todo - git flow init
 echo "-------------------------------------------------------------"
 echo "Maybe The Real create_existing_project.sh Was the Friends We Made Along the Way"
