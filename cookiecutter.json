@@ -15,6 +15,5 @@
     "*.html",
     "templates/**/*.txt",
     "*.jinja",
-    ".yarn/*"
-  ]
+    ".yarn/*"  ]
 }

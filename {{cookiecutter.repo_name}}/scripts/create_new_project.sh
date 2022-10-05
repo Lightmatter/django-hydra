@@ -16,8 +16,13 @@ export DJANGO_SETTINGS_MODULE=$ENV_NAME.config.settings.local
 export DJANGO_SECRET_KEY="testkey"
 
 $thisdir/setup_python.sh
-# allow python to setup the venv before switching into it
-direnv allow . && eval "$(direnv export bash)"
+
+# Direnv doesn't exist on CI, so install the poetry dependencies manually.
+if command -v direnv
+then
+	# This also sets up the venv.
+    direnv allow . && eval "$(direnv export bash)"
+fi
 
 $thisdir/setup_js.sh
 $thisdir/setup_database.sh

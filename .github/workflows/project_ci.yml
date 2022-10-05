@@ -1,0 +1,93 @@
+# In YAML, 'raw' and 'endraw' can't come at the beginning of a token or at the end of a quoted value, which is why they're in weird places. They are
+# needed to escape YAML templating variables, which still allowing cookiecutter to replace the value of the repository name.
+
+name: Project CI
+on: pull_request
+
+jobs:
+  create_and_test_project:
+    name: Create and test Django project
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: "psql://postgres:postgres@localhost/postgres"
+      DJANGO_SETTINGS_MODULE: "sampleapp.config.settings.test"
+      DJANGO_SECRET_KEY: "!!!! Change me !!!!"
+      ACUITY_USER_KEY: ""
+      ACUITY_SECRET_KEY: ""
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+
+      - name: Install and configure Poetry
+        uses: snok/install-poetry@v1
+        with:
+          version: latest
+          virtualenvs-create: true
+          virtualenvs-in-project: true
+          installer-parallel: true
+
+      # Configure Python for the template
+      - uses: actions/setup-python@v4
+        id: setup_python
+        with:
+          python-version-file: ".python-version"
+          cache: "poetry"
+
+      - run: poetry env use ${{ steps.setup_python.outputs.python-version }}
+
+      - name: Load cached venv if cache exists
+        id: cached-poetry-dependencies
+        uses: actions/cache@v2
+        with:
+          path: .venv
+          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+
+      - name: Install dependencies if cache does not exist
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        run: poetry install --no-interaction --no-root
+
+      # Instantiate the project
+      - name: Instantiate project using the values in cookiecutter.json
+        run: poetry run cookiecutter . --no-input
+
+      # Configure the project environment
+      - uses: actions/setup-node@v3
+        with:
+          node-version: lts/*
+          cache: "npm"
+          cache-dependency-path: "**/package-lock.json"
+
+      - run: npm install
+        working-directory: ./sampleapp
+
+      - run: npm run build
+        working-directory: ./sampleapp
+
+      - run: poetry env use 3.10.4
+        working-directory: ./sampleapp
+
+      - name: Install dependencies if cache does not exist
+        working-directory: ./sampleapp
+        run: poetry install --no-interaction --no-root
+
+      - run: poetry run playwright install
+        working-directory: ./sampleapp
+
+      - run: poetry run coverage run --source='.' manage.py test
+        working-directory: ./sampleapp
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
