@@ -27,7 +27,7 @@ fi
 $thisdir/setup_js.sh
 $thisdir/setup_database.sh
 echo "omae wa mou shindeiru"
-$thisdir/setup_github.sh true
+$thisdir/setup_github.sh
 
 poetry run install
 chmod +x manage.py
