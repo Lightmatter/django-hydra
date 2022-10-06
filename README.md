@@ -8,7 +8,7 @@ A generic template for Django 4 using htmx based templates, Vite and Alpine.js t
 
 The following items are required in order for this template to work.
 
-Note: There are scripts to install what you need for mac based operating systems automatically.
+Note: For Mac systems, there is an automatic installation script that handle these dependences - jump right to the macOS section to complete setup
 
 ## Dependencies
 
@@ -21,7 +21,6 @@ Note: There are scripts to install what you need for mac based operating systems
 * [git](https://git-scm.com/downloads)
 * bash ([WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10) or [Cygwin](https://cygwin.com/install.html) recommended for windows users)
 * [postgres](https://www.postgresql.org/download/)
-* [terraform](https://www.terraform.io/) Used with Heroku for our CI
 * [poetry](https://python-poetry.org/docs/) virtual environment/package manager
 * [direnv](https://direnv.net/docs/installation.html) handles activating your virtual env when you enter the project directory
 
@@ -273,10 +272,7 @@ Create an instance of the template using cookiecutter. Create changes in the sam
 
 This will attempt to take the git diff of the prior commit and apply it back to the template. When adding new dependencies to a project, always delete the `poetry.lock` file and recreate it before committing, otherwise it won't merge correctly. The documentation for retrocookie is here: <https://pypi.org/project/retrocookie/>
 
-On MacOS, you must install gnu sed for the create_patch script to work. To do this, run `brew install gnu-sed` and then add `PATH="$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$PATH"` to your `~/.bash_profile` file.
-
-
-# Todo
+# Upcoming Features
 Things we still want to do
 ```
   caching everything possible (middleware for sure)
