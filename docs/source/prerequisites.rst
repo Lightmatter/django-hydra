@@ -4,7 +4,7 @@ Prerequisites
 The following items are required in order for this template to work.
 
 .. note::
-   There are scripts to install what you need for mac based operating systems automatically.
+   For Mac systems, there is an automatic installation script that handle these dependences - jump right to the macOS section to complete setup
 
 Dependencies
 -------------
@@ -36,9 +36,9 @@ There is also a certain amount of environmental configuration that must be done 
 macOS
 *************
 
-To install on a mac based operating system, you can use the install script to setup everything.
+To install on a mac based operating system, you can use the install script to set up everything.
 
-Run the following script block to get setup:
+Run the following script block to get set up:
 
 .. code-block:: console
 
