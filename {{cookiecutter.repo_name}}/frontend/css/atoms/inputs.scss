@@ -1,9 +1,7 @@
 /* stylelint-disable no-descending-specificity */
 
 
-.field input[type="checkbox"] {
-  @apply focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded;
-}
+$input-height: 50px;
 
 .form-wrapper {
   @apply space-y-5 flex flex-row flex-wrap;
@@ -11,17 +9,15 @@
 
 .select {
   overflow-x: visible !important;
-
+  min-height: $input-height; // prevent flash of content from tom select starting up
   // basic styles for no js
   select {
     border-width: 0;
     width: 100%;
   }
 
-  select + label {
-    color: var(--primary-accent) !important;
-    transform: translate(0, -25%) scale(0.75);
-    max-width: 130%;
+  select ~ label {
+    z-index: 2;
   }
 }
 
@@ -60,24 +56,39 @@
       color: transparent;
     }
 
-    input:focus + label,
-    .ts-wrapper.focus + label,
-    textarea:focus + label {
+    @mixin label-focused {
       color: var(--primary-accent) !important;
       transform: translate(0, -250%) scale(0.75);
       max-width: 130%;
     }
 
-    input + label,
-    .ts-wrapper + label,
-    select + label,
-    textarea + label {
+
+    @mixin label-resting {
       transform-origin: top left;
       text-align: left;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
       max-width: 100%;
+    }
+
+    @mixin label-transition {
+      color: var(--slate);
+      transform: translate(0, -10%) scale(0.75);
+    }
+
+    input + label,
+    .ts-wrapper + label,
+    select + label,
+    textarea + label {
+      @include label-resting;
+    }
+
+
+    input:focus + label,
+    .ts-wrapper.focus + label,
+    textarea:focus + label {
+      @include label-focused;
     }
 
     input:focus + label,
@@ -95,15 +106,42 @@
     select:-webkit-autofill + label,
     select:-webkit-autofill:hover + label,
     select:-webkit-autofill:focus + label {
-      color: var(--slate);
-      transform: translate(0, -10%) scale(0.75);
+      @include label-transition;
     }
+
+    // firefox does not support has queries, so turn off the label behavior there
+    .password:has(input) + label {
+      @include label-resting;
+    }
+
+    .password:has(input:focus) + label {
+      @include label-focused;
+    }
+
+    .password:has(input:focus) + label,
+    .password:has(input:not(:placeholder-shown)) + label,
+    .password:has(input:-webkit-autofill) + label,
+    .password:has(input:-webkit-autofill:hover) + label,
+    .password:has(input:-webkit-autofill:focus) + label, {
+      @include label-transition;
+    }
+
+    @-moz-document url-prefix() {
+      .password + label {
+        display: none;
+      }
+
+      .password input::placeholder {
+        color: var(--slate);
+      }
+    }
+
 
     .ts-wrapper {
       @apply ring-0;
 
       width: 100%;
-      height: 50px;
+      height: $input-height;
       left: 0;
       border-radius: 5px;
       border: 1px;
@@ -160,6 +198,7 @@
     textarea {
       margin-top: 20px;
       padding-top: 0 !important;
+      border: 0 !important;
     }
 
     input:-webkit-autofill,
@@ -183,7 +222,7 @@
       position: absolute;
       pointer-events: none;
       top: 0;
-      line-height: 50px;
+      line-height: $input-height;
       transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms, transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
       color: var(--slate);
     }
@@ -203,7 +242,7 @@
   &.has-items {
     .ts-control {
       input {
-        opacity: 0;
+        // opacity: 0; // uncomment this to hide input after select
       }
     }
   }
@@ -220,7 +259,7 @@
     border-radius: 8px;
 
     .active {
-      background-color: var(--pearl);
+      background-color: var(--silver);
       font-weight: 600;
       color: var(--primary-accent);
     }
@@ -249,4 +288,8 @@
 
 .right-icon {
   @apply absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none;
+}
+
+.password ~ .right-icon {
+  @apply pr-7;
 }
