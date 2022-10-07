@@ -14,4 +14,12 @@
 
 .form-wrapper {
   @apply space-y-5 flex flex-row flex-wrap;
+
+  .half:nth-of-type(1n) {
+    @apply sm: pr-1;
+  }
+  
+  .half:nth-of-type(2n) {
+    @apply sm: pl-1;
+  }
 }
