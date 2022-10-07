@@ -255,7 +255,7 @@ LANGUAGE_COOKIE_NAME = prefixed_cookie("language")
 # Django Admin URL.
 ADMIN_URL = "admin/"
 # https://docs.djangoproject.com/en/dev/ref/settings/#admins
-ADMINS = [("""Sam Morgan""", "sam@lightmatter.com")]
+ADMINS = [("""{{cookiecutter.author_name}}""", "{{cookiecutter.email}}")]
 # https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
 
