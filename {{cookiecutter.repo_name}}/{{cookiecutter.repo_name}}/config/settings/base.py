@@ -147,6 +147,7 @@ MIDDLEWARE = [
     "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "{{cookiecutter.repo_name}}.util.middleware.HTMXMessageMiddleware",
+    "{{cookiecutter.repo_name}}.util.middleware.TimezoneMiddleware",
 ]
 
 
