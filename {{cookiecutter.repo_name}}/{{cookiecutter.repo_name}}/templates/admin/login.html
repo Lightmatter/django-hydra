@@ -1,0 +1,13 @@
+{% extends "admin/login.html" %}
+{% load i18n static %}
+{% block extrastyle %}
+  {{ block.super }}
+  <style>
+    #main {
+      margin-left: 0 !important;
+    }
+    label[for="id_password"] + span > div {
+      display: none !important;
+    }
+  </style>
+{% endblock extrastyle %}

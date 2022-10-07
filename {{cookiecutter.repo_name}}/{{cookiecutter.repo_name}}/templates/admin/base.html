@@ -1,0 +1,8 @@
+{% extends "admin/base.html" %}
+{% block extrahead %}
+  {% load django_vite %}
+  {% vite_hmr_client %}
+  {% vite_asset 'js/main.ts' %}
+  {% load django_htmx %}
+  {% django_htmx_script %}
+{% endblock extrahead %}
