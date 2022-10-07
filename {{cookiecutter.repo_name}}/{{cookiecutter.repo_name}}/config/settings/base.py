@@ -1,13 +1,14 @@
 # pylint: skip-file
-import pathlib
-from datetime import timedelta
+from pathlib import Path
 
-from django.core.exceptions import ImproperlyConfigured
-from environ import Env, Path
-
-root = Path(__file__) - 3
+from environ import Env
 
 env = Env()
+
+APP_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = APP_DIR.parent
+
+Env.read_env(BASE_DIR / ".env")
 
 DEBUG = env.bool("DJANGO_DEBUG", False)
 SECRET_KEY = env("DJANGO_SECRET_KEY")
@@ -150,25 +151,24 @@ MIDDLEWARE = [
 # STATIC
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-root
-STATIC_ROOT = root.path("static")
+STATIC_ROOT = APP_DIR / "static"
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-url
 STATIC_URL = "/static/"
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#std:setting-STATICFILES_DIRS
-STATICFILES_DIRS = (str(root.path("static_source")),)
+STATICFILES_DIRS = [APP_DIR / "static_source"]
 # https://docs.djangoproject.com/en/dev/ref/contrib/staticfiles/#staticfiles-finders
 STATICFILES_FINDERS = [
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 ]
 
-DJANGO_VITE_ASSETS_PATH = root.path("static")
+DJANGO_VITE_ASSETS_PATH = STATIC_ROOT
 DJANGO_VITE_DEV_MODE = DEBUG
-DJANGO_VITE_DEV_SERVER_PORT = 5173
 
 # MEDIA
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-root
-MEDIA_ROOT = root.path("media")
+MEDIA_ROOT = APP_DIR / "media"
 # https://docs.djangoproject.com/en/dev/ref/settings/#media-url
 MEDIA_URL = "/media/"
 
@@ -195,7 +195,7 @@ TEMPLATES = [
         # https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-TEMPLATES-BACKEND
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         # https://docs.djangoproject.com/en/dev/ref/settings/#template-dirs
-        "DIRS": [root("templates")],
+        "DIRS": [APP_DIR / "templates"],
         "OPTIONS": {
             # https://docs.djangoproject.com/en/dev/ref/settings/#template-loaders
             # https://docs.djangoproject.com/en/dev/ref/templates/api/#loader-types
@@ -255,7 +255,7 @@ LANGUAGE_COOKIE_NAME = prefixed_cookie("language")
 # Django Admin URL.
 ADMIN_URL = "admin/"
 # https://docs.djangoproject.com/en/dev/ref/settings/#admins
-ADMINS = [("""{{cookiecutter.author_name}}""", "{{cookiecutter.email}}")]
+ADMINS = [("""Sam Morgan""", "sam@lightmatter.com")]
 # https://docs.djangoproject.com/en/dev/ref/settings/#managers
 MANAGERS = ADMINS
 
