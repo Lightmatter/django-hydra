@@ -184,7 +184,7 @@ $input-height: 50px;
       border-radius: 5px;
       border: 1px;
       background: transparent;
-      transition: padding .3s;
+      transition: padding 0.3s;
 
       &:not(:placeholder-shown) {
         padding-top: 20px;
