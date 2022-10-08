@@ -1,6 +1,7 @@
 import datetime
 import random
 from math import ceil, floor
+
 from heroicons.jinja import heroicon_outline, heroicon_solid
 
 

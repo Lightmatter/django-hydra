@@ -3,6 +3,8 @@
   "rules": {
     "at-rule-no-unknown": [ true, {
       "ignoreAtRules": [
+        "mixin",
+        "include",
         "extends",
         "apply",
         "tailwind",
@@ -12,6 +14,7 @@
         "layer"
       ]
     }],
+    "function-url-quotes": ["always", { "except": "empty"}],
     "block-no-empty": true,
     "color-no-invalid-hex": true,
     "declaration-colon-space-after": "always",
