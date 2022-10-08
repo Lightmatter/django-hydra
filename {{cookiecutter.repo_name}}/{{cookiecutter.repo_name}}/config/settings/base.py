@@ -166,6 +166,7 @@ STATICFILES_FINDERS = [
 
 DJANGO_VITE_ASSETS_PATH = root.path("static")
 DJANGO_VITE_DEV_MODE = DEBUG
+DJANGO_VITE_DEV_SERVER_PORT = 5173
 
 # MEDIA
 # ------------------------------------------------------------------------------

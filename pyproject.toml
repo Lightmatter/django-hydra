@@ -8,6 +8,8 @@ authors = ["Ben Beecher <ben@lightmatter.com>"]
 python = "^3.9"
 cookiecutter = "^1.7.3"
 isort = "^5.10.1"
+Sphinx = "^5.1.1"
+furo = "^2022.9.15"
 
 [tool.poetry.dev-dependencies]
 
