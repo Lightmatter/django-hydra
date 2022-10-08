@@ -32,7 +32,10 @@ INSTALLED_APPS = ["whitenoise.runserver_nostatic"] + INSTALLED_APPS  # noqa F405
 # django-debug-toolbar
 # ------------------------------------------------------------------------------
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#prerequisites
-INSTALLED_APPS += ["debug_toolbar"]  # noqa F405
+INSTALLED_APPS += [
+    "debug_toolbar",
+    "silk",
+]  # noqa F405
 # ensure that DJDT has access to the htmx attrs
 MIDDLEWARE.remove("django_htmx.middleware.HtmxMiddleware")
 
@@ -40,6 +43,7 @@ MIDDLEWARE.remove("django_htmx.middleware.HtmxMiddleware")
 MIDDLEWARE = [
     "django_htmx.middleware.HtmxMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "silk.middleware.SilkyMiddleware",
 ] + MIDDLEWARE  # noqa F405
 # https://django-debug-toolbar.readthedocs.io/en/latest/configuration.html#debug-toolbar-config
 
@@ -71,6 +75,25 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#internal-ips
 INTERNAL_IPS = ["127.0.0.1", "10.0.2.2"]
+
+SILKY_PYTHON_PROFILER = True
+SILKY_AUTHENTICATION = False  # User must login
+SILKY_AUTHORISATION = False  # User must have permissions ('is_staff' by default).
+SILKY_INTERCEPT_PERCENT = 100
+SILKY_MAX_REQUEST_BODY_SIZE = 1024  # If request body>1kb, don't log
+SILKY_MAX_RESPONSE_BODY_SIZE = 1024  # If response body>1kb, don't log
+SILKY_META = True  # Record how much time silky is adding to each request
+
+CACHALOT_UNCACHABLE_TABLES = frozenset(
+    (
+        "django_migrations",
+        "silk_response",
+        "silk_sqlquery",
+        "silk_profile",
+        "silk_request",
+    )
+)
+
 
 import sys
 

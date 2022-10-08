@@ -50,7 +50,7 @@ pudb = "^2022.1"
 poetryup = "^0.5.1"
 importmagic = "^0.1.7"
 epc = "^0.0.5"
-
+django-silk = "^5.0.1"
 
 [tool.black]
 force-exclude = '''
