@@ -14,6 +14,20 @@ This project is divided into 2 major parts: Alpine.js to provide additional fron
 `/templates` - html/htmx templates for all webpages served by the app
 
 
+Backend
+-------
+
+Hydra relies on much of Django's default tooling with some packages added on to allow for extensibility and ease of use, including 
+    * `Link django-annoying <https://github.com/skorokithakis/django-annoying>`
+    * `Link django-extensions <https://github.com/django-extensions/django-extensions>`
+    * `Link django-model-utils <https://github.com/jazzband/django-model-utils>`
+
+For a complete list of the dependencies we use on the backend and the reason for their inclusion, check :ref:`dependency-list`
+
+.. _my-reference-label:
+
+It refers to the section itself, see :ref:`my-reference-label`.
+
 Frontend
 --------
 
@@ -74,6 +88,7 @@ For instructions on customizing (or extending) the color palette, see the instru
 
 Components
 ----------
+
 how they are organized 
 
 how to use - set with html string and passing into macro 

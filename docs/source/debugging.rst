@@ -46,3 +46,7 @@ If the above fails or you prefer a more immediate solution, you can add the foll
     import pudb; pu.db
 
 For ease of local development, `Link icecream <https://github.com/gruns/icecream>` is preconfigured and ready to use. 
+
+Logging
+-------
+

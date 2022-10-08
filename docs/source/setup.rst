@@ -1,4 +1,4 @@
-Setting up the project
+Setting Up a Hydra Project
 ==========================
 
 There are two main scripts that you need to know about in this template, :code:`create_new_project.sh` and :code:`setup_existing_project.sh`.
