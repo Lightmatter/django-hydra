@@ -1,0 +1,12 @@
+{% from 'forms/field.jinja' import field as f %}
+<div class="form-wrapper gap-x-6 justify-between">
+    {{ errors }}
+    {% for field, errors in fields %}
+        {% if field.name == 'first_name' or field.name == 'last_name' %}
+            {{ f(field, errors, 'w-5/12') }}
+        {% else %}
+            {{ f(field, errors) }}
+        {% endif %}
+    {% endfor %}
+    {% for field in hidden_fields %}{{ field }}{% endfor %}
+</div>

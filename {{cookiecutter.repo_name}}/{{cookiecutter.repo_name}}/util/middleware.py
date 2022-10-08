@@ -4,7 +4,7 @@ from django.template.loader import render_to_string
 
 def attach_messages(response):
     messages = render_to_string(
-        "util/messages.html", {"messages": get_messages(response._request)}  # NOQA
+        "util/messages.jinja", {"messages": get_messages(response._request)}  # NOQA
     )
     response.content = response.content + messages.encode(response.charset)
     return response

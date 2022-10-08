@@ -1,3 +1,8 @@
+// include atoms
+@import "@/css/colors.scss";
+@import "@/css/atoms/inputs.scss";
+
+
 /* sticky footer */
 body {
   display: flex;
@@ -5,7 +10,7 @@ body {
   min-height: 100vh;
 }
 
-#main {
+#app {
   flex: 1;
   margin-left: calc(100vw - 100%); /* prevent jump with scroll bar */
 }
@@ -21,4 +26,5 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* alpine */
 [x-cloak] { display: none !important; }

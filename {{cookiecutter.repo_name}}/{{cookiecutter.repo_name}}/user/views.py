@@ -1,7 +1,5 @@
-from allauth.account.views import (
-    LoginView as AllAuthLoginView,
-    SignupView as AllAuthSignupView,
-)
+from allauth.account.views import LoginView as AllAuthLoginView
+from allauth.account.views import SignupView as AllAuthSignupView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template.response import TemplateResponse
 from django.views.generic import RedirectView
@@ -63,11 +61,13 @@ login = LoginView.as_view()
 
 def welcome(request):
     if not request.htmx or "email" not in request.GET:
-        return TemplateResponse(request, "account/welcome.html", {"form": HasAccountForm()})
+        return TemplateResponse(
+            request, "account/welcome.jinja", {"form": HasAccountForm()}
+        )
 
     form = HasAccountForm(request.GET)
     if not form.is_valid():
-        return TemplateResponse(request, "account/welcome.html", {"form": form})
+        return TemplateResponse(request, "account/welcome.jinja", {"form": form})
 
     try:
         email = form.cleaned_data.get("email")
