@@ -279,7 +279,7 @@ LOGGING = {
     "handlers": {
         "console": {
             "level": "DEBUG",
-            "class": "logging.StreamHandler",
+            "class": "rich.logging.RichHandler",
             "formatter": "verbose",
         }
     },
