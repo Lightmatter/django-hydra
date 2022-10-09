@@ -1,5 +1,6 @@
 /* stylelint-disable no-descending-specificity */
 
+
 $input-height: 50px;
 
 .form-wrapper {
@@ -69,6 +70,7 @@ $input-height: 50px;
       max-width: 130%;
     }
 
+
     @mixin label-resting {
       transform-origin: top left;
       text-align: left;
@@ -89,6 +91,7 @@ $input-height: 50px;
     textarea + label {
       @include label-resting;
     }
+
 
     input:focus + label,
     .ts-wrapper.focus + label,
@@ -140,6 +143,7 @@ $input-height: 50px;
         color: var(--slate);
       }
     }
+
 
     .ts-wrapper {
       @apply ring-0;
@@ -218,6 +222,7 @@ $input-height: 50px;
       font-size: inherit;
     }
 
+
     label {
       @apply absolute pointer-events-none block;
 
@@ -283,6 +288,7 @@ $input-height: 50px;
     }
   }
 }
+
 
 .left-icon {
   @apply absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none;
