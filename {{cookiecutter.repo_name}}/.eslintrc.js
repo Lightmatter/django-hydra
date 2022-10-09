@@ -6,12 +6,15 @@ module.exports = {
   },
   "extends": [
     "plugin:@typescript-eslint/recommended",
+    //TODO: Fix typechecking issues in main.ts and util to use this
+    //'plugin:@typescript-eslint/recommended-requiring-type-checking',
     "airbnb-base",
   ],
   "parserOptions": {
     "ecmaVersion": 13,
     "parser": "@typescript-eslint/parser",
     "sourceType": "module",
+    tsconfigRootDir: __dirname,
     "project": ["./tsconfig.json"],
   },
   "plugins": [
@@ -40,5 +43,7 @@ module.exports = {
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
     "no-extra-semi": "off",
     "import/extensions": "off",
+    "no-else-return": "off",
+    "consistent-return": "off",
   },
 };

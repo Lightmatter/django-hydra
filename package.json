@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "webpack": "^4.42.0",
-    "yarn": "^1.22.19"
-  }
-}

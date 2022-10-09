@@ -1,0 +1,14 @@
+{% extends "base.jinja" %}
+{% block title %}
+    Bad Request (400)
+{% endblock title %}
+{% block content %}
+    <h1>Bad Request (400)</h1>
+    <p>
+        {% if exception %}
+            {{ exception }}
+        {% else %}
+            This request was a bad, bad request.
+        {% endif %}
+    </p>
+{% endblock content %}
