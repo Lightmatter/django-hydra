@@ -12,7 +12,7 @@ N/A
 
 # Video of feature working
 
-(drag and drop images / videos, then delete this line)
+<!-- (drag and drop images / videos) -->
 
 # Pull Request Checklist
 
