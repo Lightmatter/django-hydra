@@ -5,32 +5,20 @@
   "version": "0.2.0",
   "compounds": [
     {
-      "name": "Server/Client",
-      "configurations": ["Django", "Vite"],
+      "name": "Debug {{ cookiecutter.project_name_verbose }}",
+      "configurations": ["Django", "Vite", "Browser Debug"],
       "stopAll": true
     }
   ],
   "configurations": [
     {
-      "name": "Python: Current File",
-      "type": "python",
-      "request": "launch",
-      "program": "${file}",
-      "console": "integratedTerminal",
-      "envFile": "${workspaceFolder}/.env",
-      "justMyCode": true,
-      "cwd": "${workspaceFolder}",
-      "preLaunchTask": "poetryInstall"
-    },
-    {
       "name": "Django Command",
       "type": "python",
       "request": "launch",
       "program": "${workspaceFolder}/manage.py",
-      "args": ["${input:djangoManage}"],
+      "args": "${input:djangoManage}",
       "django": true,
       "justMyCode": true,
-      "envFile": "${workspaceFolder}/.env",
       "cwd": "${workspaceFolder}",
       "preLaunchTask": "poetryInstall"
     },
@@ -42,10 +30,24 @@
       "args": ["runserver"],
       "django": true,
       "justMyCode": true,
-      "envFile": "${workspaceFolder}/.env",
       "presentation": { "hidden": true },
       "cwd": "${workspaceFolder}",
       "preLaunchTask": "poetryInstall"
+      // Disabled this in favor of "Browser Debug" as this doesn't stop automatically
+      // https://github.com/microsoft/vscode/issues/163124
+      //
+      // "serverReadyAction": {
+      //   "pattern": ".*(https?:\\/\\/\\S+:[0-9]+\\/?).*",
+      //   "uriFormat": "%s",
+      //   "action": "debugWithChrome"
+      // }
+    },
+    {
+      "name": "Browser Debug",
+      "type": "chrome",
+      "request": "launch",
+      "presentation": { "hidden": true },
+      "url": "http://localhost:8000"
     },
     {
       "name": "Vite",
