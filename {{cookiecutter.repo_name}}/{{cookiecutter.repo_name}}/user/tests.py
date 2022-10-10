@@ -14,11 +14,16 @@ from .models import User
 
 @pytest.fixture
 def password():
+    """Generate a unique password string.
+
+    Can be referenced by tests also. For instance, we create a super user, then log in that
+    super user using the data from this password fixture.
+    """
     return uuid.uuid4().hex
 
 
 @pytest.fixture
-def super_user(password):
+def super_user(password) -> User:
     return baker.make_recipe(
         "sampleapp.user.user",
         is_superuser=True,
@@ -28,7 +33,7 @@ def super_user(password):
 
 
 @pytest.fixture
-def form_data(password):
+def form_data(password) -> dict:
     return {
         "email": "ben@coolguy.com",
         "email2": "ben@coolguy.com",
