@@ -13,7 +13,7 @@ This will be run automatically when you attempt to commit code but if you want t
 This app is set up to use circleci, but could be extended to any build process. Circle will automatically run:
 
 .. code-block:: console
-    
+
     poetry run pre-commit run --all-files
     poetry run playwright install
     poetry run coverage run --source='.' manage.py test
@@ -46,7 +46,7 @@ Whitenoise and Caching
 Deployment Process and Optimizations
 -------------
 
-There are configuration files for `Link render.com <https://render.com/>` and `Link fly.io <https://fly.io/>`
+There are configuration files for `render.com <https://render.com/>`_ and `fly.io <https://fly.io/>`_
 
 Built-In CDN
 ************

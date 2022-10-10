@@ -18,8 +18,13 @@ Setting up for Installation
         git clone git@github.com:Lightmatter/generic-django-conf.git
         ./generic-django-conf/scripts/mac_intel_install.sh
 
+<<<<<<< HEAD
 It's recommended that you read the output of this script to ensure everything went smoothly,
 particularly if you are using Apple silicone (M1-based-mac).
+=======
+    It's recommended that you read the output of this script to ensure everything went smoothly,
+    particularly if you are using Apple silicone (M1-based-mac).
+>>>>>>> e88d6c7 (small edits)
 
 
 The following items are required in order for this template to work:
@@ -49,7 +54,7 @@ Django = {extras = ["argon2"], version = "^4.0.4"}
 whitenoise = {extras = ["brotli"], version = "^5.3.0"}
 django-allauth = "^0.47.0"
 django-htmx = "^1.8.0"
-`Link django-annoying <https://github.com/skorokithakis/django-annoying>` = "^0.10.6"
+`django-annoying <https://github.com/skorokithakis/django-annoying>`_:
 django-environ = "^0.8.1"
 django-extensions = "^3.1.5"
 django-model-utils = "^4.2.0"

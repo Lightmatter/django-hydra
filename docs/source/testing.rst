@@ -45,8 +45,8 @@ While pytest is backwards-compatible with unittest, there are some key differenc
 Playwright
 **********
 
-`Link Playwright <https://playwright.dev/>` allows for robust frontend testing across browser engines
+`Playwright <https://playwright.dev/>`_ allows for robust frontend testing across browser engines
 
-Of note is Playwright's `Link codegen <https://playwright.dev/docs/codegen-intro>` feature, which allows you to perform actions in the browser and have Playwright generate the code to perform those actions automatically.
+Of note is Playwright's `codegen <https://playwright.dev/docs/codegen-intro>`_ feature, which allows you to perform actions in the browser and have Playwright generate the code to perform those actions automatically.
 
 Rarely is codegen's generated code perfect immediately upon recording, but it will produce most of the code you need.
