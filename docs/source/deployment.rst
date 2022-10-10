@@ -46,7 +46,7 @@ Whitenoise and Caching
 Deployment Process and Optimizations
 -------------
 
-There are configuration files for `Link render.com <https://render.com/>` and `Link fly.io <https://fly.io/>`
+There are configuration files for `render.com <https://render.com/>`_ and `fly.io <https://fly.io/>`_
 
 Built-In CDN
 ************

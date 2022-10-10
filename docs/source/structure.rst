@@ -17,10 +17,10 @@ This project is divided into 2 major parts: Alpine.js to provide additional fron
 Backend
 -------
 
-Hydra relies on much of Django's default tooling with some packages added on to allow for extensibility and ease of use, including 
-    * `Link django-annoying <https://github.com/skorokithakis/django-annoying>`
-    * `Link django-extensions <https://github.com/django-extensions/django-extensions>`
-    * `Link django-model-utils <https://github.com/jazzband/django-model-utils>`
+Hydra relies on much of Django's default tooling with some packages added on to allow for extensibility and ease of use, including
+    * `django-annoying <https://github.com/skorokithakis/django-annoying>`_
+    * `django-extensions <https://github.com/django-extensions/django-extensions>`_
+    * `django-model-utils <https://github.com/jazzband/django-model-utils>`_
 
 For a complete list of the dependencies we use on the backend and the reason for their inclusion, check :ref:`dependency-list`
 
@@ -34,14 +34,14 @@ Frontend
 
 Vite.js
 *******
-Vite bundles the frontend libraries and frameworks, as well as handling for static assets. 
+Vite bundles the frontend libraries and frameworks, as well as handling for static assets.
 
 Configuration of Vite is explored in more detail in the Compiling and Deployment section
 
 Templates
 *********
 
-For templating, the `Link Jinja <https://jinja.palletsprojects.com/en/3.0.x/>` engine is recommended. 
+For templating, the `Jinja <https://jinja.palletsprojects.com/en/3.0.x/>`_ engine is recommended.
 
 For those familiar with django templates, the syntax is similar, but Jinja has some worthwhile benefits
 
@@ -74,10 +74,10 @@ Alpine JS and HTMX
 Tailwind CSS
 ^^^^^^^^^^^^
 
-`Link Tailwind CSS <https://tailwindcss.com/>` is a framework that allows developers to compose CSS directly into the class attribute
-of HTML elements. 
+`Tailwind CSS <https://tailwindcss.com/>`_ is a framework that allows developers to compose CSS directly into the class attribute
+of HTML elements.
 
-One important thing to note is that Tailwind does have a default color palette that can be referenced `Link here <https://tailwindcss.com/docs/customizing-colors>`
+One important thing to note is that Tailwind does have a default color palette that can be referenced `here <https://tailwindcss.com/docs/customizing-colors>`_
 
 For instructions on customizing (or extending) the color palette, see the instructions in the link above.
 
@@ -89,25 +89,23 @@ For instructions on customizing (or extending) the color palette, see the instru
 Components
 ----------
 
-All generic jinja components are under the `{{cookiecutter.repo_name}}/templates/components/` directory. The structure follows the 
+All generic jinja components are under the `{{cookiecutter.repo_name}}/templates/components/` directory. The structure follows the
 material.ui format of having a folder per component with the js/css/jinja files within, allowing for files to be overwritten and customized
 as needed.
 
-`Link Macros <https://jinja.palletsprojects.com/en/3.1.x/templates/#macros>` can be thought of as functions that return customized templates based off of whatever parameters are passed to them. 
-how to create - macro 
 
-- django-components?
 
-- standalone jinja templates?
+Jinja `macros <https://jinja.palletsprojects.com/en/3.1.x/templates/#macros>`_ are a powerful way to reduce code and template specific components for reuse.
+They can be thought of as functions that return customized templates based off of whatever arguments are passed to them.
+
+To create a macro, they must first be defined, and examples
 
 
 Forms
 -----
 
-Jinja `Link macros <https://jinja.palletsprojects.com/en/3.1.x/templates/#macros>` are a powerful way to reduce code and template specific components for reuse.
-
 It's important to note that the widgets that django typically provides are overwritten in Hydra. Rather than working directly with the Django widgets as they as written,
 the jinja templates for widgets are imported as the defaults. Due to how Django requires that the component templates are overwritten by shadowed methods,
-you'll see several examples of this under the `templates/django/forms/widgets/` directory. 
+you'll see several examples of this under the `templates/django/forms/widgets/` directory.
 
 Custom form widgets can be composed using Jinja
