@@ -21,7 +21,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Install and configure Poetry
-        uses: snok/install-poetry@v1
+        uses: snok/install-poetry@e3dbfd357f4751d4f582d62bc8a71e56c2a7015b # v1.3.2
         with:
           version: latest
           virtualenvs-create: true
