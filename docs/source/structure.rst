@@ -89,10 +89,11 @@ For instructions on customizing (or extending) the color palette, see the instru
 Components
 ----------
 
-how they are organized 
+All generic jinja components are under the `{{cookiecutter.repo_name}}/templates/components/` directory. The structure follows the 
+material.ui format of having a folder per component with the js/css/jinja files within, allowing for files to be overwritten and customized
+as needed.
 
-how to use - set with html string and passing into macro 
-
+`Link Macros <https://jinja.palletsprojects.com/en/3.1.x/templates/#macros>` can be thought of as functions that return customized templates based off of whatever parameters are passed to them. 
 how to create - macro 
 
 - django-components?
@@ -105,9 +106,8 @@ Forms
 
 Jinja `Link macros <https://jinja.palletsprojects.com/en/3.1.x/templates/#macros>` are a powerful way to reduce code and template specific components for reuse.
 
-
-- Fields and widgets
-
-Django Forms provides structure for the forms themselves, but the HTML snippets that comprise the form are available via `templates/django/forms`
+It's important to note that the widgets that django typically provides are overwritten in Hydra. Rather than working directly with the Django widgets as they as written,
+the jinja templates for widgets are imported as the defaults. Due to how Django requires that the component templates are overwritten by shadowed methods,
+you'll see several examples of this under the `templates/django/forms/widgets/` directory. 
 
 Custom form widgets can be composed using Jinja
