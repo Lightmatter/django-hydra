@@ -1,9 +1,21 @@
+# flake8: noqa: F811
 from django.conf import settings
+from django.conf.urls import handler400, handler403, handler404, handler500
 from django.contrib import admin
 from django.urls import include, path
-from django.views import defaults as default_views
+
+from {{cookiecutter.repo_name}}.home.views import FourHundy, FourOhFour, FourOhThree, WorkedLocally
+
+handler400 = FourHundy
+handler403 = FourOhThree
+handler404 = FourOhFour
+handler500 = WorkedLocally
+
 
 urlpatterns = []
+
+if "silk" in settings.INSTALLED_APPS:
+    urlpatterns += [path("silk", include("silk.urls", namespace="silk"))]
 
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit
@@ -11,20 +23,20 @@ if settings.DEBUG:
     urlpatterns += [
         path(
             "400/",
-            default_views.bad_request,
+            handler400,
             kwargs={"exception": Exception("Bad Request!")},
         ),
         path(
             "403/",
-            default_views.permission_denied,
+            handler403,
             kwargs={"exception": Exception("Permission Denied")},
         ),
         path(
             "404/",
-            default_views.page_not_found,
+            handler404,
             kwargs={"exception": Exception("Page not Found")},
         ),
-        path("500/", default_views.server_error),
+        path("500/", handler500),
     ]
     if "debug_toolbar" in settings.INSTALLED_APPS:
         import debug_toolbar

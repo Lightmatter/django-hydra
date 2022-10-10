@@ -1,0 +1,20 @@
+{% extends "admin/base_site.html" %}
+{% load django_vite %}
+{% block extrahead %}
+    {{ block.super }}
+    {% vite_hmr_client %}
+    {% vite_asset 'js/main.ts' %}
+    {% vite_asset 'css/tailwind.js' %}
+  <style>
+    [x-cloak] { display: none !important; }
+  </style>
+{% endblock %}
+{% block title %}
+    {% if subtitle %}{{ subtitle }} |{% endif %}
+    {{ title }} | {{ site_title|default:_('Sampleapp site admin') }}
+{% endblock %}
+{% block branding %}
+    <h1 id="site-name">
+        <a href="{% url 'admin:index' %}">{{ site_header|default:_('Sampleapp administration') }}</a>
+    </h1>
+{% endblock %}

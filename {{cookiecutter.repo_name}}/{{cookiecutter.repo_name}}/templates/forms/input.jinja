@@ -1,0 +1,18 @@
+{% from 'forms/attrs.jinja' import form_attrs %}
+
+{% macro input(type="text", name=None, value=None, model="input", color='primary', attrs={}, left_icon='', right_icon='') %}
+    {% set disabled, readonly = attrs.disabled, attrs.readonly %}
+    {% set noedit = disabled or readonly %}
+    <input
+        {{form_attrs(attrs)}}
+        type="{{type}}"
+        {% if name %}name="{{ name }}"{% endif %}
+        {% if value %}value="{{ value }}"{% endif %}
+        x-model="{{ model }}"
+    />
+{% endmacro %}
+
+{# takes a django widget and calls our input macro with the appropriate args #}
+{% macro widget_to_input(widget) %}
+    {{input(type=widget.type, name=widget.name, value=widget.value, model=widget.attrs.id, attrs=widget.attrs )}}
+{% endmacro %}

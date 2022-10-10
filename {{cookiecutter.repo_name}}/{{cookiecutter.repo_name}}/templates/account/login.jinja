@@ -1,0 +1,50 @@
+{% from 'components/button.jinja' import button %}
+{% from 'account/components/account_box.jinja' import account_box %}
+{% import 'svg/svg.jinja' as svg %}
+{% set title %}
+Welcome back, {{ user.first_name }}!
+{% endset %}
+{% set content %}
+<form hx-post="{{ url('account_login') }}"
+      hx-swap="outerHTML"
+      hx-target="#account-box"
+      class="flex flex-col space-y-10 mb-10">
+    {{ form }}
+    {% csrf_token %}
+    {{ button("Login", 'submit', type="submit") }}
+</form>
+<div class="relative">
+    <div class="absolute inset-0 flex items-center">
+        <div class="w-full border-t border-gray-300"></div>
+    </div>
+    <div class="relative flex justify-center text-sm">
+        <span class="px-2 bg-white text-gray-500">Or</span>
+    </div>
+</div>
+<div class="mt-6">
+    <div class="grid grid-cols-3 gap-3">
+        <div>
+            <a href="#"
+               class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                <span class="sr-only">Sign in with Facebook</span>
+                {{ svg.facebook() }}
+            </a>
+        </div>
+        <div>
+            <a href="#"
+               class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                <span class="sr-only">Sign in with Twitter</span>
+                {{ svg.twitter() }}
+            </a>
+        </div>
+        <div>
+            <a href="#"
+               class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
+                <span class="sr-only">Sign in with GitHub</span>
+                {{ svg.github() }}
+            </a>
+        </div>
+    </div>
+</div>
+{% endset %}
+{{ account_box(title, content) }}

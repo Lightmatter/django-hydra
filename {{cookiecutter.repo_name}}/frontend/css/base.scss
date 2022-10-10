@@ -1,0 +1,72 @@
+/**
+ * This injects Tailwind's base styles, which is a combination of
+ * Normalize.css and some additional base styles. We import preflight manually to allow
+ * admin to not use it
+ */
+@import "tailwindcss/lib/css/preflight";
+@import "tailwindcss/base";
+
+
+/**
+ * This injects any component classes registered by plugins.
+ *
+ */
+@import "tailwindcss/components";
+
+/**
+ *  Import our main application styling, site chrome and defaults
+ *
+ */
+
+@import "@/css/app.scss";
+
+/**
+ * Here we add custom component classes;  we load
+ * *before* the utilities so that the utilities can still
+ * override them
+ *
+ */
+
+@import "@/css/components/messages.scss";
+@import "@/css/components/links.scss";
+@import "@/css/components/toasts.scss";
+
+
+/**
+ * This injects all of Tailwind's utility classes, generated based on your
+ * config file.
+ *
+ */
+@import "tailwindcss/utilities";
+
+
+@layer base {
+  h1 {
+    @apply text-4xl font-bold mb-3;
+  }
+
+  h2 {
+    @apply text-3xl font-bold mb-2;
+  }
+
+
+  h3 {
+    @apply text-3xl font-semibold mb-2;
+  }
+
+  h4 {
+    @apply text-2xl font-semibold mb-1;
+  }
+
+  h5 {
+    @apply text-xl mb-1;
+  }
+
+  h6 {
+    @apply text-lg;
+  }
+
+  ul {
+    @apply list-disc list-inside;
+  }
+}

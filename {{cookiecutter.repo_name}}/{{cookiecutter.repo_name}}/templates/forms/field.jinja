@@ -1,0 +1,32 @@
+{# different widgets could use totally different base styles, leave a hook to control #}
+{# or Sometimes third party controls come with their own styling, so for these widgets do not style #}
+{%-  macro input_widget_hook(field) -%}
+    {%- if field.widget_type == "select"  -%}
+        select
+    {%- else -%}
+        input
+    {%- endif -%}
+{%- endmacro -%}
+
+{% macro field(field, errors='', layout_classes='w-full') %}
+    <div x-data="{ {{ field.auto_id }}: '{{field.value() if field.value() else ""}}'}" x-id="['{{field.auto_id}}']" class="{{ layout_classes }} {{ field.css_classes() }}">
+        <div class="field {% if errors %} error{% endif %}">
+            <div class="input-box {{ input_widget_hook(field) -}}">
+            {{ field }}
+            {% if field.label %}{{ field.label_tag() }}{% endif %}
+            {% if errors  %}
+                <div class="right-icon">
+                    {{heroicon_solid("exclamation-circle", class="text-error")}}
+                </div>
+            {% endif %}
+            </div>
+        </div>
+        {% if errors %}
+            {{ errors }}
+        {% elif field.help_text %}
+            <p class="text-sm text-gray-500" id="email-description">
+                {{ field.help_text|safe }}
+            </p>
+        {% endif %}
+    </div>
+{% endmacro %}
