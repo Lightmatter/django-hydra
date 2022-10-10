@@ -6,10 +6,12 @@ $input-height: 50px;
 .form-wrapper {
   @apply space-y-5 flex flex-row flex-wrap;
 
-  .half:nth-of-type(1n) {
+  // Odd
+  .half:nth-of-type(2n + 1) {
     @apply sm:pr-1;
   }
 
+  // Even
   .half:nth-of-type(2n) {
     @apply sm:pl-1;
   }
