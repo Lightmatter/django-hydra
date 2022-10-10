@@ -1,7 +1,7 @@
 Project Structure
 ==============================
 
-This project is divided into 2 major parts: Alpine.js to provide additional front end functionality and a Django backend. It's the Django server is deployed with precompiled static assets
+This project is divided into 2 major parts: Alpine.js to provide additional front end functionality and a Django backend.
 
 `/frontend`- The Alpine.js project root, contains static assets (such as CSS and TypeScript) that will be served by Vite
 `/{{ cookiecutter.project_name }}` - the Django project folder
@@ -24,9 +24,6 @@ Hydra relies on much of Django's default tooling with some packages added on to 
 
 For a complete list of the dependencies we use on the backend and the reason for their inclusion, check :ref:`dependency-list`
 
-.. _my-reference-label:
-
-It refers to the section itself, see :ref:`my-reference-label`.
 
 Frontend
 --------
@@ -92,8 +89,6 @@ Components
 All generic jinja components are under the `{{cookiecutter.repo_name}}/templates/components/` directory. The structure follows the
 material.ui format of having a folder per component with the js/css/jinja files within, allowing for files to be overwritten and customized
 as needed.
-
-
 
 Jinja `macros <https://jinja.palletsprojects.com/en/3.1.x/templates/#macros>`_ are a powerful way to reduce code and template specific components for reuse.
 They can be thought of as functions that return customized templates based off of whatever arguments are passed to them.

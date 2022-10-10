@@ -43,59 +43,59 @@ The following items are required in order for this template to work:
 * `poetry <https://python-poetry.org/docs/>`_ virtual environment/package manager (python 3.10+ is required)
 * `direnv <https://direnv.net/docs/installation.html>`_ handles activating your virtual env when you enter the project directory
 
-
+.. _dependency-list:
 Project Dependencies
 --------------------
 
 Hydra
 
-python = "^3.10"
-Django = {extras = ["argon2"], version = "^4.0.4"}
-whitenoise = {extras = ["brotli"], version = "^5.3.0"}
-django-allauth = "^0.47.0"
-django-htmx = "^1.8.0"
-`django-annoying <https://github.com/skorokithakis/django-annoying>`_:
-django-environ = "^0.8.1"
-django-extensions = "^3.1.5"
-django-model-utils = "^4.2.0"
-psycopg2-binary = "^2.9.3"
-boto3 = "^1.20.46"
-django-storages = "^1.12.3"
-uvicorn = "^0.17.1"
-gunicorn = "^20.1.0"
-sentry-sdk = "^1.5.4"
-Pillow = "^9.0.0"
-django-anymail = {extras = ["sendgrid"], version = "^8.5"}
-django-vite = "^1.3.0"
-tblib = "^1.7.0"
-django-cachalot = "^2.5.0"
-redis = "^4.1.2"
-hiredis = "^2.0.0"
-django-redis = "^5.2.0"
-django-jinja = "^2.10.2"
-heroicons = {extras = ["jinja"], version = "^1.8.0"}
-django-rich = "^1.4.0"
+* python = "^3.10"
+* Django = {extras = ["argon2"], version = "^4.0.4"}
+* whitenoise = {extras = ["brotli"], version = "^5.3.0"}
+* django-allauth = "^0.47.0"
+* django-htmx = "^1.8.0"
+* `django-annoying <https://github.com/skorokithakis/django-annoying>`_:
+* django-environ = "^0.8.1"
+* django-extensions = "^3.1.5"
+* django-model-utils = "^4.2.0"
+* psycopg2-binary = "^2.9.3"
+* boto3 = "^1.20.46"
+* django-storages = "^1.12.3"
+* uvicorn = "^0.17.1"
+* gunicorn = "^20.1.0"
+* sentry-sdk = "^1.5.4"
+* Pillow = "^9.0.0"
+* django-anymail = {extras = ["sendgrid"], version = "^8.5"}
+* django-vite = "^1.3.0"
+* tblib = "^1.7.0"
+* django-cachalot = "^2.5.0"
+* redis = "^4.1.2"
+* hiredis = "^2.0.0"
+* django-redis = "^5.2.0"
+* django-jinja = "^2.10.2"
+* heroicons = {extras = ["jinja"], version = "^1.8.0"}
+* django-rich = "^1.4.0"
 
 
 Dev Dependencies
 ^^^^^^^^^^^^^^^^
 
-Werkzeug = "2.0.2"
-coverage = {extras = ["toml"], version = "^6.4.1"}
-ipython = "^7.31.1"
-ipdb = "^0.13.9"
-ptpython = "^3.0.20"
-django-debug-toolbar = "^3.2.4"
-model-bakery = "^1.4.0"
-watchdog = "2.1.6"
-honcho = "1.1.0"
-unittest-xml-reporting = "^3.2.0"
-playwright = "^1.18.2"
-pywatchman = "^1.4.1"
-icecream = "^2.1.1"
-pre-commit = "^2.17.0"
-pudb = "^2022.1"
-poetryup = "^0.5.1"
-importmagic = "^0.1.7"
-epc = "^0.0.5"
-django-silk = "^5.0.1"
+* Werkzeug = "2.0.2"
+* coverage = {extras = ["toml"], version = "^6.4.1"}
+* ipython = "^7.31.1"
+* ipdb = "^0.13.9"
+* ptpython = "^3.0.20"
+* django-debug-toolbar = "^3.2.4"
+* model-bakery = "^1.4.0"
+* watchdog = "2.1.6"
+* honcho = "1.1.0"
+* unittest-xml-reporting = "^3.2.0"
+* playwright = "^1.18.2"
+* pywatchman = "^1.4.1"
+* icecream = "^2.1.1"
+* pre-commit = "^2.17.0"
+* pudb = "^2022.1"
+* poetryup = "^0.5.1"
+* importmagic = "^0.1.7"
+* epc = "^0.0.5"
+* django-silk = "^5.0.1"
