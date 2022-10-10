@@ -25,7 +25,7 @@ def password():
 @pytest.fixture
 def super_user(password) -> User:
     return baker.make_recipe(
-        "sampleapp.user.user",
+        "{{cookiecutter.repo_name}}.user.user",
         is_superuser=True,
         is_staff=True,
         password=make_password(password),
