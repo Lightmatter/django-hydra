@@ -1,6 +1,5 @@
 {% raw %}
-{% load i18n %}
 {% autoescape off %}
-{% blocktrans %}Password Reset E-mail{% endblocktrans %}
+{% trans %}Password Reset E-mail{% endtrans %}
 {% endautoescape %}
 {%- endraw -%}

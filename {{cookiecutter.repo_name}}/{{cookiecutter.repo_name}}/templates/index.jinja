@@ -1,0 +1,46 @@
+{% extends "base.jinja" %}
+{% block title %}
+    Lightmatter Base Install
+{% endblock title %}
+{% block content %}
+    <div class="container mx-auto">
+        {% set greeting='Hello There!' %}
+        {% set greeting_styled %}
+        <em class="text-2xl font-bold ">{{ greeting }}</em>
+    {% endset %}
+    <h1>{{ greeting_styled }}</h1>
+    <div id="current-time">{% include 'samples/current_time.jinja' %}</div>
+    <button type="button"
+            class="bg-white border border-black px-4 py-2"
+            class="w"
+            hx-push-url="false"
+            hx-get="{{ url("current_time") }}"
+            hx-target="#current-time"
+            hx-swap='innerHTML'>
+        Refresh time
+    </button>
+    <button type="button"
+        class="bg-white border border-black px-4 py-2"
+        class="w"
+        hx-push-url="false"
+        hx-get="{{ url("test_redirect") }}">
+        Test hx-redirect with messages
+    </button>
+    <button type="button"
+        class="bg-white border border-black px-4 py-2"
+        class="w"
+        hx-get="{{ url("test_refresh") }}">
+        Test hx-refresh with messages
+    </button>
+    <div id="random-chart">{% include 'samples/random_chart.jinja' %}</div>
+    <button type="button"
+            class="bg-white border border-black px-4 py-2"
+            class="w"
+            hx-push-url="false"
+            hx-get="{{ url("random_chart") }}"
+            hx-target="#random-chart"
+            hx-swap='innerHTML'>
+        Refresh Chart
+    </button>
+</div>
+{% endblock content %}

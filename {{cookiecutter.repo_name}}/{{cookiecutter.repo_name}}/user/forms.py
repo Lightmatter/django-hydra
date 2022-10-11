@@ -1,7 +1,5 @@
-from allauth.account.forms import (
-    LoginForm as AllAuthLoginForm,
-    SignupForm as AllAuthSignupForm,
-)
+from allauth.account.forms import LoginForm as AllAuthLoginForm
+from allauth.account.forms import SignupForm as AllAuthSignupForm
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
@@ -9,7 +7,11 @@ from .models import User
 
 
 class HasAccountForm(forms.Form):
-    email = forms.EmailField(help_text=_("We won't spam you"), required=True)
+    email = forms.EmailField(
+        help_text=_("We won't spam you"),
+        required=True,
+        widget=forms.TextInput(attrs={"placeholder": _("Email"), "autocomplete": "email"}),
+    )
 
     def clean_email(self):
         data = self.cleaned_data["email"]
@@ -17,7 +19,7 @@ class HasAccountForm(forms.Form):
 
 
 class LoginForm(AllAuthLoginForm):
-    template_name = "account/login_form.html"
+    template_name = "account/login_form.jinja"
     remember = forms.BooleanField(
         help_text=_("For 2 weeks"),
         label=_("Remember Me"),
@@ -30,7 +32,7 @@ class LoginForm(AllAuthLoginForm):
 
 
 class SignupForm(AllAuthSignupForm):
-    template_name = "account/signup_form.html"
+    template_name = "account/signup_form.jinja"
 
     first_name = forms.CharField(
         label=_("First Name"),
