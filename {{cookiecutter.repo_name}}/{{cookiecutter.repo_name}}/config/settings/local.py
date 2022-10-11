@@ -93,4 +93,3 @@ CACHALOT_UNCACHABLE_TABLES = frozenset(
         "silk_request",
     )
 )
-TEMPLATES[0]["OPTIONS"]["string_if_invalid"] = InvalidVariable("BAD TEMPLATE VARIABLE: %s")
