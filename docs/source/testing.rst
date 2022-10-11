@@ -27,9 +27,12 @@ This will be run automatically when you attempt to commit code but if you want t
 
     poetry run pre-commit run --all-files
 
+This project uses the `pytest <https://docs.pytest.org/>` framework with `pytest-django <https://pytest-django.readthedocs.io/en/latest/>` enabling Django tests and `pytest-playwright <https://playwright.dev/python/docs/test-runners>` for end-to-end testing. This replaces the default Django tests using `unittest`.
+
 Django tests can be run by running:
 
 .. code-block:: console
-    
-    ./manage.py test
-    
+
+    pytest
+
+While `pytest` is backwards-compatible with `unittest`, there are some key differences that implementers need to understand. If you're new to pytest in Django or playwright testing, reviewing the documentation for these libraries is well worth the time.
