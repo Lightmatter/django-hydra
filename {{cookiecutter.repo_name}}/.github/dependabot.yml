@@ -10,6 +10,9 @@ updates:
     schedule:
       interval: "weekly"
     target-branch: "develop"
+    # Limit pull requests to 1 so Dependabot isn't constantly rebasing PRs.
+    # https://github.com/python-poetry/poetry/issues/496
+    open-pull-requests-limit: 1
 
   - package-ecosystem: "npm"
     directory: "/"
