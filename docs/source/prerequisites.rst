@@ -66,7 +66,7 @@ Hydra
 * `sentry-sdk <https://github.com/getsentry/sentry-python>`_: Sentry integration for Django for automatic error/exception reporting
 * `Pillow <https://github.com/python-pillow/Pillow>`_: Library for adding image processing capabilities to the Python interpreter
 * `django-anymail <https://github.com/anymail/django-anymail>`_: Extension for Django's core mailing feature that allows sending and receiving from several popular email service providers
-* `django-vite <https://github.com/MrBin99/django-vite>`_:
+* `django-vite <https://github.com/MrBin99/django-vite>`_: Plugin for using Vite in the Django ecosystem. For a detailed explanation of how Vite builds the frontend, see the Compiling and Deplyment section
 * `tblib <https://github.com/ionelmc/python-tblib>`_: Serialization library for Exceptions and Tracebacks
 * `django-cachalot <https://github.com/noripyt/django-cachalot>`_: Cache management for Django ORM queries
 * `redis <https://github.com/redis/redis>`_:
@@ -82,20 +82,19 @@ Dev Dependencies
 
 * `Werkzeug <https://github.com/pallets/werkzeug>`_: Simple WSGI server for local development, includes debugger, test client, and more
 * `coverage <https://github.com/nedbat/coveragepy>`_: Utility for measuring code coverage testing
-* ipython = "^7.31.1"
-* ipdb = "^0.13.9"
-* ptpython = "^3.0.20"
-* django-debug-toolbar = "^3.2.4"
-* model-bakery = "^1.4.0"
-* watchdog = "2.1.6"
-* honcho = "1.1.0"
-* unittest-xml-reporting = "^3.2.0"
-* playwright = "^1.18.2"
-* pywatchman = "^1.4.1"
-* icecream = "^2.1.1"
-* pre-commit = "^2.17.0"
-* pudb = "^2022.1"
-* poetryup = "^0.5.1"
-* importmagic = "^0.1.7"
-* epc = "^0.0.5"
-* django-silk = "^5.0.1"
+* `ipython <https://github.com/ipython/ipython>`_: IPython or Interactive Python is a command shell for python projects
+* `ipdb <https://github.com/gotcha/ipdb>`_: Tool to export functions to the IPython debugger. See "debugging" section for more information on usage
+* `ptpython <https://github.com/prompt-toolkit/ptpython>`_: An improved python repl with support for syntax highlighting, autocomplete, support for color schemes and more
+* `django-debug-toolbar <https://github.com/jazzband/django-debug-toolbar>`_: Configurable set of panels to display debugging information about the current request/response
+* `model-bakery <https://github.com/model-bakers/model_bakery>`_: Expedient tool for creating objects/fixtures for testing in Django
+* `watchdog <https://github.com/gorakhargosh/watchdog>`_: Python API and shell utilities to monitor file system events.
+* `honcho <https://github.com/nickstenning/honcho>`_: Python port of `Foreman <https://ddollar.github.io/foreman>`_, allows for a single command to launch Procfile based applications
+* `unittest-xml-reporting <https://github.com/xmlrunner/unittest-xml-reporting>`_: Unit test runner that saves results to XML files for use on IDE's, continuous integration servers, etc
+* `playwright <https://github.com/microsoft/playwright-python>`_: Browser automation for end-to-end testing
+* `icecream <https://github.com/gruns/icecream>`_: Robust alternative to print statements in python for debugging
+* `pre-commit <https://github.com/pre-commit/pre-commit>`_: framework for managing pre-commit hooks
+* `pudb <https://github.com/inducer/pudb>`_: Alternative debugger, also integrates with IPython to give a more "GUI-like" experience to the user
+* `poetryup <https://github.com/MousaZeidBaker/poetryup>`_: Version control helper that reconciles the pyproject.toml file each time `poetry update` is run
+* `importmagic <https://github.com/alecthomas/importmagic>`_: Automatic management of imports in Python
+* `epc <https://github.com/tkf/python-epc>`_: Allows for interoperability between Emacs and Python functions
+* `django-silk <https://github.com/jazzband/django-silk>`_: Silk is a profiling and inspection tool for Django for HTTP requests and database queries
