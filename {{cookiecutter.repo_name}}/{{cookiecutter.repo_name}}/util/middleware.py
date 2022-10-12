@@ -1,5 +1,8 @@
+import zoneinfo
+
 from django.contrib.messages import get_messages
 from django.template.loader import render_to_string
+from django.utils import timezone
 
 
 def attach_messages(response):
@@ -22,3 +25,16 @@ class HTMXMessageMiddleware:
         if request.htmx and not request.htmx.boosted:
             response.add_post_render_callback(attach_messages)
         return response
+
+
+class TimezoneMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        tzname = request.headers.get("X-Timezone", None)
+        if tzname:
+            timezone.activate(zoneinfo.ZoneInfo(tzname))
+        else:
+            timezone.deactivate()
+        return self.get_response(request)
