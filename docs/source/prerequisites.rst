@@ -49,39 +49,39 @@ Project Dependencies
 
 Hydra
 
-* python = "^3.10"
-* Django = {extras = ["argon2"], version = "^4.0.4"}
-* whitenoise = {extras = ["brotli"], version = "^5.3.0"}
-* django-allauth = "^0.47.0"
-* django-htmx = "^1.8.0"
-* `django-annoying <https://github.com/skorokithakis/django-annoying>`_:
-* django-environ = "^0.8.1"
-* django-extensions = "^3.1.5"
-* django-model-utils = "^4.2.0"
-* psycopg2-binary = "^2.9.3"
-* boto3 = "^1.20.46"
-* django-storages = "^1.12.3"
-* uvicorn = "^0.17.1"
-* gunicorn = "^20.1.0"
-* sentry-sdk = "^1.5.4"
-* Pillow = "^9.0.0"
-* django-anymail = {extras = ["sendgrid"], version = "^8.5"}
-* django-vite = "^1.3.0"
-* tblib = "^1.7.0"
-* django-cachalot = "^2.5.0"
-* redis = "^4.1.2"
-* hiredis = "^2.0.0"
-* django-redis = "^5.2.0"
-* django-jinja = "^2.10.2"
-* heroicons = {extras = ["jinja"], version = "^1.8.0"}
-* django-rich = "^1.4.0"
+* Python
+* `Django <https://github.com/django/django/>`_: Django
+* `whitenoise <https://github.com/evansd/whitenoise>`_: Static file servering for python web apps
+* `django-allauth <https://github.com/pennersr/django-allauth>`_: Set of Django applications to address account management and authentication, including 3rd party auth
+* `django-htmx <https://github.com/adamchainz/django-htmx>`_: Convenience methods for using HTMX with django, including CSRF token handling and partial rendering
+* `django-annoying <https://github.com/skorokithakis/django-annoying>`_: Fixes for the annoying little things about Django
+* `django-environ <https://github.com/joke2k/django-environ>`_: Allows for the configuration of a Django application using environment variables
+* `django-extensions <https://github.com/django-extensions/django-extensions>`_: Extremely useful command extensions for debugging and development
+* `django-model-utils <https://github.com/jazzband/django-model-utils>`_: Additional Django model mixins and utilities
+* `psycopg2-binary <https://github.com/psycopg/psycopg2>`_: PostgreSQL database adapter for python
+* `boto3 <https://github.com/boto/boto3>`_: AWS software development kit for python, allowing for use of S3 and EC2 technologies
+* `django-storages <https://github.com/jschneier/django-storages>`_: A collection of custom storage backends for Django (Digitial Ocean, Dropbox, etc)
+* `uvicorn <https://github.com/encode/uvicorn>`_: ASGI web server implementation for python
+* `gunicorn <https://github.com/benoitc/gunicorn>`_: Lightweight Python WSGI HTTP server for UNIX
+* `sentry-sdk <https://github.com/getsentry/sentry-python>`_: Sentry integration for Django for automatic error/exception reporting
+* `Pillow <https://github.com/python-pillow/Pillow>`_: Library for adding image processing capabilities to the Python interpreter
+* `django-anymail <https://github.com/anymail/django-anymail>`_: Extension for Django's core mailing feature that allows sending and receiving from several popular email service providers
+* `django-vite <https://github.com/MrBin99/django-vite>`_:
+* `tblib <https://github.com/ionelmc/python-tblib>`_: Serialization library for Exceptions and Tracebacks
+* `django-cachalot <https://github.com/noripyt/django-cachalot>`_: Cache management for Django ORM queries
+* `redis <https://github.com/redis/redis>`_:
+* `hiredis <https://github.com/redis/hiredis>`_:
+* `django-redis <https://github.com/jazzband/django-redis>`_: Redis cache backend for Django that provides convenience methods for managing redis
+* `django-jinja <https://github.com/niwinz/django-jinja>`_: Jinja2 integration for Django
+* `heroicons <https://github.com/tailwindlabs/heroicons>`_: SVG icons library
+* `django-rich <https://github.com/adamchainz/django-rich>`_: Rich is a library for producing vibrant command line applications, Django-Rich is the connecting extension
 
 
 Dev Dependencies
 ^^^^^^^^^^^^^^^^
 
-* Werkzeug = "2.0.2"
-* coverage = {extras = ["toml"], version = "^6.4.1"}
+* `Werkzeug <https://github.com/pallets/werkzeug>`_: Simple WSGI server for local development, includes debugger, test client, and more
+* `coverage <https://github.com/nedbat/coveragepy>`_: Utility for measuring code coverage testing
 * ipython = "^7.31.1"
 * ipdb = "^0.13.9"
 * ptpython = "^3.0.20"
