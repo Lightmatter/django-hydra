@@ -25,9 +25,9 @@ git diff "$BASE_COMMIT" "$PATCH_COMMIT" > "$PATCH_TMP_PATH"
 
 sed -i 's/'"$PROJECT_NAME"'/{{cookiecutter.repo_name}}/g' "$PATCH_TMP_PATH"
 
-mv "$PATCH_TMP_PATH" ../generic-django-conf/
+mv "$PATCH_TMP_PATH" ../django-hydra/
 echo "Patch created successfully!"
-pushd ../generic-django-conf/
+pushd ../django-hydra/
 git apply --ignore-space-change --ignore-whitespace --directory=\{\{cookiecutter.repo_name\}\} "$PATCH_NAME" --reject --index
 if [ $? -eq 0 ]
 then
