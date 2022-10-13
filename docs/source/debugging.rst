@@ -45,6 +45,13 @@ If the above fails or you prefer a more immediate solution, you can add the foll
 
     import pudb; pu.db
 
+As an alternative to pudb and its debugger, this project also has the IPython debugger (ipdb). You can access ipdb by adding the following to your code:
+
+.. code-block:: python
+
+    import ipdb;
+    ipdb.set_trace()
+
 For ease of local development, `icecream <https://github.com/gruns/icecream>`_ is preconfigured and ready to use.
 
 Logging

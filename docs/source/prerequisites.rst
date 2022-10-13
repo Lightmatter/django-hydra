@@ -11,7 +11,7 @@ Before you create any projects with this template
 Setting up for Installation
 -------------
 .. note::
-   For Mac systems, there is an automatic installation script that handle dependencies for Hydra. Run the following commands to install via the script:
+For Mac systems, there is an automatic installation script that handle dependencies for Hydra. Run the following commands to install via the script:
 
     .. code-block:: console
 
@@ -29,7 +29,7 @@ The following items are required in order for this template to work:
    * `npm <https://docs.npmjs.com/downloading-and-installing-node-js-and-npm>`_
 
 * `python3 <https://www.python.org/downloads/>`_,
-    * `pyenv <https://github.com/pyenv/pyenv>`_ is recommended to manage versions:
+    * `pyenv <https://github.com/pyenv/pyenv>`_ is recommended to manage versions
     * `cookiecutter <https://cookiecutter.readthedocs.io/en/1.7.2/installation.html>`_
 
 * `postgres <https://www.postgresql.org/download/>`_

@@ -39,14 +39,25 @@ Static Location and Manifest
 
 Whitenoise and Caching
 **********************
-- Handling asset/http caching
-- Max age
+
+Whitenoise is used to serve static files over Django's handling of static assets, and used for HTTP caching
+
+As discussed in the `django_vite <https://github.com/MrBin99/django-vite/blob/master/README.md#notes>`_ documentation,
+There is a custom test that is required to amend Vite's behavior to accomodate whitenoise serving static assets.
+For more details about the implementation, see `this guide <http://whitenoise.evans.io/en/stable/django.html#WHITENOISE_IMMUTABLE_FILE_TEST>`_.
 
 
 Deployment Process and Optimizations
 -------------
 
-There are configuration files for `render.com <https://render.com/>`_ and `fly.io <https://fly.io/>`_
+There are configuration files for `render.com <https://render.com/>`_ and `fly.io <https://fly.io/>`_.
+
+The render file sets up the following services:
+* a Django webserver with a prebuilt/precompiled front end
+* a Minio service that manages media asset storage on AWS S3
+* a redis service
+* a PostgreSQL database
+
 
 Built-In CDN
 ************
