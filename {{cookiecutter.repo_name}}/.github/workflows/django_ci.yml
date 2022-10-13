@@ -15,7 +15,7 @@ jobs:
   #         ref: ${{ github.event.pull_request.head.sha }}
 
   #     - name: Cache Docker layers
-  #       uses: actions/cache@v2
+  #       uses: actions/cache@v3
   #       with:
   #         path: /tmp/.buildx-cache
   #         key: ${{ runner.os }}-buildx-${{ github.sha }}
@@ -84,7 +84,7 @@ jobs:
       - name: Install and configure Poetry
         uses: snok/install-poetry@e3dbfd357f4751d4f582d62bc8a71e56c2a7015b # v1.3.2
         with:
-          version: 1.2.2
+          version: 1.2.1
           virtualenvs-create: true
           virtualenvs-in-project: true
           installer-parallel: true
@@ -99,7 +99,7 @@ jobs:
 
       - name: Load cached venv if cache exists
         id: cached-poetry-dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: .venv
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}

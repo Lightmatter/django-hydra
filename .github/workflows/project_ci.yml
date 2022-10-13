@@ -1,6 +1,11 @@
 # In YAML, 'raw' and 'endraw' can't come at the beginning of a token or at the end of a quoted value, which is why they're in weird places. They are
 # needed to escape YAML templating variables, which still allowing cookiecutter to replace the value of the repository name.
 
+# Instructions to clear caches:
+# 1) List all caches for this repo using the Github CLI: gh api  -H "Accept: application/vnd.github+json" /repos/Lightmatter/django-hydra/actions/caches
+# 2) Delete each cache id from the list, e.g.: gh api --method DELETE  -H "Accept: application/vnd.github+json" /repos/Lightmatter/django-hydra/actions/caches/1
+
+
 name: Project CI
 on: pull_request
 
@@ -21,7 +26,7 @@ jobs:
       - name: Install and configure Poetry
         uses: snok/install-poetry@e3dbfd357f4751d4f582d62bc8a71e56c2a7015b # v1.3.2
         with:
-          version: 1.2.2
+          version: 1.2.1
           virtualenvs-create: true
           virtualenvs-in-project: true
           installer-parallel: true
@@ -33,14 +38,15 @@ jobs:
           python-version-file: ".python-version"
           cache: "poetry"
 
-      - run: poetry env use ${{ steps.setup_python.outputs.python-version }}
-
       - name: Load cached venv if cache exists
         id: cached-poetry-dependencies
-        uses: actions/cache@v2
+        uses: actions/cache@v3
         with:
           path: .venv
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+
+
+      - run: poetry env use ${{ steps.setup_python.outputs.python-version }}
 
       - name: Install dependencies if cache does not exist
         run: poetry install --no-interaction --no-root
