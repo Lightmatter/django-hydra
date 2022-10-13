@@ -2,7 +2,8 @@
 
 ## About
 
-Hydra is a robust project template which uses Django 4 on the backend and HTMX, AlpineJS and Tailwind on the frontend.
+Hydra is a robust project template which uses Django 4 on the backend and HTMX, AlpineJS, and Tailwind on the frontend.
+
 This combination of technologies means:
 
  * You'll spend less time writing custom Javascript
@@ -10,7 +11,7 @@ This combination of technologies means:
  * You'll leverage the strengths of both Django and consise templates to render content quickly and easily
  * You'll be easily able to extend this template for customized use cases
 
-But perhaps the best thing about Hydra is that once you're familiar with it, _it's just fun to write_!
+But perhaps the best thing about Hydra is that once you're familiar with it, _it's just fun to use_!
 
 ## Prerequisites
 
@@ -28,7 +29,7 @@ The following items are required in order for Hydra to function:
 
 * [node](https://nodejs.org/en/download/):
   * [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-* [python3](https://www.python.org/downloads/), although [pyenv](https://github.com/pyenv/pyenv) is recommended to manage versions:
+* [python3](https://www.python.org/downloads/), although [pyenv](https://github.com/pyenv/pyenv) is recommended to manage versions
   * [cookiecutter](https://cookiecutter.readthedocs.io/en/1.7.2/installation.html)
 * bash ([WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10) or [Cygwin](https://cygwin.com/install.html) recommended for windows users)
 * [postgres](https://www.postgresql.org/download/)
@@ -45,6 +46,9 @@ n.b. if you are using a bash shell, you should run the version of this command i
 
 
 ## Quick Start
+
+The following is the quickest path to get your project up and running, for more details on the project itself or more help getting started, visit
+[Hydra's Documentation]()
 
 #### Before you create any projects with this template
 * Ensure that your git is properly setup with your username and email in order for the initial commit to have the correct log.

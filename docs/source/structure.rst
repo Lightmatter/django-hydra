@@ -1,17 +1,19 @@
 Project Structure
 ==============================
 
-This project is divided into 2 major parts: Alpine.js to provide additional front end functionality and a Django backend.
+Hydra is divided into 2 major parts: Alpine.js to provide additional front end functionality and a Django backend.
 
-* `/frontend`- The Alpine.js project root, contains static assets (such as CSS and TypeScript) that will be served by Vite
-* `/{{ cookiecutter.project_name }}` - the Django project folder
-* `/config` - Project settings, asgi settings, and base urls
-* `/home` - Handles home page for django, error endpoint, settings context processor
-* `/user` - User related logic, views, models, etc.
-* `/wagtailapp` - If wagtail was used via the cookiecutter setup script, this is where wagtail models, views, etc. are created
-* `/util` - Container for general utility classes, functions, etc.
-* `/static_source` - for adding assetsthat will be served via python
-* `/templates` - html/htmx templates for all webpages served by the app
+The folder structure is as follows:
+
+* ``/frontend``- The Alpine.js project root, contains static assets (such as CSS and TypeScript) that will be served by Vite
+* ``/{{ cookiecutter.project_name }}`` - the Django project folder
+* ``/config`` - Project settings, asgi settings, and base urls
+* ``/home`` - Handles home page for django, error endpoint, settings context processor
+* ``/user`` - User related logic, views, models, etc.
+* ``/wagtailapp`` - If wagtail was used via the cookiecutter setup script, this is where wagtail models, views, etc. are created
+* ``/util`` - Container for general utility classes, functions, etc.
+* ``/static_source`` - for adding assetsthat will be served via python
+* ``/templates`` - html/jinja templates for all webpages served by the app
 
 
 Backend
@@ -43,24 +45,34 @@ Configuration of Vite is explored in more detail in the Compiling and Deployment
 
 Templates
 *********
-Jinja templating provides powerful, but easy to implement methods for
+Jinja templating provides powerful, but easy to implement methods for reducing code and producing easily maintainable templates, but there's a few concepts
+that are worth keeping in mind as you work with it
+
+How Jinja Works:
+^^^^^^^^^^^^^^^^
 
 Jinja template inheritance functions very similarly to `Django's templates <https://docs.djangoproject.com/en/4.0/ref/templates/language/>`_.
 Just like Django templates, you can extend a template and have the child template inherit from the base or parent template, and overwrite blocks of
 content.
 
 Jinja `macros <https://jinja.palletsprojects.com/en/3.1.x/templates/#macros>`_ are a powerful way to reduce code and template specific components for reuse.
-They can be thought of as functions that return customized templates based off of whatever arguments are passed to them. By default,
+They can be thought of as functions that return customized templates based off of whatever arguments are passed to them. Much like functions, they are declared and then called.
 
-Alpine JS and HTMX
+.. code-block:: python
+
+
+
+Alpine JS and HTMX:
 ^^^^^^^^^^^^^^^^^^
+Alpine.js and HTMX
+
     - Alpine allows for inline javascript
 
     - Alpine globals scope
 
     - HTMX for server requests
 
-Tailwind CSS
+Tailwind CSS:
 ^^^^^^^^^^^^
 
 `Tailwind CSS <https://tailwindcss.com/>`_ is a framework that allows developers to compose CSS directly into the class attribute
@@ -82,14 +94,12 @@ All generic Jinja components are under the `{{cookiecutter.repo_name}}/templates
 material.ui format of having a folder per component with the js/css/jinja files within, allowing for files to be overwritten and customized
 as needed.
 
-To create a macro, they must first be defined, and examples
-
 
 Forms
 -----
 
 It's important to note that the widgets that django typically provides are overwritten in Hydra. Rather than working directly with the Django widgets as they as written,
 the Jinja templates for widgets are imported as the defaults. Due to how Django requires that the component templates are overwritten by shadowed methods,
-you'll see several examples of this under the `templates/django/forms/widgets/` directory.
+you'll see several examples of this under the ``templates/django/forms/widgets/`` directory.
 
 Custom form widgets can be composed using Jinja

@@ -111,7 +111,7 @@ The recommended start pattern is described below. The setup_existing_project.sh 
 Configuring environment variables
 ==================================
 
-Before you may develop on the app itself you will need a :code:`.env` file. Provided in the template is a :code:`.env.example` which can be copy and pasted into a new .env file. It is worth noting that when a new project is created via :code:`create_new_project.sh`, the :code:`.env.example` will be copied to new instance under :code:`.env`. This template leverages this file using the dotenv JavaScript library as part of Vite.
+Before you may develop on the app itself you will need a ``.env`` file. Provided in the template is a ``.env.example`` which can be copy and pasted into a new .env file. It is worth noting that when a new project is created via ``create_new_project.sh``, the ``.env.example`` will be copied to new instance under ``.env``. This template leverages this file using the dotenv JavaScript library as part of Vite.
 
 Accessing Environment Variables in Python
 ------------------------------------------
@@ -126,7 +126,7 @@ Env vars are available in all .js files and html script tags using the global va
 Installing
 ===========
 
-The :code:`setup_existing_project.sh` and the :code:`create_new_project.sh` scripts will automatically install both the JavaScript and the Python dependencies, however if you need to install them yourself manually at a later date, you can run the below commands independently to do that.
+The ``setup_existing_project.sh`` and the ``create_new_project.sh`` scripts will automatically install both the JavaScript and the Python dependencies, however if you need to install them yourself manually at a later date, you can run the below commands independently to do that.
 
 Install JavaScript dependencies
 --------------------------------
