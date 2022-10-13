@@ -48,7 +48,7 @@ n.b. if you are using a bash shell, you should run the version of this command i
 ## Quick Start
 
 The following is the quickest path to get your project up and running, for more details on the project itself or more help getting started, visit
-[Hydra's Documentation]()
+[Hydra's Documentation on Read the Docs](https://django-hydra.readthedocs.io/)
 
 #### Before you create any projects with this template
 * Ensure that your git is properly setup with your username and email in order for the initial commit to have the correct log.
