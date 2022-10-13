@@ -49,6 +49,7 @@ jobs:
       - run: poetry env use ${{ steps.setup_python.outputs.python-version }}
 
       - name: Install dependencies if cache does not exist
+        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         run: poetry install --no-interaction --no-root
 
       # Instantiate the project
