@@ -25,17 +25,33 @@ Compiling Process
 Vite and Entry Points
 *********************
 
-- vite.config.js: ENTRYPOINTS: every js file that can be imported into html files (currently main.ts)
+Vite must be made aware of all of the frontend assets in order to properly bundle and run them.
 
-CSS and TypeScript
-******************
-- import CSS through JS file and then put in through Vite entrypoint
+To start, it's worth noting that Vite supports both typescript and javascript files out of the box, so there's flexibility for you to
+build how you see fit.
+
+When you're ready to import your .js or .ts files into Vite, you'll need an entrypoint.
+In the ``vite.config.js`` file, there is a single input in ``rollupOptions`` named ``main``.
+This is set to the ``main.ts`` file in the frontend directory, and that file serves as the central entrypoint for all of the assets Vite will bundle.
+
+In the main.ts file, Alpine.js and htmx have already been imported, but any additional frontend packages/frameworks should be imported using
+similar methods.
+
+You'll also see references to the javascript or typescript files that pertain to specific components and their behavior, like modals. Any custom javascript you
+write for components should similarly be imported here.
+
+CSS
+***
+With the frontend frameworks and assorted scripts added to the ``main.ts`` file, the remaining CSS is rolled into the ``tailwind.css`` file.
+
+For additional CSS, that should be imported into the ``tailwind.css`` file along with the the imports from tailwind's base.
+
 
 Static Location and Manifest
 ****************************
-- Npm build exports manifest.json file w/ entrypoints and dependencies
+The ``npm build`` will automatically export a manifest.json file with all the sundry entrypoints and dependencies.
 
-- run collect static (django functionality to move files where they need to go)
+However, you should run ``collect static`` to ensure that the handling of static assets is handled properly.
 
 Whitenoise and Caching
 **********************
@@ -62,10 +78,3 @@ The render file sets up the following services:
 Built-In CDN
 ************
 https://fly.io/docs/reference/configuration/#the-statics-sections
-
-Redis
-*****
-
-
-Cachealot
-*********
