@@ -1,66 +1,56 @@
-# Lightmatter Django Template
+# Hydra
 
-# About
+## About
 
-A generic template for Django 4 using htmx based templates, Vite and Alpine.js that can be easily extended for various needs
+Hydra is a robust project template which uses Django 4 on the backend and HTMX, AlpineJS and Tailwind on the frontend.
+This combination of technologies means:
 
-# Prerequisites
+ * You'll spend less time writing custom Javascript
+ * Keep frontend code near the [locality of behavior](https://htmx.org/essays/locality-of-behaviour/)
+ * You'll leverage the strengths of both Django and consise templates to render content quickly and easily
+ * You'll be easily able to extend this template for customized use cases
 
-The following items are required in order for this template to work.
+But perhaps the best thing about Hydra is that once you're familiar with it, _it's just fun to write_!
 
-Note: For Mac systems, there is an automatic installation script that handle these dependences - jump right to the macOS section to complete setup
+## Prerequisites
 
-## Dependencies
+NOTE: For Mac systems, the following script will handle installing the entirety of the project, including the prerequisites below.
 
-* [node](https://nodejs.org/en/download/):
-  * [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-  * [yarn](https://classic.yarnpkg.com/en/docs/install/)
-  * [webpack](https://webpack.js.org/guides/installation/)
-* [python3](https://www.python.org/downloads/), although [pyenv](https://github.com/pyenv/pyenv) is recommended to manage versions:
-  * [cookiecutter](https://cookiecutter.readthedocs.io/en/1.7.2/installation.html)
-* [git](https://git-scm.com/downloads)
-* bash ([WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10) or [Cygwin](https://cygwin.com/install.html) recommended for windows users)
-* [postgres](https://www.postgresql.org/download/)
-* [poetry](https://python-poetry.org/docs/) virtual environment/package manager
-* [direnv](https://direnv.net/docs/installation.html) handles activating your virtual env when you enter the project directory
-
-
-## Environment configuration
-
-There is also a certain amount of environmental configuration that must be done in order for the above dependencies and the below template to work.
-
-*** If you have a setup guide/a setup process that works for windows or a particular linux distro, please add it below for the benefit of future developers. If you use a specific, non-standard shell (not bash or zsh or similar), please call that out in your instructions as well. ***
-
-### macOS
-
-To install on a mac based operating system, you can use the install script to setup everything.
-
-Run the following script block to get setup:
-
-``` bash
-git clone git@github.com:Lightmatter/django-hydra.git
-./django-hydra/scripts/mac_intel_install.sh
-```
-
+Run the following to complete installation:
+  ``` bash
+  git clone git@github.com:Lightmatter/generic-django-conf.git
+  ./generic-django-conf/scripts/mac_intel_install.sh
+  ```
 It's recommended that you read the output of this script to ensure everything went smoothly,
 particularly if you are using Apple silicone (M1-based-mac).
 
-### Windows
+The following items are required in order for Hydra to function:
 
-#### Dependencies
-* You will need to install Poetry (which requires python 3.10 or greater at the moment), `(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python3 -` n.b. if you are using a bash shell, you should run the version of this command in the macOS section above
-    * In order for poetry to run on the correct python version, you will want to make sure that python3 resolves to python 3.10 in your shell
+* [node](https://nodejs.org/en/download/):
+  * [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+* [python3](https://www.python.org/downloads/), although [pyenv](https://github.com/pyenv/pyenv) is recommended to manage versions:
+  * [cookiecutter](https://cookiecutter.readthedocs.io/en/1.7.2/installation.html)
+* bash ([WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10) or [Cygwin](https://cygwin.com/install.html) recommended for windows users)
+* [postgres](https://www.postgresql.org/download/)
+* [poetry](https://python-poetry.org/docs/) virtual environment/package manager (requires python 3.10+)
+* [direnv](https://direnv.net/docs/installation.html) handles activating your virtual env when you enter the project directory
 
-### Not macOS (including Windows)
 
-#### Dependencies
-* You will need to install direnv, platform specific installation instructions are available here <https://direnv.net/docs/installation.html>
 
-## Before you create any projects with this template
+### For Windows Users:
+* In order for poetry to run on the correct python version, you will want to make sure that python3 resolves to python 3.10 in your shell
+
+`(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python3 -`
+n.b. if you are using a bash shell, you should run the version of this command in the macOS section above
+
+
+## Quick Start
+
+#### Before you create any projects with this template
 * Ensure that your git is properly setup with your username and email in order for the initial commit to have the correct log.
 * Project names must be composed of lowercase alphanumeric characters only, with no spaces or special characters.
 
-# Setting up the project
+### Setting up the project
 
 There are two main scripts that you need to know about in this template, `create_new_project.sh` and `setup_existing_project.sh`.
 These both do pretty much what they say, however here is an expanded list of what each will do when run:
@@ -73,16 +63,9 @@ These both do pretty much what they say, however here is an expanded list of wha
 
 You should now follow the below guide depending on whether you are setting up a new project entirely, or getting spun up on a new one.
 
-## If you are setting up a new project from scratch
+#### If you are setting up a new project from scratch
 
 Run the below commands in order:
-
-The recommended start pattern is described below. The create_new_project.sh command will
-* Create a poetry/direnv virtual environment
-* install python and js requirements (dev and regular) via poetry and npm (or optionally yarn)
-* create a database
-* run the migrations
-* and setup git
 
 1. Clone the template
 
@@ -124,7 +107,7 @@ $ npm run dev
 
 5. You will now be able to view the project at http://127.0.0.1:8000/ or http://localhost:8000
 
-## If you are settiing up a project that someone else created
+#### If you are settiing up a project that someone else created
 
 Run the below commands in order:
 
@@ -152,7 +135,7 @@ $ ./scripts/setup_existing_project.sh
 $ ./manage.py runserver_plus
 ```
 
-4. In a new shell tab/window navigate to the project directory and run the vite server with npn run dev
+4. In a new shell tab/window navigate to the project directory and run the vite server with npm run dev
 
 ```bash
 $ npm run dev
@@ -228,26 +211,6 @@ $ ./manage.py runserver_plus
 Then in a new tab, run the vite server
 ```bash
 $ npm run dev
-```
-
-
-# Debugging
-To access a python shell pre-populated with Django models and local env
-```bash
-$ ./manage.py shell_plus
-```
-To add a breakpoint in your python code:
-Add the following code to your `.bashrc` or `.zshrc`:
-```bash
-$ export PYTHONBREAKPOINT="pudb.set_trace"
-```
-Then add the following to your python code:
-```python
-breakpoint()
-```
-If the above fails or you prefer a more immediate solution, you can add the following to your code:
-```python
-import pudb; pu.db
 ```
 
 # Deployment

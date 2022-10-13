@@ -49,4 +49,6 @@ Playwright
 
 Of note is Playwright's `codegen <https://playwright.dev/docs/codegen-intro>`_ feature, which allows you to perform actions in the browser and have Playwright generate the code to perform those actions automatically.
 
-Rarely is codegen's generated code perfect immediately upon recording, but it will produce most of the code you need.
+Rarely is codegen's generated code production ready immediately after recording, but it will get you most of the way through your end-to-end testing.
+
+`Coverage.py <https://github.com/nedbat/coveragepy>`_ can come in handy here in ensuring that the tests you write cover all of the code you write.

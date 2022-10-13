@@ -22,7 +22,7 @@ Hydra relies on much of Django's default tooling with some packages added on to 
     * `django-extensions <https://github.com/django-extensions/django-extensions>`_
     * `django-model-utils <https://github.com/jazzband/django-model-utils>`_
 
-For a complete list of the dependencies we use on the backend and the purpose for their inclusion, check :ref:`dependency-list`
+For a complete list of the dependencies used and the purpose for their inclusion, check :ref:`dependency-list`
 
 
 Frontend
