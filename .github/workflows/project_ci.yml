@@ -62,7 +62,7 @@ jobs:
       - run: npm run build
         working-directory: ./sampleapp
 
-      - run: poetry env use 3.10.4
+      - run: poetry env use 3.10.2
         working-directory: ./sampleapp
 
       - name: Install dependencies if cache does not exist
