@@ -12,7 +12,7 @@ About
 This is a generic template for Django 4 using htmx based templates, Vite and Alpine.js that can be easily extended for various needs including, but not limited to, using Wagtail as a CMS
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
    :caption: Contents:
 
    prerequisites

@@ -18,13 +18,8 @@ Setting up for Installation
         git clone git@github.com:Lightmatter/generic-django-conf.git
         ./generic-django-conf/scripts/mac_intel_install.sh
 
-<<<<<<< HEAD
 It's recommended that you read the output of this script to ensure everything went smoothly,
 particularly if you are using Apple silicone (M1-based-mac).
-=======
-    It's recommended that you read the output of this script to ensure everything went smoothly,
-    particularly if you are using Apple silicone (M1-based-mac).
->>>>>>> e88d6c7 (small edits)
 
 
 The following items are required in order for this template to work:
