@@ -5,7 +5,6 @@ from environ import Env
 
 from ..jinja2 import options
 
-
 env = Env()
 
 APP_DIR = Path(__file__).resolve().parent.parent.parent
@@ -169,6 +168,7 @@ STATICFILES_FINDERS = [
 
 DJANGO_VITE_ASSETS_PATH = STATIC_ROOT
 DJANGO_VITE_DEV_MODE = DEBUG
+DJANGO_VITE_DEV_SERVER_PORT = 5173
 
 # MEDIA
 # ------------------------------------------------------------------------------
@@ -200,7 +200,7 @@ TEMPLATES = [
     {
         # https://niwi.nz/django-jinja/latest/
         "BACKEND": "django_jinja.backend.Jinja2",
-        "DIRS": [root("templates")],
+        "DIRS": [APP_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": options,
     },
