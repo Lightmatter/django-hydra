@@ -18,6 +18,11 @@ if (import.meta.env.MODE !== "development") {
 // @ts-expect-error // needs to declare that htmx lives on window, auto added by import
 const { htmx } = window; // eslint-disable-line  @typescript-eslint/no-unused-vars
 
+// HTMX Configuration (https://htmx.org/docs/#config)
+
+// Disable history cache
+htmx.config.historyCacheSize = 0;
+
 htmx.defineExtension("get-csrf", {
   onEvent: function (name: string, evt: any) {
     if (name === "htmx:configRequest") {
