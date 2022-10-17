@@ -50,9 +50,3 @@ urlpatterns += [
     path("admin/", admin.site.urls),
     path("", include("{{cookiecutter.repo_name}}.home.urls")),
 ]
-
-{%- if cookiecutter.use_wagtail == 'y' %}
-# This needs to come after static and debug calls
-urlpatterns += [
-    path("", include("{{ cookiecutter.repo_name }}.wagtailapp.urls")),
-]{% endif %}

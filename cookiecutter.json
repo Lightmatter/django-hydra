@@ -8,7 +8,6 @@
   "description": "A short description of the project.",
   "domain_name": "example.com",
   "version": "0.1.0",
-  "use_wagtail": "n",
   "_copy_without_render": [
     "*.html",
     "templates/**/*.txt",
