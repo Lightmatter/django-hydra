@@ -77,7 +77,7 @@ jobs:
       - run: poetry run playwright install
         working-directory: ./sampleapp
 
-      - run: poetry run coverage run --source='.' pytest
+      - run: poetry run coverage run --source='.' -m pytest
         working-directory: ./sampleapp
 
     services:

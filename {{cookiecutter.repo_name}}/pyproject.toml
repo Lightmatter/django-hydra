@@ -111,7 +111,7 @@ max_line_length = 92
 show_source = true
 
 [tool.flakeheaven.plugins]
-flake8-bandit = ["+*", "-S322"]
+flake8-bandit = ["+*", "-S101", "-S322"]
 flake8-bugbear = ["+*"]
 flake8-builtins = ["+*"]
 flake8-comprehensions = ["+*"]
