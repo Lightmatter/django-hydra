@@ -27,7 +27,7 @@ EMAIL_BACKEND = env(
 # WhiteNoise
 # ------------------------------------------------------------------------------
 # http://whitenoise.evans.io/en/latest/django.html#using-whitenoise-in-development
-INSTALLED_APPS = ["whitenoise.runserver_nostatic"] + INSTALLED_APPS  # noqa F405
+INSTALLED_APPS.insert(0, "whitenoise.runserver_nostatic")
 
 # django-debug-toolbar
 # ------------------------------------------------------------------------------
@@ -93,17 +93,3 @@ CACHALOT_UNCACHABLE_TABLES = frozenset(
         "silk_request",
     )
 )
-
-
-import sys
-
-TESTING = sys.argv[1:2] == ["test"]
-if TESTING:
-    MIDDLEWARE.remove("debug_toolbar.middleware.DebugToolbarMiddleware")
-    INSTALLED_APPS.remove("debug_toolbar")
-    PASSWORD_HASHERS = ("django.contrib.auth.hashers.MD5PasswordHasher",)
-    import subprocess
-
-    subprocess.run(["npm", "run", "build"])
-    DJANGO_VITE_DEV_MODE = False
-    TEMPLATE_DEBUG = False

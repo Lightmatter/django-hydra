@@ -1,62 +1,44 @@
-import datetime
-import os
 import time
+from datetime import datetime
 
+import pytest
 from django.conf import settings
+from django.core import mail
 from django.core.files.uploadedfile import SimpleUploadedFile
-from django.test import LiveServerTestCase, TestCase, override_settings
-from playwright.sync_api import sync_playwright
 
 from .models import TestFileModel
 from .util import file_url
 
 
-class FileUrlTest(TestCase):
-    def test_file_url(self):
-        file_url_obj = file_url("foo")
-        self.assertEqual(file_url_obj.category, "foo")
-        timestamp = int(time.time())
-        actual = file_url_obj("trash", "some_filename")
-        now = datetime.datetime.now()
-        expected = f"uploads/foo/{now.year:04}/{now.month:02}/{now.day:02}/{timestamp}/some_filename"  # NOQA:E501
-        self.assertEqual(actual, expected)
+def test_file_url():
+    file_url_obj = file_url("foo")
+    assert file_url_obj.category == "foo"
 
-    def test_file_upload(self):
-        fake_file = SimpleUploadedFile(
-            "some_file.txt", bytes("asdf", "utf8"), content_type="text"
-        )
-        now = datetime.datetime.now()
-        timestamp = int(time.time())
-        x = TestFileModel.objects.create(file_field=fake_file)
-        actual = x.file_field.url
-        expected = (
-            settings.MEDIA_URL
-            + f"uploads/filez/{now.year:04}/{now.month:02}/{now.day:02}/{timestamp}/some_file.txt"  # NOQA:E501
-        )
-        self.assertEqual(actual, expected)
+    timestamp = int(time.time())
+    actual = file_url_obj("trash", "some_filename")
+    now = datetime.now()
+
+    expected = f"uploads/foo/{now:%Y/%m/%d}/{timestamp}/some_filename"
+    assert actual == expected
 
 
-@override_settings(DEBUG=True)
-class PlaywrightTestCase(LiveServerTestCase):
-    @classmethod
-    def setUpClass(cls):
-        os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
-        super().setUpClass()
-        cls.playwright = sync_playwright().start()
-        cls.browser = cls.playwright.chromium.launch()
+@pytest.mark.django_db
+def test_file_upload():
+    fake_file = SimpleUploadedFile("some_file.txt", "asdf".encode(), content_type="text")
+    now = datetime.now()
+    timestamp = int(time.time())
 
-    def setUp(self):
-        self.context = self.browser.new_context()
-        if not os.environ.get("PWDEBUG"):
-            self.context.set_default_timeout(1000)
-
-    @classmethod
-    def tearDownClass(cls):
-        super().tearDownClass()
-        cls.browser.close()
-        cls.playwright.stop()
+    file_field_url = TestFileModel.objects.create(file_field=fake_file).file_field.url
+    expected = f"{settings.MEDIA_URL}uploads/filez/{now:%Y/%m/%d}/{timestamp}/some_file.txt"
+    assert file_field_url == expected
 
 
-# TODO: Write this test
-class SendEmailtest(TestCase):
-    pass
+def test_send_email(mailoutbox):
+    mail.send_mail("subject", "body", "from@lightmatter.com", ["to@lightmatter.com"])
+    assert len(mailoutbox) == 1
+
+    m = mailoutbox[0]
+    assert m.subject == "subject"
+    assert m.body == "body"
+    assert m.from_email == "from@lightmatter.com"
+    assert list(m.to) == ["to@lightmatter.com"]

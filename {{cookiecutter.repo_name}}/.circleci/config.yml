@@ -33,7 +33,7 @@ jobs:
           pkg-manager: poetry
       - run: poetry run pre-commit run --all-files
       - run: poetry run playwright install
-      - run: poetry run coverage run --source='.' manage.py test
+      - run: poetry run coverage run --source='.' -m pytest
       - store_test_results:
           path: test_reports
       - run: poetry run coverage xml

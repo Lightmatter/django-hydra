@@ -19,7 +19,7 @@ Run the below commands in order:
 
 The recommended start pattern is described below. The create_new_project.sh command will:
 
-* Create a poetry/direnv virtual environment 
+* Create a poetry/direnv virtual environment
 * install python and js requirements (dev and regular) via poetry and npm (or optionally yarn)
 * create a database
 * run the migrations
@@ -29,13 +29,13 @@ The recommended start pattern is described below. The create_new_project.sh comm
 
 .. code-block:: console
 
-    git clone https://github.com/Lightmatter/generic-django-conf
+    git clone https://github.com/Lightmatter/django-hydra
 
     * at the moment you will also want to do the following before running step 2:
 
 .. code-block:: console
 
-    cd generic-django-conf
+    cd django-hydra
     git checkout 3.0
     cd ..
 
@@ -43,11 +43,11 @@ The recommended start pattern is described below. The create_new_project.sh comm
 
 .. code-block:: console
 
-    cookiecutter generic-django-conf
+    cookiecutter django-hydra
 
 .. note::
 
-    This command should be run from the directory containing/directly above the generic-django-conf directory
+    This command should be run from the directory containing/directly above the django-hydra directory
 
 3. Navigate into the project directory that you just created
 
@@ -64,7 +64,7 @@ The recommended start pattern is described below. The create_new_project.sh comm
 4. In a new shell tab/window navigate to the project directory and run the vite server
 
 .. code-block:: console
-    
+
     npm run dev
 
 5. You will now be able to view the project at http://127.0.0.1:8000/ or http://localhost:8000
@@ -148,4 +148,3 @@ Install Python Dependencies
     .. code-block:: console
 
         poetry install
-
