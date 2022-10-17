@@ -1,7 +1,6 @@
 # pylint: disable=redefined-outer-name
 import uuid
 from http import HTTPStatus
-from unittest import skip
 
 import pytest
 from django.contrib.auth.hashers import make_password
