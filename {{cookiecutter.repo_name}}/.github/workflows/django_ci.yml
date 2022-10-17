@@ -109,7 +109,7 @@ jobs:
         run: poetry install --no-interaction --no-root
 
       - run: poetry run playwright install
-      - run: poetry run coverage run --source='.' manage.py test
+      - run: poetry run coverage run --source='.' pytest
       - run: poetry run ./manage.py collectstatic --noinput
 
     services:

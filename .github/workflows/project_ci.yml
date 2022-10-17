@@ -5,7 +5,6 @@
 # 1) List all caches for this repo using the Github CLI: gh api  -H "Accept: application/vnd.github+json" /repos/Lightmatter/django-hydra/actions/caches
 # 2) Delete each cache id from the list, e.g.: gh api --method DELETE  -H "Accept: application/vnd.github+json" /repos/Lightmatter/django-hydra/actions/caches/1
 
-
 name: Project CI
 on: pull_request
 
@@ -45,7 +44,6 @@ jobs:
           path: .venv
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
-
       - run: poetry env use ${{ steps.setup_python.outputs.python-version }}
 
       - name: Install dependencies if cache does not exist
@@ -79,7 +77,7 @@ jobs:
       - run: poetry run playwright install
         working-directory: ./sampleapp
 
-      - run: poetry run coverage run --source='.' manage.py test
+      - run: poetry run coverage run --source='.' pytest
         working-directory: ./sampleapp
 
     services:
