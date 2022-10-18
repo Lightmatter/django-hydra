@@ -9,7 +9,7 @@ Lightmatter Django Template
 About
 -----
 
-This is a generic template for Django 4 using htmx based templates, Vite and Alpine.js that can be easily extended for various needs including, but not limited to, using Wagtail as a CMS
+This is a generic template for Django 4 using htmx based templates, Vite, and Alpine.js that can be easily extended
 
 .. toctree::
    :maxdepth: 1
@@ -20,5 +20,6 @@ This is a generic template for Django 4 using htmx based templates, Vite and Alp
    structure
    testing
    debugging
+   cookbook
    deployment
    workflow

@@ -10,7 +10,6 @@ The folder structure is as follows:
 * ``/config`` - Project settings, asgi settings, and base urls
 * ``/home`` - Handles home page for django, error endpoint, settings context processor
 * ``/user`` - User related logic, views, models, etc.
-* ``/wagtailapp`` - If wagtail was used via the cookiecutter setup script, this is where wagtail models, views, etc. are created
 * ``/util`` - Container for general utility classes, functions, etc.
 * ``/static_source`` - for adding assetsthat will be served via python
 * ``/templates`` - html/jinja templates for all webpages served by the app
@@ -58,19 +57,87 @@ content.
 Jinja `macros <https://jinja.palletsprojects.com/en/3.1.x/templates/#macros>`_ are a powerful way to reduce code and template specific components for reuse.
 They can be thought of as functions that return customized templates based off of whatever arguments are passed to them. Much like functions, they are declared and then called.
 
-.. code-block:: python
+The declaration for a link macro may look like the following:
+``..components/link.jinja``
+.. code-block:: html
 
+    {% macro link(url, text='', target='') %}
+        <a href="{{ url }}"
+        target="{{ target }}"
+        class="text-blue-500; hover:text-blue-700; underline">{{ text }}</a>
+    {% endmacro %}
+
+Then, when the macro is called in a template file, you'll see something akin to the following:
+.. code-block:: html
+
+    {% from 'components/link.jinja' import link %}
+
+    <body>
+        ...
+        {% set url='https://www.google.com' %}
+        {% set text='A ubiquitous search engine' %}
+        {% set target='blank' %}
+
+        <div class='link-container'>
+            {{ link(url, text, target) }}
+        </div>
+
+    </body>
 
 
 Alpine JS and HTMX:
 ^^^^^^^^^^^^^^^^^^
-Alpine.js and HTMX
+Both Alpine.js and HTMX are libraries designed to reduce the amount of vanilla Javascript being written by allowing you to tie common actions directly to the DOM element they are affecting.
 
-    - Alpine allows for inline javascript
+It's highly recommended to read through the documentation for both `Alpine <https://alpinejs.dev/start-here>` and `HTMX <https://htmx.org/docs/>` to familiarize yourself with
+the mechanics of how these technologies work, but their basic use will be very briefly outlined below.
 
-    - Alpine globals scope
+Essentially (and somewhat reductively), HTMX allows for HTML elements to submit AJAX requests, and Alpine takes care of everything else that Javascript typically would.
 
-    - HTMX for server requests
+It's important to note that any endpoint you are using with HTMX must return the HTML you are either adding or replacing on the page.
+
+For instance, let's say that we wanted to add an element to a page on a button click.
+
+.. code-block:: html
+
+    <div>
+        <button hx-get="/add-paragraph" hx-target=".lorem-ipsum-container" hx-swap="beforeend">
+            Add Text
+        </button>
+    </div>
+
+    <div class="lorem-ipsum-container">
+    </div>
+
+In this case, we have a get request that is fired to the `/add-paragraph` endpoint. We use `hx-target` and `hx-swap` to ensure that each piece of HTML is appended to the content of the
+`lorem-ipsum-container` div. The default behavior for a swap is to replace all of the interior content of the targeted element.
+
+Now let's say that we wanted to count how many times the user had clicked to add paragraphs to the `lorem-ipsum-container` - we could do that with Alpine.
+
+.. code-block:: html
+
+    <div x-data={timesClicked: 0}>
+        <button
+            hx-get="/add-paragraph"
+            hx-target=".lorem-ipsum-container"
+            hx-swap="beforeend"
+            @click="timesClicked+=1"
+        >
+            Add Text
+        </button>
+        <p x-text="timesClicked"></p>
+    </div>
+
+    <div class="lorem-ipsum-container">
+    </div>
+
+With the `@click` event (a piece of syntactic shorthand for `x-on:click`), the piece of data belonging to the parent div will be incremented. The `x-text` attribute ties the value of the piece of
+Alpine data `timesClicked` to the innerHTML of the `<p>` tag. There is more that could be done here, for example, only displaying the `timesClicked` if the amount is greater than zero, limiting
+the amount of times that the button could be clicked, all of which is possible with Alpine.
+
+One other thing worth keeping in mind with Alpine: the scope of `timesClicked` is available only to the child elements of the div where it is defined. This
+`does work <https://alpinejs.dev/directives/data#scope>` with nested components.
+
 
 Tailwind CSS:
 ^^^^^^^^^^^^
@@ -80,12 +147,12 @@ of HTML elements.
 
 One important thing to note is that Tailwind does have a default color palette that can be referenced `here <https://tailwindcss.com/docs/customizing-colors>`_
 
-For instructions on customizing (or extending) the color palette, see the instructions in the link above.
+For instructions on customizing or extending the color palette, see the instructions in the link above.
 
-- One important thing to note is that dynamic generation of tailwind classes can be tricky and not show up
+.. note::
 
-- Workarounds for that
-
+    Because of how Vite and Tailwind compile and run, Tailwind classes that only appear in dynamically generated code from the server may not work as expected.
+    See this `Stack Overflow post <https://stackoverflow.com/questions/70907369/color-classes-of-tailwind-css-not-working-when-appended>` for more details
 
 Components
 ----------
@@ -102,4 +169,5 @@ It's important to note that the widgets that django typically provides are overw
 the Jinja templates for widgets are imported as the defaults. Due to how Django requires that the component templates are overwritten by shadowed methods,
 you'll see several examples of this under the ``templates/django/forms/widgets/`` directory.
 
-Custom form widgets can be composed using Jinja
+New custom form widgets can be composed using Jinja and shadowed in a similar manner.
+To reference the django widgets, see the `widgets folder in the Django repository <https://github.com/django/django/tree/main/django/forms/templates/django/forms/widgets>`
