@@ -14,7 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DATABASE_URL: "psql://postgres:postgres@localhost/postgres"
-      DJANGO_SETTINGS_MODULE: "sampleapp.config.settings.test"
       DJANGO_SECRET_KEY: "!!!! Change me !!!!"
 
     steps:
@@ -61,21 +60,21 @@ jobs:
           cache-dependency-path: "**/package-lock.json"
 
       - name: Setup Node
-      - run: |
+        working-directory: ./sampleapp
+        run: |
           npm install
           npm run build
-        working-directory: ./sampleapp
 
       - name: Install Sample App dependencies
-      - run: |
+        working-directory: ./sampleapp
+        run: |
           poetry env use ${{ steps.setup_python.outputs.python-version }}
           poetry install --no-interaction --no-root
           poetry run playwright install chromium
-        working-directory: ./sampleapp
 
       - name: Run tests
-      - run: poetry run coverage run --source='.' -m pytest
         working-directory: ./sampleapp
+        run: poetry run coverage run --source='.' -m pytest
 
     services:
       postgres:

@@ -78,8 +78,11 @@ jobs:
           node-version: lts/*
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
-      - run: npm install
-      - run: npm run build
+
+      - name: Setup Node
+      - run: |
+          npm install
+          npm run build
 
       - name: Install and configure Poetry
         uses: snok/install-poetry@e3dbfd357f4751d4f582d62bc8a71e56c2a7015b # v1.3.2
@@ -105,16 +108,14 @@ jobs:
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
       - name: Install dependencies
-      - run: |
+        run: |
           poetry install --no-interaction --no-root
           poetry run playwright install chromium
-        working-directory: ./sampleapp
 
       - name: Run tests
-      - run: |
+        run: |
           poetry run coverage run --source='.' -m pytest
           poetry run ./manage.py collectstatic --noinput
-        working-directory: ./sampleapp
 
     services:
       postgres:
