@@ -4,7 +4,10 @@ import os
 from typing import Generator
 
 import pytest
+from django.conf import settings
 from playwright.sync_api import BrowserContext, ConsoleMessage, Error, Page, Playwright
+from pytest_django.lazy_django import skip_if_no_django
+from pytest_django.live_server_helper import LiveServer
 
 
 @pytest.fixture(scope="session")
@@ -32,6 +35,27 @@ def page(page: Page) -> Generator[Page, None, None]:
     page.on("console", raise_error)
 
     yield page
+
+
+@pytest.fixture(scope="session")
+def live_server(request):
+    skip_if_no_django()
+    addr = (
+        request.config.getvalue("liveserver")
+        or os.getenv("DJANGO_LIVE_TEST_SERVER_ADDRESS")
+        or "localhost"
+    )
+
+    # Only way to fix static finding until this is merged:
+    # https://github.com/pytest-dev/pytest-django/pull/1032
+    if "django.contrib.staticfiles" in settings.INSTALLED_APPS:
+        settings.INSTALLED_APPS.remove("django.contrib.staticfiles")
+
+    server = LiveServer(addr)
+
+    yield server
+
+    server.stop()
 
 
 def raise_error(msg: ConsoleMessage) -> None:
