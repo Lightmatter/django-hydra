@@ -1,4 +1,5 @@
 # pylint: disable=redefined-outer-name
+# flake8: noqa: E800
 import os
 
 import pytest
