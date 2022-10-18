@@ -79,7 +79,7 @@ jobs:
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
 
-      - name: NPM package
+      - name: Install NPM package
       - run: npm install
 
       - name: Install and configure Poetry
