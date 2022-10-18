@@ -4,10 +4,11 @@ import os
 from typing import Generator
 
 import pytest
-from django.conf import settings
+from django.db import connections
+from django.test.testcases import LiveServerThread, _StaticFilesHandler
+from django.test.utils import modify_settings
 from playwright.sync_api import BrowserContext, ConsoleMessage, Error, Page, Playwright
 from pytest_django.lazy_django import skip_if_no_django
-from pytest_django.live_server_helper import LiveServer
 
 
 @pytest.fixture(scope="session")
@@ -48,9 +49,6 @@ def live_server(request):
 
     # Only way to fix static finding until this is merged:
     # https://github.com/pytest-dev/pytest-django/pull/1032
-    if "django.contrib.staticfiles" in settings.INSTALLED_APPS:
-        settings.INSTALLED_APPS.remove("django.contrib.staticfiles")
-
     server = LiveServer(addr)
 
     yield server
@@ -70,3 +68,78 @@ def raise_error(msg: ConsoleMessage) -> None:
         return
 
     raise Error(f'error: {msg.text}, {msg.location["url"]}')
+
+
+class LiveServer:
+    """The liveserver fixture
+
+    This is the object that the ``live_server`` fixture returns.
+    The ``live_server`` fixture handles creation and stopping.
+    """
+
+    def __init__(self, addr: str, start: bool = True) -> None:
+        try:
+            host, port_str = addr.split(":")
+            port = int(port_str)
+        except ValueError:
+            host = addr
+            port = 0
+
+        connections_override = {}
+        for conn in connections.all():
+            # If using in-memory sqlite databases, pass the connections to
+            # the server thread.
+            if conn.vendor == "sqlite" and conn.is_in_memory_db():
+                connections_override[conn.alias] = conn
+
+        # `_live_server_modified_settings` is enabled and disabled by
+        # `_live_server_helper`.
+        self._live_server_modified_settings = modify_settings(
+            ALLOWED_HOSTS={"append": host}
+        )
+
+        self.thread = LiveServerThread(
+            host=host,
+            static_handler=_StaticFilesHandler,
+            connections_override=connections_override,
+            port=port,
+        )
+        self.thread.daemon = True
+
+        if start:
+            self.start()
+
+    def start(self) -> None:
+        """Start the server"""
+        for conn in self.thread.connections_override.values():
+            # Explicitly enable thread-shareability for this connection.
+            conn.inc_thread_sharing()
+
+        self.thread.start()
+        self.thread.is_ready.wait()
+
+        if self.thread.error:
+            error = self.thread.error
+            self.stop()
+            raise error
+
+    def stop(self) -> None:
+        """Stop the server"""
+        # Terminate the live server's thread.
+        self.thread.terminate()
+        # Restore shared connections' non-shareability.
+        for conn in self.thread.connections_override.values():
+            conn.dec_thread_sharing()
+
+    @property
+    def url(self) -> str:
+        return f"http://{self.thread.host}:{self.thread.port}"
+
+    def __str__(self) -> str:
+        return self.url
+
+    def __add__(self, other) -> str:
+        return f"{self}{other}"
+
+    def __repr__(self) -> str:
+        return "<LiveServer listening at %s>" % self.url
