@@ -1,2 +1,4 @@
-{{ cookiecutter | jsonify }}
-
+{
+  "project_name_verbose": "{{cookiecutter.project_name_verbose}}",
+  "repo_name": "{{ cookiecutter.repo_name }}"
+}
