@@ -1,4 +1,11 @@
 {
   "project_name_verbose": "{{cookiecutter.project_name_verbose}}",
-  "repo_name": "{{ cookiecutter.repo_name }}"
+  "repo_name": "{{cookiecutter.repo_name}}",
+  "_copy_without_render": [
+    "*.html",
+    "templates/**/*.txt",
+    "*.jinja",
+    ".yarn/*"
+]
+}
 }
