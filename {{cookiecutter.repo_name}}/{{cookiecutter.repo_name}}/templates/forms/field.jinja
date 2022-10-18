@@ -2,9 +2,11 @@
 {# or Sometimes third party controls come with their own styling, so for these widgets do not style #}
 {%-  macro input_widget_hook(field) -%}
     {%- if field.widget_type == "select"  -%}
-        select
+        input-box select
+    {%- elif field.widget_type == "radioselect" -%}
+        radio
     {%- else -%}
-        input
+        input-box input
     {%- endif -%}
 {%- endmacro -%}
 
@@ -30,9 +32,13 @@
 {% endmacro %}
 
 {% macro field(field, errors='', layout_classes='w-full') %}
-    <div class="{{ layout_classes }} {{ field.css_classes() }}">
+    {% set wrapper_element = "fieldset" if field.widget_type == "radioselect" else "div" %}
+    <{{ wrapper_element }} class="{{ layout_classes }} {{ field.css_classes() }}">
         {% if field.widget_type == "toggle" %}
             {{boolean_shell(field, errors)}}
+        {% if field.widget_type == "radioselect" %}
+            <legend>{{ field.name }}</legend>
+        {% endif %}
         {% else %}
             {{input_shell(field, errors)}}
         {% endif %}
@@ -45,5 +51,5 @@
                 {{ field.help_text|safe }}
             </p>
         {% endif %}
-    </div>
+    </{{ wrapper_element }}>
 {% endmacro %}
