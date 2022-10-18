@@ -45,4 +45,4 @@ def raise_error(msg: ConsoleMessage) -> None:
     if msg.type != "error":
         return
 
-    raise Error(f"error: {msg.text}")
+    raise Error(f'error: {msg.text}, {msg.location["url"]}')
