@@ -97,20 +97,24 @@ jobs:
 
       - run: poetry env use ${{ steps.setup_python.outputs.python-version }}
 
-      - name: Load cached venv if cache exists
+      - name: Load cached venv
         id: cached-poetry-dependencies
         uses: actions/cache@v3
         with:
           path: .venv
           key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
-      - name: Install dependencies if cache does not exist
-        if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
-        run: poetry install --no-interaction --no-root
+      - name: Install dependencies
+      - run: |
+          poetry install --no-interaction --no-root
+          poetry run playwright install chromium
+        working-directory: ./sampleapp
 
-      - run: poetry run playwright install chromium
-      - run: poetry run coverage run --source='.' -m pytest
-      - run: poetry run ./manage.py collectstatic --noinput
+      - name: Run tests
+      - run: |
+          poetry run coverage run --source='.' -m pytest
+          poetry run ./manage.py collectstatic --noinput
+        working-directory: ./sampleapp
 
     services:
       postgres:
