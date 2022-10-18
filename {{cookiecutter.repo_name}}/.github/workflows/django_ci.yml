@@ -112,8 +112,8 @@ jobs:
 
       - name: Run tests
         run: |
+          poetry run ./manage.py collectstatic --no-input
           poetry run coverage run --source='.' -m pytest
-          poetry run ./manage.py collectstatic --noinput
 
     services:
       postgres:
