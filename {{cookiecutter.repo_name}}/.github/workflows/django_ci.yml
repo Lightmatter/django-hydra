@@ -79,10 +79,8 @@ jobs:
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
 
-      - name: Setup Node
-      - run: |
-          npm install
-          npm run build
+      - name: NPM package
+      - run: npm install
 
       - name: Install and configure Poetry
         uses: snok/install-poetry@e3dbfd357f4751d4f582d62bc8a71e56c2a7015b # v1.3.2
