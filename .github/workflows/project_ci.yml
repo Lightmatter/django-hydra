@@ -50,7 +50,7 @@ jobs:
 
       # Instantiate the project
       - name: Instantiate project using the values in cookiecutter.json
-        run: poetry run cookiecutter . --no-input
+        run: poetry run cookiecutter . --no-input --accept-hooks no
 
       # Configure the project environment
       - uses: actions/setup-node@v3
@@ -59,7 +59,7 @@ jobs:
           cache: "npm"
           cache-dependency-path: "**/package-lock.json"
 
-      - name: Setup Node
+      - name: Install and build Node package
         working-directory: ./sampleapp
         run: |
           npm install
