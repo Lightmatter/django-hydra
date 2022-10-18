@@ -14,3 +14,11 @@ def playwright(playwright: Playwright) -> Playwright:
     os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
 
     return playwright
+
+
+@pytest.fixture
+def context(context):
+    # Uncomment to disable or modify Playwright timeout
+    # context.set_default_timeout(0)
+
+    yield context
