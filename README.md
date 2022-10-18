@@ -2,7 +2,7 @@
 
 # About
 
-A generic template for Django 4 using htmx based templates, Vite and Alpine.js that can be easily extended for various needs including, but not limited to, using Wagtail as a CMS
+A generic template for Django 4 using htmx based templates, Vite and Alpine.js that can be easily extended for various needs
 
 # Prerequisites
 
@@ -266,7 +266,12 @@ $ poetry run coverage run --source='.' manage.py test
 ```
 
 # WORKFLOW to write back to template
-Create an instance of the template using the test.sh script. Create changes in the sample app, commit to git and run the script create_patch. This will attempt to take the git diff of the prior commit and apply it back to the template. It's not always perfect so you might have to do a comparison to the rej files that were unable to cleanly apply.
+Create an instance of the template using cookiecutter. Create changes in the sample app, and commit to git on a new feature branch. Then go back into the `generic-django-conf` folder and run:
+
+1) `git config --global init.defaultBranch main`. When using this command, `main` should be the name of the primary branch of the instantiated project, not the primary branch of the template.
+2) `retrocookie --branch=your-branch-name ../your-project-name`
+
+This will attempt to take the git diff of the prior commit and apply it back to the template. When adding new dependencies to a project, always delete the `poetry.lock` file and recreate it before committing, otherwise it won't merge correctly. The documentation for retrocookie is here: <https://pypi.org/project/retrocookie/>
 
 On MacOS, you must install gnu sed for the create_patch script to work. To do this, run `brew install gnu-sed` and then add `PATH="$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$PATH"` to your `~/.bash_profile` file.
 
