@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href={{ static("img/favicons/favicon.ico") }} />
+    {{ vite_hmr_client() }}
+    {{ vite_asset('css/base.js') }}
+    {{ vite_asset('js/main.ts') }}
+    {{ django_htmx_script() }}
+    {% block extra_head %}
+        <title>Lightmatter Template Library</title>
+    {% endblock extra_head %}
+</head>
+<body>
+  {% block content %}
+    {{ pattern_library_rendered_pattern }}
+  {% endblock %}
+</body>
+</html>
