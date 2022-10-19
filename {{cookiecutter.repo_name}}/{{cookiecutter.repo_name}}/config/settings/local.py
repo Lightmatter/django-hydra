@@ -39,6 +39,9 @@ INSTALLED_APPS += [
 # ensure that DJDT has access to the htmx attrs
 MIDDLEWARE.remove("django_htmx.middleware.HtmxMiddleware")
 
+if DEBUG:
+    X_FRAME_OPTIONS = "SAMEORIGIN"
+
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#middleware
 MIDDLEWARE = [
     "django_htmx.middleware.HtmxMiddleware",

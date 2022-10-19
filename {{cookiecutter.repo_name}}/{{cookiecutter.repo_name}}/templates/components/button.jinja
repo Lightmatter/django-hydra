@@ -31,6 +31,11 @@
         {{ button_content }}
     </button>
 {% endmacro %}
+
+{% if is_pattern_library %}
+   {{ button() }}
+{% endif %}
+
 {#
 force tailwind to include these styles:
 text-primary-content bg-primary hover:bg-primary-focus border-primary bg-primary-content hover:text-primary-focus text-primary

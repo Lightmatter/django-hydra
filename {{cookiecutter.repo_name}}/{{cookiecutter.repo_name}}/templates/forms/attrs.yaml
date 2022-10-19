@@ -1,0 +1,5 @@
+name: Attrs
+context:
+    attrs:
+        name: Test attr
+        value: test value

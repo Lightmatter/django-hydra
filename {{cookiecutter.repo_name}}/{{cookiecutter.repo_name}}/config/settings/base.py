@@ -80,6 +80,7 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "heroicons",
+    "pattern_library",
 ]
 LOCAL_APPS = [
     "{{cookiecutter.repo_name}}.home",
@@ -219,6 +220,7 @@ TEMPLATES = [
             "builtins": [
                 "django.templatetags.static",
                 "{{cookiecutter.repo_name}}.util.templatetags.filters",
+                "pattern_library.loader_tags",
             ],
             # https://docs.djangoproject.com/en/dev/ref/settings/#template-context-processors
             "context_processors": CONTEXT_PROCESSORS,
@@ -226,6 +228,29 @@ TEMPLATES = [
     },
 ]
 
+PATTERN_LIBRARY = {
+    # Groups of templates for the pattern library navigation. The keys
+    # are the group titles and the values are lists of template name prefixes that will
+    # be searched to populate the groups.
+    "SECTIONS": (
+        ("components", ["components"]),
+        ("account", ["account"]),
+        ("forms", ["forms"]),
+        ("header", ["header"]),
+        ("pages", ["patterns/pages"]),
+    ),
+    # Configure which files to detect as templates.
+    "TEMPLATE_SUFFIX": ".jinja",
+    # Set which template components should be rendered inside of,
+    # so they may use page-level component dependencies like CSS.
+    "PATTERN_BASE_TEMPLATE_NAME": "library_base.jinja",
+    # Any template in BASE_TEMPLATE_NAMES or any template that extends a template in
+    # BASE_TEMPLATE_NAMES is a "page" and will be rendered as-is without being wrapped.
+    "BASE_TEMPLATE_NAMES": [
+        "patterns/base_page.jinja",
+        "account/account_base.jinja",
+    ],
+}
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#form-renderer
 FORM_RENDERER = "django.forms.renderers.TemplatesSetting"

@@ -51,6 +51,7 @@ poetryup = "^0.5.1"
 importmagic = "^0.1.7"
 epc = "^0.0.5"
 django-silk = "^5.0.1"
+django-pattern-library = {path = "../django-pattern-library", develop = true}
 
 [tool.poetry.group.test.dependencies]
 pytest-django = "^4.5.2"

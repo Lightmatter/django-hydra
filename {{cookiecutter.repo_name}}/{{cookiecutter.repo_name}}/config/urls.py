@@ -1,10 +1,15 @@
 # flake8: noqa: F811
+from django.apps import apps
 from django.conf import settings
 from django.conf.urls import handler400, handler403, handler404, handler500
 from django.contrib import admin
 from django.urls import include, path
-
-from {{cookiecutter.repo_name}}.home.views import FourHundy, FourOhFour, FourOhThree, WorkedLocally
+from {{cookiecutter.repo_name}}.home.views import (
+    FourHundy,
+    FourOhFour,
+    FourOhThree,
+    WorkedLocally,
+)
 
 handler400 = FourHundy
 handler403 = FourOhThree
@@ -42,6 +47,11 @@ if settings.DEBUG:
         import debug_toolbar
 
         urlpatterns = [path("__debug__/", include(debug_toolbar.urls))] + urlpatterns
+
+    if apps.is_installed("pattern_library"):
+        urlpatterns += [
+            path("pattern-library/", include("pattern_library.urls")),
+        ]
 
 
 urlpatterns += [

@@ -15,3 +15,7 @@
 {% macro widget_to_input(widget) %}
     {{input(type=widget.type, name=widget.name, value=widget.value, model=widget.attrs.id, attrs=widget.attrs )}}
 {% endmacro %}
+
+{% if is_pattern_library %}
+    {{ input() }}
+{% endif %}

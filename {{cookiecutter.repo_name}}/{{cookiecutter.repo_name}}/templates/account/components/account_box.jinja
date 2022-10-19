@@ -25,3 +25,7 @@ Did YOU ever hear the Tragedy of Darth Plagueis the Wise?
         </div>
     </div>
 {% endmacro %}
+
+{% if is_pattern_library %}
+    {{ account_box() }}
+{% endif %}

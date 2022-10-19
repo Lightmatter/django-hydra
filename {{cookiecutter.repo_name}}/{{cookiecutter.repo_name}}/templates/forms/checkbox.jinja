@@ -9,3 +9,7 @@
         </div>
     </div>
 {% endmacro %}
+
+{% if is_pattern_library %}
+    {{ checkbox(field) }}
+{% endif %}

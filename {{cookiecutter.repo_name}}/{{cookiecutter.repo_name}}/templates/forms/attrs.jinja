@@ -5,3 +5,7 @@
         {% endif %}
     {% endfor %}
 {% endmacro %}
+
+{% if is_pattern_library %}
+    {{ form_attrs(attrs) }}
+{% endif %}
