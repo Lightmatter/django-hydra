@@ -44,6 +44,8 @@ MIDDLEWARE.remove("django_htmx.middleware.HtmxMiddleware")
 # other middleware that modify the response.
 MIDDLEWARE.remove("corsheaders.middleware.CorsMiddleware")
 MIDDLEWARE.remove("csp.middleware.CSPMiddleware")
+if DEBUG:
+    X_FRAME_OPTIONS = "SAMEORIGIN"
 
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#middleware
 MIDDLEWARE = [

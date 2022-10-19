@@ -1,0 +1,48 @@
+{% macro button(button_content='Button', dispatch_name='button-click', variant='normal', color='primary', shape='rounded', size='md', type='button') %}
+    {# Variant support: normal, outline #}
+    {# Color support: primary, secondary, accent, success, info, warning, error #}
+    {# Shape support: rounded, square, circle #}
+    {# Size support: xs, sm, md, lg, xl #}
+    {% set class="inline-flex items-center justify-center shadow-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-"+color+"-600" %}
+    {% if size == 'xs' %}
+        {% set class = class + " px-2.5 py-1.5 text-xs" %}
+    {% elif size == 'sm' %}
+        {% set class = class + " px-3 py-2 text-sm" %}
+    {% elif size == 'md' %}
+        {% set class = class + " px-4 py-2 text-sm" %}
+    {% elif size == 'lg' %}
+        {% set class = class + " px-4 py-2 text-base" %}
+    {% elif size == 'xl' %}
+        {% set class = class + " px-6 py-3 text-base" %}
+    {% endif %}
+    {% if shape == 'rounded' %}
+        {% set class = class + " rounded" %}
+    {% elif shape == 'circle' %}
+        {% set class = class + ' rounded-full' %}
+    {% endif %}
+    {% if variant == 'outline' %}
+        {% set class = "{} text-{} bg-{}-content hover:text-{}-focus border border-{}".format(class, color, color, color, color) %}
+    {% else %}
+        {% set class = "{} text-{}-content bg-{} hover:bg-{}-focus".format(class, color, color, color) %}
+    {% endif %}
+    <button type="{{ type }}"
+            x-on:click="$dispatch('{{ dispatch_name }}', '{{ variant }} {{ color }} {{ shape }} {{ size }}')"
+            class="{{ class }}">
+        {{ button_content }}
+    </button>
+{% endmacro %}
+
+{% if is_pattern_library %}
+   {{ button() }}
+{% endif %}
+
+{#
+force tailwind to include these styles:
+text-primary-content bg-primary hover:bg-primary-focus border-primary bg-primary-content hover:text-primary-focus text-primary
+text-secondary-content bg-secondary hover:bg-secondary-focus border-secondary bg-secondary-content hover:text-secondary-focus text-secondary
+text-accent-content bg-accent hover:bg-accent-focus border-accent bg-accent-content hover:text-accent-focus text-accent
+text-success-content bg-success hover:bg-success-focus border-success bg-success-content hover:text-success-focus text-success
+text-info-content bg-info hover:bg-info-focus border-info bg-info-content hover:text-info-focus text-info
+text-warning-content bg-warning hover:bg-warning-focus border-warning bg-warning-content hover:text-warning-focus text-warning
+text-error-content bg-error hover:bg-error-focus border-error bg-error-content hover:text-error-focus text-error
+#}

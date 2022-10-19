@@ -1,0 +1,13 @@
+name: Account Base
+
+context:
+    account_objects:
+        back: <a class="absolute top-6 left-6 cursor-pointer "
+            hx-get="{{ url('user:account_welcome') }}"
+            hx-select="#account-box"
+            hx-target="#account-box"
+            hx-swap="outerHTML">
+            Go Back
+            </a>
+        title: Did YOU ever hear the Tragedy of Darth Plagueis the Wise?
+        content: <h2>I thought not. It's not a story the Jedi would tell you.</h2>

@@ -25,5 +25,9 @@
 {% endset %}
 
 {% block content %}
-    {{ account_box(account_title, account_content, back=account_back) }}
+    {% if is_pattern_library %}
+        {{ account_box(account_objects.title, account_objects.content, account_objects.back) }}
+    {% else %}
+        {{ account_box(account_title, account_content, back=account_back) }}
+    {% endif %}
 {% endblock content %}
