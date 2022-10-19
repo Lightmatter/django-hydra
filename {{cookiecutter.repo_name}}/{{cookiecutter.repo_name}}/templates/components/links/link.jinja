@@ -3,3 +3,7 @@
        target="{{ target }}"
        class="text-blue-500; hover:text-blue-700; underline">{{ text }}</a>
 {% endmacro %}
+
+{% if is_pattern_library %}
+   {{ link(jpl_url, jpl_text, jpl_target) }}
+{% endif %}
