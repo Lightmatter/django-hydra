@@ -1,9 +1,10 @@
-import subprocess
+import pytest
+from django.core import management
 
 
-def test_no_migrations():
-    proc = subprocess.run(
-        ["poetry", "run", "python", "manage.py", "makemigrations", "--check", "--dry-run"]
-    )
+@pytest.mark.django_db
+def test_no_migrations(capsys):
+    management.call_command("makemigrations", dry_run=True)
 
-    assert proc.returncode == 0
+    captured = capsys.readouterr()
+    assert "No changes detected" in captured.out
