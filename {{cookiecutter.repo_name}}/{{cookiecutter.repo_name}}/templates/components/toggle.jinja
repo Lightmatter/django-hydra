@@ -76,3 +76,7 @@
         {% endif %}
     </div>
 {% endmacro %}
+
+{% if is_pattern_library %}
+   {{ toggle() }}
+{% endif %}

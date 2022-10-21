@@ -45,3 +45,10 @@
         </div>
     </div>
 {% endmacro %}
+
+{% if is_pattern_library %}
+   {{ flyout(button=default_button, content=dtl_default_content, button_style="text-gray-500 group bg-white rounded-md
+    inline-flex items-center text-base font-medium hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2
+    focus:ring-indigo-500", menu_style="absolute z-10 left-1/2 transform -translate-x-1/2 mt-3 px-2 w-screen max-w-xs
+    sm:px-0") }}
+{% endif %}
