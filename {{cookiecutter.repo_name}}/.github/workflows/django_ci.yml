@@ -111,9 +111,7 @@ jobs:
           poetry run playwright install chromium
 
       - name: Run tests
-        run: |
-          poetry run ./manage.py collectstatic --no-input
-          poetry run coverage run --source='.' -m pytest
+        run: poetry run coverage run --source='.' -m pytest
 
     services:
       postgres:

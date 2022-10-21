@@ -72,9 +72,7 @@ jobs:
 
       - name: Run tests
         working-directory: ./sampleapp
-        run: |
-          poetry run ./manage.py collectstatic --no-input
-          poetry run coverage run --source='.' -m pytest
+        run: poetry run coverage run --source='.' -m pytest
 
     services:
       postgres:
