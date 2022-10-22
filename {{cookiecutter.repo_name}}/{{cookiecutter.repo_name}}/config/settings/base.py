@@ -235,11 +235,11 @@ PATTERN_LIBRARY = {
     # are the group titles and the values are lists of template name prefixes that will
     # be searched to populate the groups.
     "SECTIONS": (
-        ("components", ["components"]),
-        ("account", ["account"]),
+        ("account", [("account/components"), "account/snippets"]),
         ("forms", ["forms"]),
         ("header", ["header"]),
-        ("pages", ["patterns/pages"]),
+        ("components", ["components"]),
+        ("samples", ["samples"]),
     ),
     # Configure which files to detect as templates.
     "TEMPLATE_SUFFIX": ".jinja",

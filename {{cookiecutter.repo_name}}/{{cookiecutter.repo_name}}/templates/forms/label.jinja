@@ -29,3 +29,7 @@ translate-y-2.5
         {{ label(label=label, attrs=attrs) }}
     {% endif %}
 {% endmacro %}
+
+{% if is_pattern_library %}
+    {{ label(dpl_label_text) }}
+{% endif %}

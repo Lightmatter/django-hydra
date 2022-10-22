@@ -1,18 +1,3 @@
-{% set default_title %}
-Did YOU ever hear the Tragedy of Darth Plagueis the Wise?
-{% endset %}
-{% set default_content %}
-<h2>I thought not. It's not a story the Jedi would tell you.</h2>
-{% endset %}
-{% set default_back %}
-<a class="absolute top-6 left-6 cursor-pointer "
-   hx-get="{{ url('user:account_welcome') }}"
-   hx-select="#account-box"
-   hx-target="#account-box"
-   hx-swap="outerHTML">
-    {{ heroicon_solid("arrow-left", class="h-6 w-6 cursor-pointer") }}
-</a>
-{% endset %}
 {% macro account_box(title=default_title, content=default_content, back=default_back ) %}
     <div class="mt-20 sm:mx-auto sm:w-full sm:max-w-md" id="account-box">
         <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 flex flex-col justify-center relative">
@@ -27,5 +12,5 @@ Did YOU ever hear the Tragedy of Darth Plagueis the Wise?
 {% endmacro %}
 
 {% if is_pattern_library %}
-    {{ account_box() }}
+    {{ account_box(account_objects.title, account_objects.content, account_objects.back) }}
 {% endif %}
