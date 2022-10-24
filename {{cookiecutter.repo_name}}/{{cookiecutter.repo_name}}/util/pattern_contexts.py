@@ -26,8 +26,6 @@ def add_field(context, request):
 @register_context_modifier(template="forms/select.jinja")
 def add_select(context, request):
     form = ExampleForm()
-    something = form["select"]
-    something.as_widget
     choice_tempate = "django/forms/widgets/select_option.html"
     context["jplwidget"] = form["select"]
     context["jplwidget"].attrs = {"test1": "1", "test2": "2"}

@@ -1,7 +1,5 @@
-name: Account Box
-
 context:
-    account_objects:
+    dpl_account_objects:
         back: <a class="absolute top-6 left-6 cursor-pointer "
             hx-get="{{ url('user:account_welcome') }}"
             hx-select="#account-box"

@@ -11,6 +11,7 @@
   "_copy_without_render": [
     "*.html",
     "templates/**/*.txt",
+    "{{cookiecutter.repo_name}}/templates/**/*.yaml",
     "*.jinja",
     ".yarn/*"
   ]

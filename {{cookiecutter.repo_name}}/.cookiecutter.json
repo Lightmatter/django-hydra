@@ -4,6 +4,7 @@
   "_copy_without_render": [
     "*.html",
     "templates/**/*.txt",
+    "templates/**/*.yaml",
     "*.jinja",
     ".yarn/*"
 ]
