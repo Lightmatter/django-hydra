@@ -6,7 +6,7 @@ authors = ["Ben Beecher <ben@lightmatter.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
-cookiecutter = "^1.7.3"
+cookiecutter = "^2.1.1"
 isort = "^5.10.1"
 Sphinx = "^5.1.1"
 furo = "^2022.9.15"
