@@ -8,8 +8,6 @@
         type="{{type}}"
         {% if name %}name="{{ name }}"{% endif %}
         {% if value %}value="{{ value }}"{% endif %}
-        {# TODO: this breaks situations where the input IS NOT embedded in a field/has no surrounding x-data. Need to figure out how to get a default of nothing #}
-        {# x-model="{{ model }}" #}
     />
 {% endmacro %}
 
