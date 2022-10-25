@@ -87,3 +87,48 @@ jobs:
           --health-retries 5
         ports:
           - 5432:5432
+
+  dependabot_approve:
+    name: Approve Dependabot prs
+    runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: write
+
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    needs: test
+    steps:
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v1.1.1
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Approve a PR
+        run: gh pr review --approve "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
+  dependabot_merge:
+    name: Auto Merge Dependabot prs
+    runs-on: ubuntu-latest
+
+    permissions:
+      pull-requests: write
+      contents: write
+
+    if: ${{ github.actor == 'dependabot[bot]' }}
+    needs: dependabot_approve
+    steps:
+      - name: Dependabot metadata
+        id: metadata
+        uses: dependabot/fetch-metadata@v1.1.1
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Enable auto-merge for Dependabot PRs
+        run: gh pr merge --auto --squash "$PR_URL"
+        env:
+          PR_URL: ${{github.event.pull_request.html_url}}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
