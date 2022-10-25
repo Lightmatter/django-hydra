@@ -2,13 +2,13 @@
 name = "{{cookiecutter.repo_name}}"
 version = "0.1.0"
 description = ""
-authors = ["Ben Beecher <ben@lightmatter.com>"]
+authors = ["{{cookiecutter.author_name}} <{{cookiecutter.email}}>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
 Django = {extras = ["argon2"], version = "^4.0.4"}
 whitenoise = {extras = ["brotli"], version = "^5.3.0"}
-django-allauth = "^0.47.0"
+django-allauth = "^0.51.0"
 django-htmx = "^1.8.0"
 django-annoying = "^0.10.6"
 django-environ = "^0.8.1"
@@ -32,7 +32,7 @@ django-jinja = "^2.10.2"
 heroicons = {extras = ["jinja"], version = "^1.8.0"}
 django-rich = "^1.4.0"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 Werkzeug = "2.0.2"
 coverage = {extras = ["toml"], version = "^6.4.1"}
 ipython = "^7.31.1"
@@ -43,7 +43,6 @@ model-bakery = "^1.4.0"
 watchdog = "2.1.6"
 honcho = "1.1.0"
 unittest-xml-reporting = "^3.2.0"
-playwright = "^1.18.2"
 pywatchman = "^1.4.1"
 icecream = "^2.1.1"
 pre-commit = "^2.17.0"
@@ -52,6 +51,12 @@ poetryup = "^0.5.1"
 importmagic = "^0.1.7"
 epc = "^0.0.5"
 django-silk = "^5.0.1"
+cruft = "^2.11.1"
+cookiecutter = "^1.7.3"
+
+[tool.poetry.group.test.dependencies]
+pytest-django = "^4.5.2"
+pytest-playwright = "^0.3.0"
 
 [tool.black]
 force-exclude = '''
@@ -69,27 +74,27 @@ branch = true
 [tool.coverage.report]
 # Regexes for lines to exclude from consideration
 exclude_lines = [
-    # Have to re-enable the standard pragma
-    "pragma: no cover",
+  # Have to re-enable the standard pragma
+  "pragma: no cover",
 
-    # Don't complain about missing debug-only code:
-    "def __repr__",
-    "if self.debug",
+  # Don't complain about missing debug-only code:
+  "def __repr__",
+  "if self.debug",
 
-    # Don't complain if tests don't hit defensive assertion code:
-    "raise AssertionError",
-    "raise NotImplementedError",
+  # Don't complain if tests don't hit defensive assertion code:
+  "raise AssertionError",
+  "raise NotImplementedError",
 
-    # Don't complain if non-runnable code isn't run:
-    "if 0:",
-    "if __name__ == .__main__.:",
+  # Don't complain if non-runnable code isn't run:
+  "if 0:",
+  "if __name__ == .__main__.:",
 ]
 
 ignore_errors = true
-omit = ["*/migrations/*","manage.py","{{cookiecutter.repo_name}}/config/*"]
+omit = ["*/migrations/*", "manage.py", "{{cookiecutter.repo_name}}/config/*"]
 
 [tool.isort]
-line_length = "92"
+line_length = 92
 profile = "black"
 skip_glob = "*migrations/*.py"
 known_third_party = "django,django.contrib,django.utils"
@@ -108,7 +113,7 @@ max_line_length = 92
 show_source = true
 
 [tool.flakeheaven.plugins]
-flake8-bandit = ["+*", "-S322"]
+flake8-bandit = ["+*", "-S101", "-S322"]
 flake8-bugbear = ["+*"]
 flake8-builtins = ["+*"]
 flake8-comprehensions = ["+*"]
@@ -122,18 +127,45 @@ pyflakes = ["+*", "-E5110"]
 pylint = ["-*"]
 
 
-[tool.pylint]
-    [tool.pylint.master]
-    load-plugins="pylint_django, pylint_celery"
-    ignore-paths = [ "^.*/migrations/.*$",]
+[tool.pylint.main]
+load-plugins = ["pylint_django", "pylint_celery"]
+ignore-paths = [".*\\\\migrations\\\\.*|.*/migrations/.*"]
 
-    [tool.pylint.messages_control]
-    disable = "C0330, C0326, C0115, C0116, C0114, C0103, C0415, W0707, W0511, R0903, R0201, R0913, W0212, W0221"
+[tool.pylint.messages_control]
+disable = [
+  "C0115",
+  "C0116",
+  "C0114",
+  "C0103",
+  "C0415",
+  "W0707",
+  "W0511",
+  "R0903",
+  "R0913",
+  "W0212",
+  "W0221",
+  "W1203",
+]
 
-    [tool.pylint.format]
-    max-line-length = "139"
+[tool.pylint.django_foreign_keys_referenced_by_strings]
+django-settings-module = "{{cookiecutter.repo_name}}.config.settings.local"
 
+[tool.pylint.format]
+max-line-length = 139
+
+[tool.djlint]
+ignore = ["H006", "H023", "T002"]
+profile = "django"
+indent = 2
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "{{cookiecutter.repo_name}}.config.settings.test"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+addopts = ["--reuse-db"]
+
+[tool.cruft]
+skip = [".git", "node_modules"]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["setuptools", "poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"

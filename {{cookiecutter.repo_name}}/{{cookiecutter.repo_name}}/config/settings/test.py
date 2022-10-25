@@ -1,24 +1,26 @@
 # pylint: disable-all
-from .base import *  # noqa
-from .base import env
+import platform
+import subprocess
 
-# GENERAL
-# ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/dev/ref/settings/#secret-key
-SECRET_KEY = env(
-    "DJANGO_SECRET_KEY",
-    default="!!!SET DJANGO_SECRET_KEY!!!",
-)
-# https://docs.djangoproject.com/en/dev/ref/settings/#test-runner
-TEST_RUNNER = "xmlrunner.extra.djangotestrunner.XMLTestRunner"
-TEST_OUTPUT_DIR = "./test_reports/django"
+from .local import *  # noqa
 
 # PASSWORDS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#password-hashers
 PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
 
-# EMAIL
-# ------------------------------------------------------------------------------
-# https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
+MIDDLEWARE.remove("debug_toolbar.middleware.DebugToolbarMiddleware")
+INSTALLED_APPS.remove("debug_toolbar")
+
+npm = subprocess.run(
+    ["npm", "run", "build"],
+    shell=platform.system() == "Windows",
+)
+
+if npm.returncode != 0:
+    print(npm.stderr)
+    exit(-1)
+
+TEMPLATE_DEBUG = False
+DJANGO_VITE_DEV_MODE = False
+DJANGO_VITE_MANIFEST_PATH = DJANGO_VITE_ASSETS_PATH / "manifest.json"

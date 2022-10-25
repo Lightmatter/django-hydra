@@ -16,6 +16,7 @@
         {% endblock extra_head %}
     </head>
     <body hx-boost="true"
+          hx-headers='js:{"X-Timezone": Intl.DateTimeFormat().resolvedOptions().timeZone}'
           hx-ext="get-csrf"
           class="{% block bodyclass %}{% endblock bodyclass %}">
         {% include "header/base.jinja" %}

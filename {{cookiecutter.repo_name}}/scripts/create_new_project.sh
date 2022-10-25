@@ -16,16 +16,34 @@ export DJANGO_SETTINGS_MODULE=$ENV_NAME.config.settings.local
 export DJANGO_SECRET_KEY="testkey"
 
 $thisdir/setup_python.sh
-# allow python to setup the venv before switching into it
-direnv allow . && eval "$(direnv export bash)"
+
+# Direnv doesn't exist on CI, so install the poetry dependencies manually.
+if command -v direnv
+then
+	# This also sets up the venv.
+    direnv allow . && eval "$(direnv export bash)"
+fi
 
 $thisdir/setup_js.sh
 $thisdir/setup_database.sh
 echo "omae wa mou shindeiru"
-$thisdir/setup_github.sh true
+$thisdir/setup_github.sh
 
-poetry run pre-commit install
+poetry run install
 chmod +x manage.py
+
+# Pre-commit won't run unless files have been staged.
+git add .
+
+# This must be run on a new project each time it's instantiated in order for linting to pass out of the box. Running it on 
+# the template itself isn't idempotent when the project is created.
+pre-commit run --all-files
+
+echo "Setting up the git repo for the first time"
+git commit -am "initial commit" -q
+echo "Added everything and committed initially"
+
+
 
 #todo - git flow init
 echo "-------------------------------------------------------------"

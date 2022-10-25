@@ -12,7 +12,6 @@ It's the Django server is deployed with precompiled static assets
     - `/config` - Project settings, asgi settings, and base urls
     - `/home` - Handles home page for django, error endpoint, settings context processor
     - `/user` - User related logic, views, models, etc.
-    - `/wagtailapp` - If wagtail was used via the cookiecutter setup script, this is where wagtail models, views, etc. are created
     - `/util` - Container for general utility classes, functions, etc.
     - `/static_source` - for adding assetsthat will be served via python
     - `/templates` - html/htmx templates for all webpages served by the app
@@ -170,7 +169,7 @@ $ poetry run pre-commit run --all-files
 
 Django tests can be run by running
 ```bash
-$ ./manage.py test
+$ pytest
 ```
 # Deployment/Predeployment
 This will be run automatically when you attempt to commit code but if you want to manually validate/fix your code syntax during development you can run
@@ -183,7 +182,7 @@ This app is set up to use circleci, but could be extended to any build process. 
 ```bash
 $ poetry run pre-commit run --all-files
 $ poetry run playwright install
-$ poetry run coverage run --source='.' manage.py test
+$ poetry run coverage run --source='.' -m pytest
 ```
 #### This app is also set up to deploy to render, which is configured via the `render.yaml` file
 It creates:
@@ -223,14 +222,6 @@ NOTE: you must be at the project root to run any `./manage.py ...` or `./scripts
 ## Styleguide
 
 TODO storybook
-
-## Wagtail
-
-If the project is using wagtail a new app will be included called `wagtailapp`. Additionally, in the settings/base.py file there will be new wagtail specific settings.
-
-Several blocks have been included to start TitleBlock, LinkBlock, ColumnBlock, RowBlock, SectionBlock, and SocialBlock. These are used in wagtail streamfields set up and ready to use. No styling has been included for them, so they will need styling, but do have templates present. Currently the main block you can add to a ContentPage is a SectionBlock. This contains a Row or a Spacer. Rows contain Columns and Columns contain title, link, text and image. These are commonly seen patterns in our projects and are not necessary if you need to remove them/have no need for them.
-
-We have added h1 and h5 to the wagtail cms richtext editor as they do not come out of the box.
 
 ---
 TO ADD

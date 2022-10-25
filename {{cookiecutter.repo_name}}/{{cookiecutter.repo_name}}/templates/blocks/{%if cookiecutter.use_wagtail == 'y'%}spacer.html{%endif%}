@@ -1,8 +1,0 @@
-{%- raw -%}
-{% if value.height %}
-<div class="spacer show-for-medium" style="height:{{value.height}}px;"></div>
-{% endif %}
-{% if value.mobile_height %}
-<div class="mobile-spacer show-for-small-only" style="height:{{value.mobile_height}}px;"></div>
-{% endif %}
-{%endraw%}

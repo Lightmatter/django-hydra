@@ -43,11 +43,11 @@ Run the following script block to get setup:
 
 .. code-block:: console
 
-    git clone git@github.com:Lightmatter/generic-django-conf.git
-    ./generic-django-conf/scripts/mac_intel_install.sh
+    git clone git@github.com:Lightmatter/django-hydra.git
+    ./django-hydra/scripts/mac_intel_install.sh
 
 It's recommended that you read the output of this script to ensure everything went smoothly,
-particularly if you are using Apple silicone (M1-based-mac). 
+particularly if you are using Apple silicone (M1-based-mac).
 
 Windows
 *************
@@ -71,4 +71,3 @@ Before you create any projects with this template
 
 * Ensure that your git is properly setup with your username and email in order for the initial commit to have the correct log.
 * Project names must be composed of lowercase alphanumeric characters only, with no spaces or special characters.
-

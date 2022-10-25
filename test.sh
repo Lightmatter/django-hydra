@@ -47,7 +47,7 @@ cd ../$appname/
 eval "$(direnv export bash)"
 npm run build
 pre-commit run --all-files
-poetry run python manage.py test --noinput  --parallel
+poetry run pytest
 
 
 RV=$?

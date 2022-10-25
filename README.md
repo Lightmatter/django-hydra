@@ -2,7 +2,7 @@
 
 # About
 
-A generic template for Django 4 using htmx based templates, Vite and Alpine.js that can be easily extended for various needs including, but not limited to, using Wagtail as a CMS
+A generic template for Django 4 using htmx based templates, Vite and Alpine.js that can be easily extended for various needs
 
 # Prerequisites
 
@@ -30,7 +30,7 @@ Note: There are scripts to install what you need for mac based operating systems
 
 There is also a certain amount of environmental configuration that must be done in order for the above dependencies and the below template to work.
 
-*** If you have a setup guide/a setup process that works for windows or a particular linux distro, please add it below for the benefit of future developers. If you use a specific, non-standard shell (not bash or zsh or similar), please call that out in your instructions as well. *** 
+*** If you have a setup guide/a setup process that works for windows or a particular linux distro, please add it below for the benefit of future developers. If you use a specific, non-standard shell (not bash or zsh or similar), please call that out in your instructions as well. ***
 
 ### macOS
 
@@ -39,12 +39,12 @@ To install on a mac based operating system, you can use the install script to se
 Run the following script block to get setup:
 
 ``` bash
-git clone git@github.com:Lightmatter/generic-django-conf.git
-./generic-django-conf/scripts/mac_intel_install.sh
+git clone git@github.com:Lightmatter/django-hydra.git
+./django-hydra/scripts/mac_intel_install.sh
 ```
 
 It's recommended that you read the output of this script to ensure everything went smoothly,
-particularly if you are using Apple silicone (M1-based-mac). 
+particularly if you are using Apple silicone (M1-based-mac).
 
 ### Windows
 
@@ -79,7 +79,7 @@ You should now follow the below guide depending on whether you are setting up a 
 Run the below commands in order:
 
 The recommended start pattern is described below. The create_new_project.sh command will
-* Create a poetry/direnv virtual environment 
+* Create a poetry/direnv virtual environment
 * install python and js requirements (dev and regular) via poetry and npm (or optionally yarn)
 * create a database
 * run the migrations
@@ -88,13 +88,13 @@ The recommended start pattern is described below. The create_new_project.sh comm
 1. Clone the template
 
 ```bash
-$ git clone https://github.com/Lightmatter/generic-django-conf
+$ git clone https://github.com/Lightmatter/django-hydra
 ```
 
  * at the moment you will also want to do the following before running step 2:
 
 ```bash
-$ cd generic-django-conf
+$ cd django-hydra
 $ git checkout 3.0
 $ cd ..
 ```
@@ -102,9 +102,9 @@ $ cd ..
 2. Use cookiecutter to create a new version of the project. It will ask you some questions about which integrations you might want. Once you've answered all the questions/prompts, the project creation script (create_new_project.sh) will be run automatically by cookiecutter and should install all dependencies and run all necessary setup. If the new project is created but the creation script fails, you can run `./scripts/create_new_project.sh` from within the new project directory.
 
 ```bash
-$ cookiecutter generic-django-conf
+$ cookiecutter django-hydra
 ```
-* this command should be run from the directory containing/directly above the generic-django-conf directory
+* this command should be run from the directory containing/directly above the django-hydra directory
 3. Navigate into the project directory that you just created
 
 ```bash
@@ -185,7 +185,7 @@ $ poetry run pre-commit run --all-files
 
 Django tests can be run by running
 ```bash
-$ ./manage.py test
+$ pytest
 ```
 
 # Installing
@@ -262,11 +262,16 @@ This app is set up to use circleci, but could be extended to any build process. 
 ```bash
 $ poetry run pre-commit run --all-files
 $ poetry run playwright install
-$ poetry run coverage run --source='.' manage.py test
+$ poetry run coverage run --source='.' -m pytest
 ```
 
 # WORKFLOW to write back to template
-Create an instance of the template using the test.sh script. Create changes in the sample app, commit to git and run the script create_patch. This will attempt to take the git diff of the prior commit and apply it back to the template. It's not always perfect so you might have to do a comparison to the rej files that were unable to cleanly apply.
+Create an instance of the template using cookiecutter. Create changes in the sample app, and commit to git on a new feature branch. Then go back into the `generic-django-conf` folder and run:
+
+1) `git config --global init.defaultBranch main`. When using this command, `main` should be the name of the primary branch of the instantiated project, not the primary branch of the template.
+2) `retrocookie --branch=your-branch-name ../your-project-name`
+
+This will attempt to take the git diff of the prior commit and apply it back to the template. When adding new dependencies to a project, always delete the `poetry.lock` file and recreate it before committing, otherwise it won't merge correctly. The documentation for retrocookie is here: <https://pypi.org/project/retrocookie/>
 
 On MacOS, you must install gnu sed for the create_patch script to work. To do this, run `brew install gnu-sed` and then add `PATH="$(brew --prefix)/opt/gnu-sed/libexec/gnubin:$PATH"` to your `~/.bash_profile` file.
 

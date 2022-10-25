@@ -1,13 +1,17 @@
-from django.test import TestCase
+from http import HTTPStatus
+
+import pytest
 from django.urls import reverse
 
 
-class SimpleTest(TestCase):
-    def test_home(self):
-        url = reverse("home")
-        response = self.client.get(url)
-        self.assertEqual(response.status_code, 200)
+@pytest.mark.django_db
+def test_home(client):
+    response = client.get(reverse("home"))
 
-    def test_error_route(self):
-        visit = lambda: self.client.get(reverse("error"))  # noqa:E731
-        self.assertRaises(Exception, visit)
+    assert response.status_code == HTTPStatus.OK
+
+
+@pytest.mark.django_db
+def test_error_route(client):
+    with pytest.raises(Exception, match="Make response code 500!"):
+        client.get(reverse("error"))
