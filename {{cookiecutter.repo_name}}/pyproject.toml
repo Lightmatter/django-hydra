@@ -51,6 +51,8 @@ poetryup = "^0.5.1"
 importmagic = "^0.1.7"
 epc = "^0.0.5"
 django-silk = "^5.0.1"
+cruft = "^2.11.1"
+cookiecutter = "^1.7.3"
 
 [tool.poetry.group.test.dependencies]
 pytest-django = "^4.5.2"
@@ -161,6 +163,8 @@ DJANGO_SETTINGS_MODULE = "{{cookiecutter.repo_name}}.config.settings.test"
 python_files = ["tests.py", "test_*.py", "*_tests.py"]
 addopts = ["--reuse-db"]
 
+[tool.cruft]
+skip = [".git", "node_modules"]
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
