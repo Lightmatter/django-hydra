@@ -17,5 +17,5 @@
       "dom"
     ],
   },
-  "include": ["frontend/**/*.ts", "frontend/**/*.d.ts", "frontend/**/*.tsx", "frontend/**/*.vue", "frontend/**/*.js"]
+  "include": ["{{cookiecutter.repo_name}}/static_source/**/*.ts", "{{cookiecutter.repo_name}}/static_source/**/*.d.ts", "{{cookiecutter.repo_name}}/static_source/**/*.tsx", "{{cookiecutter.repo_name}}/static_source/**/*.vue", "{{cookiecutter.repo_name}}/static_source/**/*.js"]
 }

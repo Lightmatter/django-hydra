@@ -229,6 +229,22 @@ $input-height: 50px;
   }
 }
 
+.boolean-field {
+  &.error {
+    button {
+      @apply border-2 border-red-300;
+    }
+  }
+}
+
+.radio-field {
+  &.error {
+    .radio-choice-ring {
+      @apply ring-red-300;
+    }
+  }
+}
+
 .ts-wrapper {
   @apply px-4 ring-0;
 

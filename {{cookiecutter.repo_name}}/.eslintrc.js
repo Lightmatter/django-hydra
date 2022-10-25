@@ -24,7 +24,7 @@ module.exports = {
     "import/resolver": {
       "alias": {
         "map": [
-          ["@", "./frontend"],
+          ["@", "./{{cookiecutter.repo_name}}/static_source"],
         ],
       },
       "node": {
