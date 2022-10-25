@@ -688,7 +688,7 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "heroicons"
-version = "1.8.0"
+version = "2.1.0"
 description = "Use heroicons in your Django and Jinja templates."
 category = "main"
 optional = false
@@ -1681,7 +1681,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "2fd8ece07c8c000c322a2811fae25d97ac1a522c4e74a69e30f175643e97a122"
+content-hash = "b9be0ae30b995cf42d4b0c1118d560aef80ba182a31f107322fc9db8ed552a03"
 
 [metadata.files]
 appdirs = [
@@ -2176,8 +2176,8 @@ h11 = [
     {file = "h11-0.14.0.tar.gz", hash = "sha256:8f19fbbe99e72420ff35c00b27a34cb9937e902a8b810e2c88300c6f0a3b699d"},
 ]
 heroicons = [
-    {file = "heroicons-1.8.0-py3-none-any.whl", hash = "sha256:69a7111bf7890de392f5af8aac29fa6f163e2d246e1bf03cbd2b1bed5e4ed1e2"},
-    {file = "heroicons-1.8.0.tar.gz", hash = "sha256:14745dde459390d6690e0927aa9c68f70b24b31eab026b10313ebf500df88a21"},
+    {file = "heroicons-2.1.0-py3-none-any.whl", hash = "sha256:d9a29b10593bc45039767233c4d5cba21fc8dfbb2c6da3faf1e665eebb9f2152"},
+    {file = "heroicons-2.1.0.tar.gz", hash = "sha256:6c7cc77076774e2e464d34d50f307ca8f9ddd647340e997bc3c245707b795c41"},
 ]
 hiredis = [
     {file = "hiredis-2.0.0-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:b4c8b0bc5841e578d5fb32a16e0c305359b987b850a06964bd5a62739d688048"},
