@@ -169,7 +169,7 @@ $ poetry run pre-commit run --all-files
 
 Django tests can be run by running
 ```bash
-$ ./manage.py test
+$ pytest
 ```
 # Deployment/Predeployment
 This will be run automatically when you attempt to commit code but if you want to manually validate/fix your code syntax during development you can run
@@ -182,7 +182,7 @@ This app is set up to use circleci, but could be extended to any build process. 
 ```bash
 $ poetry run pre-commit run --all-files
 $ poetry run playwright install
-$ poetry run coverage run --source='.' manage.py test
+$ poetry run coverage run --source='.' -m pytest
 ```
 #### This app is also set up to deploy to render, which is configured via the `render.yaml` file
 It creates:

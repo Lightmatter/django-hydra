@@ -13,5 +13,5 @@ def test_home(client):
 
 @pytest.mark.django_db
 def test_error_route(client):
-    with pytest.raises(Exception):
+    with pytest.raises(Exception, match="Make response code 500!"):
         client.get(reverse("error"))

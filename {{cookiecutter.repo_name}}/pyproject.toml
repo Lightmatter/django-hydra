@@ -113,7 +113,7 @@ max_line_length = 92
 show_source = true
 
 [tool.flakeheaven.plugins]
-flake8-bandit = ["+*", "-S322"]
+flake8-bandit = ["+*", "-S101", "-S322"]
 flake8-bugbear = ["+*"]
 flake8-builtins = ["+*"]
 flake8-comprehensions = ["+*"]
@@ -167,5 +167,5 @@ addopts = ["--reuse-db"]
 skip = [".git", "node_modules"]
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["setuptools", "poetry-core>=1.0.0"]
 build-backend = "poetry.core.masonry.api"

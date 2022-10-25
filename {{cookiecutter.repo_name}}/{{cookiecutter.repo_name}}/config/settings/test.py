@@ -23,3 +23,4 @@ if npm.returncode != 0:
 
 TEMPLATE_DEBUG = False
 DJANGO_VITE_DEV_MODE = False
+DJANGO_VITE_MANIFEST_PATH = DJANGO_VITE_ASSETS_PATH / "manifest.json"
