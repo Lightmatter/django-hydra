@@ -233,7 +233,16 @@ PATTERN_LIBRARY = {
     # are the group titles and the values are lists of template name prefixes that will
     # be searched to populate the groups.
     "SECTIONS": (
-        ("components", ["components"]),
+        (
+            "components",
+            [
+                "components/button",
+                "components/flyout",
+                "components/modal",
+                "components/toast",
+                "components/toggle",
+            ],
+        ),
         ("account", ["account"]),
         ("forms", ["forms"]),
         ("header", ["header"]),

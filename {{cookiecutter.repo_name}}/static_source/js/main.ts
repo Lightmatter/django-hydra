@@ -4,10 +4,10 @@ import mask from "@alpinejs/mask";
 import "htmx.org";
 import Alpine from "alpinejs";
 import Cookies from "js-cookie";
-import "./components/modal";
-import "./components/flyout";
-import "./components/select";
-import "./links";
+import "../../{{cookiecutter.repo_name}}/templates/components/modal/modal";
+import "../../{{cookiecutter.repo_name}}/templates/components/flyout/flyout";
+import "../../{{cookiecutter.repo_name}}/templates/components/select/select";
+import "../../{{cookiecutter.repo_name}}/templates/components/links/links";
 
 if (import.meta.env.MODE !== "development") {
   // // @ts-expect-error  // this whole system is broken w/ vite
