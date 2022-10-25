@@ -27,9 +27,9 @@
  *
  */
 
-@import "@/css/components/messages.scss";
-@import "@/css/components/links.scss";
-@import "@/css/components/toasts.scss";
+@import "@/../{{cookiecutter.repo_name}}/templates/components/messages.scss";
+@import "@/../{{cookiecutter.repo_name}}/templates/components/links/links.scss";
+@import "@/../{{cookiecutter.repo_name}}/templates/components/toast/toasts.scss";
 
 
 /**

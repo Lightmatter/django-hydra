@@ -1,5 +1,5 @@
-{% from 'components/flyout.jinja' import flyout %}
-{% from 'components/button.jinja' import button %}
+{% from 'components/flyout/flyout.jinja' import flyout %}
+{% from 'components/button/button.jinja' import button %}
 {% if not request or not request.user.is_authenticated %}
     <div class="flex-shrink-0">
         <a href="{{ url('user:account_welcome') }}"
