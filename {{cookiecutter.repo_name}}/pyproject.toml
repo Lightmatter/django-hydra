@@ -8,7 +8,7 @@ authors = ["{{cookiecutter.author_name}} <{{cookiecutter.email}}>"]
 python = "^3.10"
 Django = {extras = ["argon2"], version = "^4.0.4"}
 whitenoise = {extras = ["brotli"], version = "^5.3.0"}
-django-allauth = "^0.47.0"
+django-allauth = "^0.51.0"
 django-htmx = "^1.8.0"
 django-annoying = "^0.10.6"
 django-environ = "^0.8.1"
