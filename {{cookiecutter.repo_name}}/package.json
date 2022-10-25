@@ -31,7 +31,7 @@
   "dependencies": {
     "@alpinejs/focus": "^3.10.2",
     "@alpinejs/mask": "^3.10.5",
-    "@alpinejs/morph": "^3.10.2",
+    "@alpinejs/morph": "^3.10.5",
     "alpinejs": "^3.10.2",
     "htmx.org": "^1.7.0",
     "js-cookie": "^3.0.1",
