@@ -20,7 +20,7 @@
     "eslint-plugin-import": "^2.26.0",
     "fast-glob": "^3.2.11",
     "postcss": "^8.4.14",
-    "postcss-nested": "^5.0.6",
+    "postcss-nested": "^6.0.0",
     "sass": "^1.51.0",
     "stylelint": "^14.8.2",
     "stylelint-config-standard-scss": "^6.0.0",
