@@ -96,7 +96,7 @@ jobs:
       pull-requests: write
 
     if: ${{ github.actor == 'dependabot[bot]' }}
-    needs: test
+    needs: create_and_test_project
     steps:
       - name: Dependabot metadata
         id: metadata
