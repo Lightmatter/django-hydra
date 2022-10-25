@@ -3,7 +3,7 @@ Contributing to the Template
 
 First, create an instance of the template using cookiecutter. Create changes in the sample app, and commit to git on a new feature branch.
 
-Then go back into the `generic-django-conf` folder and run:
+Then go back into the `django-hydra` folder and run:
 
 1) `git config --global init.defaultBranch main`. When using this command, `main` should be the name of the primary branch of the instantiated project, not the primary branch of the template.
 2) `retrocookie --branch=your-branch-name ../your-project-name`

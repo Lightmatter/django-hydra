@@ -19,8 +19,8 @@ NOTE: For Mac systems, the following script will handle installing the entirety 
 
 Run the following to complete installation:
   ``` bash
-  git clone git@github.com:Lightmatter/generic-django-conf.git
-  ./generic-django-conf/scripts/mac_intel_install.sh
+  git clone git@github.com:Lightmatter/django-hydra.git
+  ./django-hydra/scripts/mac_intel_install.sh
   ```
 It's recommended that you read the output of this script to ensure everything went smoothly,
 particularly if you are using Apple silicone (M1-based-mac).
@@ -85,7 +85,7 @@ $ git checkout 3.0
 $ cd ..
 ```
 
-2. While in the directory containing/directly above the django-hydra directory, use cookiecutter to create a new version of the project through the following command: 
+2. While in the directory containing/directly above the django-hydra directory, use cookiecutter to create a new version of the project through the following command:
 
 ```bash
 $ cookiecutter django-hydra
@@ -103,7 +103,7 @@ It will ask you the following questions about your project, with the default in 
 9.) Project Version
 
 
-Once you've answered the prompts, your project will be created in the same directory as django-hydra 
+Once you've answered the prompts, your project will be created in the same directory as django-hydra
 
 3. Navigate into the project directory that you just created
 
@@ -111,7 +111,7 @@ Once you've answered the prompts, your project will be created in the same direc
 $ cd <project_name>
 ```
 
-You may see an error output initially (missing .env file) as you navigate into the directory. We'll create that .env file and complete project set up by running: 
+You may see an error output initially (missing .env file) as you navigate into the directory. We'll create that .env file and complete project set up by running:
 
 ```bash
 $ ./scripts/create_new_project.sh
