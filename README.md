@@ -85,16 +85,36 @@ $ git checkout 3.0
 $ cd ..
 ```
 
-2. Use cookiecutter to create a new version of the project. It will ask you some questions about which integrations you might want. Once you've answered all the questions/prompts, the project creation script (create_new_project.sh) will be run automatically by cookiecutter and should install all dependencies and run all necessary setup. If the new project is created but the creation script fails, you can run `./scripts/create_new_project.sh` from within the new project directory.
+2. While in the directory containing/directly above the django-hydra directory, use cookiecutter to create a new version of the project through the following command: 
 
 ```bash
 $ cookiecutter django-hydra
 ```
-* this command should be run from the directory containing/directly above the django-hydra directory
+It will ask you the following questions about your project, with the default in brackets:
+
+1.) Project Name (directory-friendly syntax)
+2.) Verbose Project Name
+3.) Repo Name
+4.) Author Name
+5.) Author Email
+6.) Organization Name
+7.) Project Description
+8.) Domain Name
+9.) Project Version
+
+
+Once you've answered the prompts, your project will be created in the same directory as django-hydra 
+
 3. Navigate into the project directory that you just created
 
 ```bash
 $ cd <project_name>
+```
+
+You may see an error output initially (missing .env file) as you navigate into the directory. We'll create that .env file and complete project set up by running: 
+
+```bash
+$ ./scripts/create_new_project.sh
 ```
 
 4. Run Django server with runserver_plus
