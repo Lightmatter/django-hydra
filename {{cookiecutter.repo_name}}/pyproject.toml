@@ -53,6 +53,11 @@ epc = "^0.0.5"
 django-silk = "^5.0.1"
 cruft = "^2.11.1"
 cookiecutter = "^1.7.3"
+black = "^22.10.0"
+isort = "^5.10.1"
+djlint = "^1.19.3"
+pydocstyle = "^6.1.1"
+pylint-django = "^2.5.3"
 
 [tool.poetry.group.test.dependencies]
 pytest-django = "^4.5.2"
