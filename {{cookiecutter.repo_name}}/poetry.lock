@@ -136,14 +136,14 @@ chardet = ">=3.0.2"
 
 [[package]]
 name = "boto3"
-version = "1.25.1"
+version = "1.25.5"
 description = "The AWS SDK for Python"
 category = "main"
 optional = false
 python-versions = ">= 3.7"
 
 [package.dependencies]
-botocore = ">=1.28.1,<1.29.0"
+botocore = ">=1.28.5,<1.29.0"
 jmespath = ">=0.7.1,<2.0.0"
 s3transfer = ">=0.6.0,<0.7.0"
 
@@ -152,7 +152,7 @@ crt = ["botocore[crt] (>=1.21.0,<2.0a0)"]
 
 [[package]]
 name = "botocore"
-version = "1.28.1"
+version = "1.28.5"
 description = "Low-level, data-driven core of boto 3."
 category = "main"
 optional = false
@@ -1683,7 +1683,7 @@ python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "1cc568d4c7c02274fe79042b9769446c86dc119d25075695349d99cded7bcac1"
+content-hash = "9972ab7cf2c274475393c440f23499c4e69ac0f6c31bd7af3f79ff2f4fe8682d"
 
 [metadata.files]
 appdirs = [
@@ -1754,12 +1754,12 @@ binaryornot = [
     {file = "binaryornot-0.4.4.tar.gz", hash = "sha256:359501dfc9d40632edc9fac890e19542db1a287bbcfa58175b66658392018061"},
 ]
 boto3 = [
-    {file = "boto3-1.25.1-py3-none-any.whl", hash = "sha256:5684030fb1fa742c9bec33bee1a0829ff4b4bb2cdef40d9465969fdb55b501bc"},
-    {file = "boto3-1.25.1.tar.gz", hash = "sha256:9517b1d517b024a259a116a0206ae4a471e2ffab57db1b41a3ce6e3f8042001a"},
+    {file = "boto3-1.25.5-py3-none-any.whl", hash = "sha256:17ce7b6b702f9e844a33ce3ce9612f09d9d73eb7d34aaeffc77353ec036a9615"},
+    {file = "boto3-1.25.5.tar.gz", hash = "sha256:aec7db139429fe0f3fbe723170461192b0483b0070114a4b56351e374e0f294d"},
 ]
 botocore = [
-    {file = "botocore-1.28.1-py3-none-any.whl", hash = "sha256:e751045bee771d99d1baa06775df38511a5025cab6ceb2219a2a27cc2abd3ee5"},
-    {file = "botocore-1.28.1.tar.gz", hash = "sha256:2ebaf48c9cd61ad5532ac639569837bce3e0470991c5f1bee9fe3ef7d0362c42"},
+    {file = "botocore-1.28.5-py3-none-any.whl", hash = "sha256:5eb98c85e80fab6640342377ce947c86a003bbaf8427c2e7a03c8da0bdbb796c"},
+    {file = "botocore-1.28.5.tar.gz", hash = "sha256:f322d7b62163219ffeb787a116d318273dfb7243c3b49d95f5bfff8daa1df4e0"},
 ]
 Brotli = [
     {file = "Brotli-1.0.9-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:268fe94547ba25b58ebc724680609c8ee3e5a843202e9a381f6f9c5e8bdb5c70"},
@@ -2523,6 +2523,7 @@ psycopg2-binary = [
     {file = "psycopg2_binary-2.9.5-cp310-cp310-musllinux_1_1_x86_64.whl", hash = "sha256:46850a640df62ae940e34a163f72e26aca1f88e2da79148e1862faaac985c302"},
     {file = "psycopg2_binary-2.9.5-cp310-cp310-win32.whl", hash = "sha256:3d790f84201c3698d1bfb404c917f36e40531577a6dda02e45ba29b64d539867"},
     {file = "psycopg2_binary-2.9.5-cp310-cp310-win_amd64.whl", hash = "sha256:1764546ffeaed4f9428707be61d68972eb5ede81239b46a45843e0071104d0dd"},
+    {file = "psycopg2_binary-2.9.5-cp311-cp311-macosx_10_9_universal2.macosx_10_9_intel.macosx_10_9_x86_64.macosx_10_10_intel.macosx_10_10_x86_64.whl", hash = "sha256:426c2ae999135d64e6a18849a7d1ad0e1bd007277e4a8f4752eaa40a96b550ff"},
     {file = "psycopg2_binary-2.9.5-cp311-cp311-macosx_11_0_arm64.whl", hash = "sha256:7cf1d44e710ca3a9ce952bda2855830fe9f9017ed6259e01fcd71ea6287565f5"},
     {file = "psycopg2_binary-2.9.5-cp311-cp311-manylinux_2_17_i686.manylinux2014_i686.whl", hash = "sha256:024030b13bdcbd53d8a93891a2cf07719715724fc9fee40243f3bd78b4264b8f"},
     {file = "psycopg2_binary-2.9.5-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl", hash = "sha256:bcda1c84a1c533c528356da5490d464a139b6e84eb77cc0b432e38c5c6dd7882"},
