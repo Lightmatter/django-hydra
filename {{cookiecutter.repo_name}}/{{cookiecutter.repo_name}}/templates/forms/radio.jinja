@@ -13,8 +13,9 @@
 {% macro radio_optgroup(name, choices, index) %}
     {% for choice in choices %}
         {% if choice.wrap_label %}
-            <label for="{{ choice.id }}">
+            <label for="{{ choice.attrs.id }}">
                 <input
+                    id="{{ choice.attrs.id }}"
                     type="{{ choice.type }}"
                     name="{{ choice.name }}"
                     {% if choice.selected %}selected{% endif %}
@@ -23,12 +24,12 @@
             </label>
         {% else %}
             <input
-                id="{{ choice.id }}"
+                id="{{ choice.attrs.id }}"
                 type="{{ choice.type }}"
                 name="{{ choice.name }}"
                 {% if choice.selected %}selected{% endif %}
             >
-            <label for="{{ choice.id }}">{{ choice.label }}</label>
+            <label for="{{ choice.attrs.id }}">{{ choice.label }}</label>
         {% endif %}
     {% endfor %}
 {% endmacro %}
