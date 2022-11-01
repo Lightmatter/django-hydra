@@ -2,7 +2,7 @@
 
 {% macro radio(name=widget.name, value=widget.value, optgroups=widget.optgroups) %}
     <div class="radio py-4">
-        <div class="flex gap-4">
+        <div class="flex flex-col gap-4">
             {% for group_name, group_choices, group_index in optgroups %}
                 {{ radio_optgroup(group_name, group_choices, group_index) }}
             {% endfor %}
