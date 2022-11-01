@@ -6,7 +6,7 @@ authors = ["{{cookiecutter.author_name}} <{{cookiecutter.email}}>"]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-Django = {extras = ["argon2"], version = "^4.0.4"}
+Django = {extras = ["argon2"], version = "^4.1.3"}
 whitenoise = {extras = ["brotli"], version = "^6.2.0"}
 django-allauth = "^0.51.0"
 django-htmx = "^1.8.0"
