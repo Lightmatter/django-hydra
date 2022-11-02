@@ -72,6 +72,7 @@ DJANGO_APPS = [
 ]
 THIRD_PARTY_APPS = [
     "cachalot",
+    "corsheaders",
     "django_extensions",
     "django_htmx",
     "django_jinja",
@@ -139,6 +140,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#middleware
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "csp.middleware.CSPMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
@@ -256,6 +259,16 @@ SECURE_BROWSER_XSS_FILTER = True
 X_FRAME_OPTIONS = "DENY"
 
 LANGUAGE_COOKIE_NAME = prefixed_cookie("language")
+
+CORS_ALLOWED_ORIGINS = []
+
+# https://alpinejs.dev/advanced/csp
+CSP_SCRIPT_SRC = ["'self'", "'unsafe-eval'"]
+
+# https://code.djangoproject.com/ticket/33180
+if DEBUG:
+    CSP_STYLE_SRC = ["'self'", "'unsafe-inline'"]
+    CSP_SCRIPT_SRC.append("'unsafe-inline'")
 
 # ADMIN
 # ------------------------------------------------------------------------------

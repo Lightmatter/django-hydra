@@ -32,6 +32,8 @@ django-jinja = "^2.10.2"
 heroicons = {extras = ["jinja"], version = "^2.1.1"}
 django-rich = "^1.4.0"
 django-hijack = "^3.2.1"
+django-cors-headers = "^3.13.0"
+django-csp = "^3.7"
 
 [tool.poetry.group.dev.dependencies]
 Werkzeug = "2.0.2"
