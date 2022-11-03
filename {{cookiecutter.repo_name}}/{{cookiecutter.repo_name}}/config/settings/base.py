@@ -262,13 +262,13 @@ LANGUAGE_COOKIE_NAME = prefixed_cookie("language")
 
 CORS_ALLOWED_ORIGINS = []
 
-# https://alpinejs.dev/advanced/csp
-CSP_SCRIPT_SRC = ["'self'", "'unsafe-eval'"]
+# unsafe-eval: https://alpinejs.dev/advanced/csp
+# unsafe-inline: from base.jinja and random_chart.jinja
+CSP_SCRIPT_SRC = ["'self'", "'unsafe-eval'", "'unsafe-inline'"]
 
 # https://code.djangoproject.com/ticket/33180
 if DEBUG:
     CSP_STYLE_SRC = ["'self'", "'unsafe-inline'"]
-    CSP_SCRIPT_SRC.append("'unsafe-inline'")
 
 # ADMIN
 # ------------------------------------------------------------------------------
