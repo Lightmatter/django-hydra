@@ -103,4 +103,4 @@ CACHALOT_UNCACHABLE_TABLES = frozenset(
 CSP_DEFAULT_SRC = ["'self'", "localhost:5173", "ws://localhost:5173"]
 CSP_IMG_SRC = ["'self'", "images.unsplash.com"]
 CSP_SCRIPT_SRC += ["localhost:5173", "cdn.jsdelivr.net"]
-CSP_STYLE_SRC.append("localhost:5173")
+CSP_STYLE_SRC = ["'self'", "'unsafe-inline'", "localhost:5173"]
