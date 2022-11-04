@@ -20,11 +20,11 @@ export default defineConfig({
       input: {
         /* The bundle's entry point(s).  If you provide an array of entry points or an object mapping names to 
         entry points, they will be bundled to separate output chunks. */
-        main: resolve(__dirname, './frontend_comp/templates/components/main.ts'),
+        main: resolve(__dirname, './static_source/js/main.ts'),
         base: resolve(__dirname, './static_source/css/base.js'),
         raw_tailwind: resolve(__dirname, './static_source/css/tailwind.js'),
         // Components go here
-        flyout: resolve(__dirname, './frontend_comp/templates/components/flyout/flyout.ts')
+        flyout: resolve(__dirname, './{{cookiecutter.repo_name}}/templates/components/flyout/flyout.ts')
       }
     },
     outDir:  '../{{cookiecutter.repo_name}}/static_source/', // puts the manifest.json in PROJECT_ROOT/static_source/
@@ -33,12 +33,12 @@ export default defineConfig({
     {
       name: 'watch-external', // https://stackoverflow.com/questions/63373804/rollup-watch-include-directory/63548394#63548394
       async buildStart(){
-        const htmls = await fg(['frontend_comp/templates/**/*.html']);
+        const htmls = await fg(['{{cookiecutter.repo_name}}/templates/**/*.html']);
         for(let file of htmls){
           this.addWatchFile(file);
         }
 
-        const jinjas = await fg(['frontend_comp/templates/**/*.jinja']);
+        const jinjas = await fg(['{{cookiecutter.repo_name}}/templates/**/*.jinja']);
         for(let file of jinjas){
           this.addWatchFile(file);
         }
