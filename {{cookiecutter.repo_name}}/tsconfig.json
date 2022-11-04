@@ -17,5 +17,5 @@
       "dom"
     ],
   },
-  "include": ["frontend/**/*.ts", "frontend/**/*.d.ts", "frontend/**/*.tsx", "frontend/**/*.vue", "frontend/**/*.js"]
+  "include": ["static_source/**/*.ts", "static_source/**/*.d.ts", "static_source/**/*.tsx", "static_source/**/*.vue", "static_source/**/*.js"]
 }
