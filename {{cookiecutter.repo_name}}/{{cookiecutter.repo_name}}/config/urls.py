@@ -48,5 +48,6 @@ urlpatterns += [
     path("account/", include("{{cookiecutter.repo_name}}.user.urls", namespace="user")),
     path("account/", include("allauth.urls")),
     path("admin/", admin.site.urls),
+    path('hijack/', include('hijack.urls')),
     path("", include("{{cookiecutter.repo_name}}.home.urls")),
 ]
