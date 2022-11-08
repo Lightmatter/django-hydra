@@ -9,7 +9,7 @@ module.exports = {
     './frontend/**/*.js',
     './frontend/**/*.css',
     './{{cookiecutter.repo_name}}/templates/**/*.html',
-    ,'./{{cookiecutter.repo_name}}/templates/**/*.jinja',
+    './{{cookiecutter.repo_name}}/templates/**/*.jinja',
   ],
   theme: {
     extend: {
