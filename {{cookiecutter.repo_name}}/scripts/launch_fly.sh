@@ -20,9 +20,10 @@ for env in dev prod; do
         echo "You will be prompted WARN app flag '{{cookiecutter.repo_name}}-dev' does not match app name in config file 'sampleapptest'. Press y"
         # https://community.fly.io/t/work-around-prompts-dialogs-in-automated-environments/4963
     fi
-    fly apps create --name $ORG_NAME -o $ORG_NAME ## create the initial app named the same as the org. Since app names are unique to all of fly, org names must also be unique. This is help by including the -dev and prod to the org names.
+    fly apps create --name $ORG_NAME --org $ORG_NAME ## create the initial app named the same as the org. Since app names are unique to all of fly, org names must also be unique. This is help by including the -dev and prod to the org names.
     echo "Created app $ORG_NAME in $ORG_NAME"
-    DJANGO_SECRET_KEY=`python -c 'import random; print("".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#%^&*(-_=+)") for i in range(50)]))'`
+    DJANGO_SECRET_KEY=`python -c 'import random, string; print("".join([random.choice(string.ascii_letters + string.digits + string.punctuation) for i in range(50)]))'`
+    echo "WARNING: The Django Secret Key is not stored in Postgres. Store it securely, or it may be lost forever:"
     echo "DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY"
     fly secrets set DJANGO_SECRET_KEY="$DJANGO_SECRET_KEY" -a $ORG_NAME
     echo "Set DJANGO_SECRET_KEY"
@@ -49,18 +50,19 @@ for env in dev prod; do
     cd redis
     REDIS_NAME="$ORG_NAME-redis"
     fly apps create --name $REDIS_NAME --org $ORG_NAME
-    fly volumes create redis_server --size 1 -r ord -a $REDIS_NAME
-    REDIS_PASSWORD=`python -c 'import random; print("".join([random.choice("abcdefghijklmnopqrstuvwxyz0123456789!@#%^&*(-_=+)") for i in range(50)]))'`
+    fly volumes create redis_server --size 1 --region ord --app $REDIS_NAME
+    REDIS_PASSWORD=`python -c 'import random, string; print("".join([random.choice(string.ascii_letters + string.digits + string.punctuation) for i in range(50)]))'`
+    echo "WARNING: The Redis password is not stored in Postgres. Store it securely, or it may be lost forever:"
     echo "REDIS_PASSWORD: $REDIS_PASSWORD"
-    fly secrets set REDIS_PASSWORD="$REDIS_PASSWORD" -a $REDIS_NAME
-    fly deploy -a $REDIS_NAME -r ord
+    fly secrets set REDIS_PASSWORD="$REDIS_PASSWORD" --app $REDIS_NAME
+    fly deploy --app $REDIS_NAME --region ord
     echo "Deployed $REDIS_NAME"
 
     cd ..
     
     fly secrets set REDIS_PASSWORD="$REDIS_PASSWORD"
 
-    fly deploy -a $ORG_NAME -r ord
+    fly deploy --app $ORG_NAME --region ord
     echo "Deployed $ORG_NAME"
 done
 

@@ -57,4 +57,6 @@ RUN DJANGO_AWS_ACCESS_KEY_ID="" \
     ALLOWED_HOSTS="*" \
     python ./manage.py collectstatic --noinput
 
-CMD gunicorn sampleapp.config.asgi:application --bind 0.0.0.0:8080  -k uvicorn.workers.UvicornWorker --access-logfile - --preload
+# TODO: Set a sensible initial value for workers and threads based on available CPU cores.
+# N.b. Gunicorn timeout must be shorter than any upstream timeouts, e.g. the gateway timeout.
+CMD gunicorn sampleapp.config.asgi:application --bind 0.0.0.0:8080 --workers 3 --threads 1 --max-requests 500 --max-requests-jitter 50  --timeout 25  -k uvicorn.workers.UvicornWorker --access-logfile - --preload
