@@ -80,6 +80,8 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "heroicons",
+    "hijack",
+    "hijack.contrib.admin",
 ]
 LOCAL_APPS = [
     "{{cookiecutter.repo_name}}.home",
@@ -147,6 +149,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.common.BrokenLinkEmailsMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "hijack.middleware.HijackUserMiddleware",
     "{{cookiecutter.repo_name}}.util.middleware.HTMXMessageMiddleware",
     "{{cookiecutter.repo_name}}.util.middleware.TimezoneMiddleware",
 ]
