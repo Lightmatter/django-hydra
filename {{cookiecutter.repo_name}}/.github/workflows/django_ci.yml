@@ -21,6 +21,7 @@ jobs:
   #         key: ${{ runner.os }}-buildx-${{ github.sha }}
   #         restore-keys: |
   #           ${{ runner.os }}-buildx-
+
   #     - uses: docker/setup-buildx-action@v2
   #       name: Set up Docker Buildx
   #       id: buildx
@@ -53,10 +54,12 @@ jobs:
 
       - run: python -m pip install pre-commit
         shell: bash
+
       - uses: actions/cache@v3
         with:
           path: ~/.cache/pre-commit
           key: pre-commit-3|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
+
       - run: pre-commit run --show-diff-on-failure --color=always ${{ inputs.extra_args }} --all-files
         shell: bash
 
@@ -80,7 +83,7 @@ jobs:
           cache-dependency-path: "**/package-lock.json"
 
       - name: Install NPM package
-      - run: npm install
+        run: npm install
 
       - name: Install and configure Poetry
         uses: snok/install-poetry@e3dbfd357f4751d4f582d62bc8a71e56c2a7015b # v1.3.2
