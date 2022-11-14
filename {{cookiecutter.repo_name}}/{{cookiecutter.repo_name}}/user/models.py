@@ -1,6 +1,7 @@
 from django.contrib import auth
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import (AbstractBaseUser, BaseUserManager,
+                                        PermissionsMixin)
 from django.core.mail import send_mail
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -130,9 +131,3 @@ class User(TimeStampedModel, AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         name = self.get_full_name()
         return name if name else self.email
-
-    def get_absolute_url(self):
-        """
-        The absolute url of the user model
-        """
-        raise NotImplementedError()
