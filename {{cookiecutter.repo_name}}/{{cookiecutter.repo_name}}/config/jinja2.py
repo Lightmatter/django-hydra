@@ -1,7 +1,7 @@
 import datetime
 import random
 from math import ceil, floor
-
+from django_jinja.builtins import DEFAULT_EXTENSIONS
 from heroicons.jinja import heroicon_outline, heroicon_solid
 
 
@@ -39,6 +39,9 @@ options = {
     "match_extension": None,
     "app_dirname": "jinja2",
     "match_regex": r"^(?!admin/).*",
+    "extensions": DEFAULT_EXTENSIONS + [
+        "csp.extensions.NoncedScript",
+    ],
     "context_processors": [
         "django.template.context_processors.request",
         "django.contrib.messages.context_processors.messages",

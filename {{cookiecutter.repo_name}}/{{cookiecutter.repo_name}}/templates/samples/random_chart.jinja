@@ -6,6 +6,7 @@
 <!-- Required chart.js -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <!-- Chart line -->
+{% script type="application/javascript" async=False %}
 <script>
   { // the reason this is in a module is so there are no variable redeclaration errors
     function rn(min, max) {
@@ -47,3 +48,4 @@
     {% endfor %}
   }
 </script>
+{% endscript %}
