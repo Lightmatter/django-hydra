@@ -33,6 +33,22 @@ Django tests can be run by running:
 
 .. code-block:: console
 
-    pytest
+    ./manage.py test
+
+
+Pytest
+******
 
 While pytest is backwards-compatible with unittest, there are some key differences that implementers need to understand. If you're new to pytest in Django or playwright testing, reviewing the documentation for these libraries is well worth the time.
+
+
+Playwright
+**********
+
+`Playwright <https://playwright.dev/>`_ allows for robust frontend testing across browser engines
+
+Of note is Playwright's `codegen <https://playwright.dev/docs/codegen-intro>`_ feature, which allows you to perform actions in the browser and have Playwright generate the code to perform those actions automatically.
+
+Rarely is codegen's generated code production ready immediately after recording, but it will get you most of the way through your end-to-end testing.
+
+`Coverage.py <https://github.com/nedbat/coveragepy>`_ can come in handy here in ensuring that the tests you write cover all of the code you write.
