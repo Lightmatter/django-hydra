@@ -39,8 +39,14 @@ INSTALLED_APPS += [
 # ensure that DJDT has access to the htmx attrs
 MIDDLEWARE.remove("django_htmx.middleware.HtmxMiddleware")
 
+# CORS and CSP headers don't work unless they're before
+# other middleware that modify the response.
+MIDDLEWARE.remove("corsheaders.middleware.CorsMiddleware")
+MIDDLEWARE.remove("csp.middleware.CSPMiddleware")
+
 # https://django-debug-toolbar.readthedocs.io/en/latest/installation.html#middleware
 MIDDLEWARE = [
+    "csp.middleware.CSPMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
     "silk.middleware.SilkyMiddleware",
@@ -93,3 +99,7 @@ CACHALOT_UNCACHABLE_TABLES = frozenset(
         "silk_request",
     )
 )
+
+CSP_DEFAULT_SRC = ["'self'", f"localhost:{DJANGO_VITE_DEV_SERVER_PORT}", f"ws://localhost:{DJANGO_VITE_DEV_SERVER_PORT}"]
+CSP_SCRIPT_SRC += [f"localhost:{DJANGO_VITE_DEV_SERVER_PORT}", "cdn.jsdelivr.net"]
+CSP_STYLE_SRC = ["'self'", "'unsafe-inline'", f"localhost:{DJANGO_VITE_DEV_SERVER_PORT}"]

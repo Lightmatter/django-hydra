@@ -20,11 +20,11 @@
 
 
 
-{% macro select(name, value, optgroups, attrs, dispatch_name="select", model="select", placeholder="") %}
-<select x-data="select"
+{% macro select(name, value, optgroups, attrs, dispatch_name="select", placeholder="") %}
+<select
+    x-data="select"
     x-ref="select"
     @change="$dispatch('{{dispatch_name}}')"
-    x-model="{{ model }}"
     name="{{ name }}"
     {{form_attrs(attrs)}}>
     {% for group_name, group_choices, group_index in optgroups %}
@@ -37,5 +37,5 @@
 
 {# takes a django widget and calls our input macro with the appropriate args #}
 {% macro widget_to_select(widget) %}
-    {{select( name=widget.name, value=widget.value, optgroups=widget.optgroups, model=widget.attrs.id, attrs=widget.attrs )}}
+    {{select( name=widget.name, value=widget.value, optgroups=widget.optgroups, attrs=widget.attrs )}}
 {% endmacro %}
