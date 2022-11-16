@@ -10,7 +10,7 @@
     "@tailwindcss/forms": "^0.5.2",
     "@types/alpinejs": "^3.7.1",
     "@types/js-cookie": "^3.0.2",
-    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/eslint-plugin": "^5.43.0",
     "@typescript-eslint/parser": "^5.42.1",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.27.0",
@@ -21,10 +21,10 @@
     "fast-glob": "^3.2.11",
     "postcss": "^8.4.14",
     "postcss-nested": "^6.0.0",
-    "sass": "^1.56.0",
-    "stylelint": "^14.8.2",
+    "sass": "^1.56.1",
+    "stylelint": "^14.15.0",
     "stylelint-config-standard-scss": "^6.0.0",
-    "tailwindcss": "^3.2.1",
+    "tailwindcss": "^3.2.4",
     "typescript": "^4.6.4",
     "vite": "^3.2.3"
   },
@@ -33,7 +33,7 @@
     "@alpinejs/mask": "^3.10.5",
     "@alpinejs/morph": "^3.10.5",
     "alpinejs": "^3.10.5",
-    "htmx.org": "^1.7.0",
+    "htmx.org": "^1.8.4",
     "js-cookie": "^3.0.1",
     "tom-select": "^2.2.1"
   }
