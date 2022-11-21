@@ -22,7 +22,7 @@ for env in dev prod; do
     fi
     fly apps create --name $ORG_NAME --org $ORG_NAME ## create the initial app named the same as the org. Since app names are unique to all of fly, org names must also be unique. This is help by including the -dev and prod to the org names.
     echo "Created app $ORG_NAME in $ORG_NAME"
-    DJANGO_SECRET_KEY=`python -c 'import random, string; print("".join([random.choice(string.ascii_letters + string.digits + string.punctuation) for i in range(50)]))'`
+    DJANGO_SECRET_KEY=`python -c 'import secrets, string; print("".join([secrets.choice(string.ascii_letters + string.digits + string.punctuation) for i in range(50)]))'`
     echo "WARNING: The Django Secret Key is not stored in Postgres. Store it securely, or it may be lost forever:"
     echo "DJANGO_SECRET_KEY=$DJANGO_SECRET_KEY"
     fly secrets set DJANGO_SECRET_KEY="$DJANGO_SECRET_KEY" -a $ORG_NAME
@@ -51,7 +51,7 @@ for env in dev prod; do
     REDIS_NAME="$ORG_NAME-redis"
     fly apps create --name $REDIS_NAME --org $ORG_NAME
     fly volumes create redis_server --size 1 --region ord --app $REDIS_NAME
-    REDIS_PASSWORD=`python -c 'import random, string; print("".join([random.choice(string.ascii_letters + string.digits + string.punctuation) for i in range(50)]))'`
+    REDIS_PASSWORD=`python -c 'import secrets, string; print("".join([secrets.choice(string.ascii_letters + string.digits + string.punctuation) for i in range(50)]))'`
     echo "WARNING: The Redis password is not stored in Postgres. Store it securely, or it may be lost forever:"
     echo "REDIS_PASSWORD: $REDIS_PASSWORD"
     fly secrets set REDIS_PASSWORD="$REDIS_PASSWORD" --app $REDIS_NAME
