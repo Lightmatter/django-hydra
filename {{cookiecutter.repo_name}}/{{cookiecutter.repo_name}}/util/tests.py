@@ -34,11 +34,16 @@ def test_file_upload():
 
 
 def test_send_email(mailoutbox):
-    mail.send_mail("subject", "body", "from@lightmatter.com", ["to@lightmatter.com"])
+    mail.send_mail(
+        "subject",
+        "body",
+        "from@{{ cookiecutter.org_name|lower }}.com",
+        ["to@{{ cookiecutter.org_name|lower }}.com"],
+    )
     assert len(mailoutbox) == 1
 
     m = mailoutbox[0]
     assert m.subject == "subject"
     assert m.body == "body"
-    assert m.from_email == "from@lightmatter.com"
-    assert list(m.to) == ["to@lightmatter.com"]
+    assert m.from_email == "from@{{ cookiecutter.org_name|lower }}.com"
+    assert list(m.to) == ["to@{{ cookiecutter.org_name|lower }}.com"]
