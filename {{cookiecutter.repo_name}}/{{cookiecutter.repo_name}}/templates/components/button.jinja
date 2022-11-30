@@ -1,4 +1,4 @@
-{% macro button(button_content='Button', dispatch_name='button-click', variant='normal', color='primary', shape='rounded', size='md', type='button') %}
+{% macro button(button_content='Button', dispatch_name='button-click', variant='normal', color='primary', shape='rounded', size='md', type='button', attrs=none) %}
     {# Variant support: normal, outline #}
     {# Color support: primary, secondary, accent, success, info, warning, error #}
     {# Shape support: rounded, square, circle #}
@@ -27,7 +27,12 @@
     {% endif %}
     <button type="{{ type }}"
             x-on:click="$dispatch('{{ dispatch_name }}', '{{ variant }} {{ color }} {{ shape }} {{ size }}')"
-            class="{{ class }}">
+            class="{{ class }}"
+            {% if attrs %}
+                {% for k, v in attrs.items() %}
+                    {{ k }}="{{ v }}"
+                {% endfor %}
+            {% endif %}>
         {{ button_content }}
     </button>
 {% endmacro %}
