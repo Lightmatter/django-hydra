@@ -167,9 +167,8 @@ profile = "django"
 indent = 2
 
 [tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "{{cookiecutter.repo_name}}.config.settings.test"
 python_files = ["tests.py", "test_*.py", "*_tests.py"]
-addopts = ["--reuse-db"]
+addopts = ["--reuse-db", "--ds={{cookiecutter.repo_name}}.config.settings.test"]
 
 [tool.cruft]
 skip = [".git", "node_modules"]
