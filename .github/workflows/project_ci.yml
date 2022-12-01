@@ -8,6 +8,10 @@
 name: Project CI
 on: pull_request
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   create_and_test_project:
     name: Create and test Django project
