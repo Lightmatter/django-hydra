@@ -20,7 +20,7 @@ echo "omae wa mou shindeiru"
 $thisdir/setup_github.sh
 
 chmod +x manage.py
-poetry run install
+poetry run pre-commit install
 
 unset DJANGO_SECRET_KEY
 
