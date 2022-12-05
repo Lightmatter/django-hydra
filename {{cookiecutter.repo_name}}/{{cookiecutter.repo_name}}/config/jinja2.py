@@ -1,6 +1,7 @@
 import datetime
 import random
 from math import ceil, floor
+
 from django_jinja.builtins import DEFAULT_EXTENSIONS
 from heroicons.jinja import heroicon_outline, heroicon_solid
 

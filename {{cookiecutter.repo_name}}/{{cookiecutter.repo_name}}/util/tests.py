@@ -24,7 +24,7 @@ def test_file_url():
 
 @pytest.mark.django_db
 def test_file_upload():
-    fake_file = SimpleUploadedFile("some_file.txt", "asdf".encode(), content_type="text")
+    fake_file = SimpleUploadedFile("some_file.txt", b"asdf", content_type="text")
     now = datetime.now()
     timestamp = int(time.time())
 
