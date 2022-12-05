@@ -26,7 +26,7 @@
     "stylelint-config-standard-scss": "^6.1.0",
     "tailwindcss": "^3.2.4",
     "typescript": "^4.9.3",
-    "vite": "^3.2.4"
+    "vite": "^3.2.5"
   },
   "dependencies": {
     "@alpinejs/focus": "^3.10.5",
