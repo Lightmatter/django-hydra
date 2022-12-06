@@ -103,3 +103,10 @@ CACHALOT_UNCACHABLE_TABLES = frozenset(
 CSP_DEFAULT_SRC = ["'self'", f"localhost:{DJANGO_VITE_DEV_SERVER_PORT}", f"ws://localhost:{DJANGO_VITE_DEV_SERVER_PORT}"]
 CSP_SCRIPT_SRC += [f"localhost:{DJANGO_VITE_DEV_SERVER_PORT}", "cdn.jsdelivr.net"]
 CSP_STYLE_SRC = ["'self'", "'unsafe-inline'", f"localhost:{DJANGO_VITE_DEV_SERVER_PORT}"]
+
+# Local development template caching fix
+# Issue reference:
+# https://github.com/pallets/jinja/issues/253#issuecomment-1052871750
+options["cache_size"] = 0 if DEBUG else 400
+
+TEMPLATES[0]["OPTIONS"] = options
