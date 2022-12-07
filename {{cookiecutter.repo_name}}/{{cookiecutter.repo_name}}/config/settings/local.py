@@ -1,6 +1,7 @@
 # pylint: skip-file
 from .base import *  # noqa
 from .base import env
+from ..jinja2 import options
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -100,7 +101,11 @@ CACHALOT_UNCACHABLE_TABLES = frozenset(
     )
 )
 
-CSP_DEFAULT_SRC = ["'self'", f"localhost:{DJANGO_VITE_DEV_SERVER_PORT}", f"ws://localhost:{DJANGO_VITE_DEV_SERVER_PORT}"]
+CSP_DEFAULT_SRC = [
+    "'self'",
+    f"localhost:{DJANGO_VITE_DEV_SERVER_PORT}",
+    f"ws://localhost:{DJANGO_VITE_DEV_SERVER_PORT}",
+]
 CSP_SCRIPT_SRC += [f"localhost:{DJANGO_VITE_DEV_SERVER_PORT}", "cdn.jsdelivr.net"]
 CSP_STYLE_SRC = ["'self'", "'unsafe-inline'", f"localhost:{DJANGO_VITE_DEV_SERVER_PORT}"]
 
