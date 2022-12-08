@@ -1,3 +1,4 @@
+{% from 'components/button.jinja' import button %}
 {% from 'account/components/account_box.jinja' import account_box %}
 {% import 'svg/svg.jinja' as svg %}
 {% set title="Sign up" %}
@@ -7,7 +8,7 @@
       hx-swap="outerHTML"
       class="flex flex-col space-y-10 mb-10">
     <div>{{ form }}</div>
-    <button class="btn-primary">Create Account</button>
+    {{ button("Create Account", 'submit', type="submit") }}
     {% csrf_token %}
 </form>
 <div class="relative">

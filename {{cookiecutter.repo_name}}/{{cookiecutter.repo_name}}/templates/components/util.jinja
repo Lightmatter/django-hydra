@@ -1,6 +1,6 @@
-{% macro form_attrs(attrs) %}
-    {% for name, value in attrs.items() %}
-        {% if value is not sameas False %}
+{% macro attributes(kwargs={}) %}
+    {% for name, value in kwargs.items() %}
+        {% if value %}
             {{ name }}{% if value is not sameas True %}="{{ value }}"{% endif %}
         {% endif %}
     {% endfor %}
