@@ -11,8 +11,8 @@
         {{ vite_asset('css/base.js') }}
         {{ vite_asset('js/main.ts') }}
         {{ django_htmx_script() }}
+        <title>{% block title required %}{% endblock title %} - Lightmatter</title>
         {% block extra_head %}
-            <title>Lightmatter</title>
         {% endblock extra_head %}
     </head>
     <body hx-boost="true"

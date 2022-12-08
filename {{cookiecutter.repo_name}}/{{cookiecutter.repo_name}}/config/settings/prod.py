@@ -190,4 +190,5 @@ sentry_sdk.init(
     environment=env("SENTRY_ENVIRONMENT", default="production"),
     release=env("SENTRY_RELEASE", default=""),
     traces_sample_rate=env.float("SENTRY_TRACES_SAMPLE_RATE", default=0.0),
+    send_default_pii=True,
 )

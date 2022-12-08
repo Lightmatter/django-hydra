@@ -31,10 +31,6 @@ SITE_ID = 1
 # to load the internationalization machinery.
 USE_I18N = True
 
-# If you set this to False, Django will not format dates, numbers and
-# calendars according to the current locale.
-USE_L10N = True
-
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
@@ -85,9 +81,9 @@ THIRD_PARTY_APPS = [
     "hijack.contrib.admin",
 ]
 LOCAL_APPS = [
-    "{{cookiecutter.repo_name}}.home",
-    "{{cookiecutter.repo_name}}.user",
-    "{{cookiecutter.repo_name}}.util",
+    "{{cookiecutter.repo_name}}.home.apps.HomeConfig",
+    "{{cookiecutter.repo_name}}.user.apps.UserConfig",
+    "{{cookiecutter.repo_name}}.util.apps.UtilConfig",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
