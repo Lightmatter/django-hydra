@@ -1,12 +1,9 @@
-{% from 'forms/attrs.jinja' import form_attrs %}
+{% from 'components/util.jinja' import attributes %}
 
 
 {% macro label(label, tag='label', target='', error=False, class='', attrs={}) %}
     {% if tag %}
-        <{{ tag }}
-        for={{target}}
-        {{form_attrs(attrs)}}
-        >
+        <{{ tag }} for={{target}} {{ attributes(attrs)}}>
           {{ label }}
         </{{ tag }}>
     {% else %}
