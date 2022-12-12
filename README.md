@@ -35,15 +35,20 @@ The following items are required in order for Hydra to function:
     -   [cookiecutter](https://cookiecutter.readthedocs.io/en/1.7.2/installation.html)
 -   bash ([WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10) or [Cygwin](https://cygwin.com/install.html) recommended for windows users)
 -   [postgres](https://www.postgresql.org/download/)
--   [poetry](https://python-poetry.org/docs/) virtual environment/package manager (requires python 3.10+)
+-   [poetry](https://python-poetry.org/docs/) virtual environment/package manager (requires python 3.11+)
 -   [direnv](https://direnv.net/docs/installation.html) handles activating your virtual env when you enter the project directory
 
 ### For Windows Users:
 
--   In order for poetry to run on the correct python version, you will want to make sure that python3 resolves to python 3.10 in your shell
+-   In order for poetry to run on the correct python version, you will want to make sure that python3 resolves to python 3.11 in your shell
 
 `(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python3 -`
 n.b. if you are using a bash shell, you should run the version of this command in the macOS section above
+
+### For Users With Existing Development Environments:
+
+- Make sure you upgrade to the latest, node (at least 18.x.x at time of writing), python (at least 3.11.1 at time of writing) and poetry (at least 1.3.1 at time of writing) versions
+- if upgrading your poetry version, make sure you [clear the caches](https://python-poetry.org/docs/cli/#cache-clear)
 
 ## Quick Start
 
