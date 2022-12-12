@@ -47,7 +47,7 @@ n.b. if you are using a bash shell, you should run the version of this command i
 
 ### For Users With Existing Development Environments:
 
-- Make sure you upgrade to the latest, node (at least 18.x.x at time of writing), python (at least 3.11.x at time of writing) and poetry (at least 1.3.1 at time of writing) versions
+- Make sure you upgrade to the latest, node (at least 18.x.x at time of writing), python (at least 3.11.1 at time of writing) and poetry (at least 1.3.1 at time of writing) versions
 - if upgrading your poetry version, make sure you [clear the caches](https://python-poetry.org/docs/cli/#cache-clear)
 
 ## Quick Start

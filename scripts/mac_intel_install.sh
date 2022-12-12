@@ -64,9 +64,9 @@ echo "${prefix}Reloading zsh"
 source ~/.zshrc
 
 
-echo "${prefix}Attemping to change pyenv version to 3.11.0"
-pyenv install 3.11.0
-pyenv global 3.11.0
+echo "${prefix}Attemping to change pyenv version to 3.11.1"
+pyenv install 3.11.1
+pyenv global 3.11.1
 
 echo "${prefix}Attempting to change nvm version to v16.14.0(default)"
 nvm install v16.14.0
