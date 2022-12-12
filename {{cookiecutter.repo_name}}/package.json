@@ -19,7 +19,7 @@
     "eslint-import-resolver-typescript": "^3.5.2",
     "eslint-plugin-import": "^2.26.0",
     "fast-glob": "^3.2.11",
-    "postcss": "^8.4.14",
+    "postcss": "^8.4.20",
     "postcss-nested": "^6.0.0",
     "sass": "^1.56.2",
     "stylelint": "^14.16.0",
