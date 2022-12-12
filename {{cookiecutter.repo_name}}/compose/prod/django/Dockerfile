@@ -1,4 +1,4 @@
-FROM python:3.11.0-slim as base
+FROM python:3.11.1-slim as base
 
 # Setup env
 ENV LANG C.UTF-8
@@ -59,4 +59,4 @@ RUN DJANGO_AWS_ACCESS_KEY_ID="" \
 
 # TODO: Set a sensible initial value for workers and threads based on available CPU cores.
 # N.b. Gunicorn timeout must be shorter than any upstream timeouts, e.g. the gateway timeout.
-CMD gunicorn {{ cookiecutter.repo_name }}.config.asgi:application --bind 0.0.0.0:8080 --workers 3 --threads 1 --max-requests 500 --max-requests-jitter 50  --timeout 25  -k uvicorn.workers.UvicornWorker --access-logfile - --preload
+CMD gunicorn

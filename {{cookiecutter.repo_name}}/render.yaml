@@ -10,7 +10,7 @@ services:
       startCommand: poetry run gunicorn --worker-tmp-dir /dev/shm  -w 4 -k uvicorn.workers.UvicornWorker --log-file=- {{cookiecutter.repo_name}}.config.asgi:application --preload
       envVars:
         - key: PYTHON_VERSION
-          value: 3.11.0
+          value: 3.11.1
         - fromGroup: sentry
         - key: DJANGO_SECRET_KEY
           generateValue: true
