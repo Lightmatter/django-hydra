@@ -66,9 +66,7 @@ nvm use default
 echo "${prefix}Attempting to install poetry"
 curl -sSL https://install.python-poetry.org | python3 -
 
-
 echo "# END LM 3.0 Configuration" >> ~/.zshrc
-
 
 echo "${prefix}Reloading zsh"
 source ~/.zshrc
@@ -83,7 +81,6 @@ else
     echo "${prefix}Database ${db_name} does not exist, creating."
     createdb "${db_name}"
 fi
-
 
 echo "Provided everything in this script executed without error"
 echo "You should now be setup"
