@@ -33,6 +33,7 @@
     "@alpinejs/mask": "^3.11.1",
     "@alpinejs/morph": "^3.11.1",
     "alpinejs": "^3.11.1",
+    "glob": "^8.0.3",
     "htmx.org": "^1.8.5",
     "js-cookie": "^3.0.1",
     "tom-select": "^2.2.1"
