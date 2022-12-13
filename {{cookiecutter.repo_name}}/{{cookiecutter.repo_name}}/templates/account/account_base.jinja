@@ -4,6 +4,11 @@
     Account
 {% endblock title %}
 
+{% block opengraph %}
+    {% from 'components/open_graph_tags.jinja' import og_tags %}
+    {{og_tags(title="TODO | Account", url="TODO/account/welcome/", description="TODO Account", image_url="TODO")}}
+{% endblock %}
+
 {% set account_back %}
 {% block account_back %}
 {% endblock account_back %}

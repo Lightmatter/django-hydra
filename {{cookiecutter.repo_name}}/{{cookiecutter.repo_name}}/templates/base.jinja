@@ -6,7 +6,14 @@
         <meta name="keywords" content="" />
         <meta http-equiv="x-ua-compatible" content="ie=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        {% block opengraph %}
+            {% from 'components/open_graph_tags.jinja' import og_tags %}
+            {{og_tags(title="TODO | Home", url="TODO", description="TODO", image_url="TODO")}}
+        {% endblock %}
+
         <link rel="icon" href={{ static("img/favicons/favicon.ico") }} />
+
         {{ vite_hmr_client() }}
         {{ vite_asset('css/base.js') }}
         {{ vite_asset('js/main.ts') }}
