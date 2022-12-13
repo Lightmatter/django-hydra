@@ -24,7 +24,7 @@ export default defineConfig({
         base: resolve(__dirname, './static_source/css/base.js'),
         raw_tailwind: resolve(__dirname, './static_source/css/tailwind.js'),
         // Components go here
-        flyout: resolve(__dirname, './{{cookiecutter.repo_name}}/templates/components/flyout/flyout.ts')
+        components: resolve(__dirname, './static_source/js/components.ts'),
       }
     },
     outDir:  '../{{cookiecutter.repo_name}}/static_source/', // puts the manifest.json in PROJECT_ROOT/static_source/
