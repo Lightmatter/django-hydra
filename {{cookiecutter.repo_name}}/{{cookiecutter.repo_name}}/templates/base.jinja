@@ -7,18 +7,10 @@
         <meta http-equiv="x-ua-compatible" content="ie=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <meta property="og:type" content="website" />
-        <meta property="fb:app_id" content="TODO" />
-
-        <meta property="og:image" content="TODO" class="metaImage" />
-        <meta property="og:image:type" content="image/png" class="metaImageType" />
-        <meta property="og:image:width" content="1200" class="metaImageWidth" />
-        <meta property="og:image:height" content="1200" class="metaImageHeight" />
-        <meta property="og:image:alt" content="A screenshot of the homepage" class="metaImageAlt" />
-
-        <meta property="og:title" content="TODO" class="metaTitle" />
-        <meta property="og:description" content="TODO" class="metaDescription" />
-        <meta property="og:url" content="TODO" class="metaURL" />
+        {% block opengraph %}
+            {% from 'components/open_graph_tags.jinja' import og_tags %}
+            {{og_tags(title="TODO | Home", url="TODO", description="TODO", image_url="TODO")}}
+        {% endblock %}
 
         <link rel="icon" href={{ static("img/favicons/favicon.ico") }} />
 
