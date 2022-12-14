@@ -1,9 +1,3 @@
-import glob from "glob";
-import { resolve } from "path";
+import.meta.glob("@/../jlktestone/templates/components/**/*.js", { eager: true });
+import.meta.glob("@/../jlktestone/templates/components/**/*.ts", { eager: true });
 
-glob(resolve(__dirname, "./{{cookiecutter.repo_name}}/templates/components/**/*{.js, .ts}"), (er, files) => {
-  // eslint-disable-next-line no-restricted-syntax
-  for (const file of files) {
-    import(file);
-  }
-});
