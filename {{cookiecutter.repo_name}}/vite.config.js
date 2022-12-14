@@ -5,13 +5,13 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   // Where the project's files are
-  root: resolve('./static_source/'),
+  root: resolve('./{{cookiecutter.repo_name}}/static_source/'),
   // The public path where assets are served, both in development and in production.
   base: "/static/",
   resolve:{
     alias:{
       // Use '@' in urls as a shortcut for './static_source'. (Currently used in CSS files.)
-      '@' : resolve('./static_source')
+      '@' : resolve('./{{cookiecutter.repo_name}}/static_source')
     },
   },
   build: {
@@ -20,13 +20,13 @@ export default defineConfig({
       input: {
         /* The bundle's entry point(s).  If you provide an array of entry points or an object mapping names to 
         entry points, they will be bundled to separate output chunks. */
-        components: resolve(__dirname, './static_source/js/components.ts'),
-        main: resolve(__dirname, './static_source/js/main.ts'),
-        base: resolve(__dirname, './static_source/css/base.js'),
-        raw_tailwind: resolve(__dirname, './static_source/css/tailwind.js'),
+        components: resolve(__dirname, './{{cookiecutter.repo_name}}/static_source/js/components.ts'),
+        main: resolve(__dirname, './{{cookiecutter.repo_name}}/static_source/js/main.ts'),
+        base: resolve(__dirname, './{{cookiecutter.repo_name}}/static_source/css/base.js'),
+        raw_tailwind: resolve(__dirname, './{{cookiecutter.repo_name}}/static_source/css/tailwind.js'),
       }
     },
-    outDir:  '../{{cookiecutter.repo_name}}/static_source/', // puts the manifest.json in PROJECT_ROOT/static_source/
+    outDir:  './{{cookiecutter.repo_name}}/static_source/', // puts the manifest.json in PROJECT_ROOT/static_source/
   },
   plugins: [
     {
