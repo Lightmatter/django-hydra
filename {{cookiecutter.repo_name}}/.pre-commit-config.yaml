@@ -65,7 +65,7 @@ repos:
     hooks:
     -   id: stylelint
         name: stylelint
-        files: ^frontend/
+        files: ^{{cookiecutter.repo_name}}/static_source/
         types_or: [css, scss]
         args: [--report-needless-disables, --report-invalid-scope-disables, --fix, --allow-empty-input]
         additional_dependencies:
@@ -73,13 +73,13 @@ repos:
             - stylelint@14.16.0
             - stylelint-config-standard-scss@6.1.0
 
-  ## frontend
+  ## static files
   - repo: https://github.com/pre-commit/mirrors-eslint
     rev: "v8.29.0"
     hooks:
         - id: eslint
           name: eslint
-          files: ^frontend/
+          files: ^{{cookiecutter.repo_name}}/static_source/
           types_or: [javascript, ts]
           args: [--fix]
           additional_dependencies:
@@ -96,7 +96,7 @@ repos:
         - id: tsc
           name: tsc
           entry: npx tsc --noEmit
-          files: ^frontend/
+          files: ^{{cookiecutter.repo_name}}/static_source/
           language: system
           types_or: [javascript, ts]
           pass_filenames: false
