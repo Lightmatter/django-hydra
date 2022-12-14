@@ -16,5 +16,6 @@
   {{ button("Test hx-refresh with messages", attrs={"hx-get": url("test_refresh")}) }}
   <div id="random-chart">{% include "samples/random_chart.jinja" %}</div>
   {{ button('Refresh Chart', attrs={"hx-push-url": "false", "hx-get": url("random_chart"), "hx-target": "#random-chart", "hx-swap": "innerHTML"}) }}
+  {% include 'components/specbut/specbut.jinja' %}
 </div>
 {% endblock content %}
