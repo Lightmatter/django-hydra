@@ -26,7 +26,7 @@ export default defineConfig({
         raw_tailwind: resolve(__dirname, './{{cookiecutter.repo_name}}/static_source/css/tailwind.js'),
       }
     },
-    outDir:  './{{cookiecutter.repo_name}}/static_source/', // puts the manifest.json in PROJECT_ROOT/static_source/
+    outDir:  './', // puts the manifest.json in PROJECT_ROOT/static_source/
   },
   plugins: [
     {
