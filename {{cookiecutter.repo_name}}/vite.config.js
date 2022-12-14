@@ -20,11 +20,10 @@ export default defineConfig({
       input: {
         /* The bundle's entry point(s).  If you provide an array of entry points or an object mapping names to 
         entry points, they will be bundled to separate output chunks. */
+        components: resolve(__dirname, './static_source/js/components.ts'),
         main: resolve(__dirname, './static_source/js/main.ts'),
         base: resolve(__dirname, './static_source/css/base.js'),
         raw_tailwind: resolve(__dirname, './static_source/css/tailwind.js'),
-        // Components go here
-        components: resolve(__dirname, './static_source/js/components.ts'),
       }
     },
     outDir:  '../{{cookiecutter.repo_name}}/static_source/', // puts the manifest.json in PROJECT_ROOT/static_source/
