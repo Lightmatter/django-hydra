@@ -1,5 +1,6 @@
 import focus from "@alpinejs/focus";
 import mask from "@alpinejs/mask";
+import ui from "@alpinejs/ui";
 
 import "htmx.org";
 import Alpine from "alpinejs";
@@ -20,7 +21,7 @@ const { htmx } = window; // eslint-disable-line  @typescript-eslint/no-unused-va
 htmx.config.historyCacheSize = 0;
 
 htmx.defineExtension("get-csrf", {
-  onEvent: function (name: string, evt: any) {
+  onEvent(name: string, evt: any) {
     if (name === "htmx:configRequest") {
       evt.detail.headers["X-CSRFToken"] = Cookies.get("{{cookiecutter.repo_name}}_csrftoken");
     }
@@ -36,5 +37,6 @@ if (import.meta.hot) {
 
 window.Alpine = Alpine;
 Alpine.plugin(focus);
-Alpine.plugin(mask)
+Alpine.plugin(mask);
+Alpine.plugin(ui);
 Alpine.start();
