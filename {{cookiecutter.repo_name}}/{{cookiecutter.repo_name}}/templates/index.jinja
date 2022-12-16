@@ -2,6 +2,7 @@
 {% from "components/button/button.jinja" import button %}
 {% from 'components/flyout/flyout.jinja' import flyout %}
 {% from 'components/modal/modal.jinja' import modal %}
+{% from 'components/tabs/tabs.jinja' import tabs %}
 {% block title %}
     Index
 {% endblock title %}
@@ -18,7 +19,6 @@
   {{ button("Test hx-refresh with messages", attrs={"hx-get": url("test_refresh")}) }}
   <div id="random-chart">{% include "samples/random_chart.jinja" %}</div>
   {{ button('Refresh Chart', attrs={"hx-push-url": "false", "hx-get": url("random_chart"), "hx-target": "#random-chart", "hx-swap": "innerHTML"}) }}
-  {% include 'components/specbut/specbut.jinja' %}
   <div class="flex flex-col items-start">
     {% set flyout_button %}
     {{ button(button_content="Open Flyout", attrs={"x-menu:button": True})}}
@@ -65,6 +65,23 @@
           </button>
       </div>
     {% endcall %}
+    {% set panel1 %}
+      <div class="bg-slate-500"><h4 class="text-red-900">Testing 123</h4></div>
+    {% endset %}
+    {% set panel2 %}
+      <div class="bg-green-500"><h4 class="text-blue-600">Testing 124</h4></div>
+    {% endset %}
+    {% set tab_content = [
+      {
+        'label': {'label': "TabOne", "selected_class": "border-gray-200 bg-red-500"},
+        'tab': {'content': panel1}
+      },
+      {
+        'label': {'label': "TabTwo", "selected_class": "border-gray-200 bg-orange-500"},
+        'tab': {'content': panel2, "tab_class": 'p-10'}
+      }
+    ] %}
+    {{ tabs(tab_content) }}
   </div>
 </div>
 {% endblock content %}
