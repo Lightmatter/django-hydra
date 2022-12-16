@@ -3,7 +3,8 @@
 {% set default_button %}
 {{ button(attrs={"x-menu:button": True})}}
 {% endset %}
-{% macro flyout(button=default_button, menu_style="absolute right-0 w-48 mt-2 z-10 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-md py-1 outline-none", menu_attrs={"x-transition.origin.top.right": True}) %}
+{% macro flyout(button=default_button, menu_style="absolute right-0 w-48 mt-2 z-10 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-md py-1 outline-none", menu_attrs={}) %}
+     {% set flyout_attrs = menu_attrs.update({"x-transition.origin.top.right": True}) %}
      <div x-data x-menu class="relative">
           {{ button }}
           <div class="{{ menu_style }}"
