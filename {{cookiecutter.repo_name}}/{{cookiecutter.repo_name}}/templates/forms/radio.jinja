@@ -1,0 +1,39 @@
+{% from 'forms/attrs.jinja' import form_attrs %}
+
+{% macro radio(name=widget.name, value=widget.value, optgroups=widget.optgroups) %}
+    <div class="radio py-4">
+        <div class="flex flex-col gap-4">
+            {% for group_name, group_choices, group_index in optgroups %}
+                {{ radio_optgroup(group_name, group_choices, group_index) }}
+            {% endfor %}
+        </div>
+    </div>
+{% endmacro %}
+
+{% macro radio_optgroup(name, choices, index) %}
+    {% for choice in choices %}
+        {% if choice.wrap_label %}
+            <label for="{{ choice.attrs.id }}">
+                <input
+                    id="{{ choice.attrs.id }}"
+                    type="{{ choice.type }}"
+                    name="{{ choice.name }}"
+                    {% if choice.selected %}selected{% endif %}
+                >
+                {{ choice.label }}
+            </label>
+        {% else %}
+            <input
+                id="{{ choice.attrs.id }}"
+                type="{{ choice.type }}"
+                name="{{ choice.name }}"
+                {% if choice.selected %}selected{% endif %}
+            >
+            <label for="{{ choice.attrs.id }}">{{ choice.label }}</label>
+        {% endif %}
+    {% endfor %}
+{% endmacro %}
+
+{% macro widget_to_radio(widget) %}
+    {{ radio(name=widget.name, value=widget.value, optgroups=widget.optgroups) }}
+{% endmacro %}
