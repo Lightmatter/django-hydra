@@ -22,8 +22,8 @@
     </div>
 {% endmacro %}
 
-{% macro boolean_shell(field) %}
-    <div class="flex items-center">
+{% macro boolean_shell(field, errors='') %}
+    <div class="boolean-field flex items-center {% if errors %}error{% endif %}">
         {% if field.label %}{{ field.label_tag() }}{% endif %}
         {{ field }}
     </div>
@@ -32,12 +32,14 @@
 {% macro field(field, errors='', layout_classes='w-full') %}
     <div class="{{ layout_classes }} {{ field.css_classes() }}">
         {% if field.widget_type == "toggle" %}
-            {{boolean_shell(field)}}
+            {{boolean_shell(field, errors)}}
         {% else %}
             {{input_shell(field, errors)}}
         {% endif %}
         {% if errors %}
-            {{ errors }}
+            <div class="text-error">
+                {{ errors }}
+            </div>
         {% elif field.help_text %}
             <p class="text-sm text-gray-500" id="email-description">
                 {{ field.help_text|safe }}
