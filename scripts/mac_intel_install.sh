@@ -19,17 +19,15 @@ fi
 echo "${prefix}Installing node"
 brew install node
 
-echo "${prefix}Installing yarn"
-npm install -g yarn
-
 echo "${prefix}Installing node version manager (nvm)"
 brew install nvm
 
 echo "${prefix}Installing pyenv"
 brew install pyenv
 
-echo "${prefix}Installing pyenv-virtualenvwrapper"
-brew install pyenv-virtualenvwrapper
+echo "${prefix}Attemping to change pyenv version to 3.11.1"
+pyenv install 3.11.1
+pyenv global 3.11.1
 
 echo "${prefix}Installing git"
 brew install git
@@ -46,8 +44,6 @@ brew install libpq
 echo "${prefix}Installing watchman"
 brew install watchman
 
-
-
 echo "${prefix}Adding pyenv, direnv, poetry and path config to .zshrc"
 
 echo "# START LM 3.0 Configuration" >> ~/.zshrc
@@ -56,17 +52,11 @@ echo "eval \"source \$(brew --prefix nvm)/nvm.sh\"" >> ~/.zshrc
 echo "eval \"\$(pyenv init --path)\"" >> ~/.zshrc
 echo "eval \"\$(pyenv init -)\"" >> ~/.zshrc
 echo "eval \"\$(direnv hook zsh)\"" >> ~/.zshrc
-echo "eval \"source \$(pyenv which virtualenvwrapper.sh)\"" >> ~/.zshrc
 echo "export WORKON_HOME=\"~/.virtualenvs\"" >> ~/.zshrc
-echo "export PATH=\"\$HOME/.poetry/bin:\$PATH\"" >> ~/.zshrc
+echo "export PATH=\"\$HOME/.local/bin:\$PATH\"" >> ~/.zshrc
 
 echo "${prefix}Reloading zsh"
 source ~/.zshrc
-
-
-echo "${prefix}Attemping to change pyenv version to 3.11.1"
-pyenv install 3.11.1
-pyenv global 3.11.1
 
 echo "${prefix}Attempting to change nvm version to v16.14.0(default)"
 nvm install v16.14.0
@@ -76,9 +66,7 @@ nvm use default
 echo "${prefix}Attempting to install poetry"
 curl -sSL https://install.python-poetry.org | python3 -
 
-
 echo "# END LM 3.0 Configuration" >> ~/.zshrc
-
 
 echo "${prefix}Reloading zsh"
 source ~/.zshrc
@@ -94,7 +82,8 @@ else
     createdb "${db_name}"
 fi
 
-
 echo "Provided everything in this script executed without error"
 echo "You should now be setup"
 echo "You should check your ~/.zshrc"
+echo "Important: Now that you have completed the fresh machine setup, you should begin to setup the project."
+echo "If you are in an existing project, that is! You can do this with /scripts/setup_existing_project.sh"
