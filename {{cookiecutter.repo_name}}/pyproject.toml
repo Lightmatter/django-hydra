@@ -167,6 +167,7 @@ indent = 2
 
 [tool.pytest.ini_options]
 python_files = ["tests.py", "test_*.py", "*_tests.py"]
+# https://pytest-django.readthedocs.io/en/latest/database.html#example-work-flow-with-reuse-db-and-create-db
 addopts = ["--reuse-db", "--ds={{cookiecutter.repo_name}}.config.settings.test"]
 
 [tool.cruft]
