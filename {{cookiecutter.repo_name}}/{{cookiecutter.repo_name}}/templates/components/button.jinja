@@ -1,5 +1,5 @@
 {% from 'components/util.jinja' import attributes %}
-{% macro button(button_content='Button', dispatch_name='button-click', variant='normal', color='primary', shape='rounded', size='md', type='button', attrs={}) %}
+{% macro button(button_content='Button', dispatch_name='button-click', variant='normal', color='primary', shape='rounded', size='md', type='button', attrs={}, link="", target="", rel="noopener nofollow", extra_class="") %}
     {# Variant support: normal, outline #}
     {# Color support: primary, secondary, accent, success, info, warning, error #}
     {# Shape support: rounded, square, circle #}
@@ -26,20 +26,31 @@
     {% else %}
         {% set class = "{} text-{}-content bg-{} hover:bg-{}-focus".format(class, color, color, color) %}
     {% endif %}
-    <button type="{{ type }}"
+    {% if link == "" %}
+        <button type="{{ type }}"
             x-on:click="$dispatch('{{ dispatch_name }}', '{{ variant }} {{ color }} {{ shape }} {{ size }}')"
-            class="{{ class }}"
+            class="{{ class }} {{ extra_class }}">
             {{ attributes(attrs) }}>
         {{ button_content }}
     </button>
+    {% else %}
+        <a
+            href="{{ link }}"
+            {% if target != "" %}target="{{ target }}"{% endif %}
+            {% if target != "" %}rel="{{ rel }}"{% endif %}
+            {{ attributes(attrs) }}>
+            class="{{ class }} {{ extra_class }}">
+            {{ button_content }}
+        </a>
+    {% endif %}
 {% endmacro %}
 {#
-force tailwind to include these styles:
-text-primary-content bg-primary hover:bg-primary-focus border-primary bg-primary-content hover:text-primary-focus text-primary
-text-secondary-content bg-secondary hover:bg-secondary-focus border-secondary bg-secondary-content hover:text-secondary-focus text-secondary
-text-accent-content bg-accent hover:bg-accent-focus border-accent bg-accent-content hover:text-accent-focus text-accent
-text-success-content bg-success hover:bg-success-focus border-success bg-success-content hover:text-success-focus text-success
-text-info-content bg-info hover:bg-info-focus border-info bg-info-content hover:text-info-focus text-info
-text-warning-content bg-warning hover:bg-warning-focus border-warning bg-warning-content hover:text-warning-focus text-warning
-text-error-content bg-error hover:bg-error-focus border-error bg-error-content hover:text-error-focus text-error
-#}
+    force tailwind to include these styles:
+    text-primary-content bg-primary hover:bg-primary-focus border-primary bg-primary-content hover:text-primary-focus text-primary
+    text-secondary-content bg-secondary hover:bg-secondary-focus border-secondary bg-secondary-content hover:text-secondary-focus text-secondary
+    text-accent-content bg-accent hover:bg-accent-focus border-accent bg-accent-content hover:text-accent-focus text-accent
+    text-success-content bg-success hover:bg-success-focus border-success bg-success-content hover:text-success-focus text-success
+    text-info-content bg-info hover:bg-info-focus border-info bg-info-content hover:text-info-focus text-info
+    text-warning-content bg-warning hover:bg-warning-focus border-warning bg-warning-content hover:text-warning-focus text-warning
+    text-error-content bg-error hover:bg-error-focus border-error bg-error-content hover:text-error-focus text-error
+    #}
