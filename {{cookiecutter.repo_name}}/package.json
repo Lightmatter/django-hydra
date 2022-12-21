@@ -9,7 +9,6 @@
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.2",
     "@types/alpinejs": "^3.7.1",
-    "@types/glob": "^8.0.0",
     "@types/js-cookie": "^3.0.2",
     "@typescript-eslint/eslint-plugin": "^5.48.1",
     "@typescript-eslint/parser": "^5.48.1",
@@ -35,10 +34,8 @@
     "@alpinejs/morph": "^3.10.5",
     "@alpinejs/ui": "^3.10.5-beta.8",
     "alpinejs": "^3.10.5",
-    "glob": "^8.0.3",
     "htmx.org": "^1.8.4",
     "js-cookie": "^3.0.1",
-    "path": "^0.12.7",
     "tom-select": "^2.2.1"
   }
 }
