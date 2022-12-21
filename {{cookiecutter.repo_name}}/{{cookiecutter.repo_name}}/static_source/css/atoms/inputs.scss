@@ -237,6 +237,14 @@ $input-height: 50px;
   }
 }
 
+.radio-field {
+  &.error {
+    .radio-choice-ring {
+      @apply ring-red-300;
+    }
+  }
+}
+
 .ts-wrapper {
   @apply px-4 ring-0;
 

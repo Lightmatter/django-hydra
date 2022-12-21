@@ -32,14 +32,9 @@
 {% endmacro %}
 
 {% macro radio_shell(field, errors='') %}
-    <div class="field {% if errors %} error{% endif %}">
-        <div class="input-box {{ input_widget_hook(field) }}">
+    <div class="radio-field {% if errors %} error{% endif %}">
+        <div class="{{ input_widget_hook(field) }}">
         {{ field }}
-        {% if errors %}
-            <div class="right-icon">
-                {{heroicon_solid("exclamation-circle", class="text-error")}}
-            </div>
-        {% endif %}
         </div>
     </div>
 {% endmacro %}
