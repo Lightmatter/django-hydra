@@ -1,5 +1,3 @@
-import './links.scss'
-
 function isExternalLink(link: HTMLAnchorElement) {
   const { href } = link;
 
