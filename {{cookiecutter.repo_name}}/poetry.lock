@@ -444,11 +444,11 @@ six = "*"
 
 [[package]]
 name = "django-anymail"
-version = "8.6"
+version = "9.0"
 description = "Django email backends and webhooks for Amazon SES, Mailgun, Mailjet, Mandrill, Postal, Postmark, SendGrid, SendinBlue, and SparkPost"
 category = "main"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.6"
 
 [package.dependencies]
 django = ">=2.0"
@@ -1974,7 +1974,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.11"
-content-hash = "be361a0a444ffeb7e4f2d642f827aa4a8e693718d433bddc18beea6be80ace92"
+content-hash = "9d4a61b43568bf2fcf2fafd00923429cadd0999774f31add1ff6a2e0fce5760b"
 
 [metadata.files]
 appdirs = [
@@ -2367,8 +2367,8 @@ django-annoying = [
     {file = "django_annoying-0.10.6-py2.py3-none-any.whl", hash = "sha256:e230f28fec0559b4fdb621ff202068a78170ada2ac1ec7a73ba822cc1f737791"},
 ]
 django-anymail = [
-    {file = "django-anymail-8.6.tar.gz", hash = "sha256:783342d49dd07d68778b81dd12a94c86e1d217463a68a85450a0513fabe31345"},
-    {file = "django_anymail-8.6-py3-none-any.whl", hash = "sha256:49d83d7c16316ca86a624097496881d59b7d71b16bf1c5211cffa5b19ef98d0c"},
+    {file = "django-anymail-9.0.tar.gz", hash = "sha256:4239f7c61fb77b6eb8c8591a317a84a2a78f6bce1f8f42847921de74194b5d8a"},
+    {file = "django_anymail-9.0-py3-none-any.whl", hash = "sha256:c21d94ffdbada613a85c22a7bf32e37447d2811e1688cd001d3cad3c7f1ff289"},
 ]
 django-cachalot = [
     {file = "django-cachalot-2.5.2.tar.gz", hash = "sha256:bf0420cb8fa5cb4ceebd373a069cf91bb7afb995850cc35e91ccdadfa6cc41b1"},
