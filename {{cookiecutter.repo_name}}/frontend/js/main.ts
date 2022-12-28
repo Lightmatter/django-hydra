@@ -22,6 +22,8 @@ const { htmx } = window; // eslint-disable-line  @typescript-eslint/no-unused-va
 
 // Disable history cache
 htmx.config.historyCacheSize = 0;
+htmx.config.scrollBehavior = "auto";
+
 
 htmx.defineExtension("get-csrf", {
   onEvent: function (name: string, evt: any) {
