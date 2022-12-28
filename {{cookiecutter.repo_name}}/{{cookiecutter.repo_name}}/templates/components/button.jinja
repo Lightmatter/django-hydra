@@ -30,7 +30,7 @@
         <button type="{{ type }}"
             x-data
             x-on:click="$dispatch('{{ dispatch_name }}', '{{ variant }} {{ color }} {{ shape }} {{ size }}')"
-            class="{{ class }} {{ extra_class }}">
+            class="{{ class }} {{ extra_class }}"
             {{ attributes(attrs) }}>
         {{ button_content }}
     </button>
