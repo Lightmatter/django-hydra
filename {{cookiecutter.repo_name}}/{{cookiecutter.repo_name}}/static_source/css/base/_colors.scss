@@ -1,0 +1,45 @@
+// Sass Color variables
+$primary: #2d36a8;
+$primary-focus: #00075e;
+$accent: #111827;
+$accent-focus: #030509;
+$error: #f87171;
+$error-focus: #991b1b;
+$success: #4ade80;
+$success-focus: #166534;
+$white: #fff;
+$eggshell: #fef2f2;
+$grey: #d1d5db;
+$dark-grey: #d8d8d8;
+$grey-focus: #e5e8ed;
+$black: #000;
+$info: #60a5fa;
+$info-focus: #1e40af;
+$info-content: #eff6ff;
+
+// CSS Custom Properties for use in tailwind config
+:root {
+  --accent: #{$accent};
+  --accent-focus: #{$accent-focus};
+  --accent-content: #{$white};
+  --primary: #{$primary};
+  --primary-focus: #{$primary-focus};
+  --primary-content: #{$white};
+  --secondary: #{$grey};
+  --secondary-focus: #{$grey-focus};
+  --secondary-content: #{$black};
+  --error: #{$error};
+  --error-focus: #{$error-focus};
+  --error-content: #{$eggshell};
+  --warning: #facc15;
+  --warning-focus: #854d0e;
+  --warning-content: #fefce8;
+  --success: #{$success};
+  --success-focus: #{$success-focus};
+  --success-content: #{$eggshell};
+  --info: #{$info};
+  --info-focus: #{$info-focus};
+  --info-content: #{$info-content};
+  --slate: #54565a;
+  --silver: #b1b1b1;
+}
