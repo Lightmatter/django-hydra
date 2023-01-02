@@ -626,7 +626,7 @@ sqlparse = "*"
 
 [[package]]
 name = "django-storages"
-version = "1.13.1"
+version = "1.13.2"
 description = "Support for many storage backends in Django"
 category = "main"
 optional = false
@@ -641,7 +641,7 @@ boto3 = ["boto3 (>=1.4.4)"]
 dropbox = ["dropbox (>=7.2.1)"]
 google = ["google-cloud-storage (>=1.27.0)"]
 libcloud = ["apache-libcloud"]
-sftp = ["paramiko"]
+sftp = ["paramiko (>=1.10.0)"]
 
 [[package]]
 name = "django-vite"
@@ -1975,7 +1975,7 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.11"
-content-hash = "d1395733f76a75b16d1d4755edef3b1df8533afa4e3228a420cb55b8735cd2df"
+content-hash = "dfb20c84b65fee3268ad7155f0b4be61aa95ea2b2142909b63e942b96f3165ee"
 
 [metadata.files]
 appdirs = [
@@ -2424,8 +2424,8 @@ django-silk = [
     {file = "django_silk-5.0.2-py3-none-any.whl", hash = "sha256:1cd58272a9fb7cb43ebe84084a9a21964c564871719db3d263b9ae021908309c"},
 ]
 django-storages = [
-    {file = "django-storages-1.13.1.tar.gz", hash = "sha256:b3d98ecc09f1b1627c2b2cf430964322ce4e08617dbf9b4236c16a32875a1e0b"},
-    {file = "django_storages-1.13.1-py3-none-any.whl", hash = "sha256:3540b45618b04be2c867c0982e8d2bd8e34f84dae922267fcebe4691fb93daf0"},
+    {file = "django-storages-1.13.2.tar.gz", hash = "sha256:cbadd15c909ceb7247d4ffc503f12a9bec36999df8d0bef7c31e57177d512688"},
+    {file = "django_storages-1.13.2-py3-none-any.whl", hash = "sha256:31dc5a992520be571908c4c40d55d292660ece3a55b8141462b4e719aa38eab3"},
 ]
 django-vite = [
     {file = "django-vite-2.0.2.tar.gz", hash = "sha256:5a2e11a9f08a2a0a69c9a7c637a3254ad0c8dd01e07cb40de09a3a180ed99791"},
