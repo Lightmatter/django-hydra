@@ -1,7 +1,7 @@
 {% from 'components/button/button.jinja' import button %}
 {% from 'components/util.jinja' import attributes %}
 {% set default_button %}
-{{ button(attrs={"x-menu:button": True})}}
+{{ button(include_x_data=False, attrs={"x-menu:button": True})}}
 {% endset %}
 {% macro flyout(button=default_button, menu_style="absolute right-0 w-48 mt-2 z-10 origin-top-right bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-md py-1 outline-none", menu_attrs={}) %}
      {% set flyout_attrs = menu_attrs.update({"x-transition.origin.top.right": True}) %}

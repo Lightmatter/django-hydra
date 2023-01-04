@@ -16,7 +16,7 @@
 {% endset %}
 {% set menu_style = "origin-top-right absolute right-0 mt-2 w-48 py-1 bg-white focus:outline-none" %}
 <div class="hidden md:ml-4 md:flex-shrink-0 md:flex md:items-center">
-    {% call flyout(button(button_for_menu, attrs={"x-menu:button": True}), menu_style) %}
+    {% call flyout(button(button_for_menu, include_x_data=False, attrs={"x-menu:button": True}), menu_style) %}
         <div role="menu"
             aria-orientation="vertical"
             aria-labelledby="user-menu-button"
