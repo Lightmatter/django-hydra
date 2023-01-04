@@ -17,3 +17,9 @@
           </div>
     </div>
 {% endmacro %}
+
+{% if is_pattern_library %}
+     {% call flyout(button=default_button) %}
+          {{dpl_default_content}}
+     {% endcall %}
+{% endif %}
