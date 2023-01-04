@@ -1,5 +1,5 @@
 {% from 'components/util.jinja' import attributes %}
-{% macro button(button_content='Button', dispatch_name='button-click', variant='normal', color='primary', shape='rounded', size='md', type='button', attrs={}, link="", target="", rel="noopener nofollow", extra_class="") %}
+{% macro button(button_content='Button', dispatch_name='button-click', variant='normal', color='primary', shape='rounded', size='md', type='button', attrs={}, link="", target="", rel="noopener nofollow", extra_class="", include_x_data=True) %}
     {# Variant support: normal, outline #}
     {# Color support: primary, secondary, accent, success, info, warning, error #}
     {# Shape support: rounded, square, circle #}
@@ -28,7 +28,7 @@
     {% endif %}
     {% if link == "" %}
         <button type="{{ type }}"
-            x-data
+            {% if include_x_data %}x-data{% endif %}
             x-on:click="$dispatch('{{ dispatch_name }}', '{{ variant }} {{ color }} {{ shape }} {{ size }}')"
             class="{{ class }} {{ extra_class }}"
             {{ attributes(attrs) }}>
