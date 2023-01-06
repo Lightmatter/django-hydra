@@ -1,10 +1,35 @@
 # pylint: disable=redefined-outer-name
 # flake8: noqa: E800
 import os
-from collections.abc import Generator
+from typing import Generator
 
 import pytest
 from playwright.sync_api import BrowserContext, ConsoleMessage, Error, Page, Playwright
+
+
+def pytest_collection_modifyitems(items: list[pytest.Item]) -> None:
+    """
+    Check if any tests are marked as integration.
+    """
+    for item in items:
+        if item.get_closest_marker("integration"):
+            item.fixturenames.append("vite")  # type: ignore
+
+
+@pytest.fixture(scope="session")
+def vite() -> None:
+    import platform
+    import subprocess
+    import sys
+
+    completed_process = subprocess.run(
+        ["npm", "run", "build"],
+        check=False,
+        shell=platform.system() == "Windows",
+    )
+    if completed_process.returncode != 0:
+        print(completed_process.stderr)
+        sys.exit(-1)
 
 
 @pytest.fixture(scope="session")

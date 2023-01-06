@@ -52,6 +52,7 @@ def test_create_user(password):
     User.objects.get(id=user.id)
 
 
+@pytest.mark.integration
 def test_login_live(page: Page, live_server, super_user, password):
     header = page.locator("h2")
 
@@ -67,6 +68,7 @@ def test_login_live(page: Page, live_server, super_user, password):
     expect(page).to_have_url(f"{live_server.url}/")
 
 
+@pytest.mark.integration
 def test_login_no_email_live(page: Page, live_server):
     header = page.locator("h2")
 
@@ -77,6 +79,7 @@ def test_login_no_email_live(page: Page, live_server):
     expect(page.locator("input[name=email]")).to_be_focused()
 
 
+@pytest.mark.integration
 def test_login_no_password_live(page: Page, live_server, super_user):
     header = page.locator("h2")
 
@@ -91,6 +94,7 @@ def test_login_no_password_live(page: Page, live_server, super_user):
     expect(page.locator("input[name=password]")).to_be_focused()
 
 
+@pytest.mark.integration
 def test_login_email_case_insensitive_live(page: Page, live_server, super_user, password):
     header = page.locator("h2")
 
@@ -106,6 +110,7 @@ def test_login_email_case_insensitive_live(page: Page, live_server, super_user, 
     expect(page).to_have_url(f"{live_server.url}/")
 
 
+@pytest.mark.integration
 def test_login_badpass_live(page: Page, live_server, super_user):
     header = page.locator("h2")
 
@@ -184,6 +189,7 @@ def test_register_no_repeat_pass(client, form_data):
     assert User.objects.count() == 0
 
 
+@pytest.mark.integration
 def test_register_live(page: Page, live_server, form_data):
     header = page.locator("h2")
 
@@ -204,6 +210,7 @@ def test_register_live(page: Page, live_server, form_data):
     expect(page).to_have_url(f"{live_server.url}/")
 
 
+@pytest.mark.integration
 def test_register_bad_repeat_email_live(page: Page, live_server, form_data):
     header = page.locator("h2")
 
@@ -226,6 +233,7 @@ def test_register_bad_repeat_email_live(page: Page, live_server, form_data):
     )
 
 
+@pytest.mark.integration
 def test_register_bad_repeat_pass1_live(page: Page, live_server, form_data):
     header = page.locator("h2")
 
