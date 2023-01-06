@@ -9,23 +9,24 @@ The :code:`test.sh` will do a run of the template, and then run the django tests
 
 .. code-block:: console
 
-    test.sh keepenv
+    $ test.sh keepenv
 
 .. note::
     If you do not pass the argument keepenv, it will delete the old virtualenvironment. If you want to do this, simply run:
 
     .. code-block:: console
 
-        test.sh
+        $ test.sh
 
 Testing/Validation within your Project
 ---------------------------------------
+
 
 This will be run automatically when you attempt to commit code but if you want to manually validate/fix your code syntax during development you can run:
 
 .. code-block:: console
 
-    poetry run pre-commit run --all-files
+    $ poetry run pre-commit run --all-files
 
 This project uses the `pytest <https://docs.pytest.org/>`_ framework with `pytest-django <https://pytest-django.readthedocs.io/en/latest/>`_ enabling Django tests and `pytest-playwright <https://playwright.dev/python/docs/test-runners>`_ for end-to-end testing. This replaces the default Django tests using unittest.
 
@@ -33,8 +34,23 @@ Django tests can be run by running:
 
 .. code-block:: console
 
-    ./manage.py test
+    $ ./manage.py test
 
+
+.. warning::
+    When doing one of the following, be sure to build Vite assets before running tests:
+
+    * Initializing the project manually
+    * Adding a new Vite asset (see :ref:`new_vite_assets`)
+
+    To build the assets run:
+
+    .. code-block:: console
+
+        $ npm run build
+
+    If you don't run this command before tests run, some tests may fail even if they would
+    normally pass.
 
 Pytest
 ******
