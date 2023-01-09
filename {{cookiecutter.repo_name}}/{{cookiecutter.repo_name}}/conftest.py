@@ -1,7 +1,7 @@
 # pylint: disable=redefined-outer-name
 # flake8: noqa: E800
 import os
-from collections.abc import Generator
+from typing import Generator
 
 import pytest
 from playwright.sync_api import BrowserContext, ConsoleMessage, Error, Page, Playwright
