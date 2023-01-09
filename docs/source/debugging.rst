@@ -10,13 +10,13 @@ First run the python server:
 
 .. code-block:: console
 
-    ./manage.py runserver_plus
+    $ ./manage.py runserver_plus
 
 Then in a new tab, run the vite server:
 
 .. code-block:: console
 
-    npm run dev
+    $ npm run dev
 
 Debugging
 ----------
@@ -25,13 +25,13 @@ To access a python shell pre-populated with Django models and local env:
 
 .. code-block:: console
 
-    ./manage.py shell_plus
+    $ ./manage.py shell_plus
 
 To add a breakpoint in your python code, add the following code to your `.bashrc` or `.zshrc`:
 
 .. code-block:: console
 
-    export PYTHONBREAKPOINT="pudb.set_trace"
+    $ export PYTHONBREAKPOINT="pudb.set_trace"
 
 Then add the following to your python code:
 
