@@ -1,15 +1,16 @@
 # pylint: disable=redefined-outer-name
 # flake8: noqa: E800
 import os
-from typing import Generator
+from collections.abc import Generator
 
 import pytest
 from playwright.sync_api import BrowserContext, ConsoleMessage, Error, Page, Playwright
 
 
+# See https://docs.pytest.org/en/7.1.x/reference/reference.html#pytest.hookspec.pytest_collection_modifyitems
 def pytest_collection_modifyitems(items: list[pytest.Item]) -> None:
     """
-    Check if any tests are marked as integration.
+    Check if any tests are marked as integration and append the `vite` fixture to them if so.
     """
     for item in items:
         if item.get_closest_marker("integration"):
