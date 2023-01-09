@@ -96,10 +96,7 @@ select = [
   "W",  # pycodestyle
 ]
 ignore = [
-  "E5110",
   "S101",
-  "S322",
-  "W503",
 ]
 
 # Exclude a variety of commonly ignored directories.
@@ -123,15 +120,21 @@ exclude = [
     "dist",
     "node_modules",
     "venv",
-    "*migrations/*.py"
+    "*migrations/*.py",
+    "manage.py"
 ]
-per-file-ignores = {}
 
 # Allow unused variables when underscore-prefixed.
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
 # Assume Python 3.11.
 target-version = "py311"
+
+[tool.ruff.per-file-ignores]
+"{{cookiecutter.repo_name}}/config/settings/*.py" = ["F405"]
+"{{cookiecutter.repo_name}}/home/views.py" = ["N802"]
+"*tests.py" = ["S105"]
+"*tests/*.py" = ["S105"]
 
 [tool.ruff.mccabe]
 # Unlike Flake8, default to a complexity level of 10.
@@ -180,7 +183,7 @@ show_source = true
 flake8-django = ["+*"]
 flake8-mutable = ["+*"]
 pylint = ["-*"]
-
+pycodestyle = ["-*"]
 
 [tool.pylint.main]
 # these plugins are not yet fully supported by ruff

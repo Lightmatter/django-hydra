@@ -342,4 +342,4 @@ except ImportError:  # Graceful fallback if IceCream isn't installed.
     except ImportError:
         builtins = __import__("builtins")
     ic = lambda *a: None if not a else (a[0] if len(a) == 1 else a)  # noqa
-    setattr(builtins, "ic", ic)
+    setattr(builtins, "ic", ic)  # noqa
