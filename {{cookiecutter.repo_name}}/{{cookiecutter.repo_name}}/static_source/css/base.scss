@@ -6,15 +6,17 @@
 @import "tailwindcss/lib/css/preflight";
 @import "tailwindcss/base";
 
-@import "base/base";
-
-
 /**
  * This injects any component classes registered by plugins.
  *
  */
 @import "tailwindcss/components";
 
+/**
+ *  Import our main application styling, site chrome and defaults
+ *
+ */
+@import "base/base";
 
 /**
  * Here we add custom component classes;  we load
@@ -22,7 +24,6 @@
  * override them
  *
  */
-
 @import "components/components";
 
 /**
