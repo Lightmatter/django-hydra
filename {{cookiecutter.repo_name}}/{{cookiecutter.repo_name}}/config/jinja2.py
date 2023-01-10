@@ -38,6 +38,8 @@ def prefixed_cookie(name):
 # Match all extensions but ignore admin. Use jinja2 app dirname to match builtin forms
 options = {
     "match_extension": None,
+    "trim_blocks": True,
+    "lstrip_blocks": True,
     "app_dirname": "jinja2",
     "match_regex": r"^(?!admin/).*",
     "extensions": DEFAULT_EXTENSIONS + [
