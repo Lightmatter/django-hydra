@@ -1,5 +1,5 @@
 Prerequisites & Dependencies
-==============
+============================
 
 Before you create any projects with this template
 --------------------------------------------------
@@ -9,17 +9,19 @@ Before you create any projects with this template
 
 
 Setting up for Installation
--------------
+---------------------------
+
 .. note::
-For Mac systems, there is an automatic installation script that handle dependencies for Hydra. Run the following commands to install via the script:
+
+    For Mac systems, there is an automatic installation script that handle dependencies for Hydra. Run the following commands to install via the script:
 
     .. code-block:: console
 
-        git clone git@github.com:Lightmatter/django-hydra.git
-        ./django-hydra/scripts/mac_intel_install.sh
+        $ git clone git@github.com:Lightmatter/django-hydra.git
+        $ ./django-hydra/scripts/mac_intel_install.sh
 
-It's recommended that you read the output of this script to ensure everything went smoothly,
-particularly if you are using Apple silicone (M1-based-mac).
+    It's recommended that you read the output of this script to ensure everything went smoothly,
+    particularly if you are using Apple silicone (M1-based-mac).
 
 
 Prerequisites
@@ -41,6 +43,7 @@ The following items are required in order for this template to work:
 * `direnv <https://direnv.net/docs/installation.html>`_ handles activating your virtual env when you enter the project directory
 
 .. _dependency-list:
+
 Project Dependencies
 --------------------
 

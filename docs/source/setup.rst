@@ -29,21 +29,14 @@ The recommended start pattern is described below. The create_new_project.sh comm
 
 .. code-block:: console
 
-    git clone https://github.com/Lightmatter/django-hydra
+    $ git clone https://github.com/Lightmatter/django-hydra
 
-    * at the moment you will also want to do the following before running step 2:
-
-.. code-block:: console
-
-    cd django-hydra
-    git checkout 3.0
-    cd ..
 
 2. Use cookiecutter to create a new version of the project. It will ask you some questions about which integrations you might want. Once you've answered all the questions/prompts, the project creation script (create_new_project.sh) will be run automatically by cookiecutter and should install all dependencies and run all necessary setup. If the new project is created but the creation script fails, you can run `./scripts/create_new_project.sh` from within the new project directory.
 
 .. code-block:: console
 
-    cookiecutter django-hydra
+    $ cookiecutter django-hydra
 
 .. note::
 
@@ -53,19 +46,19 @@ The recommended start pattern is described below. The create_new_project.sh comm
 
 .. code-block:: console
 
-    cd <project_name>
+    $ cd <project_name>
 
 4. Run Django server with runserver_plus
 
 .. code-block:: console
 
-    ./manage.py runserver_plus
+    $ ./manage.py runserver_plus
 
 4. In a new shell tab/window navigate to the project directory and run the vite server
 
 .. code-block:: console
 
-    npm run dev
+    $ npm run dev
 
 5. You will now be able to view the project at http://127.0.0.1:8000/ or http://localhost:8000
 
@@ -85,25 +78,25 @@ The recommended start pattern is described below. The setup_existing_project.sh 
 
 .. code-block:: console
 
-    chmod +x ./scripts/setup_existing_project.sh
+    $ chmod +x ./scripts/setup_existing_project.sh
 
 2. Execute the `setup_existing_project` script
 
 .. code-block:: console
 
-    ./scripts/setup_existing_project.sh
+    $ ./scripts/setup_existing_project.sh
 
 3. Run Django server with runserver_plus
 
 .. code-block:: console
 
-    ./manage.py runserver_plus
+    $ ./manage.py runserver_plus
 
 4. In a new shell tab/window navigate to the project directory and run the vite server with npn run dev
 
 .. code-block:: console
 
-    npm run dev
+    $ npm run dev
 
 5. You will now be able to view the project at http://127.0.0.1:8000/ or http://localhost:8000
 
@@ -133,18 +126,18 @@ Install JavaScript dependencies
 
 .. code-block:: console
 
-    npm install
+    $ npm install
 
 Install Python Dependencies
 ----------------------------
 
 .. code-block:: console
 
-    ./scripts/setup_python.sh
+    $ ./scripts/setup_python.sh
 
 .. note::
     Once that's been run the first time you can just run:
 
     .. code-block:: console
 
-        poetry install
+        $ poetry install
