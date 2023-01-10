@@ -28,6 +28,10 @@
     {% endif %}
     {% if link == "" %}
         <button type="{{ type }}"
+            {#
+                done to account for an issue with nested x-data in alpine headless components
+                see https://github.com/alpinejs/alpine/discussions/3370 for more details
+            #}
             {% if include_x_data %}x-data{% endif %}
             x-on:click="$dispatch('{{ dispatch_name }}', '{{ variant }} {{ color }} {{ shape }} {{ size }}')"
             class="{{ class }} {{ extra_class }}"

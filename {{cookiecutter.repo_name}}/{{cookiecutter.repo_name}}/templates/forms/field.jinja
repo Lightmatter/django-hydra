@@ -2,11 +2,11 @@
 {# or Sometimes third party controls come with their own styling, so for these widgets do not style #}
 {%-  macro input_widget_hook(field) -%}
     {%- if field.widget_type == "select"  -%}
-        input-box select
+        select
     {%- elif field.widget_type == "radioselect" -%}
         radio
     {%- else -%}
-        input-box input
+        input
     {%- endif -%}
 {%- endmacro -%}
 
