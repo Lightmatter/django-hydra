@@ -30,6 +30,8 @@ Vite must be made aware of all of the frontend assets in order to properly bundl
 To start, it's worth noting that Vite supports both typescript and javascript files out of the box, so there's flexibility for you to
 build how you see fit.
 
+.. This section will need to be updated when the frontend reorg is merged.
+
 When you're ready to import your .js or .ts files into Vite, you'll need an asset.
 In the ``vite.config.js`` file, there are three assets (called inputs in ``rollupOptions``):
 
