@@ -6,7 +6,7 @@ Components
 
 Hydra uses the Jinja template language for its html templates (``.jinja`` files).
 
-Jinja provides a control structure called macros that are comparable with functions and are used
+Jinja provides a control structure called a macro that is comparable a function and is used
 by Hydra to create frontend components.
 
 An example of a macro/component definition is below:
@@ -72,9 +72,9 @@ For more information about looping through form fields `see here <https://docs.d
 Django Widget to Jinja Macro
 ****************************
 
-Hydra creates several mappings from Django's built in form widgets to its own, custom jinja macros
-through template overrides within ``templates/django/forms/widgets`` which are mapped to macros
-within ``templates/forms``.
+Hydra creates several mappings from Django's built in form widgets to its own, custom jinja macros.
+This is done through template overrides within ``templates/django/forms/widgets`` which are mapped to macros
+in ``templates/forms``.
 
 You can also extend these mappings as necessary in your own project.
 An example of how to do is shown below using the input widget.
@@ -112,3 +112,14 @@ An html template for the widget to be overridden is added to ``templates/django/
     {% from 'forms/input.jinja' import widget_to_input %}
 
     {{ widget_to_input(widget) }}
+
+.. warning::
+
+    Some input widgets in Django admin reference the default input widget,
+    which is overridden by a custom Hydra component. Hydra includes a legacy default input at
+    ``templates/django/forms/widgets/default_input.html`` that we use when overriding any references
+    to the original (see ``templates/admin/widgets/url.html`` for an example of this).
+
+    If, in the future, Django adds more widgets with this behavior you will need to backport Hydra's
+    changes to support them or implement an override yourself using the existing templates as
+    an example.
