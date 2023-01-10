@@ -1,15 +1,23 @@
-.. Lightmatter Django Template documentation master file, created by
+.. Hydra documentation master file, created by
    sphinx-quickstart on Thu Sep 22 09:37:05 2022.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Lightmatter Django Template
+Hydra
 =======================================================
 
 About
 -----
 
-This is a generic template for Django 4 using htmx based templates, Vite, and Alpine.js that can be easily extended
+Hydra is a robust project template which uses Django 4 on the backend and HTMX, AlpineJS, and Tailwind on the frontend.
+
+This combination of technologies means:
+
+- You'll spend less time writing custom Javascript
+- Keep frontend code near the locality of behavior
+- You'll leverage the strengths of both Django and consise templates to render content quickly and easily
+- You'll be easily able to extend this template for customized use cases
+- But perhaps the best thing about Hydra is that once you're familiar with it, *it's just fun to use*!
 
 .. toctree::
    :maxdepth: 1
@@ -22,4 +30,4 @@ This is a generic template for Django 4 using htmx based templates, Vite, and Al
    debugging
    cookbook
    deployment
-   workflow
+   contributing

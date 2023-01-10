@@ -10,9 +10,10 @@ Then go back into the `django-hydra` folder and run:
 
 This will attempt to take the git diff of the prior commit and apply it back to the template.
 
-..note::
-    IMPORTANT: When adding new dependencies to a project, always delete the `poetry.lock` file and recreate it before committing, otherwise it won't merge correctly.
-    The documentation for retrocookie is here: <https://pypi.org/project/retrocookie/>
+.. warning::
+
+    When adding new dependencies to a project, always delete the `poetry.lock` file and recreate it before committing, otherwise it won't merge correctly.
+    The documentation for retrocookie is here: https://pypi.org/project/retrocookie/
 
 
 Upcoming Features
@@ -27,5 +28,5 @@ Things we still want to do
 * user feedback
 * add django password validators
 * Front end updates
-    * SEO compitbility scrub
+    * SEO compatibility scrub
     * Accessibility compatibility scrub

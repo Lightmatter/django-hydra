@@ -58,8 +58,9 @@ Jinja `macros <https://jinja.palletsprojects.com/en/3.1.x/templates/#macros>`_ a
 They can be thought of as functions that return customized templates based off of whatever arguments are passed to them. Much like functions, they are declared and then called.
 
 The declaration for a link macro may look like the following:
-``..components/link.jinja``
-.. code-block:: html
+
+.. code-block:: html+django
+    :caption: .../components/link.jinja
 
     {% macro link(url, text='', target='') %}
         <a href="{{ url }}"
@@ -68,7 +69,8 @@ The declaration for a link macro may look like the following:
     {% endmacro %}
 
 Then, when the macro is called in a template file, you'll see something akin to the following:
-.. code-block:: html
+
+.. code-block:: html+django
 
     {% from 'components/link.jinja' import link %}
 
@@ -86,7 +88,7 @@ Then, when the macro is called in a template file, you'll see something akin to 
 
 
 Alpine JS and HTMX:
-^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 Both Alpine.js and HTMX are libraries designed to reduce the amount of vanilla Javascript being written by allowing you to tie common actions directly to the DOM element they are affecting.
 
 It's highly recommended to read through the documentation for both `Alpine <https://alpinejs.dev/start-here>` and `HTMX <https://htmx.org/docs/>` to familiarize yourself with
@@ -98,7 +100,7 @@ It's important to note that any endpoint you are using with HTMX must return the
 
 For instance, let's say that we wanted to add an element to a page on a button click.
 
-.. code-block:: html
+.. code-block:: html+django
 
     <div>
         <button hx-get="/add-paragraph" hx-target=".lorem-ipsum-container" hx-swap="beforeend">
@@ -114,14 +116,14 @@ In this case, we have a get request that is fired to the `/add-paragraph` endpoi
 
 Now let's say that we wanted to count how many times the user had clicked to add paragraphs to the `lorem-ipsum-container` - we could do that with Alpine.
 
-.. code-block:: html
+.. code-block:: html+django
 
-    <div x-data={timesClicked: 0}>
+    <div x-data="{timesClicked: 0}">
         <button
             hx-get="/add-paragraph"
             hx-target=".lorem-ipsum-container"
             hx-swap="beforeend"
-            @click="timesClicked+=1"
+            x-on:click="timesClicked+=1"
         >
             Add Text
         </button>
@@ -136,11 +138,11 @@ Alpine data `timesClicked` to the innerHTML of the `<p>` tag. There is more that
 the amount of times that the button could be clicked, all of which is possible with Alpine.
 
 One other thing worth keeping in mind with Alpine: the scope of `timesClicked` is available only to the child elements of the div where it is defined. This
-`does work <https://alpinejs.dev/directives/data#scope>` with nested components.
+`does work <https://alpinejs.dev/directives/data#scope>`_ with nested components.
 
 
 Tailwind CSS:
-^^^^^^^^^^^^
+^^^^^^^^^^^^^
 
 `Tailwind CSS <https://tailwindcss.com/>`_ is a framework that allows developers to compose CSS directly into the class attribute
 of HTML elements.
@@ -152,7 +154,7 @@ For instructions on customizing or extending the color palette, see the instruct
 .. note::
 
     Because of how Vite and Tailwind compile and run, Tailwind classes that only appear in dynamically generated code from the server may not work as expected.
-    See this `Stack Overflow post <https://stackoverflow.com/questions/70907369/color-classes-of-tailwind-css-not-working-when-appended>` for more details
+    See this `Stack Overflow post <https://stackoverflow.com/questions/70907369/color-classes-of-tailwind-css-not-working-when-appended>`_ for more details
 
 Components
 ----------
@@ -170,4 +172,4 @@ the Jinja templates for widgets are imported as the defaults. Due to how Django 
 you'll see several examples of this under the ``templates/django/forms/widgets/`` directory.
 
 New custom form widgets can be composed using Jinja and shadowed in a similar manner.
-To reference the django widgets, see the `widgets folder in the Django repository <https://github.com/django/django/tree/main/django/forms/templates/django/forms/widgets>`
+To reference the django widgets, see the `widgets folder in the Django repository <https://github.com/django/django/tree/main/django/forms/templates/django/forms/widgets>`_

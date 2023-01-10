@@ -6,8 +6,8 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = "Lightmatter Django Template"
-copyright = "2022, Lightmatter Team"
+project = "Hydra"
+copyright = "2023, Lightmatter Team"
 author = "Lightmatter Team"
 release = "3.0"
 
