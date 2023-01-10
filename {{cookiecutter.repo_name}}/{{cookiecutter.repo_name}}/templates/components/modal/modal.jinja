@@ -2,8 +2,8 @@
 {% set default_button %}
 {{ button(button_content="Open Modal")}}
 {% endset %}
-{% macro modal(button=default_button, width_class="max-w-xl") %}
-<div x-data="{open:false}">
+{% macro modal(button=default_button, width_class="max-w-xl", open=False) %}
+<div x-data="{open:{{open|tojson}}}">
     <span x-on:click="open=true">{{button}}</span>
     <div
         x-dialog

@@ -22,11 +22,12 @@ export default defineConfig({
         entry points, they will be bundled to separate output chunks. */
         components: resolve(__dirname, './{{cookiecutter.repo_name}}/static_source/js/components.ts'),
         main: resolve(__dirname, './{{cookiecutter.repo_name}}/static_source/js/main.ts'),
+        links: resolve(__dirname, './{{cookiecutter.repo_name}}/static_source/js/links.ts'),
         styles: resolve(__dirname, './{{cookiecutter.repo_name}}/static_source/css/styles.js'),
         raw_tailwind: resolve(__dirname, './{{cookiecutter.repo_name}}/static_source/css/tailwind.js'),
       }
     },
-    outDir:  './', // puts the manifest.json in PROJECT_ROOT/static_source/
+    outDir:  './', // puts the manifest.json in PROJECT_ROOT/static_source/ for Django to collect
   },
   plugins: [
     {
