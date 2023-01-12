@@ -6,14 +6,7 @@
 # 2) Delete each cache id from the list, e.g.: gh api --method DELETE  -H "Accept: application/vnd.github+json" /repos/Lightmatter/django-hydra/actions/caches/1
 
 name: Project CI
-on:
-  push:
-    branches:
-      - develop
-      - master
-  pull_request:
-    branches:
-      - '**'
+on: push
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
