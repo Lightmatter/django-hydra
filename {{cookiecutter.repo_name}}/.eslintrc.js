@@ -45,5 +45,6 @@ module.exports = {
     "import/extensions": "off",
     "no-else-return": "off",
     "consistent-return": "off",
+    "object-curly-newline": "off",
   },
 };
