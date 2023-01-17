@@ -7,6 +7,9 @@
     "serve": "vite preview",
     "test": "vitest",
     "coverage": "vitest run --coverage"
+    "serve": "vite preview",
+    "test": "vitest",
+    "coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.2",
