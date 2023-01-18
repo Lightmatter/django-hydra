@@ -30,7 +30,7 @@ jobs:
         with:
           version: 1.3.2
           virtualenvs-create: true
-          virtualenvs-in-project: true
+          virtualenvs-in-project: false
           installer-parallel: true
 
       # This should be handled by the cache option for `actions/setup-python@v4`
