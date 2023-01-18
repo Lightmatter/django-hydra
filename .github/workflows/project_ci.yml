@@ -54,7 +54,7 @@ jobs:
 
       # Instantiate the project
       - name: Instantiate project using the values in cookiecutter.json
-        run: poetry run cookininja . --no-input --accept-hooks no
+        run: poetry run cookieninja . --no-input --accept-hooks no
 
       # Configure the project environment
       - uses: actions/setup-node@v3
