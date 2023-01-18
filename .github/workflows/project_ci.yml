@@ -25,13 +25,20 @@ jobs:
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
+
+
       - name: Install and configure Poetry
-        uses: snok/install-poetry@v1.3.3
-        with:
-          version: 1.3.2
-          virtualenvs-create: true
-          virtualenvs-in-project: false
-          installer-parallel: true
+        run: |
+          pipx install poetry
+          poetry config virtualenvs-create true
+          poetry config virtualenvs-in-project false
+          poetry config installer-parallel true
+        # uses: snok/install-poetry@v1.3.3
+        # with:
+        #   version: 1.3.2
+        #   virtualenvs-create: true
+        #   virtualenvs-in-project: false
+        #   installer-parallel: true
 
       # This should be handled by the cache option for `actions/setup-python@v4`
       # - name: Load cached venv
