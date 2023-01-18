@@ -15,7 +15,7 @@ concurrency:
 jobs:
   create_and_test_project:
     name: Create and test Django project
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       DATABASE_URL: "psql://postgres:postgres@localhost/postgres"
       DJANGO_SECRET_KEY: "!!!! Change me !!!!"
