@@ -6,7 +6,12 @@
 # 2) Delete each cache id from the list, e.g.: gh api --method DELETE  -H "Accept: application/vnd.github+json" /repos/Lightmatter/django-hydra/actions/caches/1
 
 name: Project CI
-on: pull_request
+on:
+  push:
+    branches:
+      - 'master'
+      - 'develop'
+  pull_request:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -26,38 +31,29 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Install and configure Poetry
-        uses: snok/install-poetry@e3dbfd357f4751d4f582d62bc8a71e56c2a7015b # v1.3.2
-        with:
-          version: 1.3.1
-          virtualenvs-create: true
-          virtualenvs-in-project: true
-          installer-parallel: true
+        run: |
+          pipx install poetry==1.3.2
+          poetry config virtualenvs.create true
+          poetry config virtualenvs.in-project false
+          poetry config installer.parallel true
 
-      # Configure Python for the template
-      - uses: actions/setup-python@v4
+      - name: Install Python
+        uses: actions/setup-python@v4
         id: setup_python
         with:
           python-version-file: ".python-version"
           cache: "poetry"
-
-      - name: Load cached venv
-        id: cached-poetry-dependencies
-        uses: actions/cache@v3
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
 
       - name: Install Hydra dependencies
         run: |
           poetry env use ${{ steps.setup_python.outputs.python-version }}
           poetry install --no-interaction --no-root
 
-      # Instantiate the project
       - name: Instantiate project using the values in cookiecutter.json
         run: poetry run cookiecutter . --no-input --accept-hooks no
 
-      # Configure the project environment
-      - uses: actions/setup-node@v3
+      - name: Install Node
+        uses: actions/setup-node@v3
         with:
           node-version: lts/*
           cache: "npm"
@@ -66,7 +62,7 @@ jobs:
       - name: Install + build NPM
         working-directory: ./sampleapp
         run: |
-          npm install
+          npm ci
           npm run build
 
       - name: Install Sample App dependencies
