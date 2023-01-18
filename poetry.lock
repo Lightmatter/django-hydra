@@ -303,15 +303,15 @@ files = [
 ]
 
 [[package]]
-name = "cookieninja"
-version = "1.0.0"
+name = "cookiecutter"
+version = "2.1.1"
 description = "A command-line utility that creates projects from project templates, e.g. creating a Python package project from a Python package project template."
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "cookieninja-1.0.0-py3-none-any.whl", hash = "sha256:5537dfd86ebd00ead813b97674ba118a83187204e1e2ad0333ef3f716da2150e"},
-    {file = "cookieninja-1.0.0.tar.gz", hash = "sha256:c74383fe90f2e234a400602fe7c16597023fd771ce5096ed7e7967f1283526a9"},
+    {file = "cookiecutter-2.1.1-py2.py3-none-any.whl", hash = "sha256:9f3ab027cec4f70916e28f03470bdb41e637a3ad354b4d65c765d93aad160022"},
+    {file = "cookiecutter-2.1.1.tar.gz", hash = "sha256:f3982be8d9c53dac1261864013fdec7f83afd2e42ede6f6dd069c5e149c540d5"},
 ]
 
 [package.dependencies]
@@ -974,4 +974,4 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "fbc8e30e9fc25d3492bc33f573852388c494421cc440c3d451b846aa863680ad"
+content-hash = "52b9af03bd599a775e85aa2eb1db928f0c7536226ef8720b18bc036b103d110a"
