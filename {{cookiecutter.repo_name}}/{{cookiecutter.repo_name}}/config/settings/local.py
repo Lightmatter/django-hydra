@@ -115,3 +115,12 @@ CSP_STYLE_SRC = ["'self'", "'unsafe-inline'", f"localhost:{DJANGO_VITE_DEV_SERVE
 options["cache_size"] = 0 if DEBUG else 400
 
 TEMPLATES[0]["OPTIONS"] = options
+
+# see: https://code.djangoproject.com/ticket/33497
+# see: https://github.com/Lightmatter/htn/pull/77
+# Ideally this should be zero in all setups, but there have been reports from other projects
+# that that cuases rendering issues
+#
+# Bandaid fix until the django project puts in an offical patch
+# Unclear at this time why prod + dev hosts do not experience any issues with this
+DATABASES["default"]["CONN_MAX_AGE"] = 0  # noqa F405
