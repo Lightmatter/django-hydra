@@ -26,4 +26,5 @@
   "python.testing.pytestEnabled": true,
   "python.testing.unittestEnabled": false,
   "scss.lint.unknownAtRules": "ignore",
+  "dotenv.enableAutocloaking": false,
 }

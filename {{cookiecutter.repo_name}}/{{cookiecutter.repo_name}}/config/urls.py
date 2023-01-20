@@ -2,7 +2,7 @@
 from django.conf import settings
 from django.conf.urls import handler400, handler403, handler404, handler500
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
 
 from {{cookiecutter.repo_name}}.home.views import FourHundy, FourOhFour, FourOhThree, WorkedLocally
 
@@ -38,9 +38,12 @@ if settings.DEBUG:
         ),
         path("500/", handler500),
     ]
+
+    if "robots" in settings.INSTALLED_APPS:
+        urlpatterns.append(re_path(r'^robots\.txt', include("robots.urls")),)
+
     if "debug_toolbar" in settings.INSTALLED_APPS:
         import debug_toolbar
-
         urlpatterns = [path("__debug__/", include(debug_toolbar.urls))] + urlpatterns
 
 
