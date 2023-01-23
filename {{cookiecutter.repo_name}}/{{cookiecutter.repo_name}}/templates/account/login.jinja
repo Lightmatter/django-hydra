@@ -5,9 +5,9 @@
 Welcome back, {{ user.first_name }}!
 {% endset %}
 {% set content %}
-<form hx-post="{{ url('account_login') }}"
+<form hx-post="{{ url('account_login') }}{% if request.GET.get('next', None) %}?next={{request.GET.get('next')}}{% endif %}"
       hx-swap="outerHTML"
-      hx-target="#account-box"
+      hx-target="#body"
       class="flex flex-col space-y-10 mb-10">
     {{ form }}
     {% csrf_token %}

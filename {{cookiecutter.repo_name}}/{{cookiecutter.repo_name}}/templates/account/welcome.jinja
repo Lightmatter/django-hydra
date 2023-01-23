@@ -7,7 +7,7 @@
     {% endtrans %}
 {% endblock account_title %}
 {% block account_content %}
-    <form hx-get="{{ url('user:account_welcome') }}"
+    <form hx-get="{{ url('user:account_welcome') }}{% if request.GET.get('next', None) %}?next={{request.GET.get('next')}}{% endif %}"
           hx-swap="outerHTML"
           hx-select="#account-box"
           hx-target="#account-box"
