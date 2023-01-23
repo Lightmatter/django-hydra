@@ -1048,23 +1048,20 @@ rich = ">=10.0.0"
 
 [[package]]
 name = "django-silk"
-version = "5.0.2"
+version = "5.0.3"
 description = "Silky smooth profiling for the Django Framework"
 category = "dev"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "django-silk-5.0.2.tar.gz", hash = "sha256:2520d583ef475a5d2f70a1cc5b4c911493709d654ab065a69434e3e050a44014"},
-    {file = "django_silk-5.0.2-py3-none-any.whl", hash = "sha256:1cd58272a9fb7cb43ebe84084a9a21964c564871719db3d263b9ae021908309c"},
+    {file = "django-silk-5.0.3.tar.gz", hash = "sha256:2f1fcaaf21192011147537fe1ca72dc9f552f32d7043ebd82aeeda370f194469"},
+    {file = "django_silk-5.0.3-py3-none-any.whl", hash = "sha256:50552f06d9306d06517fbeab9a2c74856355e06304f03ed16b6dd353f7c77e7a"},
 ]
 
 [package.dependencies]
 autopep8 = "*"
 Django = ">=3.2"
 gprof2dot = ">=2017.09.19"
-Jinja2 = "*"
-python-dateutil = "*"
-requests = "*"
 sqlparse = "*"
 
 [[package]]
@@ -3407,4 +3404,4 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "e7b5f52a764ddf49edf496932167a1a764c4c139b08768259ce68db37353d12d"
+content-hash = "78a71f9802c14696eafcba5de3e7d9579cbbf85d8d5f52c09be72ece4b10d0c5"
