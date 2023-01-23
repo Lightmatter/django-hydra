@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "@alpinejs/focus": "^3.11.1",
-    "@alpinejs/mask": "^3.10.5",
+    "@alpinejs/mask": "^3.11.1",
     "@alpinejs/morph": "^3.10.5",
     "alpinejs": "^3.11.1",
     "htmx.org": "^1.8.4",
