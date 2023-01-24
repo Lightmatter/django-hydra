@@ -5,11 +5,16 @@
 Welcome back, {{ user.first_name }}!
 {% endset %}
 {% set content %}
-<form hx-post="{{ url('account_login') }}{% if request.GET.get('next', None) %}?next={{request.GET.get('next')}}{% endif %}"
+<form hx-post="{{ url('account_login') }}"
       hx-swap="outerHTML"
-      hx-target="body"
+      hx-target="#account-box"
       class="flex flex-col space-y-10 mb-10">
     {{ form }}
+    {% if redirect_field_value %}
+        <input type="hidden"
+                name="{{ redirect_field_name }}"
+                value="{{ redirect_field_value }}"/>
+    {% endif %}
     {% csrf_token %}
     {{ button("Login", 'submit', type="submit") }}
 </form>

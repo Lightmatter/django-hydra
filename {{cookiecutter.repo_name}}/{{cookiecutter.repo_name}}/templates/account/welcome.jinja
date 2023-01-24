@@ -7,12 +7,17 @@
     {% endtrans %}
 {% endblock account_title %}
 {% block account_content %}
-    <form hx-get="{{ url('user:account_welcome') }}{% if request.GET.get('next', None) %}?next={{request.GET.get('next')}}{% endif %}"
+    <form hx-get="{{ url('user:account_welcome') }}"
           hx-swap="outerHTML"
           hx-select="#account-box"
           hx-target="#account-box"
           class="flex flex-col space-y-10 mb-10">
         {{ form }}
+        {% if redirect_field_value %}
+            <input type="hidden"
+                    name="{{ redirect_field_name }}"
+                    value="{{ redirect_field_value }}"/>
+        {% endif %}
         {{ button("Continue", 'submit', type="submit") }}
     </form>
     <div class="relative">

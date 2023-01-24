@@ -1,8 +1,9 @@
 from allauth.account.views import LoginView as AllAuthLoginView
 from allauth.account.views import SignupView as AllAuthSignupView
+from allauth.utils import get_request_param
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template.response import TemplateResponse
-from django.views.generic import RedirectView
+from django.views.generic import FormView, RedirectView
 from django_htmx.http import HttpResponseClientRedirect
 
 from .forms import HasAccountForm
@@ -59,19 +60,44 @@ class LoginView(AllAuthLoginView):
 login = LoginView.as_view()
 
 
-def welcome(request):
-    if not request.htmx or "email" not in request.GET:
-        return TemplateResponse(
-            request, "account/welcome.jinja", {"form": HasAccountForm()}
+class WelcomeView(FormView):
+    form_class = HasAccountForm
+    template_name = "account/welcome.jinja"
+    redirect_field_name = "next"
+
+    def form_valid(self, form):
+        try:
+            self.request.prefetched_user = User.objects.get(
+                email=form.cleaned_data.get("email")
+            )
+        except User.DoesNotExist:
+            return signup(self.request)
+
+        return LoginView.as_view()(self.request)
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+
+        if self.request.method == "GET" and "email" in self.request.GET:
+            kwargs.update({"data": self.request.GET})
+
+        return kwargs
+
+    def get(self, request, *args, **kwargs):
+        if not request.htmx or "email" not in request.GET:
+            return super().get(request)
+
+        return self.post(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        redirect_field_value = get_request_param(self.request, self.redirect_field_name)
+
+        context.update(
+            {
+                "redirect_field_name": self.redirect_field_name,
+                "redirect_field_value": redirect_field_value,
+            }
         )
 
-    form = HasAccountForm(request.GET)
-    if not form.is_valid():
-        return TemplateResponse(request, "account/welcome.jinja", {"form": form})
-
-    try:
-        email = form.cleaned_data.get("email")
-        request.prefetched_user = User.objects.get(email=email)
-        return login(request)
-    except User.DoesNotExist:
-        return signup(request)
+        return context

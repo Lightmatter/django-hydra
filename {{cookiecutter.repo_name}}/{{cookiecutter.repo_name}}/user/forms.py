@@ -30,6 +30,16 @@ class LoginForm(AllAuthLoginForm):
         super().__init__(*args, **kwargs)
         self.fields["login"].widget = forms.HiddenInput()
 
+    def login(self, request, redirect_url=None):
+        ret = super().login(request, redirect_url)
+        # https://htmx.org/docs/#response-headers
+        # Adding this header allows us to manually redirect in the event the login worked
+        # othewrise hx-swap will display errors on the form
+        ret["HX-Redirect"] = ret["Location"]
+        # NOTE overriding status code because HX-Redirect won't trigger with 302
+        ret.status_code = 200
+        return ret
+
 
 class SignupForm(AllAuthSignupForm):
     template_name = "account/signup_form.jinja"
