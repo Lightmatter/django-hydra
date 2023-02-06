@@ -8,7 +8,7 @@
           :class="{ 'opacity-0 ease-out duration-100': on, 'opacity-100 ease-in duration-200': !(on) }">
         {{ heroicon_outline("x-mark", class="h-3 w-3 text-gray-400") }}
     </span>
-    <!-- Enabled: "opacity-100 ease-in duration-200", Not Enabled: "opacity-0 ease-out duration-100" -->
+    {# Enabled: "opacity-100 ease-in duration-200", Not Enabled: "opacity-0 ease-out duration-100" #}
     <span class="opacity-0 ease-out duration-100 absolute inset-0 h-full w-full flex items-center justify-center transition-opacity"
           aria-hidden="true"
           x-state:on="Enabled"
