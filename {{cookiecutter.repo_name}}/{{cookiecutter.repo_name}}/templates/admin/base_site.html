@@ -7,6 +7,10 @@
     {% vite_asset 'css/tailwind.js' %}
   <style>
     [x-cloak] { display: none !important; }
+    textarea,select, input {
+            background-color: var(--body-bg) !important;
+            color: var(--body-fg) !important;
+      }
   </style>
 {% endblock %}
 {% block title %}
