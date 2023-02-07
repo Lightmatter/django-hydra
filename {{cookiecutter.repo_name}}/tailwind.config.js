@@ -17,7 +17,7 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "var(--primary)",
+          DEFAULT: 'var(--primary)',
           focus: 'var(--primary-focus)',
           content: 'var(--primary-content)'
         },
@@ -61,6 +61,9 @@ module.exports = {
           DEFAULT: 'var(--error)',
           'focus': 'var(--error-focus)',
           'content': 'var(--error-content)'
+        },
+        silver: {
+          DEFAULT: 'var(--silver)'
         },
       }
     },

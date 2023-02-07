@@ -2,6 +2,12 @@
 
 
 $input-height: 50px;
+$border-width: 1px;
+
+input:focus::placeholder {
+  color: transparent;
+}
+
 
 .form-wrapper {
   @apply space-y-5 flex flex-row flex-wrap;
@@ -22,13 +28,8 @@ $input-height: 50px;
 }
 
 .field {
-  @apply mt-1;
-
-  border: 1px solid;
-  border-color: var(--silver);
+  @apply mt-1 border bg-white relative border-silver;
   border-radius: 10px;
-  background-color: #fff;
-  position: relative;
 
   &.error {
     @apply block w-full border-red-300 text-red-900 placeholder-red-300;
@@ -36,40 +37,30 @@ $input-height: 50px;
   }
 
   & + .errorlist {
-    margin-top: -1.25rem;
+    @apply mt-5;
   }
 
   &:focus-within {
-    border-color: var(--primary-accent);
+    @apply border-accent;
   }
 
   > .input-box { // div with styling hook
-    @apply mx-4 flex items-center;
-
-    height: 100%;
-    position: relative;
-    overflow-x: hidden;
-    text-overflow: ellipsis;
+    @apply mx-4 flex items-center h-full relative overflow-ellipsis overflow-x-hidden;
 
     input:not(:focus)::placeholder {
-      transition: color 200ms;
-      color: transparent;
+      @apply text-transparent transition-colors duration-200;
     }
 
     @mixin label-focused {
-      color: var(--primary-accent) !important;
-      transform: translate(0, -250%) scale(0.75);
+      @apply text-accent;
+      //transform: translate(0, -250%) scale(0.75);
       max-width: 130%;
     }
 
 
     @mixin label-resting {
-      transform-origin: top left;
-      text-align: left;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      max-width: 100%;
+      @apply text-left whitespace-nowrap overflow-ellipsis overflow-hidden max-w-full;
+      @apply origin-top-left
     }
 
     @mixin label-transition {
@@ -91,13 +82,10 @@ $input-height: 50px;
       @include label-focused;
     }
 
-    input:focus + label,
     input:not(:placeholder-shown) + label,
     .ts-wrapper.focus + label,
     .ts-wrapper.has-items + label,
-    textarea:focus + label,
     textarea:not(:placeholder-shown) + label,
-    input:-webkit-autofill + label,
     input:-webkit-autofill:hover + label,
     input:-webkit-autofill:focus + label,
     textarea:-webkit-autofill + label,
@@ -128,7 +116,7 @@ $input-height: 50px;
 
     @-moz-document url-prefix() {
       .password + label {
-        display: none;
+        @apply hidden;
       }
 
       .password input::placeholder {
@@ -138,22 +126,13 @@ $input-height: 50px;
 
 
     .ts-wrapper {
-      @apply ring-0;
-
-      width: 100%;
+      @apply ring-0 w-full left-0 border bg-transparent pr-0;
       height: $input-height;
-      left: 0;
       border-radius: 5px;
-      border: 1px;
-      background: transparent;
-      padding-right: 0;
 
       .ts-control {
-        border: 0;
-        width: 100%;
-        background-color: transparent;
+        @apply border-none w-full bg-transparent pl-0;
         padding-top: 20px;
-        padding-left: 0;
       }
 
       .ts-dropdown {
@@ -163,12 +142,12 @@ $input-height: 50px;
         width: calc(100% + 44px);
 
         .ts-dropdown-content {
-          padding: 0;
+          @apply p-0;
 
           .option {
+            @apply m-1;
             line-height: 48px;
             border-radius: 6px;
-            margin: 4px;
           }
         }
       }
@@ -176,27 +155,20 @@ $input-height: 50px;
 
     input,
     textarea {
-      @apply px-0 ring-0;
+      @apply px-0 ring-0 w-full bg-transparent border border-transparent ease-in;
 
       padding-right: 22px;
-      width: 100%;
-      height: 50px;
+      height: $input-height;
       border-radius: 5px;
-      border: 1px;
-      background: transparent;
       transition: padding 0.3s;
 
       &:not(:placeholder-shown) {
-        padding-top: 20px;
-      }
-
-      &:focus {
-        padding-top: 20px;
+        @apply pt-5;
       }
     }
 
     textarea {
-      margin-top: 20px;
+      @apply mt-5;
       padding-top: 0 !important;
       border: 0 !important;
     }
@@ -210,18 +182,13 @@ $input-height: 50px;
     select:-webkit-autofill,
     select:-webkit-autofill:hover,
     select:-webkit-autofill:focus {
-      background-clip: text;
+      @apply bg-clip-text;
       font-size: inherit;
     }
 
 
     label {
-      @apply absolute pointer-events-none block;
-
-      display: block;
-      position: absolute;
-      pointer-events: none;
-      top: 0;
+      @apply absolute pointer-events-none block top-0;
       line-height: $input-height;
       transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms, transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
       color: var(--slate);
@@ -265,8 +232,8 @@ $input-height: 50px;
 
   .ts-control {
     input {
+      @apply w-auto;
       height: inherit;
-      width: auto;
     }
   }
 
@@ -275,18 +242,16 @@ $input-height: 50px;
     border-radius: 8px;
 
     .active {
+      @apply bg-silver font-semibold text-accent;
       background-color: var(--silver);
-      font-weight: 600;
-      color: var(--primary-accent);
     }
 
     .option {
-      padding-left: 16px;
-      margin: 4px;
+      @apply pl-4 m-1;
     }
 
     .ts-dropdown-content {
-      padding: 0;
+      @apply p-0;
 
       .option {
         line-height: 48px;
