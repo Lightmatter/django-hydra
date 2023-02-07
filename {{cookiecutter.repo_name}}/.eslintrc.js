@@ -6,8 +6,8 @@ module.exports = {
   },
   "extends": [
     "plugin:@typescript-eslint/recommended",
-    //TODO: Fix typechecking issues in main.ts and util to use this
-    //'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    // TODO: Fix typechecking issues in main.ts and util to use this
+    // 'plugin:@typescript-eslint/recommended-requiring-type-checking',
     "airbnb-base",
   ],
   "parserOptions": {
