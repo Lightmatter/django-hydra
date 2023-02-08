@@ -13,7 +13,6 @@
     "lib": ["esnext", "dom"]
   },
   "include": [
-    ".*.js",
     "{{cookiecutter.repo_name}}/static_source/**/*.ts",
     "{{cookiecutter.repo_name}}/static_source/**/*.d.ts",
     "{{cookiecutter.repo_name}}/static_source/**/*.tsx",
@@ -23,6 +22,8 @@
     "{{cookiecutter.repo_name}}/templates/**/*.d.ts",
     "{{cookiecutter.repo_name}}/templates/**/*.tsx",
     "{{cookiecutter.repo_name}}/templates/**/*.vue",
-    "{{cookiecutter.repo_name}}/templates/**/*.js"
+    "{{cookiecutter.repo_name}}/templates/**/*.js",
+    "./*.js",
+    "./*.ts"
   ]
 }
