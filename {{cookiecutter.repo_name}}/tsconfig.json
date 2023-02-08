@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
-    "types": [
-      "vite/client"
-    ],
+    "types": ["vite/client"],
     "target": "es6",
     "useDefineForClassFields": true,
     "module": "esnext",
@@ -12,10 +10,19 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "lib": [
-      "esnext",
-      "dom"
-    ],
+    "lib": ["esnext", "dom"]
   },
-  "include": ["frontend/**/*.ts", "frontend/**/*.d.ts", "frontend/**/*.tsx", "frontend/**/*.vue", "frontend/**/*.js"]
+  "include": [
+    ".*.js",
+    "{{cookiecutter.repo_name}}/static_source/**/*.ts",
+    "{{cookiecutter.repo_name}}/static_source/**/*.d.ts",
+    "{{cookiecutter.repo_name}}/static_source/**/*.tsx",
+    "{{cookiecutter.repo_name}}/static_source/**/*.vue",
+    "{{cookiecutter.repo_name}}/static_source/**/*.js",
+    "{{cookiecutter.repo_name}}/templates/**/*.ts",
+    "{{cookiecutter.repo_name}}/templates/**/*.d.ts",
+    "{{cookiecutter.repo_name}}/templates/**/*.tsx",
+    "{{cookiecutter.repo_name}}/templates/**/*.vue",
+    "{{cookiecutter.repo_name}}/templates/**/*.js"
+  ]
 }

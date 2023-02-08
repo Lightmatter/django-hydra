@@ -6,8 +6,8 @@ module.exports = {
   },
   "extends": [
     "plugin:@typescript-eslint/recommended",
-    //TODO: Fix typechecking issues in main.ts and util to use this
-    //'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    // TODO: Fix typechecking issues in main.ts and util to use this
+    // 'plugin:@typescript-eslint/recommended-requiring-type-checking',
     "airbnb-base",
   ],
   "parserOptions": {
@@ -24,7 +24,7 @@ module.exports = {
     "import/resolver": {
       "alias": {
         "map": [
-          ["@", "./frontend"],
+          ["@", "./{{cookiecutter.repo_name}}/static_source"],
         ],
       },
       "node": {

@@ -1,7 +1,7 @@
 # pylint: skip-file
+from ..jinja2 import options
 from .base import *  # noqa
 from .base import env
-from ..jinja2 import options
 
 # GENERAL
 # ------------------------------------------------------------------------------
