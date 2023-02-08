@@ -1,13 +1,10 @@
 import focus from "@alpinejs/focus";
 import mask from "@alpinejs/mask";
+import ui from "@alpinejs/ui";
 
 import "htmx.org";
 import Alpine from "alpinejs";
 import Cookies from "js-cookie";
-import "./components/modal";
-import "./components/flyout";
-import "./components/select";
-import "./links";
 
 if (import.meta.env.MODE !== "development") {
   // // @ts-expect-error  // this whole system is broken w/ vite
@@ -26,7 +23,7 @@ htmx.config.scrollBehavior = "auto";
 
 
 htmx.defineExtension("get-csrf", {
-  onEvent: function (name: string, evt: any) {
+  onEvent(name: string, evt: any) {
     if (name === "htmx:configRequest") {
       evt.detail.headers["X-CSRFToken"] = Cookies.get("{{cookiecutter.repo_name}}_csrftoken");
     }
@@ -42,5 +39,6 @@ if (import.meta.hot) {
 
 window.Alpine = Alpine;
 Alpine.plugin(focus);
-Alpine.plugin(mask)
+Alpine.plugin(mask);
+Alpine.plugin(ui);
 Alpine.start();

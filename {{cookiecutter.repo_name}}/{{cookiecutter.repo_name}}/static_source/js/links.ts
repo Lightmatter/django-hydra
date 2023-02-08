@@ -1,4 +1,4 @@
-function isExternalLink(link: HTMLAnchorElement) {
+export function isExternalLink(link: HTMLAnchorElement) {
   const { href } = link;
 
   return !(
@@ -12,10 +12,10 @@ function isExternalLink(link: HTMLAnchorElement) {
   );
 }
 
-function isCurrentPage(link: HTMLAnchorElement) {
+export function isCurrentPage(link: HTMLAnchorElement) {
   const currentUrl = window.location.href;
   const currentPath = window.location.pathname;
-  const { href } = link;
+  const href = link.href.split("#")[0];
 
   return href === currentUrl || href === currentPath;
 }
@@ -36,5 +36,7 @@ export default function linksInit() {
   });
 }
 
-document.addEventListener("htmx:pushedIntoHistory", linksInit);
-document.addEventListener("DOMContentLoaded", linksInit);
+if (typeof document !== "undefined") {
+  document.addEventListener("htmx:pushedIntoHistory", linksInit);
+  document.addEventListener("DOMContentLoaded", linksInit);
+}

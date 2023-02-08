@@ -58,13 +58,13 @@ cookiecutter = "^2.1.1"
 black = "^22.10.0"
 isort = "^5.10.1"
 djlint = "^1.19.3"
-pydocstyle = "^6.1.1"
+pydocstyle = "^6.3.0"
 pylint-django = "^2.5.3"
 pylint-celery = "^0.3"
 ruff = "^0.0.216"
 
 [tool.poetry.group.test.dependencies]
-pytest = "^7.2.0"
+pytest = "^7.2.1"
 pytest-django = "^4.5.2"
 pytest-playwright = "^0.3.0"
 
@@ -214,8 +214,11 @@ max-line-length = 139
 
 [tool.djlint]
 ignore = ["H006", "H023", "T002"]
-profile = "django"
+profile = "jinja"
 indent = 2
+max_line_length=92
+max_attribute_length=6
+use_gitignore=true
 
 [tool.pytest.ini_options]
 python_files = ["tests.py", "test_*.py", "*_tests.py"]
