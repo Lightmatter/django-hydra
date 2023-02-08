@@ -9,8 +9,8 @@
   "domain_name": "example.com",
   "version": "0.1.0",
   "_copy_without_render": [
-    "{{cookiecutter.repo_name}}/templates/**/*.html",
-    "{{cookiecutter.repo_name}}/templates/**/*.jinja",
+    "{{cookiecutter.repo_name}}/**/*.jinja",
+    "{{cookiecutter.repo_name}}/**/*.html",
     "{{cookiecutter.repo_name}}/templates/**/*.txt"
   ]
 }
