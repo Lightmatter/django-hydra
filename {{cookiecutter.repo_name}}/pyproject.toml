@@ -58,12 +58,12 @@ cookiecutter = "^2.1.1"
 black = "^22.10.0"
 isort = "^5.10.1"
 djlint = "^1.19.3"
-pydocstyle = "^6.1.1"
+pydocstyle = "^6.3.0"
 pylint-django = "^2.5.3"
 pylint-celery = "^0.3"
 
 [tool.poetry.group.test.dependencies]
-pytest = "^7.2.0"
+pytest = "^7.2.1"
 pytest-django = "^4.5.2"
 pytest-playwright = "^0.3.0"
 
