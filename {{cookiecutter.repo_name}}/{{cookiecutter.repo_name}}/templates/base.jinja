@@ -1,26 +1,32 @@
 <!DOCTYPE HTML>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
-        <meta name="description" content="" />
-        <meta name="keywords" content="" />
-        <meta http-equiv="x-ua-compatible" content="ie=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+        <meta charset="utf-8"/>
+        <meta name="description"
+              content=""/>
+        <meta name="keywords"
+              content=""/>
+        <meta http-equiv="x-ua-compatible"
+              content="ie=edge"/>
+        <meta name="viewport"
+              content="width=device-width, initial-scale=1.0"/>
         {% block opengraph %}
             {% from 'components/open_graph_tags.jinja' import og_tags %}
-            {{og_tags(title="TODO | Home", url="TODO", description="TODO", image_url="TODO")}}
-        {% endblock %}
-
+            {{ og_tags(title="TODO | Home", url="TODO", description="TODO", image_url="TODO")}}
+        {% endblock opengraph %}
         <link rel="icon" href={{ static("img/favicons/favicon.ico") }} />
-
         {{ vite_hmr_client() }}
         {{ vite_asset('css/styles.js') }}
+        {{ vite_asset('js/account.ts') }}
         {{ vite_asset('js/components.ts') }}
+        {{ vite_asset('js/forms.ts') }}
         {{ vite_asset('js/links.ts') }}
         {{ vite_asset('js/main.ts') }}
         {{ django_htmx_script() }}
-        <title>{% block title required %}{% endblock title %} - Lightmatter</title>
+        <title>
+            {% block title required %}
+            {% endblock title %}
+        - Lightmatter</title>
         {% block extra_head %}
         {% endblock extra_head %}
     </head>
@@ -32,7 +38,8 @@
         <div id="app">
             {% block content %}
             {% endblock content %}
-            <ul class="messages" id="messages">
+            <ul class="messages"
+                id="messages">
                 {% include "util/messages.jinja" %}
             </ul>
         </div>

@@ -164,8 +164,11 @@ max-line-length = 139
 
 [tool.djlint]
 ignore = ["H006", "H023", "T002"]
-profile = "django"
+profile = "jinja"
 indent = 2
+max_line_length=92
+max_attribute_length=6
+use_gitignore=true
 
 [tool.pytest.ini_options]
 python_files = ["tests.py", "test_*.py", "*_tests.py"]

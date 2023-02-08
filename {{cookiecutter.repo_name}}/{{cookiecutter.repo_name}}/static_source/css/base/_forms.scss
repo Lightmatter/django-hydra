@@ -108,11 +108,13 @@ $input-height: 50px;
     }
 
     // firefox does not support has queries, so turn off the label behavior there
-    .password:has(input) + label {
+    .password:has(input) + label,
+    .input:has(input) + label {
       @include label-resting;
     }
 
-    .password:has(input:focus) + label {
+    .password:has(input:focus) + label,
+    .input:has(input:focus) + label {
       @include label-focused;
     }
 
@@ -120,16 +122,23 @@ $input-height: 50px;
     .password:has(input:not(:placeholder-shown)) + label,
     .password:has(input:-webkit-autofill) + label,
     .password:has(input:-webkit-autofill:hover) + label,
-    .password:has(input:-webkit-autofill:focus) + label {
+    .password:has(input:-webkit-autofill:focus) + label,
+    .input:has(input:focus) + label,
+    .input:has(input:not(:placeholder-shown)) + label,
+    .input:has(input:-webkit-autofill) + label,
+    .input:has(input:-webkit-autofill:hover) + label,
+    .input:has(input:-webkit-autofill:focus) + label {
       @include label-transition;
     }
 
     @-moz-document url-prefix() {
-      .password + label {
+      .password + label,
+      .input + label {
         display: none;
       }
 
-      .password input::placeholder {
+      .password input::placeholder,
+      .input input::placeholder {
         color: var(--slate);
       }
     }
@@ -175,7 +184,6 @@ $input-height: 50px;
     textarea {
       @apply px-0 ring-0;
 
-      padding-right: 22px;
       width: 100%;
       height: 50px;
       border-radius: 5px;
@@ -189,6 +197,16 @@ $input-height: 50px;
 
       &:focus {
         padding-top: 20px;
+      }
+
+      @-moz-document url-prefix() {
+        &:not(:placeholder-shown) {
+          padding-top: 8px;
+        }
+
+        &:focus {
+          padding-top: 8px;
+        }
       }
     }
 
@@ -219,8 +237,8 @@ $input-height: 50px;
       pointer-events: none;
       top: 0;
       line-height: $input-height;
-      transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
-        transform 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+      transition: color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+      transform: 200ms cubic-bezier(0, 0, 0.2, 1) 0ms;
       color: var(--slate);
     }
   }
