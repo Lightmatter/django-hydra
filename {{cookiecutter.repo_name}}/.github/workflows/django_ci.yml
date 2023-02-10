@@ -102,17 +102,9 @@ jobs:
           python-version-file: ".python-version"
           cache: "poetry"
 
-      - run: poetry env use ${{ steps.setup_python.outputs.python-version }}
-
-      - name: Load cached venv
-        id: cached-poetry-dependencies
-        uses: actions/cache@v3
-        with:
-          path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
-
       - name: Install dependencies
         run: |
+          poetry env use ${{ steps.setup_python.outputs.python-version }}
           poetry install --no-interaction --no-root
           poetry run playwright install chromium
 
