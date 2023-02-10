@@ -103,7 +103,6 @@ jobs:
           cache: "poetry"
 
       - name: Install + build NPM
-        working-directory: ./sampleapp
         run: |
           npm ci
           npm run build
