@@ -83,13 +83,13 @@ Configuring environment variables
 
 Before you may develop on the app itself you will need a ``.env`` file.
 
-Provided in the template is a ``.env.example`` which can be copy and pasted into a new ``.env`` file.
+Provided in the template is a ``.env.example`` which can be copy and pasted into a new ``.env`` file if setting up the project manually.
 
 This template leverages this file using the dotenv JavaScript library as part of Vite.
 
 .. note::
 
-    When a new project is created via ``create_new_project.sh``, the ``.env.example`` will be copied to new instance under ``.env``.
+    When following the steps above, the ``.env.example`` will be copied to new instance under ``.env`` automatically by the respective setup script.
 
 Accessing Environment Variables in Python
 ------------------------------------------
