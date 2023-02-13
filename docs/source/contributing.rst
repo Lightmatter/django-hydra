@@ -1,19 +1,35 @@
 Contributing to the Template
 ============================
 
-First, create an instance of the template using cookiecutter. Create changes in the sample app, and commit to git on a new feature branch.
 
-Then go back into the `django-hydra` folder and run:
+1. Ensure git is configured globally to use ``main`` as the default branch name.
 
-1) `git config --global init.defaultBranch main`. When using this command, `main` should be the name of the primary branch of the instantiated project, not the primary branch of the template.
-2) `retrocookie --branch=your-branch-name ../your-project-name`
+    .. code-block:: console
 
-This will attempt to take the git diff of the prior commit and apply it back to the template.
+        $ git config --global init.defaultBranch main
 
-.. warning::
 
-    When adding new dependencies to a project, always delete the `poetry.lock` file and recreate it before committing, otherwise it won't merge correctly.
-    The documentation for retrocookie is here: https://pypi.org/project/retrocookie/
+2. Follow the steps in :ref:`setup` to create a new project.
+
+3. Make your changes in this new project, then commit to git on a new feature branch.
+
+4. From this project's directory (default ``django-hydra``) run retrocookie.
+
+    This will attempt to take the git diff of the prior commit and apply it back to the template.
+
+    .. code-block:: console
+
+        $ poetry shell # enter the poetry virtual env first
+        $ retrocookie --branch=your-branch-name ../your-project-name
+
+
+    .. warning::
+
+        When adding new dependencies to a project, always delete the `poetry.lock` file and recreate it before committing, otherwise it won't merge correctly.
+
+        Additionally, retrocookie does not currently support ignoring jinja syntax. Therefore you will need to manually backport any changes to jinja templates.
+
+        The documentation for retrocookie is here: https://pypi.org/project/retrocookie/
 
 
 Upcoming Features
