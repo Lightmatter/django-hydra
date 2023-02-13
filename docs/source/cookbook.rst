@@ -39,9 +39,11 @@ Hydra makes it easy to customize Django forms to suit your needs.
 Custom Layouts
 **************
 
-When including a form in a template, you can customize the layout of the form
-as rendered in the template by creating another template file with ``_form`` appended to the
-name of the parent template (e.g. for ``login.jinja``, the form template is ``login_form.jinja``).
+When including a form in a template, you can customize the layout of the form by setting a template_name
+in the form that is provided to your view.
+
+By default Hydra does this with several forms and by convention the names of these templates have ``_form``
+appended to the name of the parent template (e.g. for ``login.jinja``, the form template is ``login_form.jinja``).
 
 In this form template you can adjust what django widgets are used for each field within the form.
 For example:
