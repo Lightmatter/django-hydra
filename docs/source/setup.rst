@@ -1,3 +1,5 @@
+.. _setup:
+
 Setting Up a Hydra Project
 ==========================
 
@@ -10,111 +12,103 @@ These both do pretty much what they say, however here is an expanded list of wha
 * Run the django migrations
 * Setup git
 
-You should now follow the below guide depending on whether you are setting up a new project entirely, or getting spun up on a new one.
-
-If you are setting up a new project from scratch
--------------------------------------------------
-
-Run the below commands in order:
-
-The recommended start pattern is described below. The create_new_project.sh command will:
-
-* Create a poetry/direnv virtual environment
-* install python and js requirements (dev and regular) via poetry and npm (or optionally yarn)
-* create a database
-* run the migrations
-* and setup git
-
-1. Clone the template
-
-.. code-block:: console
-
-    $ git clone https://github.com/Lightmatter/django-hydra
-
-
-2. Use cookiecutter to create a new version of the project. It will ask you some questions about which integrations you might want. Once you've answered all the questions/prompts, the project creation script (create_new_project.sh) will be run automatically by cookiecutter and should install all dependencies and run all necessary setup. If the new project is created but the creation script fails, you can run `./scripts/create_new_project.sh` from within the new project directory.
-
-.. code-block:: console
-
-    $ cookiecutter django-hydra
+Follow the below guide to set up a new project or get started on an existing one.
 
 .. note::
 
-    This command should be run from the directory containing/directly above the django-hydra directory
+    If you're getting set up on an existing project, skip to step 4b.
+
+1. Clone the template
+
+    .. code-block:: console
+
+        $ git clone https://github.com/Lightmatter/django-hydra.git
+
+
+2. Use cookiecutter to create a new version of the project.
+
+    .. warning::
+
+        This command should be run from this project's parent directory.
+
+
+    .. code-block:: console
+
+        $ cookiecutter django-hydra
+
+    Cookiecutter will ask you some questions about which integrations you might want.
+
 
 3. Navigate into the project directory that you just created
 
-.. code-block:: console
+    .. code-block:: console
 
-    $ cd <project_name>
+        $ cd <project_name>
 
-4. Run Django server with runserver_plus
+4. Set up the project
 
-.. code-block:: console
+    a. For a new project:
 
-    $ ./manage.py runserver_plus
+    .. code-block:: console
 
-4. In a new shell tab/window navigate to the project directory and run the vite server
+        $ ./scripts/create_new_project.sh
 
-.. code-block:: console
 
-    $ npm run dev
+    b. For an existing project
 
-5. You will now be able to view the project at http://127.0.0.1:8000/ or http://localhost:8000
+    .. code-block:: console
 
-If you are settiing up a project that someone else created
------------------------------------------------------------
+        $ ./scripts/setup_existing_project.sh
 
-Run the below commands in order:
 
-The recommended start pattern is described below. The setup_existing_project.sh command will:
+5. Run Django server with runserver_plus
 
-* install python and js requirements (dev and regular) via poetry and (or optionally yarn)
-* create a database
-* run the migrations
-* and setup git
+    .. code-block:: console
 
-1. Grant permissions to the `setup_existing_project.sh`
+        $ ./manage.py runserver_plus
 
-.. code-block:: console
+6. In a new shell tab/window navigate to the project directory and run the vite server
 
-    $ chmod +x ./scripts/setup_existing_project.sh
+    .. code-block:: console
 
-2. Execute the `setup_existing_project` script
+        $ npm run dev
 
-.. code-block:: console
+6. View the project in your browser
 
-    $ ./scripts/setup_existing_project.sh
-
-3. Run Django server with runserver_plus
-
-.. code-block:: console
-
-    $ ./manage.py runserver_plus
-
-4. In a new shell tab/window navigate to the project directory and run the vite server with npn run dev
-
-.. code-block:: console
-
-    $ npm run dev
-
-5. You will now be able to view the project at http://127.0.0.1:8000/ or http://localhost:8000
+    Open your preferred browser to http://127.0.0.1:8000/ or http://localhost:8000
 
 
 Configuring environment variables
 ==================================
 
-Before you may develop on the app itself you will need a ``.env`` file. Provided in the template is a ``.env.example`` which can be copy and pasted into a new .env file. It is worth noting that when a new project is created via ``create_new_project.sh``, the ``.env.example`` will be copied to new instance under ``.env``. This template leverages this file using the dotenv JavaScript library as part of Vite.
+Before you may develop on the app itself you will need a ``.env`` file.
+
+Provided in the template is a ``.env.example`` which can be copy and pasted into a new ``.env`` file.
+
+This template leverages this file using the dotenv JavaScript library as part of Vite.
+
+.. note::
+
+    When a new project is created via ``create_new_project.sh``, the ``.env.example`` will be copied to new instance under ``.env``.
 
 Accessing Environment Variables in Python
 ------------------------------------------
 
-Env vars are available in all settings file, more details `here <https://django-environ.readthedocs.io/en/latest/index.html>`_
+Environment vars are available in all settings file, more details `here <https://django-environ.readthedocs.io/en/latest/index.html>`_
 
 Accessing Environment Variables in JavaScript/TypeScript
 ---------------------------------------------------------
 
-Env vars are available in all .js files and html script tags using the global var import.meta.env.{VARIABLE_NAME}, `more details here <https://vitejs.dev/guide/env-and-mode.html>`_
+Environment vars prefixed with ``VITE_`` are available in all .js files and html script tags
+using the special ``import.meta.env`` object.
+
+This can be used like so:
+
+.. code-block:: js
+
+    import.meta.env.VARIABLE_NAME // note the removal of the `VITE_` prefix
+
+`more details here <https://vitejs.dev/guide/env-and-mode.html>`_
 
 Installing
 ===========
