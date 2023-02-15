@@ -1,5 +1,5 @@
-{% macro multiple_input(optgroups, id="", class="", attrs={}) %}
-    <div class="flex flex-col items-start{% if class %} {{class}}{% endif %}"{% if id %} id="{{id}}"{% endif %}>
+{% macro multiple_input(optgroups, attrs={}) %}
+    <div class="flex flex-col items-start{% if attrs.class %} {{attrs.class}}{% endif %}"{% if attrs.id %} id="{{attrs.id}}"{% endif %}>
         {% for group, options, index in widget.optgroups %}
             {% if group %}<div><label>{{ group }}</label>{% endif %}
             {% for widget in options %}
@@ -13,5 +13,5 @@
 {% endmacro %}
 {# takes a django widget and calls our input macro with the appropriate args #}
 {% macro widget_to_multiple_input(widget) %}
-    {{ multiple_input(optgroups=widget.optgroups, id=widget.attrs.id, class=widget.attrs.class, attrs=widget.attrs)}}
+    {{ multiple_input(optgroups=widget.optgroups, attrs=widget.attrs)}}
 {% endmacro %}
