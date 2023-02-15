@@ -95,7 +95,7 @@ The jinja macro is defined in ``templates/forms``
         {% set disabled, readonly = attrs.disabled, attrs.readonly %}
         {% set noedit = disabled or readonly %}
         <input
-            {% set _ = attrs.update({"type": type, "name": name, "value": value}) %}
+            {% do attrs.update({"type": type, "name": name, "value": value}) %}
             {{ attributes(attrs) }}
         />
     {% endmacro %}
