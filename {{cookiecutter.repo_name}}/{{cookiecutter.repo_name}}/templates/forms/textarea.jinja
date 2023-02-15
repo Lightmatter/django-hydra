@@ -4,7 +4,7 @@
          class="w-full input">
         <textarea
             x-model.debounce.500ms="value"
-            {% set _ = attrs.update({"type": type, "name": name, "value": value}) %}
+            {% do attrs.update({"type": type, "name": name, "value": value}) %}
             {{ attributes(attrs)}}
         >
             {% if value %}{{value}}{% endif %}
