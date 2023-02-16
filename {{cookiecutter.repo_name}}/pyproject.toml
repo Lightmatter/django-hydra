@@ -62,6 +62,7 @@ pydocstyle = "^6.3.0"
 pylint-django = "^2.5.3"
 pylint-celery = "^0.3"
 ruff = "^0.0.216"
+django-pattern-library = { git = "https://github.com/gone/django-pattern-library.git", branch = "jinja" }
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.2.1"

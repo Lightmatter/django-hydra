@@ -1,0 +1,4 @@
+context:
+    jpl_url: "https://example.com/"
+    jpl_text: "Example Link"
+    jpl_target: "_blank"

@@ -50,3 +50,7 @@
     {% endif %}
     </{{ wrapper_element }}>
 {% endmacro %}
+
+{% if is_pattern_library %}
+    {{ field(input) }}
+{% endif %}

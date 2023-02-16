@@ -1,11 +1,11 @@
-<!-- adapted from https://tailwind-elements.com/snippets/tailwind/tailwindelements/3548499#html-tab-view -->
+{# adapted from https://tailwind-elements.com/snippets/tailwind/tailwindelements/3548499#html-tab-view #}
 <div class="shadow-lg rounded-lg overflow-hidden m-10" id="random-chart">
     <div class="py-3 px-5 bg-gray-50">Random Chart</div>
     <canvas class="p-10" id="chartLine"></canvas>
 </div>
-<!-- Required chart.js -->
+{# Required chart.js #}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<!-- Chart line -->
+{# Chart line #}
 {% script type="application/javascript" async=False %}
 <script>
   { // the reason this is in a module is so there are no variable redeclaration errors

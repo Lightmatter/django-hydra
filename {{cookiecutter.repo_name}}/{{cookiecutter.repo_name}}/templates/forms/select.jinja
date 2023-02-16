@@ -39,3 +39,7 @@
 {% macro widget_to_select(widget) %}
     {{select( name=widget.name, value=widget.value, optgroups=widget.optgroups, attrs=widget.attrs )}}
 {% endmacro %}
+
+{% if is_pattern_library %}
+    {{widget_to_select(jplwidget)}}
+{% endif %}
