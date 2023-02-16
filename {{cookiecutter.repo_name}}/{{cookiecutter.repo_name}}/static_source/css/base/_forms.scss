@@ -208,6 +208,9 @@ $input-height: 50px;
           padding-top: 8px;
         }
       }
+      &[type=file] {
+        height: 56px;
+      }
     }
 
     textarea {

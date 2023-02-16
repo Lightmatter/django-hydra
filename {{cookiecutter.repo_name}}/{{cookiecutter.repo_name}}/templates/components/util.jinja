@@ -1,7 +1,9 @@
 {% macro attributes(kwargs={}) %}
-    {% for name, value in kwargs.items() %}
-        {% if value %}
-            {{ name }}{% if value is not sameas True %}="{{ value }}"{% endif %}
-        {% endif %}
-    {% endfor %}
+    {% if kwargs != None %}
+        {% for name, value in kwargs.items() %}
+            {% if value %}
+                {{ name }}{% if value is not sameas True %}="{{ value }}"{% endif %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 {% endmacro %}

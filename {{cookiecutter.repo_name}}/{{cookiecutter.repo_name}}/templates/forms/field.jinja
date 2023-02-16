@@ -36,7 +36,7 @@
     <{{ wrapper_element }} class="{{ layout_classes }} {{ field.css_classes() }}">
     {% if field.widget_type == "toggle" %}
         {{ boolean_shell(field, errors)}}
-    {% elif field.widget_type == "radioselect" %}
+    {% elif field.widget_type in ["radioselect", "checkboxselectmultiple"] %}
         <legend>
             {{ field.label }}
         </legend>
