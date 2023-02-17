@@ -103,7 +103,8 @@ $input-height: 50px;
     textarea:-webkit-autofill:focus + label,
     select:-webkit-autofill + label,
     select:-webkit-autofill:hover + label,
-    select:-webkit-autofill:focus + label {
+    select:-webkit-autofill:focus + label,
+    .input:has(textarea:focus) + label {
       @include label-transition;
     }
 
@@ -118,6 +119,14 @@ $input-height: 50px;
       @include label-focused;
     }
 
+    .input:has(textarea) + label {
+      @include label-resting;
+    }
+
+    .input:has(textarea:focus) + label {
+      @include label-focused;
+    }
+
     .password:has(input:focus) + label,
     .password:has(input:not(:placeholder-shown)) + label,
     .password:has(input:-webkit-autofill) + label,
@@ -128,6 +137,13 @@ $input-height: 50px;
     .input:has(input:-webkit-autofill) + label,
     .input:has(input:-webkit-autofill:hover) + label,
     .input:has(input:-webkit-autofill:focus) + label {
+      @include label-transition;
+    }
+    .input:has(textarea:focus) + label,
+    .input:has(textarea:not(:placeholder-shown)) + label,
+    .input:has(textarea:-webkit-autofill) + label,
+    .input:has(textarea:-webkit-autofill:hover) + label,
+    .input:has(textarea:-webkit-autofill:focus) + label {
       @include label-transition;
     }
 
