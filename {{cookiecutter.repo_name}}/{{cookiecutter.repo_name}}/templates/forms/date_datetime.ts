@@ -13,7 +13,7 @@ const dateTime = (eventName: string, value: string, enableTime: boolean): Alpine
     }
 
     // see https://flatpickr.js.org/formatting/
-    const dateFormat = enableTime ? "m/d/Y" : "m/d/Y H:i";
+    const dateFormat = enableTime ? "m/d/Y H:i" : "m/d/Y";
 
     const picker = flatpickr(this.$refs.picker, {
       mode: "single",
