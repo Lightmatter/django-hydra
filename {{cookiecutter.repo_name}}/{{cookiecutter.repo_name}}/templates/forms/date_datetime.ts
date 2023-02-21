@@ -1,18 +1,24 @@
 import AlpineInstance, { AlpineComponent } from "alpinejs";
 import flatpickr from "flatpickr";
+import "flatpickr/dist/themes/light.css";
 import { AlpineDataCallback } from "../../static_source/js";
 
-const date = (eventName: string, value: string): AlpineComponent => ({
+const dateTime = (eventName: string, value: string, enableTime: boolean): AlpineComponent => ({
   eventName,
   value,
+  enableTime,
   init() {
     if (this.value === "None") {
       this.value = null;
     }
 
+    // see https://flatpickr.js.org/formatting/
+    const dateFormat = enableTime ? "m/d/Y" : "m/d/Y H:i";
+
     const picker = flatpickr(this.$refs.picker, {
       mode: "single",
-      dateFormat: "m/d/Y", // see https://flatpickr.js.org/formatting/,
+      enableTime,
+      dateFormat,
       defaultDate: value,
       onChange: (_, dateString) => {
         this.value = dateString;
@@ -26,4 +32,4 @@ const date = (eventName: string, value: string): AlpineComponent => ({
   },
 });
 
-AlpineInstance.data("date", date as AlpineDataCallback);
+AlpineInstance.data("dateTime", dateTime as AlpineDataCallback);
