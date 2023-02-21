@@ -31,16 +31,24 @@
         <div class="{{ input_widget_hook(field) }}">{{ field }}</div>
     </div>
 {% endmacro %}
+{% macro file_shell(field, errors='') %}
+    <div class="file-field {% if errors %} error{% endif %}">
+        {% if field.label %}{{ field.label_tag() }}{% endif %}
+        <div class="{{ input_widget_hook(field) }}">{{ field }}</div>
+    </div>
+{% endmacro %}
 {% macro field(field, errors='', layout_classes='w-full') %}
     {% set wrapper_element = "fieldset" if field.widget_type == "radioselect" else "div" %}
     <{{ wrapper_element }} class="{{ layout_classes }} {{ field.css_classes() }}">
     {% if field.widget_type == "toggle" %}
         {{ boolean_shell(field, errors)}}
-    {% elif field.widget_type == "radioselect" %}
+    {% elif field.widget_type in ["radioselect", "checkboxselectmultiple"] %}
         <legend>
             {{ field.label }}
         </legend>
         {{ radio_shell(field, errors)}}
+    {% elif "file" in field.widget_type %}
+        {{ file_shell(field, errors)}}
     {% else %}
         {{ input_shell(field, errors)}}
     {% endif %}
