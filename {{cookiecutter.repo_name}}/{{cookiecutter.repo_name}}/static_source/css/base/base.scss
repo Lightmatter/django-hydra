@@ -2,13 +2,14 @@
 @import "typography";
 @import "fonts";
 @import "forms";
-
+@import "flatpickr";
 
 /* sticky footer */
 body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+
   // Example font-family inclusion
   // font-family: "GT Walsheim Pro", sans-serif;
 }

@@ -41,7 +41,7 @@ options = {
     "trim_blocks": True,
     "lstrip_blocks": True,
     "app_dirname": "jinja2",
-    "match_regex": r"^(?!admin/).*",
+    "match_regex": r"^(?!admin).*|^(admin).*split_datetime.html",  # exclude split_datetime.html
     "extensions": DEFAULT_EXTENSIONS + [
         "csp.extensions.NoncedScript",
     ],
