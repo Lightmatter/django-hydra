@@ -23,7 +23,7 @@
     "fast-glob": "^3.2.11",
     "happy-dom": "^8.6.0",
     "postcss": "^8.4.21",
-    "postcss-nested": "^6.0.0",
+    "postcss-nested": "^6.0.1",
     "sass": "^1.58.3",
     "stylelint": "^14.16.1",
     "stylelint-config-standard-scss": "^6.1.0",
