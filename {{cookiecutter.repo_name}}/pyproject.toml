@@ -37,7 +37,7 @@ django-csp = "^3.7"
 [tool.poetry.group.dev.dependencies]
 Werkzeug = "2.0.2"
 coverage = {extras = ["toml"], version = "^6.4.1"}
-ipython = "^8.10.0"
+ipython = "^8.11.0"
 ipdb = "^0.13.9"
 ptpython = "^3.0.20"
 django-debug-toolbar = "^3.2.4"
