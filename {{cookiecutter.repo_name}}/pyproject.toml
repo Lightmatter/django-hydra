@@ -64,7 +64,7 @@ pylint-celery = "^0.3"
 ruff = "^0.0.216"
 
 [tool.poetry.group.test.dependencies]
-pytest = "^7.2.1"
+pytest = "^7.2.2"
 pytest-django = "^4.5.2"
 pytest-playwright = "^0.3.0"
 
