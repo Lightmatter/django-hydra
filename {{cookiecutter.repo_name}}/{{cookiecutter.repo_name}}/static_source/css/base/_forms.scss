@@ -21,7 +21,7 @@ $background-color: #fff;
 
 // label for focused input, Optionally can change the label color of focused element.
 @mixin label-focused {
-  @apply top-0 left-0 pt-2 pb-2 text-xs leading-3;
+  @apply top-0 left-0 pt-2 pb-1 text-xs leading-3;
   width: calc(100% - 0.75rem);
   background-color: $background-color;
 }
@@ -81,14 +81,6 @@ $background-color: #fff;
     &.textarea {
       @apply ml-4;
     }
-    // textarea handles vertical alignment differently from inputs,
-    // so unique styling is needed.
-    textarea {
-      @apply pt-4 pr-3;
-
-      line-height: calc($input-height / 2);
-      height: $textarea-height;
-    }
 
     input,
     textarea {
@@ -105,6 +97,15 @@ $background-color: #fff;
         @apply pointer-events-none;
 
       }
+    }
+
+    // textarea handles vertical alignment differently from inputs,
+    // so unique styling is needed.
+    textarea {
+      @apply pt-4 pr-3;
+
+      line-height: calc($input-height / 2);
+      height: $textarea-height;
     }
 
     .ts-wrapper + label,
