@@ -20,13 +20,8 @@ $border-color: var(--silver);
 $background-color: #fff;
 
 // label for focused input, Optionally can change the label color of focused element.
-@mixin label-focused($text-color:false) {
+@mixin label-focused {
   @apply top-0 left-0 pt-2 pb-2 text-xs leading-3;
-
-  @if $text-color {
-    color: $text-color;
-  }
-
   width: calc(100% - 0.75rem);
   background-color: $background-color;
 }
@@ -89,7 +84,7 @@ $background-color: #fff;
     // textarea handles vertical alignment differently from inputs,
     // so unique styling is needed.
     textarea {
-      @apply pt-4;
+      @apply pt-4 pr-3;
 
       line-height: calc($input-height / 2);
       height: $textarea-height;
@@ -119,15 +114,12 @@ $background-color: #fff;
       @include label-resting;
     }
 
-    .has-focus ~ label,
-    .ts-wrapper.focus + label {
-      @include label-focused($focus-label);
-    }
-
     .ts-wrapper.focus + label,
     .ts-wrapper.has-items + label,
     select:-webkit-autofill:hover + label,
-    select:-webkit-autofill:focus + label {
+    select:-webkit-autofill:focus + label,
+    .has-focus ~ label,
+    .ts-wrapper.focus + label {
       @include label-focused;
     }
 
