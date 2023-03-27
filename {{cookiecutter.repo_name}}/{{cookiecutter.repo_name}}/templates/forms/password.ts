@@ -5,6 +5,16 @@ const password = (eventName: unknown, value: unknown, type: unknown): AlpineComp
   eventName,
   value,
   type,
+  active: false,
+  updateFlag() {
+    const childInput:HTMLInputElement|null = this.$refs.input.querySelector("input, textarea");
+    if (!childInput) {
+      return;
+    }
+    if (!childInput.value) {
+      this.active = !this.active;
+    }
+  },
   init() {
     if (this.value === "None") {
       this.value = "";
