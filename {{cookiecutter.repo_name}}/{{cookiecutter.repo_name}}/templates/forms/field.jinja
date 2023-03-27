@@ -5,6 +5,8 @@
         select
     {%- elif field.widget_type == "radioselect" -%}
         radio
+    {%- elif field.widget_type == "textarea" -%}
+        textarea
     {%- else -%}
         input
     {%- endif -%}
