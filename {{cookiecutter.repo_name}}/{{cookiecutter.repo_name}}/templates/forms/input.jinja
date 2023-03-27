@@ -6,7 +6,7 @@
         x-ref="input"
         :class="active ? 'has-focus' : ''"
          class="w-full input">
-        <input @transitionstart="updateFlag" x-model.debounce.500ms="value" class="{{ input_classes }}" {% do attrs.update({"type": type, "name": name, "value": value}) %} {{ attributes(attrs)}} />
+        <input @focus="updateFlag" @blur="updateFlag" x-model.debounce.500ms="value" class="{{ input_classes }}" {% do attrs.update({"type": type, "name": name, "value": value}) %} {{ attributes(attrs)}} />
     </div>
 {% endmacro %}
 {# takes a django widget and calls our input macro with the appropriate args #}
