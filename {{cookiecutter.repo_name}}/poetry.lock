@@ -148,18 +148,6 @@ six = "*"
 test = ["astroid", "pytest"]
 
 [[package]]
-name = "async-timeout"
-version = "4.0.2"
-description = "Timeout context manager for asyncio programs"
-category = "main"
-optional = false
-python-versions = ">=3.6"
-files = [
-    {file = "async-timeout-4.0.2.tar.gz", hash = "sha256:2163e1640ddb52b7a8c80d0a67a08587e5d245cc9c553a74a847056bc2976b15"},
-    {file = "async_timeout-4.0.2-py3-none-any.whl", hash = "sha256:8ca1e4fcf50d07413d66d1a5e416e42cfdf5851c981d679a09851a6853383b3c"},
-]
-
-[[package]]
 name = "attrs"
 version = "22.2.0"
 description = "Classes Without Boilerplate"
@@ -2706,18 +2694,15 @@ files = [
 
 [[package]]
 name = "redis"
-version = "4.4.1"
+version = "4.5.3"
 description = "Python client for Redis database and key-value store"
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "redis-4.4.1-py3-none-any.whl", hash = "sha256:a721fd4d715fcd947848ed8fa02c2efd8224279979e0b721d9fdac6c4db35e93"},
-    {file = "redis-4.4.1.tar.gz", hash = "sha256:f7a870c44868ab87bbecd6211c6d7c8720b1e9a796b743fbc4725d7ec75651c3"},
+    {file = "redis-4.5.3-py3-none-any.whl", hash = "sha256:7df17a0a2b72a4c8895b462dd07616c51b1dcb48fdd7ecb7b6f4bf39ecb2e94e"},
+    {file = "redis-4.5.3.tar.gz", hash = "sha256:56732e156fe31801c4f43396bd3ca0c2a7f6f83d7936798531b9848d103381aa"},
 ]
-
-[package.dependencies]
-async-timeout = ">=4.0.2"
 
 [package.extras]
 hiredis = ["hiredis (>=1.0.0)"]
@@ -3434,4 +3419,4 @@ testing = ["flake8 (<5)", "func-timeout", "jaraco.functools", "jaraco.itertools"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "86f421bffdd76aae2ae59291d147dd94518aa9acfce783fdf85f2dc7d5ac4693"
+content-hash = "f02550693c16643516628400858040ddd95143ad74fafbc713f854bca42323fb"
