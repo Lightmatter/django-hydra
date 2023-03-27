@@ -75,7 +75,7 @@ $background-color: #fff;
   > .input-box { // div with styling hook
     @apply flex items-center h-full relative overflow-x-hidden overflow-ellipsis;
 
-    &.input {
+    &.input, &.select {
       @apply mx-4;
     }
     &.textarea {
