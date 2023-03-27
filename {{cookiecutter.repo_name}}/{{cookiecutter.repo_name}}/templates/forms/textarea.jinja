@@ -5,7 +5,7 @@
         x-ref="input"
          class="w-full input">
         <textarea
-            x-model.debounce.500ms="value" @focus="updateFlag" @blur="updateFlag"
+            x-model.debounce.500ms="value" @transitionstart="updateFlag"
             {% do attrs.update({"type": type, "name": name, "value": value}) %}
             {{ attributes(attrs)}}
         >
