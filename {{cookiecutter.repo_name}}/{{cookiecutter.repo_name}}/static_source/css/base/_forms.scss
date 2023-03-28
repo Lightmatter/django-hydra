@@ -119,8 +119,7 @@ $background-color: #fff;
     .ts-wrapper.has-items + label,
     select:-webkit-autofill:hover + label,
     select:-webkit-autofill:focus + label,
-    .has-focus ~ label,
-    .ts-wrapper.focus + label {
+    .has-focus ~ label {
       @include label-focused;
     }
 
