@@ -61,7 +61,7 @@ djlint = "^1.19.16"
 pydocstyle = "^6.3.0"
 pylint-django = "^2.5.3"
 pylint-celery = "^0.3"
-ruff = "^0.0.216"
+ruff = "^0.0.261"
 
 [tool.poetry.group.test.dependencies]
 pytest = "^7.2.2"
