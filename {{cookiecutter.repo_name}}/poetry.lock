@@ -1101,14 +1101,14 @@ hiredis = ["redis[hiredis] (>=3,!=4.0.0,!=4.0.1)"]
 
 [[package]]
 name = "django-rich"
-version = "1.4.0"
+version = "1.5.0"
 description = "Extensions for using Rich with Django."
 category = "main"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "django-rich-1.4.0.tar.gz", hash = "sha256:10a5d9e9b62228b683d51584e4c2a5aa9f838176364a90c8cd79688aadca9f4c"},
-    {file = "django_rich-1.4.0-py3-none-any.whl", hash = "sha256:b418926692bf92222006ba846cc2a4aace484401398cd79fde013b11e9a23fa9"},
+    {file = "django_rich-1.5.0-py3-none-any.whl", hash = "sha256:62562169c4117a7e930ddea1a402f0b0afcfa9d296bb5a08fe0fc865c1df590f"},
+    {file = "django_rich-1.5.0.tar.gz", hash = "sha256:cd09c53cf5d9313ef1c06c0ff71297839dc9e239269fa85b4672daf8b6e98a96"},
 ]
 
 [package.dependencies]
@@ -3538,4 +3538,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "eb38f97c3ed40271845bfcbbe299829e4ad8737833211d377bf5206496a31aea"
+content-hash = "8c416609d722624ddbecd388b109156e2f797d9c705424a5cfa9a49e62b0b4d3"
