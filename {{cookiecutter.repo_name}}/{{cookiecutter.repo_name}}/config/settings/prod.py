@@ -12,7 +12,7 @@ from .base import env
 # GENERAL
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS")
+ALLOWED_HOSTS = ["localhost"] + env.list("DJANGO_ALLOWED_HOSTS")
 
 
 # CACHES
@@ -154,6 +154,10 @@ LOGGING = {
     "loggers": {
         # This logs everything to the console - remove if too noisy
         "django": {
+            "handlers": ["console"],
+            "level": "INFO",
+        },
+        "gunicorn": {
             "handlers": ["console"],
             "level": "INFO",
         },
