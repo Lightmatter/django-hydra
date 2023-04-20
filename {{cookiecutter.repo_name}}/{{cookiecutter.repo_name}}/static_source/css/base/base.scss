@@ -1,0 +1,35 @@
+@import "colors";
+@import "typography";
+@import "fonts";
+@import "forms";
+@import "flatpickr";
+
+/* sticky footer */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  // Example font-family inclusion
+  // font-family: "GT Walsheim Pro", sans-serif;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+#app {
+  flex: 1;
+  margin-left: calc(100vw - 100%); /* prevent jump with scroll bar */
+}
+
+#loading-body {
+  position: fixed;
+  top: 50%;
+  z-index: 40;
+}
+
+/* alpine */
+[x-cloak] {
+  display: none !important;
+}

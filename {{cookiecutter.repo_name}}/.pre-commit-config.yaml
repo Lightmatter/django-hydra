@@ -24,14 +24,6 @@ repos:
         - id: doc8
 
   #python
-  - repo: https://github.com/pycqa/isort
-    rev: 5.10.1
-    hooks:
-        - id: isort
-          exclude: .*migrations/.*
-          name: isort
-          types: [python]
-
   - repo: https://github.com/psf/black
     rev: 22.10.0
     hooks:
@@ -48,15 +40,16 @@ repos:
         exclude: .*migrations/.*
         args: [--config=pyproject.toml]
         additional_dependencies:
-            - bandit==1.7.4
-            - flake8-bugbear==22.10.27
-            - flake8-bandit==3.0.0
-            - flake8-builtins==2.0.1
-            - flake8-eradicate==1.4.0
             - flake8-mutable==1.2.0
             - pylint==2.15.7
             - pylint-celery==0.3
             - pylint-django==2.5.3
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    # Ruff version.
+    rev: 'v0.0.215'
+    hooks:
+      - id: ruff
 
   # TODO:  https://github.com/adamchainz/pre-commit-oxipng
 
@@ -65,7 +58,7 @@ repos:
     hooks:
     -   id: stylelint
         name: stylelint
-        files: ^frontend/
+        files: ^{{cookiecutter.repo_name}}/static_source/
         types_or: [css, scss]
         args: [--report-needless-disables, --report-invalid-scope-disables, --fix, --allow-empty-input]
         additional_dependencies:
@@ -73,13 +66,13 @@ repos:
             - stylelint@14.16.0
             - stylelint-config-standard-scss@6.1.0
 
-  ## frontend
+  ## static files
   - repo: https://github.com/pre-commit/mirrors-eslint
     rev: "v8.29.0"
     hooks:
         - id: eslint
           name: eslint
-          files: ^frontend/
+          files: ^{{cookiecutter.repo_name}}/static_source/
           types_or: [javascript, ts]
           args: [--fix]
           additional_dependencies:
@@ -96,7 +89,7 @@ repos:
         - id: tsc
           name: tsc
           entry: npx tsc --noEmit
-          files: ^frontend/
+          files: ^{{cookiecutter.repo_name}}/static_source/
           language: system
           types_or: [javascript, ts]
           pass_filenames: false

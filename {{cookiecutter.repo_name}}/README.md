@@ -7,13 +7,12 @@
 This project is divided into 2 major parts: Alpine.js to provide additional front end functionality and a Django backend.
 It's the Django server is deployed with precompiled static assets
 
-- `/frontend` - The Alpine.js project root, contains static assets (such as CSS and TypeScript) that will be served by Vite
 - `/{{ cookiecutter.project_name }}` - the Django project folder
     - `/config` - Project settings, asgi settings, and base urls
     - `/home` - Handles home page for django, error endpoint, settings context processor
     - `/user` - User related logic, views, models, etc.
     - `/util` - Container for general utility classes, functions, etc.
-    - `/static_source` - for adding assetsthat will be served via python
+    - `/static_source` - for adding assets that will be served via python, Alpine.js project root, contains static assets (such as CSS and TypeScript) that will be served
     - `/templates` - html/htmx templates for all webpages served by the app
 
 # Getting Started

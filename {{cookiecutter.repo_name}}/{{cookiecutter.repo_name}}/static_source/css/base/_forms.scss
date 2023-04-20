@@ -1,0 +1,256 @@
+/* stylelint-disable no-descending-specificity */
+/* stylelint-disable at-rule-no-unknown */
+
+
+/*
+  This file controls the styling for "material" inputs.
+
+  inputs are styled in the order of .field > .input-box > [input]
+  rem units are being used to keep things proportional on the tailwind side,
+  but we have a bit less control over t-s (tom-select) which is being styled using px.
+*/
+
+// base guidelines for styles. All assume a base font size of 16
+$input-height: 3.75rem;                    // 60px
+$textarea-height: calc($input-height * 3); // replace with "auto" to default to HTML rows
+$border-radius: 0.5rem;                    // 8px
+$focus-color: var(--primary-focus);        // Outline of focused text elements
+$focus-label: var(--primary);              // color of focused label
+$border-color: var(--silver);
+$background-color: #fff;
+
+// label for focused input, Optionally can change the label color of focused element.
+@mixin label-focused {
+  @apply top-0 left-0 pt-2 pb-1 text-xs leading-3;
+  width: calc(100% - 0.75rem);
+  background-color: $background-color;
+}
+
+// label for empty, unfocused input.
+@mixin label-resting {
+  @apply text-left truncate max-w-full;
+  @apply absolute pointer-events-none block top-0 w-full overflow-hidden;
+
+  line-height: $input-height;
+  transition: all 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
+    background-color 0s ease-out 200ms;
+}
+
+.select {
+  overflow-x: visible !important;
+  min-height: $input-height; // prevent flash of content from tom select starting up
+  // basic styles for no js
+  select {
+    border-width: 0;
+    width: 100%;
+  }
+
+  select ~ label {
+    z-index: 2;
+  }
+}
+
+.field { // wrapper element for input/label, provides basic styling for input
+  @apply border relative h-auto;
+
+  border-color: $border-color;
+  border-radius: $border-radius;
+  background-color: $background-color;
+
+  &.error {
+    @apply block w-full border-red-300 text-red-900 placeholder-red-300;
+    @apply focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm;
+  }
+
+  & + .errorlist {
+    @apply -mx-5;
+  }
+
+  &:focus-within {
+    box-shadow: 0 0 0 1px $focus-color;
+    border-color: $focus-color;
+  }
+
+  > .input-box { // div with styling hook
+    @apply flex items-center h-full relative overflow-x-hidden overflow-ellipsis;
+
+    &.input, &.select {
+      @apply mx-4;
+    }
+    &.textarea {
+      @apply ml-4;
+    }
+
+    input,
+    textarea {
+      @apply px-0 ring-0 w-full border-0 bg-transparent;
+
+      min-height: $input-height;
+      border-radius: $border-radius;
+      transition: padding 0.3s;
+
+      &:not(:placeholder-shown), &:focus {
+        @apply pt-5;
+      }
+      &:read-only {
+        @apply pointer-events-none;
+
+      }
+    }
+
+    // textarea handles vertical alignment differently from inputs,
+    // so unique styling is needed.
+    textarea {
+      @apply pt-4 pr-3;
+
+      line-height: calc($input-height / 2);
+      height: $textarea-height;
+    }
+
+    .ts-wrapper + label,
+    .input ~ label,
+    .password ~ label,
+    select + label { // default position for input labels
+      @include label-resting;
+    }
+
+    .ts-wrapper.focus + label,
+    .ts-wrapper.has-items + label,
+    select:-webkit-autofill:hover + label,
+    select:-webkit-autofill:focus + label,
+    .has-focus ~ label,
+    .ts-wrapper.focus + label {
+      @include label-focused;
+    }
+
+    .input:not(.has-focus) input::placeholder,
+    .input:not(.has-focus) textarea::placeholder,
+    .password:not(.has-focus) input::placeholder {
+      color: transparent;
+    }
+
+    // Font-end styling for tom-select
+    .ts-wrapper {
+      @apply ring-0 w-full left-0 border bg-transparent pr-0;
+
+      height: $input-height;
+      border-radius: 5px;
+
+      + label { // gives select room for the drop down arrow
+        @apply pr-10;
+      }
+
+      &.multi {
+        padding-top: 20px !important;
+      }
+
+      .ts-control {
+        @apply border-0 w-full bg-transparent pl-0;
+
+        padding-top: 20px;
+      }
+
+      .ts-dropdown {
+        margin: 12px 0 0;
+        border-radius: 8px;
+        left: -16px;
+        width: calc(100% + 16px);
+
+        .ts-dropdown-content {
+          padding: 0;
+
+          .option {
+            line-height: 48px;
+            border-radius: 6px;
+            margin: 4px;
+          }
+        }
+      }
+    }
+
+    // removes input styling that some browsers apply to autofilled elements
+    input:-webkit-autofill,
+    input:-webkit-autofill:hover,
+    input:-webkit-autofill:focus,
+    textarea:-webkit-autofill,
+    textarea:-webkit-autofill:hover,
+    textarea:-webkit-autofill:focus,
+    select:-webkit-autofill,
+    select:-webkit-autofill:hover,
+    select:-webkit-autofill:focus {
+      background-clip: text;
+      font-size: inherit;
+    }
+  }
+}
+
+// global/admin styling for tom-select
+.ts-wrapper {
+  @apply px-4 ring-0;
+
+  &.focus {
+    .ts-control {
+      box-shadow: none;
+      border-color: var(--primary-accent);
+    }
+  }
+
+  .ts-control {
+    input {
+      height: inherit;
+      width: auto;
+    }
+  }
+
+  .ts-dropdown {
+    padding: 2px; // Prevents scrollbar from overlapping border
+    border: 1px solid var(--dark-gray);
+    color: var(--primary);
+
+    .active {
+      @apply bg-opacity-10;
+
+      font-weight: 600;
+      color: var(--primary-focus);
+    }
+
+    .option {
+      padding-left: 16px;
+      margin: 4px;
+      height: $input-height;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .ts-dropdown-content {
+      padding: 0;
+
+      .option {
+        line-height: 48px;
+        border-radius: 6px;
+        margin: 4px;
+
+        &.selected {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+
+.left-icon {
+  @apply inset-y-0 relative left-0 flex items-center pointer-events-none z-10;
+  background-color: $background-color;
+}
+
+.right-icon {
+  @apply inset-y-0 absolute right-0 flex items-center pointer-events-none z-10;
+  background-color: $background-color;
+}
+
+.form-wrapper {
+  @apply flex flex-row flex-wrap gap-7;
+}

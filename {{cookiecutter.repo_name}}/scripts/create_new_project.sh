@@ -29,7 +29,7 @@ $thisdir/setup_database.sh
 echo "omae wa mou shindeiru"
 $thisdir/setup_github.sh
 
-poetry run install
+poetry run pre-commit install
 chmod +x manage.py
 
 # Pre-commit won't run unless files have been staged.

@@ -7,9 +7,9 @@ authors = ["{{cookiecutter.author_name}} <{{cookiecutter.email}}>"]
 [tool.poetry.dependencies]
 python = "^3.11"
 Django = {extras = ["argon2"], version = "^4.1.6"}
-whitenoise = {extras = ["brotli"], version = "^6.2.0"}
-django-allauth = "^0.51.0"
-django-htmx = "^1.8.0"
+whitenoise = {extras = ["brotli"], version = "^6.4.0"}
+django-allauth = "^0.52.0"
+django-htmx = "^1.14.0"
 django-annoying = "^0.10.6"
 django-environ = "^0.9.0"
 django-extensions = "^3.1.5"
@@ -29,7 +29,7 @@ redis = "^4.4.0"
 django-redis = "^5.2.0"
 django-jinja = "^2.10.2"
 heroicons = {extras = ["jinja"], version = "^2.1.1"}
-django-rich = "^1.4.0"
+django-rich = "^1.5.0"
 django-hijack = "^3.2.1"
 django-cors-headers = "^3.13.0"
 django-csp = "^3.7"
@@ -37,8 +37,8 @@ django-csp = "^3.7"
 [tool.poetry.group.dev.dependencies]
 Werkzeug = "2.0.2"
 coverage = {extras = ["toml"], version = "^6.4.1"}
-ipython = "^7.31.1"
-ipdb = "^0.13.9"
+ipython = "^8.11.0"
+ipdb = "^0.13.13"
 ptpython = "^3.0.20"
 django-debug-toolbar = "^3.2.4"
 model-bakery = "^1.4.0"
@@ -57,13 +57,14 @@ cruft = "^2.11.1"
 cookiecutter = "^2.1.1"
 black = "^22.10.0"
 isort = "^5.10.1"
-djlint = "^1.19.3"
-pydocstyle = "^6.1.1"
+djlint = "^1.19.16"
+pydocstyle = "^6.3.0"
 pylint-django = "^2.5.3"
 pylint-celery = "^0.3"
+ruff = "^0.0.261"
 
 [tool.poetry.group.test.dependencies]
-pytest = "^7.2.0"
+pytest = "^7.2.2"
 pytest-django = "^4.5.2"
 pytest-playwright = "^0.3.0"
 
@@ -75,7 +76,72 @@ force-exclude = '''
 '''
 include = '\.pyi?$'
 line-length = 92
-target-version = ['py310']
+target-version = ['py311']
+
+[tool.ruff]
+line-length = 92
+force-exclude = true
+
+select = [
+  "E",  # pyflakes, pycodestyle
+  "F",  # pyflakes
+  "C90",  # mccabe
+  "I",  # isort
+  "S",  # flake8-bandit
+  "B",  # flake8-bugbear
+  "A",  # flake8-builtins
+  "C4",  # flake8-comprehensions
+  "ERA",  # flake8-eradicate
+  "N",  # pep8-naming
+  "W",  # pycodestyle
+]
+ignore = [
+  "S101",
+]
+
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    "*migrations/*.py",
+    "manage.py"
+]
+
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+# Assume Python 3.11.
+target-version = "py311"
+
+[tool.ruff.per-file-ignores]
+"{{cookiecutter.repo_name}}/config/settings/*.py" = ["F405"]
+"{{cookiecutter.repo_name}}/home/views.py" = ["N802"]
+"*tests.py" = ["S105"]
+"*tests/*.py" = ["S105"]
+
+[tool.ruff.mccabe]
+# Unlike Flake8, default to a complexity level of 10.
+max-complexity = 10
+
+[tool.ruff.isort]
+known-third-party = ["django", "django.contrib", "django.utils"]
 
 [tool.coverage.run]
 branch = true
@@ -102,17 +168,8 @@ exclude_lines = [
 ignore_errors = true
 omit = ["*/migrations/*", "manage.py", "{{cookiecutter.repo_name}}/config/*", "**/tests.py"]
 
-[tool.isort]
-line_length = 92
-profile = "black"
-skip_glob = "*migrations/*.py"
-known_third_party = "django,django.contrib,django.utils"
-
 [tool.ipdb]
 context = 10
-
-[tool.pydocstyle]
-select = ""
 
 [tool.flakeheaven]
 base = "https://raw.githubusercontent.com/flakeheaven/flakeheaven/master/pyproject.toml"
@@ -122,21 +179,14 @@ max_line_length = 92
 show_source = true
 
 [tool.flakeheaven.plugins]
-flake8-bandit = ["+*", "-S101", "-S322"]
-flake8-bugbear = ["+*"]
-flake8-builtins = ["+*"]
-flake8-comprehensions = ["+*"]
+# these plugins are not yet supported or not yet fully supported by ruff
 flake8-django = ["+*"]
-flake8-eradicate = ["+*"]
 flake8-mutable = ["+*"]
-mccabe = ["+*"]
-pep8-naming = ["+*"]
-pycodestyle = ["+*", "-W503"]
-pyflakes = ["+*", "-E5110"]
 pylint = ["-*"]
-
+pycodestyle = ["-*"]
 
 [tool.pylint.main]
+# these plugins are not yet fully supported by ruff
 load-plugins = ["pylint_django", "pylint_celery"]
 ignore-paths = [".*\\\\migrations\\\\.*|.*/migrations/.*"]
 
@@ -164,8 +214,11 @@ max-line-length = 139
 
 [tool.djlint]
 ignore = ["H006", "H023", "T002"]
-profile = "django"
+profile = "jinja"
 indent = 2
+max_line_length=92
+max_attribute_length=6
+use_gitignore=true
 
 [tool.pytest.ini_options]
 python_files = ["tests.py", "test_*.py", "*_tests.py"]

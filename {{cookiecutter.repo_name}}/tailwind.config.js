@@ -5,9 +5,11 @@ module.exports = {
     preflight: false,  //manually import this in app.css
   },
   content: [
-    './frontend/**/*.html',
-    './frontend/**/*.js',
-    './frontend/**/*.css',
+    './{{cookiecutter.repo_name}}/static_source/**/*.html',
+    './{{cookiecutter.repo_name}}/static_source/**/*.js',
+    './{{cookiecutter.repo_name}}/static_source/**/*.css',
+    './{{cookiecutter.repo_name}}/static_source/**/*.scss',
+    './{{cookiecutter.repo_name}}/static_source/**/*.sass',
     './{{cookiecutter.repo_name}}/templates/**/*.html',
     './{{cookiecutter.repo_name}}/templates/**/*.jinja',
   ],

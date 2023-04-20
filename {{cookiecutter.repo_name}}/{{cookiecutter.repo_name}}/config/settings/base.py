@@ -228,7 +228,6 @@ TEMPLATES = [
     },
 ]
 
-
 # https://docs.djangoproject.com/en/dev/ref/settings/#form-renderer
 FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
 
@@ -342,4 +341,4 @@ except ImportError:  # Graceful fallback if IceCream isn't installed.
     except ImportError:
         builtins = __import__("builtins")
     ic = lambda *a: None if not a else (a[0] if len(a) == 1 else a)  # noqa
-    setattr(builtins, "ic", ic)
+    setattr(builtins, "ic", ic)  # noqa

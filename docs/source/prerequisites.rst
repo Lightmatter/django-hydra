@@ -17,11 +17,11 @@ Setting up for Installation
 
     .. code-block:: console
 
-        $ git clone git@github.com:Lightmatter/django-hydra.git
+        $ git clone https://github.com/Lightmatter/django-hydra.git
         $ ./django-hydra/scripts/mac_intel_install.sh
 
     It's recommended that you read the output of this script to ensure everything went smoothly,
-    particularly if you are using Apple silicone (M1-based-mac).
+    particularly if you are using Apple silicone (Mac's with M1 or M2 chips).
 
 
 Prerequisites
