@@ -157,10 +157,6 @@ LOGGING = {
             "handlers": ["console"],
             "level": "INFO",
         },
-        "gunicorn": {
-            "handlers": ["console"],
-            "level": "INFO",
-        },
         "django.db.backends": {
             "level": "ERROR",
             "handlers": ["console"],
