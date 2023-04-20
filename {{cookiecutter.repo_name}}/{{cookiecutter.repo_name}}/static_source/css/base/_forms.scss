@@ -1,6 +1,4 @@
 /* stylelint-disable no-descending-specificity */
-/* stylelint-disable at-rule-no-unknown */
-
 
 /*
   This file controls the styling for "material" inputs.
@@ -119,8 +117,7 @@ $background-color: #fff;
     .ts-wrapper.has-items + label,
     select:-webkit-autofill:hover + label,
     select:-webkit-autofill:focus + label,
-    .has-focus ~ label,
-    .ts-wrapper.focus + label {
+    .has-focus ~ label {
       @include label-focused;
     }
 
