@@ -7,7 +7,7 @@ services:
       previewPlan: starter
       healthCheckPath: /
       buildCommand: "./build.sh"
-      startCommand: poetry run gunicorn --worker-tmp-dir /dev/shm  -w 4 -k uvicorn.workers.UvicornWorker --log-file=- {{cookiecutter.repo_name}}.config.asgi:application --preload
+      startCommand: poetry run gunicorn -c gunicorn.conf.py
       envVars:
         - key: PYTHON_VERSION
           value: 3.11.1
