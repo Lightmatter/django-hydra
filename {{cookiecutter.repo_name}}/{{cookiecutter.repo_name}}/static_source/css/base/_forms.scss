@@ -20,6 +20,7 @@ $background-color: #fff;
 // label for focused input, Optionally can change the label color of focused element.
 @mixin label-focused {
   @apply top-0 left-0 pt-2 pb-1 text-xs leading-3;
+
   width: calc(100% - 0.75rem);
   background-color: $background-color;
 }
@@ -240,6 +241,7 @@ $background-color: #fff;
 
 .left-icon {
   @apply inset-y-0 relative left-0 flex items-center pointer-events-none z-10;
+
   background-color: $background-color;
 }
 

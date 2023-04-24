@@ -32,19 +32,6 @@ repos:
         name: black
         types: [python]
 
-  - repo: https://github.com/flakeheaven/flakeheaven
-    rev: 3.2.1
-    hooks:
-    -   id: flakeheaven
-        name: flakeheaven
-        exclude: .*migrations/.*
-        args: [--config=pyproject.toml]
-        additional_dependencies:
-            - flake8-mutable==1.2.0
-            - pylint==2.15.7
-            - pylint-celery==0.3
-            - pylint-django==2.5.3
-
   - repo: https://github.com/charliermarsh/ruff-pre-commit
     # Ruff version.
     rev: 'v0.0.259'

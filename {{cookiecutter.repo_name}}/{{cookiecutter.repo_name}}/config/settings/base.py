@@ -79,7 +79,7 @@ THIRD_PARTY_APPS = [
     "heroicons",
     "hijack",
     "hijack.contrib.admin",
-    "robots"
+    "robots",
 ]
 LOCAL_APPS = [
     "{{cookiecutter.repo_name}}.home.apps.HomeConfig",
@@ -260,10 +260,13 @@ CORS_ALLOWED_ORIGINS = []
 
 # unsafe-eval: https://alpinejs.dev/advanced/csp
 # unsafe-inline: from base.jinja and random_chart.jinja
-CSP_SCRIPT_SRC = ["'self'", "'unsafe-eval'",]
+CSP_SCRIPT_SRC = [
+    "'self'",
+    "'unsafe-eval'",
+]
 # data: from tailwind form plugin + tomselect
 CSP_IMG_SRC = ["'self'", "data:", "https:"]
-CSP_INCLUDE_NONCE_IN = ['script-src']
+CSP_INCLUDE_NONCE_IN = ["script-src"]
 # https://code.djangoproject.com/ticket/33180
 if DEBUG:
     CSP_STYLE_SRC = ["'self'", "'unsafe-inline'"]
@@ -342,4 +345,4 @@ except ImportError:  # Graceful fallback if IceCream isn't installed.
     except ImportError:
         builtins = __import__("builtins")
     ic = lambda *a: None if not a else (a[0] if len(a) == 1 else a)  # noqa
-    setattr(builtins, "ic", ic)
+    builtins.ic = ic
