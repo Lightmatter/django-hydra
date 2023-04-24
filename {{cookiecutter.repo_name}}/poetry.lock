@@ -1080,6 +1080,17 @@ Django = ">=3.2"
 rich = ">=10.0.0"
 
 [[package]]
+name = "django-robots"
+version = "5.0"
+description = "Robots exclusion application for Django, complementing Sitemaps."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+files = [
+    {file = "django-robots-5.0.tar.gz", hash = "sha256:f5817975a9e3b082440a81396111d8a6671b54f6aa11349847554bd1beebd959"},
+]
+
+[[package]]
 name = "django-silk"
 version = "5.0.3"
 description = "Silky smooth profiling for the Django Framework"
@@ -3501,4 +3512,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "b92c20ea6b5ffc74891cfdeed0785eca43a5233c7003b168c54a764ae2ba75b3"
+content-hash = "3581c5b47d2746edd1e960b8d6738810a31a7564f08b4b4fc77a643405d18b86"
