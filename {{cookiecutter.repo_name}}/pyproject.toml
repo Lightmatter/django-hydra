@@ -33,6 +33,7 @@ django-rich = "^1.5.0"
 django-hijack = "^3.2.1"
 django-cors-headers = "^3.13.0"
 django-csp = "^3.7"
+pytest-dotenv = "^0.5.2"
 
 [tool.poetry.group.dev.dependencies]
 Werkzeug = "2.0.2"
@@ -166,7 +167,12 @@ exclude_lines = [
 ]
 
 ignore_errors = true
-omit = ["*/migrations/*", "manage.py", "{{cookiecutter.repo_name}}/config/*", "**/tests.py"]
+omit = [
+  "*/migrations/*",
+  "manage.py",
+  "{{cookiecutter.repo_name}}/config/*",
+  "**/tests.py",
+]
 
 [tool.ipdb]
 context = 10
@@ -221,6 +227,7 @@ max_attribute_length=6
 use_gitignore=true
 
 [tool.pytest.ini_options]
+env_files = [".env", ".env.example"]
 python_files = ["tests.py", "test_*.py", "*_tests.py"]
 # https://pytest-django.readthedocs.io/en/latest/database.html#example-work-flow-with-reuse-db-and-create-db
 addopts = ["--reuse-db", "--ds={{cookiecutter.repo_name}}.config.settings.test"]
