@@ -42,7 +42,7 @@ coverage = {extras = ["toml"], version = "^6.4.1"}
 ipython = "^8.11.0"
 ipdb = "^0.13.13"
 ptpython = "^3.0.20"
-django-debug-toolbar = "^3.2.4"
+django-debug-toolbar = "^4.0.0"
 model-bakery = "^1.4.0"
 watchdog = "2.2.0"
 honcho = "1.1.0"
