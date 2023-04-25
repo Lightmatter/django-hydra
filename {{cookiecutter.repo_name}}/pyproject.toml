@@ -178,47 +178,6 @@ omit = [
 [tool.ipdb]
 context = 10
 
-[tool.flakeheaven]
-base = "https://raw.githubusercontent.com/flakeheaven/flakeheaven/master/pyproject.toml"
-exclude = ["README.rst", "README.md", "*/settings/*", "*/migrations/*"]
-format = "grouped"
-max_line_length = 92
-show_source = true
-
-[tool.flakeheaven.plugins]
-# these plugins are not yet supported or not yet fully supported by ruff
-flake8-django = ["+*"]
-flake8-mutable = ["+*"]
-pylint = ["-*"]
-pycodestyle = ["-*"]
-
-[tool.pylint.main]
-# these plugins are not yet fully supported by ruff
-load-plugins = ["pylint_django", "pylint_celery"]
-ignore-paths = [".*\\\\migrations\\\\.*|.*/migrations/.*"]
-
-[tool.pylint.messages_control]
-disable = [
-  "C0115",
-  "C0116",
-  "C0114",
-  "C0103",
-  "C0415",
-  "W0707",
-  "W0511",
-  "R0903",
-  "R0913",
-  "W0212",
-  "W0221",
-  "W1203",
-]
-
-[tool.pylint.django_foreign_keys_referenced_by_strings]
-django-settings-module = "{{cookiecutter.repo_name}}.config.settings.local"
-
-[tool.pylint.format]
-max-line-length = 139
-
 [tool.djlint]
 ignore = ["H006", "H023", "T002"]
 profile = "jinja"

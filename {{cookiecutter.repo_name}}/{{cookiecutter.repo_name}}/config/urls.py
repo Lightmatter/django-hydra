@@ -40,10 +40,13 @@ if settings.DEBUG:
     ]
 
     if "robots" in settings.INSTALLED_APPS:
-        urlpatterns.append(re_path(r'^robots\.txt', include("robots.urls")),)
+        urlpatterns.append(
+            re_path(r"^robots\.txt", include("robots.urls")),
+        )
 
     if "debug_toolbar" in settings.INSTALLED_APPS:
         import debug_toolbar
+
         urlpatterns = [path("__debug__/", include(debug_toolbar.urls))] + urlpatterns
 
 
@@ -51,6 +54,6 @@ urlpatterns += [
     path("account/", include("{{cookiecutter.repo_name}}.user.urls", namespace="user")),
     path("account/", include("allauth.urls")),
     path("admin/", admin.site.urls),
-    path('hijack/', include('hijack.urls')),
+    path("hijack/", include("hijack.urls")),
     path("", include("{{cookiecutter.repo_name}}.home.urls")),
 ]

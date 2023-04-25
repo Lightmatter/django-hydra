@@ -2,7 +2,11 @@
 set -e
 original=$(pwd)
 keepenv=false
-circle=false
+
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+CLEAR='\033[0m'
+
 
 while getopts "k" opt; do
     case ${opt} in
@@ -27,7 +31,8 @@ if [ "$keepenv" = true ]; then
 fi
 
 
-echo "Removing old app"
+
+printf "${RED}Removing old app${CLEAR}\n"
 if [[ -d "../$appname" ]]
 then
     set +e
@@ -45,8 +50,10 @@ echo "Running tests"
 cd ../$appname/
 
 eval "$(direnv export bash)"
+./scripts/create_new_project.sh
 npm run build
 pre-commit run --all-files
+playwright install
 poetry run pytest
 
 
