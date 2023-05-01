@@ -39,7 +39,7 @@ django-robots = "^5.0"
 [tool.poetry.group.dev.dependencies]
 Werkzeug = "2.0.2"
 coverage = {extras = ["toml"], version = "^6.4.1"}
-ipython = "^8.11.0"
+ipython = "^8.13.1"
 ipdb = "^0.13.13"
 ptpython = "^3.0.20"
 django-debug-toolbar = "^4.0.0"
