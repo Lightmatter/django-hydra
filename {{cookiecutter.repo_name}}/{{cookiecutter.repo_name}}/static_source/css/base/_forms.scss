@@ -1,9 +1,11 @@
 /* stylelint-disable no-descending-specificity */
+/* stylelint-disable block-no-empty */
+
 
 /*
   This file controls the styling for "material" inputs.
 
-  inputs are styled in the order of .field > .input-box > [input]
+  inputs are styled in the order of .field > [input]
   rem units are being used to keep things proportional on the tailwind side,
   but we have a bit less control over t-s (tom-select) which is being styled using px.
 */
@@ -36,6 +38,19 @@ $background-color: #fff;
     background-color 0s ease-out 200ms;
 }
 
+// Neither of these animations have a visible effect - they are used as flags for autofill
+@keyframes autofill-start {
+  from {}
+
+  to {}
+}
+
+@keyframes autofill-cancel {
+  from {}
+
+  to {}
+}
+
 .select {
   overflow-x: visible !important;
   min-height: $input-height; // prevent flash of content from tom select starting up
@@ -52,6 +67,7 @@ $background-color: #fff;
 
 .field { // wrapper element for input/label, provides basic styling for input
   @apply border relative h-auto;
+  @apply flex items-center h-full relative overflow-x-hidden overflow-ellipsis;
 
   border-color: $border-color;
   border-radius: $border-radius;
@@ -71,115 +87,140 @@ $background-color: #fff;
     border-color: $focus-color;
   }
 
-  > .input-box { // div with styling hook
-    @apply flex items-center h-full relative overflow-x-hidden overflow-ellipsis;
+  & .input,
+  & .input ~ label,
+  & .select,
+  & .select ~ label {
+    @apply px-4;
+  }
 
-    &.input, &.select {
-      @apply mx-4;
+  & .textarea {
+    @apply ml-4;
+  }
+
+  .password {
+    & input,
+    & ~ label {
+      @apply px-4;
     }
-    &.textarea {
-      @apply ml-4;
+    & input:focus {
+      @apply ring-0;
     }
+  }
 
-    input,
-    textarea {
-      @apply px-0 ring-0 w-full border-0 bg-transparent;
+  input,
+  textarea {
+    @apply px-0 ring-0 w-full border-0 bg-transparent;
 
-      min-height: $input-height;
-      border-radius: $border-radius;
-      transition: padding 0.3s;
+    min-height: $input-height;
+    border-radius: $border-radius;
+    transition: padding 0.3s;
 
-      &:not(:placeholder-shown), &:focus {
-        @apply pt-5;
-      }
-      &:read-only {
-        @apply pointer-events-none;
-
-      }
-    }
-
-    // textarea handles vertical alignment differently from inputs,
-    // so unique styling is needed.
-    textarea {
-      @apply pt-4 pr-3;
-
-      line-height: calc($input-height / 2);
-      height: $textarea-height;
+    &:not(:placeholder-shown),
+    &:focus {
+      @apply pt-5;
     }
 
-    .ts-wrapper + label,
-    .input ~ label,
-    .password ~ label,
-    select + label { // default position for input labels
-      @include label-resting;
+    &:read-only {
+      @apply pointer-events-none;
     }
 
-    .ts-wrapper.focus + label,
-    .ts-wrapper.has-items + label,
-    select:-webkit-autofill:hover + label,
-    select:-webkit-autofill:focus + label,
-    .has-focus ~ label {
-      @include label-focused;
+    // these are placeholder animations which allow us to attach an event listener
+    // to inputs that have been autofilled. Without a duration, styles are applied with
+    // "automatic" autofill but not with drop down. Props to the Klarna UI team for
+    // this solution.
+    &:-webkit-autofill {
+      animation-name: autofill-start;
+      animation-duration: 0.001s;
     }
 
-    .input:not(.has-focus) input::placeholder,
-    .input:not(.has-focus) textarea::placeholder,
-    .password:not(.has-focus) input::placeholder {
-      color: transparent;
+    &:not(:-webkit-autofill) {
+      animation-name: autofill-cancel;
+      animation-duration: 0.001s;
+    }
+  }
+
+  // textarea handles vertical alignment differently from inputs,
+  // so unique styling is needed.
+  textarea {
+    @apply pt-4 pr-3;
+
+    line-height: calc($input-height / 2);
+    height: $textarea-height;
+  }
+
+  .ts-wrapper + label,
+  .input ~ label,
+  .password ~ label,
+  select + label { // default position for input labels
+    @include label-resting;
+  }
+
+  .ts-wrapper.has-items + label,
+  select:-webkit-autofill:hover + label,
+  select:-webkit-autofill:focus + label,
+  .has-focus ~ label,
+  .ts-wrapper.focus + label {
+    @include label-focused;
+  }
+
+  .input:not(.has-focus).input::placeholder,
+  .input:not(.has-focus).textarea::placeholder,
+  .password:not(.has-focus) input::placeholder {
+    color: transparent;
+  }
+
+  // Font-end styling for tom-select
+  .ts-wrapper {
+    @apply ring-0 w-full left-0 border bg-transparent pr-0;
+
+    height: $input-height;
+    border-radius: 5px;
+
+    + label { // gives select room for the drop down arrow
+      @apply pr-10;
     }
 
-    // Font-end styling for tom-select
-    .ts-wrapper {
-      @apply ring-0 w-full left-0 border bg-transparent pr-0;
+    &.multi {
+      padding-top: 20px !important;
+    }
 
-      height: $input-height;
-      border-radius: 5px;
+    .ts-control {
+      @apply border-0 w-full bg-transparent pl-0;
 
-      + label { // gives select room for the drop down arrow
-        @apply pr-10;
-      }
+      padding-top: 20px;
+    }
 
-      &.multi {
-        padding-top: 20px !important;
-      }
+    .ts-dropdown {
+      margin: 12px 0 0;
+      border-radius: 8px;
+      left: -16px;
+      width: calc(100% + 16px);
 
-      .ts-control {
-        @apply border-0 w-full bg-transparent pl-0;
+      .ts-dropdown-content {
+        padding: 0;
 
-        padding-top: 20px;
-      }
-
-      .ts-dropdown {
-        margin: 12px 0 0;
-        border-radius: 8px;
-        left: -16px;
-        width: calc(100% + 16px);
-
-        .ts-dropdown-content {
-          padding: 0;
-
-          .option {
-            line-height: 48px;
-            border-radius: 6px;
-            margin: 4px;
-          }
+        .option {
+          line-height: 48px;
+          border-radius: 6px;
+          margin: 4px;
         }
       }
     }
+  }
 
-    // removes input styling that some browsers apply to autofilled elements
-    input:-webkit-autofill,
-    input:-webkit-autofill:hover,
-    input:-webkit-autofill:focus,
-    textarea:-webkit-autofill,
-    textarea:-webkit-autofill:hover,
-    textarea:-webkit-autofill:focus,
-    select:-webkit-autofill,
-    select:-webkit-autofill:hover,
-    select:-webkit-autofill:focus {
-      background-clip: text;
-      font-size: inherit;
-    }
+  // removes input styling that some browsers apply to autofilled elements
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  textarea:-webkit-autofill,
+  textarea:-webkit-autofill:hover,
+  textarea:-webkit-autofill:focus,
+  select:-webkit-autofill,
+  select:-webkit-autofill:hover,
+  select:-webkit-autofill:focus {
+    background-clip: text;
+    font-size: inherit;
   }
 }
 
@@ -247,6 +288,7 @@ $background-color: #fff;
 
 .right-icon {
   @apply inset-y-0 absolute right-0 flex items-center pointer-events-none z-10;
+
   background-color: $background-color;
 }
 
