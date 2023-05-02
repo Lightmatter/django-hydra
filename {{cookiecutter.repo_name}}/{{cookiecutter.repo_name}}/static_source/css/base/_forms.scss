@@ -1,4 +1,6 @@
 /* stylelint-disable no-descending-specificity */
+/* stylelint-disable block-no-empty */
+
 
 /*
   This file controls the styling for "material" inputs.
@@ -34,6 +36,19 @@ $background-color: #fff;
   transition: all 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
     color 200ms cubic-bezier(0, 0, 0.2, 1) 0ms,
     background-color 0s ease-out 200ms;
+}
+
+// Neither of these animations have a visible effect - they are used as flags for autofill
+@keyframes autofill-start {
+  from {}
+
+  to {}
+}
+
+@keyframes autofill-cancel {
+  from {}
+
+  to {}
 }
 
 .select {
@@ -74,9 +89,11 @@ $background-color: #fff;
   > .input-box { // div with styling hook
     @apply flex items-center h-full relative overflow-x-hidden overflow-ellipsis;
 
-    &.input, &.select {
+    &.input,
+    &.select {
       @apply mx-4;
     }
+
     &.textarea {
       @apply ml-4;
     }
@@ -89,12 +106,27 @@ $background-color: #fff;
       border-radius: $border-radius;
       transition: padding 0.3s;
 
-      &:not(:placeholder-shown), &:focus {
+      &:not(:placeholder-shown),
+      &:focus {
         @apply pt-5;
       }
+
       &:read-only {
         @apply pointer-events-none;
+      }
 
+      // these are placeholder animations which allow us to attach an event listener
+      // to inputs that have been autofilled. Without a duration, styles are applied with
+      // "automatic" autofill but not with drop down. Props to the Klarna UI team for
+      // this solution.
+      &:-webkit-autofill {
+        animation-name: autofill-start;
+        animation-duration: 0.001s;
+      }
+
+      &:not(:-webkit-autofill) {
+        animation-name: autofill-cancel;
+        animation-duration: 0.001s;
       }
     }
 
@@ -114,16 +146,16 @@ $background-color: #fff;
       @include label-resting;
     }
 
-    .ts-wrapper.focus + label,
     .ts-wrapper.has-items + label,
     select:-webkit-autofill:hover + label,
     select:-webkit-autofill:focus + label,
-    .has-focus ~ label {
+    .has-focus ~ label,
+    .ts-wrapper.focus + label {
       @include label-focused;
     }
 
-    .input:not(.has-focus) input::placeholder,
-    .input:not(.has-focus) textarea::placeholder,
+    .input:not(.has-focus).input::placeholder,
+    .input:not(.has-focus).textarea::placeholder,
     .password:not(.has-focus) input::placeholder {
       color: transparent;
     }
@@ -247,6 +279,7 @@ $background-color: #fff;
 
 .right-icon {
   @apply inset-y-0 absolute right-0 flex items-center pointer-events-none z-10;
+
   background-color: $background-color;
 }
 
