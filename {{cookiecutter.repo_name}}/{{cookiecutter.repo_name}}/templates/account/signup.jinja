@@ -1,16 +1,30 @@
+{% extends "account/account_base.jinja" %}
 {% from 'components/button/button.jinja' import button %}
-{% from 'account/components/account_box.jinja' import account_box %}
 {% import 'svg/svg.jinja' as svg %}
-{% set title="Sign up" %}
-{% set content %}
+
+
+{% block title %}
+    Register
+{% endblock title %}
+
+{% block account_title %}
+    {% trans %}
+        Register
+    {% endtrans %}
+{% endblock account_title %}
+
+{% block account_content %}
 <form hx-post="{{ url('account_signup') }}"
-      hx-target="#account-box"
-      hx-swap="outerHTML"
-      class="flex flex-col space-y-10 mb-10">
-    <div>{{ form }}</div>
-    {{ button("Create Account", 'submit', type="submit") }}
+    hx-target="#account-box"
+    hx-select="#account-box"
+    hx-swap="outerHTML"
+    class="flex flex-col">
+    {{ form }}
     {% csrf_token %}
+    {{ button("Create Account", 'submit', type="submit") }}
 </form>
+<a
+    class="link mb-10" href="{{ url('account_login') }}">Already have an account?</a>
 <div class="relative">
     <div class="absolute inset-0 flex items-center">
         <div class="w-full border-t border-gray-300"></div>
@@ -44,7 +58,4 @@
         </div>
     </div>
 </div>
-{% endset %}
-{% block content %}
-    {{ account_box(title, content) }}
-{% endblock content %}
+{% endblock account_content %}

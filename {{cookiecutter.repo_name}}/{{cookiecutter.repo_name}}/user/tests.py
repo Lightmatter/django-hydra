@@ -56,40 +56,22 @@ def test_create_user(password):
 def test_login_live(page: Page, live_server, super_user, password):
     header = page.locator("h2")
 
-    page.goto(f'{live_server.url}{reverse("user:account_welcome")}')
+    page.goto(f'{live_server.url}{reverse("account_login")}')
     expect(header).to_have_text("Sign In")
 
-    page.fill("input[name=email]", super_user.email)
-    page.click("button[type=submit]")
-    expect(header).to_have_text(f"Welcome back, {super_user.first_name}!")
-
+    page.fill("input[name=login]", super_user.email)
     page.fill("input[name=password]", password)
     page.click("button[type=submit]")
     expect(page).to_have_url(f"{live_server.url}/")
 
 
 @pytest.mark.integration
-def test_login_no_email_live(page: Page, live_server):
-    header = page.locator("h2")
-
-    page.goto(f'{live_server.url}{reverse("user:account_welcome")}')
-    expect(header).to_have_text("Sign In")
-
-    page.click("button[type=submit]")
-    expect(page.locator("input[name=email]")).to_be_focused()
-
-
-@pytest.mark.integration
 def test_login_no_password_live(page: Page, live_server, super_user):
     header = page.locator("h2")
 
-    page.goto(f'{live_server.url}{reverse("user:account_welcome")}')
+    page.goto(f'{live_server.url}{reverse("account_login")}')
     expect(header).to_have_text("Sign In")
-
-    page.fill("input[name=email]", super_user.email)
-    page.click("button[type=submit]")
-    expect(header).to_have_text(f"Welcome back, {super_user.first_name}!")
-
+    page.fill("input[name=login]", super_user.email)
     page.click("button[type=submit]")
     expect(page.locator("input[name=password]")).to_be_focused()
 
@@ -98,13 +80,9 @@ def test_login_no_password_live(page: Page, live_server, super_user):
 def test_login_email_case_insensitive_live(page: Page, live_server, super_user, password):
     header = page.locator("h2")
 
-    page.goto(f'{live_server.url}{reverse("user:account_welcome")}')
+    page.goto(f'{live_server.url}{reverse("account_login")}')
     expect(header).to_have_text("Sign In")
-
-    page.fill("input[name=email]", super_user.email.upper())
-    page.click("button[type=submit]")
-    expect(header).to_have_text(f"Welcome back, {super_user.first_name}!")
-
+    page.fill("input[name=login]", super_user.email.upper())
     page.fill("input[name=password]", password)
     page.click("button[type=submit]")
     expect(page).to_have_url(f"{live_server.url}/")
@@ -114,13 +92,9 @@ def test_login_email_case_insensitive_live(page: Page, live_server, super_user, 
 def test_login_badpass_live(page: Page, live_server, super_user):
     header = page.locator("h2")
 
-    page.goto(f'{live_server.url}{reverse("user:account_welcome")}')
+    page.goto(f'{live_server.url}{reverse("account_login")}')
     expect(header).to_have_text("Sign In")
-
-    page.fill("input[name=email]", super_user.email.upper())
-    page.click("button[type=submit]")
-    expect(header).to_have_text(f"Welcome back, {super_user.first_name}!")
-
+    page.fill("input[name=login]", super_user.email.upper())
     page.fill("input[name=password]", "BUGSRULE")
     page.click("button[type=submit]")
 
@@ -193,12 +167,10 @@ def test_register_no_repeat_pass(client, form_data):
 def test_register_live(page: Page, live_server, form_data):
     header = page.locator("h2")
 
-    page.goto(f'{live_server.url}{reverse("user:account_welcome")}')
-    expect(header).to_have_text("Sign In")
+    page.goto(f'{live_server.url}{reverse("account_signup")}')
+    expect(header).to_have_text("Register")
 
     page.fill('input[name="email"]', form_data["email"])
-    page.click("button[type=submit]")
-    expect(header).to_have_text("Sign up")
 
     page.fill('input[placeholder="E-mail address confirmation"]', form_data["email2"])
     page.fill('input[placeholder="First Name"]', form_data["first_name"])
@@ -214,12 +186,10 @@ def test_register_live(page: Page, live_server, form_data):
 def test_register_bad_repeat_email_live(page: Page, live_server, form_data):
     header = page.locator("h2")
 
-    page.goto(f'{live_server.url}{reverse("user:account_welcome")}')
-    expect(header).to_have_text("Sign In")
+    page.goto(f'{live_server.url}{reverse("account_signup")}')
+    expect(header).to_have_text("Register")
 
     page.fill('input[name="email"]', form_data["email"])
-    page.click("button[type=submit]")
-    expect(header).to_have_text("Sign up")
 
     page.fill('input[placeholder="E-mail address confirmation"]', "email@bademail.com")
     page.fill('input[placeholder="First Name"]', form_data["first_name"])
@@ -237,13 +207,10 @@ def test_register_bad_repeat_email_live(page: Page, live_server, form_data):
 def test_register_bad_repeat_pass1_live(page: Page, live_server, form_data):
     header = page.locator("h2")
 
-    page.goto(f'{live_server.url}{reverse("user:account_welcome")}')
-    expect(header).to_have_text("Sign In")
+    page.goto(f'{live_server.url}{reverse("account_signup")}')
+    expect(header).to_have_text("Register")
 
     page.fill('input[name="email"]', form_data["email"])
-    page.click("button[type=submit]")
-    expect(header).to_have_text("Sign up")
-
     page.fill('input[placeholder="E-mail address confirmation"]', form_data["email2"])
     page.fill('input[placeholder="First Name"]', form_data["first_name"])
     page.fill('input[placeholder="Last Name"]', form_data["last_name"])

@@ -6,18 +6,6 @@ from django.utils.translation import gettext_lazy as _
 from .models import User
 
 
-class HasAccountForm(forms.Form):
-    email = forms.EmailField(
-        help_text=_("We won't spam you"),
-        required=True,
-        widget=forms.TextInput(attrs={"placeholder": _("Email"), "autocomplete": "email"}),
-    )
-
-    def clean_email(self):
-        data = self.cleaned_data["email"]
-        return data.lower()
-
-
 class LoginForm(AllAuthLoginForm):
     template_name = "account/login_form.jinja"
     remember = forms.BooleanField(
@@ -28,7 +16,6 @@ class LoginForm(AllAuthLoginForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["login"].widget = forms.HiddenInput()
 
 
 class SignupForm(AllAuthSignupForm):
@@ -54,7 +41,6 @@ class SignupForm(AllAuthSignupForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["email"].widget.attrs["readonly"] = True
         self.fields["email"].label = "Email"
         self.fields["email2"].label = "Confirm Email"
         self.fields["password2"].label = "Confirm Password"
