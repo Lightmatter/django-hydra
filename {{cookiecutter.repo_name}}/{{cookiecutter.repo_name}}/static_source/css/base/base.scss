@@ -18,9 +18,23 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
+
+// for center positioned elements, that should stay in the same position
+// when the y-scrollbar is present or not
+// you could also do this as "padding-left: calc(100vw - 100%);"
+// which will shrink the viewport vs hiding under the scrollbar
+@mixin no-jitter-scrollbar {
+  margin-right: calc(-1 * (100vw - 100%));
+}
+
 #app {
   flex: 1;
-  margin-left: calc(100vw - 100%); /* prevent jump with scroll bar */
+
+  @include no-jitter-scrollbar;
+}
+
+header {
+  @include no-jitter-scrollbar;
 }
 
 #loading-body {
