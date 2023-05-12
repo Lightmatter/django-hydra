@@ -2,7 +2,7 @@ import focus from "@alpinejs/focus";
 import mask from "@alpinejs/mask";
 import ui from "@alpinejs/ui";
 
-import "htmx.org";
+import htmx from "htmx.org";
 import Alpine from "alpinejs";
 import Cookies from "js-cookie";
 
@@ -12,14 +12,6 @@ if (import.meta.env.MODE !== "development") {
   // https://github.com/vitejs/vite/issues/4786
 }
 
-// @ts-expect-error // needs to declare that htmx lives on window, auto added by import
-const { htmx } = window; // eslint-disable-line  @typescript-eslint/no-unused-vars
-
-// HTMX Configuration (https://htmx.org/docs/#config)
-
-// Disable history cache
-htmx.config.historyCacheSize = 0;
-htmx.config.scrollBehavior = "auto";
 
 
 htmx.defineExtension("get-csrf", {
@@ -33,7 +25,8 @@ htmx.defineExtension("get-csrf", {
 if (import.meta.hot) {
   import.meta.hot.on("template-hmr", () => {
     const dest = document.location.href;
-    htmx.ajax("GET", dest, { target: "body", swap: "morphdom" });
+    //TODO: Make swap morphdom based
+    htmx.ajax("GET", dest, { target: "body" });
   });
 }
 
