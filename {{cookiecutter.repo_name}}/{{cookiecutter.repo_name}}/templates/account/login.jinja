@@ -18,6 +18,9 @@ Welcome back!
       hx-swap="outerHTML"
       class="flex flex-col">
     {{ form }}
+    {% if redirect_field_value %}
+        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+    {% endif %}
     {% csrf_token %}
     {{ button("Login", 'submit', type="submit") }}
 </form>

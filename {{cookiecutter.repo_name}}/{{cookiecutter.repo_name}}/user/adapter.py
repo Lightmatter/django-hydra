@@ -10,3 +10,12 @@ class HTMXAccountAdapter(DefaultAccountAdapter):
         if request.htmx:
             return HttpResponseClientRedirect(url)
         return HttpResponseRedirect(url)
+
+    def post_login(self, request, *args, **kwargs):
+        response = super().post_login(request, *args, **kwargs)
+        if request.htmx:
+            # htmxify the response
+            response.status_code = 200
+            response["HX-Redirect"] = response["Location"]
+            del response["Location"]
+        return response
