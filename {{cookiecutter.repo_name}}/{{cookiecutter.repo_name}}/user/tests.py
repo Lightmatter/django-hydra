@@ -66,6 +66,19 @@ def test_login_live(page: Page, live_server, super_user, password):
 
 
 @pytest.mark.integration
+def test_login_redirection_live(page: Page, live_server, super_user, password):
+    header = page.locator("h2")
+
+    page.goto(f'{live_server.url}{reverse("account_login")}?next=/admin/')
+    expect(header).to_have_text("Sign In")
+
+    page.fill("input[name=login]", super_user.email)
+    page.fill("input[name=password]", password)
+    page.click("button[type=submit]")
+    expect(page).to_have_url(f"{live_server.url}/admin/")
+
+
+@pytest.mark.integration
 def test_login_no_password_live(page: Page, live_server, super_user):
     header = page.locator("h2")
 
