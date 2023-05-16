@@ -129,6 +129,7 @@ $background-color: #fff;
     // to inputs that have been autofilled. Without a duration, styles are applied with
     // "automatic" autofill but not with drop down. Props to the Klarna UI team for
     // this solution.
+    // https://stackoverflow.com/a/41530164/21726578
     &:-webkit-autofill {
       animation-name: autofill-start;
       animation-duration: 0.001s;
