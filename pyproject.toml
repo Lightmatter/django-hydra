@@ -14,7 +14,7 @@ retrocookie = "^0.4.2"
 
 [tool.poetry.group.docs.dependencies]
 Sphinx = "^6.2.1"
-furo = "^2023.3.27"
+furo = "^2023.5.20"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
