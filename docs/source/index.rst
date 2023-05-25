@@ -15,7 +15,7 @@ This combination of technologies means:
 
 - You'll spend less time writing custom Javascript
 - Keep frontend code near the locality of behavior
-- You'll leverage the strengths of both Django and consise templates to render content quickly and easily
+- You'll leverage the strengths of both Django and concise templates to render content quickly and easily
 - You'll be easily able to extend this template for customized use cases
 - But perhaps the best thing about Hydra is that once you're familiar with it, *it's just fun to use*!
 

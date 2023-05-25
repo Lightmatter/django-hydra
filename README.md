@@ -2,30 +2,20 @@
 
 ## About
 
-Hydra is a robust project template which uses Django 4 on the backend and HTMX, AlpineJS, and Tailwind on the frontend.
+Hydra is a comprehensive project template which combines the power of Django 4 for backend operations with HTMX, AlpineJS, and Tailwind for seamless frontend development.
 
 This combination of technologies means:
 
 -   You'll spend less time writing custom Javascript
 -   Keep frontend code near the [locality of behavior](https://htmx.org/essays/locality-of-behaviour/)
--   You'll leverage the strengths of both Django and consise templates to render content quickly and easily
+-   You'll leverage the strengths of both Django and concise templates to render content quickly and easily
 -   You'll be easily able to extend this template for customized use cases
 
 But perhaps the best thing about Hydra is that once you're familiar with it, _it's just fun to use_!
 
 ## Prerequisites
 
-NOTE: For Mac systems, the following script will handle installing the entirety of the project, including the prerequisites below.
-
-Run the following to complete installation:
-
-```bash
-git clone git@github.com:Lightmatter/django-hydra.git
-./django-hydra/scripts/mac_intel_install.sh
-```
-
-It's recommended that you read the output of this script to ensure everything went smoothly,
-particularly if you are using Apple silicone (M1-based-mac).
+> NOTE: For Mac systems, the script provided in Setup. This will handle installing the entirety of the project, including the prerequisites below.
 
 The following items are required in order for Hydra to function:
 
@@ -38,17 +28,35 @@ The following items are required in order for Hydra to function:
 -   [poetry](https://python-poetry.org/docs/) virtual environment/package manager (requires python 3.11+)
 -   [direnv](https://direnv.net/docs/installation.html) handles activating your virtual env when you enter the project directory
 
+## Setup
+
+No matter what system you run, it is recommended to use a python version management system like [pyenv](https://github.com/pyenv/pyenv).
+
+### For Mac/Linux Users:
+
+Run the following to complete installation:
+
+```bash
+git clone git@github.com:Lightmatter/django-hydra.git
+./django-hydra/scripts/mac_intel_install.sh
+```
+
+It's recommended that you read the output of this script to ensure everything went smoothly, particularly if you are using Apple silicone (M1-based-mac).
+
 ### For Windows Users:
 
--   In order for poetry to run on the correct python version, you will want to make sure that python3 resolves to python 3.11 in your shell
+In order for poetry to run on the correct python version, you will want to make sure that python3 resolves to python 3.11 in your shell
 
 `(Invoke-WebRequest -Uri https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py -UseBasicParsing).Content | python3 -`
-n.b. if you are using a bash shell, you should run the version of this command in the macOS section above
+
+> NOTE: if you are using a bash shell, you should run the version of this command in the macOS section above
+
+All prerequisites above must be installed prior to proceeding.
 
 ### For Users With Existing Development Environments:
 
-- Make sure you upgrade to the latest, node (at least 18.x.x at time of writing), python (at least 3.11.1 at time of writing) and poetry (at least 1.3.1 at time of writing) versions
-- if upgrading your poetry version, make sure you [clear the caches](https://python-poetry.org/docs/cli/#cache-clear)
+-   Make sure you upgrade to the latest, node (at least 18.x.x at time of writing), python (at least 3.11.1 at time of writing) and poetry (at least 1.3.1 at time of writing) versions
+-   if upgrading your poetry version, make sure you [clear the caches](https://python-poetry.org/docs/cli/#cache-clear)
 
 ## Quick Start
 
@@ -73,7 +81,7 @@ These both do pretty much what they say, however here is an expanded list of wha
 
 You should now follow the below guide depending on whether you are setting up a new project entirely, or getting spun up on a new one.
 
-#### If you are setting up a new project from scratch
+#### Setting up a project from scratch
 
 Run the below commands in order:
 
@@ -136,7 +144,9 @@ $ npm run dev
 
 5. You will now be able to view the project at http://127.0.0.1:8000/ or http://localhost:8000
 
-#### If you are settiing up a project that someone else created
+#### Setting up an existing project
+
+> i.e. someone already created a project from the Django Hydra template and you need to get started.
 
 Run the below commands in order:
 
