@@ -2092,19 +2092,19 @@ testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
 name = "poetryup"
-version = "0.5.6"
+version = "0.12.7"
 description = "Update dependencies and bump their version in the pyproject.toml file"
 optional = false
 python-versions = ">=3.6,<4.0"
 files = [
-    {file = "poetryup-0.5.6-py3-none-any.whl", hash = "sha256:1223a0970d6fbfa1e30ed116fa58d1557f853b0ba0ef5860cd52ce27f8c57af9"},
-    {file = "poetryup-0.5.6.tar.gz", hash = "sha256:e3bcea00df86d10d8a48837ac79d34ea109e05b1952e7f4a3a15c2e45b9ec052"},
+    {file = "poetryup-0.12.7-py3-none-any.whl", hash = "sha256:8d428505c3a5ace59451f2c901876dcf6e5589e50d807fc30f41003c4dfea37b"},
+    {file = "poetryup-0.12.7.tar.gz", hash = "sha256:7903089e1c241ac04a1d199b0aef78bb1194f3f510c0781aa4cf5e961eff59d2"},
 ]
 
 [package.dependencies]
 packaging = ">=21.3,<22.0"
-tomlkit = ">=0.8.0,<0.9.0"
-typer = ">=0.4.0,<0.5.0"
+tomlkit = ">=0.11.0,<0.12.0"
+typer = ">=0.4.1,<0.5.0"
 
 [[package]]
 name = "pre-commit"
@@ -2999,13 +2999,13 @@ files = [
 
 [[package]]
 name = "tomlkit"
-version = "0.8.0"
+version = "0.11.8"
 description = "Style preserving TOML library"
 optional = false
-python-versions = ">=3.6,<4.0"
+python-versions = ">=3.7"
 files = [
-    {file = "tomlkit-0.8.0-py3-none-any.whl", hash = "sha256:b824e3466f1d475b2b5f1c392954c6cb7ea04d64354ff7300dc7c14257dc85db"},
-    {file = "tomlkit-0.8.0.tar.gz", hash = "sha256:29e84a855712dfe0e88a48f6d05c21118dbafb283bb2eed614d46f80deb8e9a1"},
+    {file = "tomlkit-0.11.8-py3-none-any.whl", hash = "sha256:8c726c4c202bdb148667835f68d68780b9a003a9ec34167b6c673b38eff2a171"},
+    {file = "tomlkit-0.11.8.tar.gz", hash = "sha256:9330fc7faa1db67b541b28e62018c17d20be733177d290a13b24c62d1614e0c3"},
 ]
 
 [[package]]
@@ -3348,4 +3348,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "8ce3577c0fdc470c45b1f40258e0ce0aefabe2431f9139a22bce686ef85073f1"
+content-hash = "b9fa9266b3a96323bdac56240853a2ab32d21f8f74595b80920fe59c1f541a22"
