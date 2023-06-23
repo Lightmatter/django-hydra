@@ -1,2 +1,13 @@
 {% from 'forms/date_datetime.jinja' import widget_to_date_datetime %}
-{{ widget_to_date_datetime(widget, true) }}
+<div class="flex flex-wrap max-w-xs">
+{% with widget=widget.subwidgets.0 %}
+<div class="mr-2">
+{{ date_label }} {{ widget_to_date_datetime(widget) }}
+</div>
+{% endwith %}
+{% with widget=widget.subwidgets.1 %}
+<div>
+{{ time_label }} {{ widget_to_date_datetime(widget, time=true, admin=true) }}
+</div>
+{% endwith %}
+</div>
