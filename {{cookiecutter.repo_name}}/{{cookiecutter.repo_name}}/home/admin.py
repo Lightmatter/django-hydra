@@ -5,7 +5,7 @@ from django.contrib.sites.models import Site
 from robots.admin import RuleAdmin
 from robots.models import Rule, Url
 
-from testhydra.util.admin import force_django_template
+from {{cookiecutter.repo_name}}.util.admin import force_django_template
 
 admin.site.unregister(Rule)
 admin.site.unregister(Url)
