@@ -6,7 +6,7 @@ authors = ["Ben Beecher <ben@lightmatter.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.11"
-cookiecutter = "^2.1.1"
+cookiecutter = "^2.2.2"
 
 [tool.poetry.group.dev.dependencies]
 isort = "^5.12.0"
