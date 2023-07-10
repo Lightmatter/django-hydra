@@ -22,7 +22,7 @@
     "eslint-plugin-import": "^2.27.5",
     "fast-glob": "^3.2.11",
     "happy-dom": "^9.20.3",
-    "postcss": "^8.4.24",
+    "postcss": "^8.4.25",
     "postcss-nested": "^6.0.1",
     "sass": "^1.63.6",
     "stylelint": "^14.16.1",
