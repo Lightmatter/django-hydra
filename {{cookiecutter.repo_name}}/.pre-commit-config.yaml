@@ -45,7 +45,7 @@ repos:
   # TODO:  https://github.com/adamchainz/pre-commit-oxipng
 
   - repo: https://github.com/thibaudcolas/pre-commit-stylelint
-    rev: v14.16.0
+    rev: v15.10.0
     hooks:
     -   id: stylelint
         name: stylelint
@@ -54,8 +54,8 @@ repos:
         args: [--report-needless-disables, --report-invalid-scope-disables, --fix, --allow-empty-input]
         additional_dependencies:
             # stylelint itself needs to be here when using additional_dependencies.
-            - stylelint@14.16.0
-            - stylelint-config-standard-scss@6.1.0
+            - stylelint@15.10.0
+            - stylelint-config-standard-scss@10.0.0
 
   ## static files
   - repo: https://github.com/pre-commit/mirrors-eslint
