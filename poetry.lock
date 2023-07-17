@@ -293,13 +293,13 @@ files = [
 
 [[package]]
 name = "cookiecutter"
-version = "2.2.2"
+version = "2.2.3"
 description = "A command-line utility that creates projects from project templates, e.g. creating a Python package project from a Python package project template."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "cookiecutter-2.2.2-py3-none-any.whl", hash = "sha256:4feb7485520dd7453e3094d8f3955601156a0fab0d0b90a2c8c74f6dc2cbaac6"},
-    {file = "cookiecutter-2.2.2.tar.gz", hash = "sha256:3b475d17573a7785b4a22fab693be249840e235a92c93c0fa088b39e9193f194"},
+    {file = "cookiecutter-2.2.3-py3-none-any.whl", hash = "sha256:17ad6751aef0a39d004c5ecacbd18176de6e83505343073fd7e48b60bdac5254"},
+    {file = "cookiecutter-2.2.3.tar.gz", hash = "sha256:d56f18c0c01c09804450b501ac43e8f6104cfa7cdd93610359c68b1ba9fd84d2"},
 ]
 
 [package.dependencies]
@@ -878,4 +878,4 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "d6abda042184a06f9752980fd63936119ed6ebd24589118a22d70b90a39883fa"
+content-hash = "d86a9782b6eefed6e15adb54e9e3bb122c7902f461f4ab0846da0eb632c132e8"
