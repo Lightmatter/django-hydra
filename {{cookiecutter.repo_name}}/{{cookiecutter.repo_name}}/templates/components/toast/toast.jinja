@@ -1,7 +1,5 @@
 {% with timeout=3_000 %}
     <div x-data="{ show: true }"
-         {# with the hx-preserve on #messages in base.jinja we need to completely remove
-         the toast from the dom once it has timed out  #}
          x-init="setTimeout(() => { show = false; $el.innerHTML = ''; $el.remove(); }, {{ timeout }})"
          x-show="show"
          x-cloak
