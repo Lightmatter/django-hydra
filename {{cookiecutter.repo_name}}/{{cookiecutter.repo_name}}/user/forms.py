@@ -1,4 +1,5 @@
 from allauth.account.forms import LoginForm as AllAuthLoginForm
+from allauth.account.forms import ResetPasswordForm as AllAuthResetPasswordForm
 from allauth.account.forms import SignupForm as AllAuthSignupForm
 from django import forms
 from django.utils.translation import gettext_lazy as _
@@ -17,6 +18,8 @@ class LoginForm(AllAuthLoginForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
+class ResetPasswordForm(AllAuthResetPasswordForm):
+    template_name = "account/password_reset_form.jinja"
 
 class SignupForm(AllAuthSignupForm):
     template_name = "account/signup_form.jinja"
