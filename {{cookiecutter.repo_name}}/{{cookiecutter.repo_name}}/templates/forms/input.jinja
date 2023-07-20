@@ -13,7 +13,7 @@
             @focus="updateFlag" @blur="updateFlag" @input="updateFlag"
         {% endif %}
         x-data="input('update-{{ event_name | replace('_', '-') }}', '{{ value }}')"
-        x-ref="input_{{ name }}" class="input {{ input_classes }} {{attrs.class}}" {% do attrs.update({"type": type, "name": name, "value": value}) %} {{ attributes(attrs)}} />
+        x-ref="input" class="input {{ input_classes }} {{attrs.class}}" {% do attrs.update({"type": type, "name": name, "value": value}) %} {{ attributes(attrs)}} />
 {% endmacro %}
 {# takes a django widget and calls our input macro with the appropriate args #}
 {% macro widget_to_input(widget) %}
