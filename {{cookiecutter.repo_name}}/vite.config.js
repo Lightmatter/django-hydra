@@ -55,6 +55,8 @@ export default defineConfig({
             event: 'template-hmr',
             path: '*',
           });
+          // returning an empty array prevents the hmr update from proceeding as normal
+          return [];
         }
       },
     }
