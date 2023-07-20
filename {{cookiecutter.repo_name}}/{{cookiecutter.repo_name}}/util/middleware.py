@@ -6,10 +6,11 @@ from django.utils import timezone
 
 
 def attach_messages(response):
-    messages = render_to_string(
-        "util/messages.jinja", {"messages": get_messages(response._request)}  # NOQA
-    )
-    response.content = response.content + messages.encode(response.charset)
+    if not (req_messages := get_messages(response._request)).used:
+        messages = render_to_string(
+            "util/messages.jinja", {"messages": req_messages}  # NOQA
+        )
+        response.content = response.content + messages.encode(response.charset)
     return response
 
 
