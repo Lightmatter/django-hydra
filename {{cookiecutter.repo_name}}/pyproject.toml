@@ -29,7 +29,7 @@ redis = "^4.4.0"
 django-redis = "^5.2.0"
 django-jinja = "^2.10.2"
 heroicons = {extras = ["jinja"], version = "^2.1.1"}
-django-rich = "^1.5.0"
+django-rich = "^1.7.0"
 django-hijack = "^3.4.1"
 django-cors-headers = "^3.13.0"
 django-csp = "^3.7"
