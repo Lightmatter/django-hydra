@@ -330,7 +330,6 @@ ACCOUNT_TEMPLATE_EXTENSION = "jinja"
 # https://django-allauth.readthedocs.io/en/latest/forms.html#account-forms
 ACCOUNT_FORMS = {
     "login": "{{cookiecutter.repo_name}}.user.forms.LoginForm",
-    "reset_password": "{{cookiecutter.repo_name}}.user.forms.ResetPasswordForm",
     "signup": "{{cookiecutter.repo_name}}.user.forms.SignupForm",
 }
 
