@@ -14,6 +14,11 @@ if (import.meta.env.MODE !== "development") {
   // https://github.com/vitejs/vite/issues/4786
 }
 
+htmx.config.historyCacheSize = 0;
+
+// Optional behavior - will remove scroll to top animation for boosted pages
+htmx.config.scrollBehavior = "auto";
+
 htmx.defineExtension("get-csrf", {
   onEvent(name: string, evt: any) {
     if (name === "htmx:configRequest") {
