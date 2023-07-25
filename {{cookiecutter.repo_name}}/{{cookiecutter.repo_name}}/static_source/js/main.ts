@@ -24,6 +24,14 @@ htmx.defineExtension("get-csrf", {
   },
 });
 
+htmx.defineExtension("get-timezone", {
+  onEvent: function(name: string, evt: any) {
+    if (name === "htmx:configRequest") {
+      evt.detail.headers["X-Timezone"] = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    }
+  }
+});
+
 if (import.meta.hot) {
   import.meta.hot.on("template-hmr", () => {
     const dest = document.location.href;
