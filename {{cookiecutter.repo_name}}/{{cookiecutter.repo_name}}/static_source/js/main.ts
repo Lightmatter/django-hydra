@@ -40,8 +40,7 @@ htmx.defineExtension("get-timezone", {
 if (import.meta.hot) {
   import.meta.hot.on("template-hmr", () => {
     const dest = document.location.href;
-    //TODO: Make swap morphdom based
-    htmx.ajax("GET", dest, { target: "body" });
+    htmx.ajax("GET", dest, { target: "body", swap: "morphdom" });
   });
 }
 

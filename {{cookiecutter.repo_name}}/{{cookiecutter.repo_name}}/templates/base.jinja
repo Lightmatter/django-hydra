@@ -28,7 +28,7 @@
         {% endblock extra_head %}
     </head>
     <body hx-boost="true"
-          hx-ext="get-csrf,get-timezone"
+          hx-ext="get-csrf,get-timezone,morphdom-swap"
           class="{% block bodyclass %}{% endblock bodyclass %}">
         {% include "header/base.jinja" %}
         <div id="app">
