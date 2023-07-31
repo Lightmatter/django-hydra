@@ -129,3 +129,8 @@ The render file sets up the following services:
 Built-In CDN
 ************
 https://fly.io/docs/reference/configuration/#the-statics-sections
+
+
+Sentry Error Logging
+************
+Logging errors to Sentry is configured in the prod.py settings. To enable Sentry logging you only have to provide a `SENTRY_DSN` as an environment variable. That value can be found following this `guide <https://docs.sentry.io/product/sentry-basics/dsn-explainer/#where-to-find-your-dsn>`_.
