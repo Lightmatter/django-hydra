@@ -56,3 +56,13 @@ For ease of local development, `icecream <https://github.com/gruns/icecream>`_ i
 
 Logging
 -------
+
+Logging is configured in the base.py settings. To use the logger in your backend code you can add the following:
+
+.. code-block:: python
+
+    import logging
+
+    logger = logging.getLogger(__name__)
+
+    logger.info("this is an info level log")
