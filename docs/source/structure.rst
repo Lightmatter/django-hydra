@@ -1,18 +1,18 @@
 Project Structure
 ==============================
 
-Hydra is divided into 2 major parts: Alpine.js to provide additional front end functionality and a Django backend.
+Hydra is wholly contained within the Django project folder. All of the backend functionality is defined in apps within the project folders, html/jinja templates and Alpine.js components for additional frontend functionality are defined side by side within a templates folder, and the static assets (such as CSS and TypeScript) that are served by Vite are defined in the static_source. The philosophy is to have things that are related to each other actually next to each other and not have a separate frontend vs backend folder structure.
 
-The folder structure is as follows:
+The folder structure within ``/{{ cookiecutter.project_name }}``  is as follows:
 
-* ``/frontend``- The Alpine.js project root, contains static assets (such as CSS and TypeScript) that will be served by Vite
-* ``/{{ cookiecutter.project_name }}`` - the Django project folder
 * ``/config`` - Project settings, asgi settings, and base urls
 * ``/home`` - Handles home page for django, error endpoint, settings context processor
 * ``/user`` - User related logic, views, models, etc.
 * ``/util`` - Container for general utility classes, functions, etc.
-* ``/static_source`` - for adding assetsthat will be served via python
-* ``/templates`` - html/jinja templates for all webpages served by the app
+* ``/static`` - Created by ``./manage.py collectstatic`` stores static assets added to ``/static_source`` to be served at runtime
+* ``/static_source`` - contains static assets (such as CSS and TypeScript) that will be served by Vite
+    * ``/js``- The Alpine.js project root
+* ``/templates`` - html/jinja templates for all webpages served by the app and Alpine.js components
 
 
 Backend
