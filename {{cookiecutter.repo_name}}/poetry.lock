@@ -653,13 +653,13 @@ toml = ["tomli"]
 
 [[package]]
 name = "cruft"
-version = "2.14.0"
+version = "2.15.0"
 description = "Allows you to maintain all the necessary cruft for packaging and building projects separate from the code you intentionally write. Built on-top of CookieCutter."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "cruft-2.14.0-py3-none-any.whl", hash = "sha256:c3888897f38b91938509b74446e902ba6cd38169138ff2516fb04b0f01e6386f"},
-    {file = "cruft-2.14.0.tar.gz", hash = "sha256:ba3d976de1cad437b6a92239b6ec844ea8547e09de796ef505d320c356c45de5"},
+    {file = "cruft-2.15.0-py3-none-any.whl", hash = "sha256:2c1c6c7c512b8bc3afc66cefa829247dc067409a78ba2609d629d413444bc153"},
+    {file = "cruft-2.15.0.tar.gz", hash = "sha256:9802af66037418655e7e4b6f30b531591e0761939b3ff5dd45d27c3a3f588abe"},
 ]
 
 [package.dependencies]
@@ -3363,4 +3363,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "cd49e26b151f9d3eeb204776dafac66fdf3fc64ea9ce459c461bd87f45207d15"
+content-hash = "c942c8b4a6a858f9fd839b70be23f2c4fa5201e3f129c5d2e3918042173140fc"
