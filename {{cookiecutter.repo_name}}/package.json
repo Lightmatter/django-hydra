@@ -24,7 +24,7 @@
     "happy-dom": "^10.5.2",
     "postcss": "^8.4.25",
     "postcss-nested": "^6.0.1",
-    "sass": "^1.64.1",
+    "sass": "^1.64.2",
     "stylelint": "^15.10.2",
     "stylelint-config-standard-scss": "^10.0.0",
     "tailwindcss": "^3.3.3",
