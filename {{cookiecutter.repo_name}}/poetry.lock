@@ -2531,20 +2531,20 @@ python-dotenv = ">=0.9.1"
 
 [[package]]
 name = "pytest-playwright"
-version = "0.3.2"
+version = "0.4.2"
 description = "A pytest wrapper with fixtures for Playwright to automate web browsers"
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "pytest-playwright-0.3.2.tar.gz", hash = "sha256:8e91e00c9c7558f909302ebd2ec440e7c1147a72ead8805dc58b6a0eee9b161b"},
-    {file = "pytest_playwright-0.3.2-py3-none-any.whl", hash = "sha256:2ffb27226739425a713363bab391d26e4a4c5b2f5ba4b83496b66cffc2223bab"},
+    {file = "pytest-playwright-0.4.2.tar.gz", hash = "sha256:9e9622e5507f8d27a3c7fd07aadcf43122f0086b69d1b3e6728995c8dbc0e44f"},
+    {file = "pytest_playwright-0.4.2-py3-none-any.whl", hash = "sha256:68dd0069e2dbf8e6024c6237d51d0277626687d94ba0dd387cea2a94ae4005b9"},
 ]
 
 [package.dependencies]
 playwright = ">=1.18"
 pytest = ">=6.2.4,<8.0.0"
 pytest-base-url = ">=1.0.0,<3.0.0"
-python-slugify = ">=6.0.0,<7.0.0"
+python-slugify = ">=6.0.0,<9.0.0"
 
 [[package]]
 name = "python-dateutil"
@@ -3363,4 +3363,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "50bf6b8aeb78dff57a60787aac3401b5df9964f4d889db608956657b83a6eec2"
+content-hash = "ba88c77b25f3a69efb50d5b364e4343947cdc9f1b32ec75d17120d6302b14ae7"
