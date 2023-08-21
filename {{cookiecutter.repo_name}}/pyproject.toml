@@ -68,7 +68,7 @@ ruff = "^0.0.261"
 [tool.poetry.group.test.dependencies]
 pytest = "^7.4.0"
 pytest-django = "^4.5.2"
-pytest-playwright = "^0.3.0"
+pytest-playwright = "^0.4.2"
 
 [tool.black]
 force-exclude = '''
