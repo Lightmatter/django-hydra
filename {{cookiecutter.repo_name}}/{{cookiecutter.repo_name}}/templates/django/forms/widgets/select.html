@@ -1,3 +1,2 @@
-{% from 'forms/select.jinja' import widget_to_select %}
-
-{{widget_to_select(widget)}}
+{% from 'forms/select.jinja' import select_widget %} {{select_widget(widget,
+id=widget.attrs.id)}}

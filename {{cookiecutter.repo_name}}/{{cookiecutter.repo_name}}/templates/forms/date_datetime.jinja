@@ -1,15 +1,26 @@
-{% from 'components/util.jinja' import attributes %}
-{% macro date_datetime(name=none, value=none, id=none, attrs={}, time=false) %}
-    {% set event_name = "update-"|join(id | replace('_', '-')) if id else "" %}
-    {% do attrs.update({"name": name, "value": value}) %}
-    <div @click="picker.open()" x-data="dateTime('{{ event_name }}', '{{ value }}', {{ 'true' if time else 'false' }})"
-         class="w-full input" :class="{'has-focus': active}">
-        <input class="w-full rounded-md border border-gray-200 px-3 py-2.5" x-ref="picker" type="text" {{ attributes(attrs) }}/>
-    </div>
+{% from "forms/wrappers.jinja" import input_shell %}
+{% from 'components/util.jinja' import attributes, get_event_name_from_id %}
+
+{% macro datetime_field(field, errors) %}
+    {{ input_shell(field, errors, date_datetime_widget(field.field.widget, value=field.value(), id=field.id_for_label, time=True, date=True)) }}
 {% endmacro %}
-{#
-    Django date or datetime widget to date_datetime macro
- #}
-{% macro widget_to_date_datetime(widget, time=false) %}
-    {{ date_datetime(name=widget.name, value=widget.value, id=widget.attrs.id, attrs=widget.attrs, time=time) }}
+
+{% macro date_field(field, errors) %}
+    {{ input_shell(field, errors, date_datetime_widget(field.field.widget, value=field.value(), id=field.id_for_label, time=False, date=True)) }}
+{% endmacro %}
+
+{% macro time_field(field, errors) %}
+    {{ input_shell(field, errors, date_datetime_widget(field.field.widget, value=field.value(), id=field.id_for_label, time=True, date=False)) }}
+{% endmacro %}
+
+
+{% macro date_datetime_widget(widget, value=None, id="", time=False, date=False) %}
+    {% set attrs = widget.attrs or {} %}
+    {% do attrs.update({"name": widget.name, "value": value, "id": id}) %}
+    {% set event_name = get_event_name_from_id(id) %}
+
+    <div @click="picker.open()" x-data="dateTime('{{ event_name }}', '{{ value or "" }}', {{ 'true' if time else 'false' }}, {{ 'true' if date else 'false' }})"
+         class="w-full input" :class="{'has-focus': active}">
+        <input class="w-full rounded-md border border-gray-200 px-3 py-2.5 flatpickr flatpickr-input" x-ref="picker" type="text" {{ attributes(attrs) }}/>
+    </div>
 {% endmacro %}

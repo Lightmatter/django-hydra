@@ -1,0 +1,38 @@
+{%- macro input_widget_hook(field) -%}
+    {%- if field.widget_type == "select" -%}
+        select
+    {%- elif field.widget_type == "radioselect" -%}
+        radio
+    {%- elif field.widget_type == "textarea" -%}
+        textarea
+    {%- else -%}
+        input
+    {%- endif -%}
+{%- endmacro -%}
+
+{% macro input_shell(field, errors='', rendered="") %}
+    <div class="field {% if errors %}error {% endif %}{{ input_widget_hook(field) }}">
+            {{ rendered }}
+            {% if field.label %}{{ field.label_tag() }}{% endif %}
+            <div class="right-icon {% if errors is not none %}hidden{% endif %}">
+                {{ heroicon_solid("exclamation-circle", class="text-error")}}
+            </div>
+        </div>
+{% endmacro %}
+{% macro boolean_shell(field, errors='') %}
+    <div class="boolean-field flex items-center {% if errors %} error{% endif %}">
+        {% if field.label %}{{ field.label_tag() }}{% endif %}
+        {{ field }}
+    </div>
+{% endmacro %}
+{% macro radio_shell(field, errors='') %}
+    <div class="radio-field {% if errors %} error{% endif %}">
+        <div class="{{ input_widget_hook(field) }}">{{ field }}</div>
+    </div>
+{% endmacro %}
+{% macro file_shell(field, errors='') %}
+    <div class="file-field {% if errors %} error{% endif %}">
+        {% if field.label %}{{ field.label_tag() }}{% endif %}
+        <div class="{{ input_widget_hook(field) }}">{{ field }}</div>
+    </div>
+{% endmacro %}

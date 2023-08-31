@@ -7,3 +7,7 @@
         {% endfor %}
     {% endif %}
 {% endmacro %}
+
+{% macro get_event_name_from_id(id="") %}
+{% if id %}update-{{ id | replace('_', '-')}}{% endif %}
+{% endmacro %}

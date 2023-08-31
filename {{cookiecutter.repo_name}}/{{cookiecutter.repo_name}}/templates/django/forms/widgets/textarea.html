@@ -1,3 +1,2 @@
-{% from 'forms/textarea.jinja' import widget_to_textarea %}
-
-{{widget_to_textarea(widget)}}
+{% from 'forms/textarea.jinja' import textarea_widget %} {{textarea_widget(widget,
+id=widget.attrs.id)}}

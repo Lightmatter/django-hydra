@@ -1,2 +1,2 @@
-{% from 'forms/date_datetime.jinja' import widget_to_date_datetime %}
-{{ widget_to_date_datetime(widget, true) }}
+{% from 'forms/date_datetime.jinja' import date_datetime_widget %} {{
+date_datetime_widget(widget, id=widget.attrs.id, true) }}
