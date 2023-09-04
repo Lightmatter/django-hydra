@@ -764,13 +764,13 @@ files = [
 
 [[package]]
 name = "sphinx"
-version = "7.2.2"
+version = "7.2.5"
 description = "Python documentation generator"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "sphinx-7.2.2-py3-none-any.whl", hash = "sha256:ed33bc597dd8f05cd37118f64cbac0b8bf773389a628ddfe95ab9e915c9308dc"},
-    {file = "sphinx-7.2.2.tar.gz", hash = "sha256:1c0abe6d4de7a6b2c2b109a2e18387bf27b240742e1b34ea42ac3ed2ac99978c"},
+    {file = "sphinx-7.2.5-py3-none-any.whl", hash = "sha256:9269f9ed2821c9ebd30e4204f5c2339f5d4980e377bc89cb2cb6f9b17409c20a"},
+    {file = "sphinx-7.2.5.tar.gz", hash = "sha256:1a9290001b75c497fd087e92b0334f1bbfa1a1ae7fddc084990c4b7bd1130b88"},
 ]
 
 [package.dependencies]
@@ -789,7 +789,7 @@ sphinxcontrib-devhelp = "*"
 sphinxcontrib-htmlhelp = ">=2.0.0"
 sphinxcontrib-jsmath = "*"
 sphinxcontrib-qthelp = "*"
-sphinxcontrib-serializinghtml = ">=1.1.5"
+sphinxcontrib-serializinghtml = ">=1.1.9"
 
 [package.extras]
 docs = ["sphinxcontrib-websupport"]
@@ -889,14 +889,17 @@ test = ["pytest"]
 
 [[package]]
 name = "sphinxcontrib-serializinghtml"
-version = "1.1.5"
-description = "sphinxcontrib-serializinghtml is a sphinx extension which outputs \"serialized\" HTML files (json and pickle)."
+version = "1.1.9"
+description = "sphinxcontrib-serializinghtml is a sphinx extension which outputs \"serialized\" HTML files (json and pickle)"
 optional = false
-python-versions = ">=3.5"
+python-versions = ">=3.9"
 files = [
-    {file = "sphinxcontrib-serializinghtml-1.1.5.tar.gz", hash = "sha256:aa5f6de5dfdf809ef505c4895e51ef5c9eac17d0f287933eb49ec495280b6952"},
-    {file = "sphinxcontrib_serializinghtml-1.1.5-py2.py3-none-any.whl", hash = "sha256:352a9a00ae864471d3a7ead8d7d79f5fc0b57e8b3f95e9867eb9eb28999b92fd"},
+    {file = "sphinxcontrib_serializinghtml-1.1.9-py3-none-any.whl", hash = "sha256:9b36e503703ff04f20e9675771df105e58aa029cfcbc23b8ed716019b7416ae1"},
+    {file = "sphinxcontrib_serializinghtml-1.1.9.tar.gz", hash = "sha256:0c64ff898339e1fac29abd2bf5f11078f3ec413cfe9c046d3120d7ca65530b54"},
 ]
+
+[package.dependencies]
+Sphinx = ">=5"
 
 [package.extras]
 lint = ["docutils-stubs", "flake8", "mypy"]
@@ -932,4 +935,4 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "45da3c40429940e277f1a8a30eaa8055d4395b0da7922bd3ecaa363f9e16e4e9"
+content-hash = "5c0f875ec013aa1862f057e127f6ddc579a15561a068a50d138e206303baccfa"
