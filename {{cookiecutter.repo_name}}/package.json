@@ -37,7 +37,7 @@
     "@alpinejs/mask": "^3.12.3",
     "@alpinejs/morph": "^3.12.3",
     "@alpinejs/ui": "^3.10.5-beta.8",
-    "alpinejs": "^3.12.3",
+    "alpinejs": "^3.13.0",
     "flatpickr": "^4.6.13",
     "glob": "^10.3.3",
     "htmx.org": "1.9.5",
