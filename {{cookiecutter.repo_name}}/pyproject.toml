@@ -23,7 +23,7 @@ sentry-sdk = "^1.29.2"
 Pillow = "^10.0.0"
 django-anymail = {extras = ["sendgrid"], version = "^10.0"}
 django-vite = "^2.0.2"
-tblib = "^1.7.0"
+tblib = "^2.0.0"
 django-cachalot = "^2.5.0"
 redis = "^4.4.0"
 django-redis = "^5.2.0"
