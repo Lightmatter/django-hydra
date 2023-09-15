@@ -4,7 +4,7 @@ Local Development & Debugging
 Running the local development servers
 --------------------------------------
 
-This app uses webpack to compile/transpile assets. The app is equipped to be served from `127.0.0.1:8000` or `localhost:8000`.
+This app uses vite to compile/transpile assets. The app is equipped to be served from `127.0.0.1:8000` or `localhost:8000`.
 
 First run the python server:
 
