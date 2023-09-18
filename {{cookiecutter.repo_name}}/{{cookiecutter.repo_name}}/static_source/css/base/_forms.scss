@@ -221,10 +221,10 @@ $background-color: #fff;
   select:-webkit-autofill,
   select:-webkit-autofill:hover,
   select:-webkit-autofill:focus {
-    @apply outline-none shadow-none;
+    @apply ring-0;
+
     background-clip: text;
     font-size: inherit;
-    box-shadow: none;
   }
 }
 
