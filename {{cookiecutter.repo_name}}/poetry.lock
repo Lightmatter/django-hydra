@@ -1004,17 +1004,17 @@ Django = ">=3.2"
 
 [[package]]
 name = "django-redis"
-version = "5.2.0"
+version = "5.3.0"
 description = "Full featured redis cache backend for Django."
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "django-redis-5.2.0.tar.gz", hash = "sha256:8a99e5582c79f894168f5865c52bd921213253b7fd64d16733ae4591564465de"},
-    {file = "django_redis-5.2.0-py3-none-any.whl", hash = "sha256:1d037dc02b11ad7aa11f655d26dac3fb1af32630f61ef4428860a2e29ff92026"},
+    {file = "django-redis-5.3.0.tar.gz", hash = "sha256:8bc5793ec06b28ea802aad85ec437e7646511d4e571e07ccad19cfed8b9ddd44"},
+    {file = "django_redis-5.3.0-py3-none-any.whl", hash = "sha256:2d8660d39f586c41c9907d5395693c477434141690fd7eca9d32376af00b0aac"},
 ]
 
 [package.dependencies]
-Django = ">=2.2"
+Django = ">=3.2"
 redis = ">=3,<4.0.0 || >4.0.0,<4.0.1 || >4.0.1"
 
 [package.extras]
@@ -3358,4 +3358,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "47db27cfd40cca1bed21279270d7d974e6fca67467e50feed69260dc81a65221"
+content-hash = "24f9aa863ae21e3e045560c859da8c38538368168bce869574c8e429dea249e1"
