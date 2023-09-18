@@ -764,13 +764,13 @@ files = [
 
 [[package]]
 name = "sphinx"
-version = "7.2.5"
+version = "7.2.6"
 description = "Python documentation generator"
 optional = false
 python-versions = ">=3.9"
 files = [
-    {file = "sphinx-7.2.5-py3-none-any.whl", hash = "sha256:9269f9ed2821c9ebd30e4204f5c2339f5d4980e377bc89cb2cb6f9b17409c20a"},
-    {file = "sphinx-7.2.5.tar.gz", hash = "sha256:1a9290001b75c497fd087e92b0334f1bbfa1a1ae7fddc084990c4b7bd1130b88"},
+    {file = "sphinx-7.2.6-py3-none-any.whl", hash = "sha256:1e09160a40b956dc623c910118fa636da93bd3ca0b9876a7b3df90f07d691560"},
+    {file = "sphinx-7.2.6.tar.gz", hash = "sha256:9a5160e1ea90688d5963ba09a2dcd8bdd526620edbb65c328728f1b2228d5ab5"},
 ]
 
 [package.dependencies]
@@ -935,4 +935,4 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "ea1531c24181f4aced5b8b24dc989d9abcc512ea12eb439e04217af60bb9995b"
+content-hash = "f54bb72668106b49327b7214bf608c67dc0735f1251a7cec2fe1afa1de6a9622"
