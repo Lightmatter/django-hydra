@@ -37,13 +37,13 @@ def test_send_email(mailoutbox):
     mail.send_mail(
         "subject",
         "body",
-        "from@{{^ cookiecutter.domain_name|lower ^}}.com",
-        ["to@{{^ cookiecutter.domain_name|lower ^}}.com"],
+        "from@{{^ cookiecutter.domain_name|lower ^}}",
+        ["to@{{^ cookiecutter.domain_name|lower ^}}"],
     )
     assert len(mailoutbox) == 1
 
     m = mailoutbox[0]
     assert m.subject == "subject"
     assert m.body == "body"
-    assert m.from_email == "from@{{^ cookiecutter.org_name|lower ^}}.com"
-    assert list(m.to) == ["to@{{^ cookiecutter.org_name|lower ^}}.com"]
+    assert m.from_email == "from@{{^ cookiecutter.domain_name|lower ^}}"
+    assert list(m.to) == ["to@{{^ cookiecutter.domain_name|lower ^}}"]
