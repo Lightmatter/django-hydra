@@ -1,8 +1,0 @@
-*.pyc
-*.pyo
-/.env
-/.venv/
-/node_modules
-/{{cookiecutter.repo_name}}/static
-.DS_Store
-.editorconfig

@@ -1,0 +1,81 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "compounds": [
+    {
+      "name": "Debug {{^ cookiecutter.project_name_verbose ^}}",
+      "configurations": ["Django", "Vite", "Browser Debug"],
+      "stopAll": true
+    }
+  ],
+  "configurations": [
+    {
+      "name": "Django Command",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/manage.py",
+      "args": "${input:djangoManage}",
+      "django": true,
+      "justMyCode": true,
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "poetryInstall"
+    },
+    {
+      "name": "Django",
+      "type": "python",
+      "request": "launch",
+      "program": "${workspaceFolder}/manage.py",
+      "args": ["runserver"],
+      "django": true,
+      "justMyCode": true,
+      "presentation": { "hidden": true },
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "poetryInstall"
+      // Disabled this in favor of "Browser Debug" as this doesn't stop automatically
+      // https://github.com/microsoft/vscode/issues/163124
+      //
+      // "serverReadyAction": {
+      //   "pattern": ".*(https?:\\/\\/\\S+:[0-9]+\\/?).*",
+      //   "uriFormat": "%s",
+      //   "action": "debugWithChrome"
+      // }
+    },
+    {
+      "name": "Browser Debug",
+      "type": "chrome",
+      "request": "launch",
+      "presentation": { "hidden": true },
+      "url": "http://localhost:8000"
+    },
+    {
+      "name": "Vite",
+      "type": "node",
+      "request": "launch",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "presentation": { "hidden": true },
+      "cwd": "${workspaceFolder}",
+      "preLaunchTask": "npmInstall"
+    },
+    {
+      "name": "Python: Debug Test",
+      "type": "python",
+      "request": "launch",
+      "presentation": { "hidden": true },
+      "program": "${file}",
+      "purpose": ["debug-test"],
+      "justMyCode": true,
+      "preLaunchTask": "testSetup"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "djangoManage",
+      "type": "promptString",
+      "description": "Django admin commands.",
+      "default": "migrate"
+    }
+  ]
+}

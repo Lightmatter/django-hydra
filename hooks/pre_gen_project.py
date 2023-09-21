@@ -1,10 +1,9 @@
 import re
 import sys
 
-
 MODULE_REGEX = r"^[a-z][_a-z]+$"
 
-module_name = "{{cookiecutter.repo_name}}"
+module_name = "{{ cookiecutter.repo_name }}"
 
 if not re.match(MODULE_REGEX, module_name):
     print(
