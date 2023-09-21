@@ -2,7 +2,7 @@
   "project_name": "sampleapp",
   "project_name_verbose": "Sample App",
   "repo_name": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
-  "author_name": "John Smith",
+  "author_name": "Ben Beecher",
   "org_name": "Django Hydra",
   "domain_name": "example.com",
   "email": "{{ cookiecutter.author_name.lower()|replace(' ', '-') }}@{{ cookiecutter.domain_name|lower }}",
