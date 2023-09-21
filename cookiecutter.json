@@ -3,14 +3,15 @@
   "project_name_verbose": "Sample App",
   "repo_name": "{{ cookiecutter.project_name.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
   "author_name": "Ben Beecher",
-  "email": "{{ cookiecutter.author_name.lower()|replace(' ', '-') }}@lightmatter.com",
-  "org_name": "Lightmatter",
-  "description": "A short description of the project.",
+  "org_name": "Django Hydra",
   "domain_name": "example.com",
+  "email": "{{ cookiecutter.author_name.lower()|replace(' ', '-') }}@{{ cookiecutter.domain_name|lower }}",
+  "description": "A short description of the project.",
   "version": "0.1.0",
-  "_copy_without_render": [
-    "{{cookiecutter.repo_name}}/**/*.jinja",
-    "{{cookiecutter.repo_name}}/**/*.html",
-    "{{cookiecutter.repo_name}}/templates/**/*.txt"
-  ]
+  "_jinja2_env_vars": {
+    "variable_start_string": "{{^",
+    "variable_end_string": "^}}",
+    "block_start_string": "{%^",
+    "block_end_string": "%^}"
+  }
 }
