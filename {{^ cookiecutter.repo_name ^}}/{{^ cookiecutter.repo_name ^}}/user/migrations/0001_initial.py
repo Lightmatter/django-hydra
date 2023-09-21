@@ -2,7 +2,7 @@ import django.utils.timezone
 import model_utils.fields
 from django.db import migrations, models
 
-from {{cookiecutter.repo_name}}.user.models import UserManager
+from {{^cookiecutter.repo_name^}}.user.models import UserManager
 
 
 class Migration(migrations.Migration):
