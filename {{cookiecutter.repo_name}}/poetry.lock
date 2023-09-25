@@ -975,17 +975,17 @@ Django = ">=3.2"
 
 [[package]]
 name = "django-jinja"
-version = "2.10.2"
+version = "2.11.0"
 description = "Jinja2 templating language integrated in Django."
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.8"
 files = [
-    {file = "django-jinja-2.10.2.tar.gz", hash = "sha256:bfdfbb55c1f5a679d69ad575d550c4707d386634009152efe014089f3c4d1412"},
-    {file = "django_jinja-2.10.2-py3-none-any.whl", hash = "sha256:dd003ec1c95c0989eb28a538831bced62b1b61da551cb44a5dfd708fcf75589f"},
+    {file = "django-jinja-2.11.0.tar.gz", hash = "sha256:47c06d3271e6b2f27d3596278af517bfe2e19c1eb36ae1c0b1cc302d7f0259af"},
+    {file = "django_jinja-2.11.0-py3-none-any.whl", hash = "sha256:cc4c72246a6e346aa0574e0c56c3e534c1a20ef47b8476f05d7287781f69a0a9"},
 ]
 
 [package.dependencies]
-django = ">=2.2"
+django = ">=3.2"
 jinja2 = ">=3"
 
 [[package]]
@@ -3358,4 +3358,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "24f9aa863ae21e3e045560c859da8c38538368168bce869574c8e429dea249e1"
+content-hash = "2da205a26a16b93d4816bbbcc69c37b9087e70a0249797cf7b70136a27f2ede8"
