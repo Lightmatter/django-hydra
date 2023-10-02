@@ -10,7 +10,6 @@
              #}
             x-model.debounce.500ms="value"
             :class="{'has-focus': active}"
-            @focus="updateFlag" @blur="updateFlag" @input="updateFlag"
         {% endif %}
         x-data="input('update-{{ event_name | replace('_', '-') }}', '{{ value }}')"
         x-ref="input" class="input {{ input_classes }} {{attrs.class}}" {% do attrs.update({"type": type, "name": name, "value": value}) %} {{ attributes(attrs)}} />

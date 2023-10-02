@@ -1,13 +1,18 @@
 import AlpineInstance, { AlpineComponent } from "alpinejs";
 import flatpickr from "flatpickr";
 import "flatpickr/dist/themes/light.css";
-import { AlpineDataCallback } from "../../static_source/js";
+import { AlpineDataCallback } from "../../../static_source/js";
+import inputListener from "./common";
 
 const dateTime = (eventName: string, value: string, enableTime: boolean): AlpineComponent => ({
   eventName,
   value,
   enableTime,
+  picker: null,
+  active: false,
   init() {
+    inputListener.call(this);
+
     if (this.value === "None") {
       this.value = null;
     }
@@ -15,7 +20,7 @@ const dateTime = (eventName: string, value: string, enableTime: boolean): Alpine
     // see https://flatpickr.js.org/formatting/
     const dateFormat = enableTime ? "m/d/Y H:i" : "m/d/Y";
 
-    const picker = flatpickr(this.$refs.picker, {
+    this.picker = flatpickr(this.$refs.picker, {
       mode: "single",
       enableTime,
       dateFormat,
@@ -26,9 +31,13 @@ const dateTime = (eventName: string, value: string, enableTime: boolean): Alpine
     });
 
     this.$watch("value", () => {
-      picker.setDate(this.value);
+      this.picker.setDate(this.value);
       if (this.eventName !== "") this.$dispatch(this.eventName, { value: this.value });
     });
+
+    if (this.value) {
+      this.active = true;
+    }
   },
 });
 

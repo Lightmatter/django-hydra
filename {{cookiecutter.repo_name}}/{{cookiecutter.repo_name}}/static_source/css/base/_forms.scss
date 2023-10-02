@@ -103,6 +103,7 @@ $background-color: #fff;
     & ~ label {
       @apply px-4;
     }
+
     & input:focus {
       @apply ring-0;
     }
@@ -220,11 +221,17 @@ $background-color: #fff;
   select:-webkit-autofill,
   select:-webkit-autofill:hover,
   select:-webkit-autofill:focus {
+    @apply ring-0;
+
     background-clip: text;
     font-size: inherit;
   }
 }
 
+// styling for flatpickr (generally fine except overriding focus styles)
+.flatpickr-input {
+  @apply focus:ring-0;
+}
 // global/admin styling for tom-select
 .ts-wrapper {
   @apply px-4 ring-0;

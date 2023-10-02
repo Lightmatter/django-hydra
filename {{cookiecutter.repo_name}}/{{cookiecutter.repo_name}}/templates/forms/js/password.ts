@@ -1,21 +1,16 @@
 import AlpineInstance, { AlpineComponent } from "alpinejs";
-import { AlpineDataCallback } from "../../static_source/js";
+import { AlpineDataCallback } from "../../../static_source/js";
+import inputListener from "./common";
 
 const password = (eventName: unknown, value: unknown, type: unknown): AlpineComponent => ({
   eventName,
   value,
   type,
   active: false,
-  updateFlag() {
-    const childInput:HTMLInputElement|null = this.$refs.input.querySelector("input, textarea");
-    if (!childInput) {
-      return;
-    }
-    if (!childInput.value) {
-      this.active = !this.active;
-    }
-  },
+  inputListener,
   init() {
+    inputListener.call(this);
+
     if (this.value === "None") {
       this.value = "";
     }
