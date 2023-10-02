@@ -263,6 +263,7 @@ CORS_ALLOWED_ORIGINS = []
 CSP_SCRIPT_SRC = [
     "'self'",
     "'unsafe-eval'",
+    "'unsafe-inline'",
 ]
 # data: from tailwind form plugin + tomselect
 CSP_IMG_SRC = ["'self'", "data:", "https:"]
