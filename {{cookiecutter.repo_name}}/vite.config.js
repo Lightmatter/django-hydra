@@ -21,10 +21,7 @@ export default defineConfig({
         /* The bundle's entry point(s).  If you provide an array of entry points or an object mapping names to
         entry points, they will be bundled to separate output chunks. */
         components: resolve(__dirname, './{{cookiecutter.repo_name}}/static_source/js/components.ts'),
-        account: resolve(__dirname, './{{cookiecutter.repo_name}}/static_source/js/account.ts'),
-        forms: resolve(__dirname, './{{cookiecutter.repo_name}}/static_source/js/forms.ts'),
         main: resolve(__dirname, './{{cookiecutter.repo_name}}/static_source/js/main.ts'),
-        links: resolve(__dirname, './{{cookiecutter.repo_name}}/static_source/js/links.ts'),
         styles: resolve(__dirname, './{{cookiecutter.repo_name}}/static_source/css/styles.js'),
         raw_tailwind: resolve(__dirname, './{{cookiecutter.repo_name}}/static_source/css/tailwind.js'),
       }
