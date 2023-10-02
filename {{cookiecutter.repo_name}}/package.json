@@ -33,7 +33,7 @@
     "vitest": "^0.34.5"
   },
   "dependencies": {
-    "@alpinejs/focus": "^3.12.3",
+    "@alpinejs/focus": "^3.13.1",
     "@alpinejs/mask": "^3.13.0",
     "@alpinejs/morph": "^3.13.0",
     "@alpinejs/ui": "^3.10.5-beta.8",
