@@ -5,14 +5,14 @@
     {{ boolean_shell(field, errors, wrapper_classes="gap-4") }}
 {% endmacro %}
 
-{% macro checkbox_widget(widget, value=False, id="") %}
+{% macro checkbox_widget(widget) %}
     {% set attrs = widget.attrs %}
-    {% do attrs.update({"name": widget.name, "value": value, "type": widget.type}) %}
-    {% set event_name = get_event_name_from_id(id) %}
+    {% do attrs.update({"name": widget.name, "value": widget.value or "", "type": widget.type}) %}
+    {% set event_name = get_event_name_from_id(widget.attrs.id) %}
 
     <input
         type="checkbox"
-        x-data="input('{{ event_name }}', '{{ value or "" }}')"
+        x-data="input('{{ event_name }}', '{{ widget.value or "" }}')"
         x-ref="input" class="input {{ input_classes or ""}} {{attrs.class or ""}}" {{ attributes(attrs)}}
     />
 {% endmacro %}

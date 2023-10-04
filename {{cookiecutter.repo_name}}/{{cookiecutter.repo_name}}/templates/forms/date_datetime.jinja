@@ -16,7 +16,7 @@
 
 {% macro date_datetime_widget(widget, time=False, date=False) %}
     {% set attrs = widget.attrs or {} %}
-    {% do attrs.update({"name": widget.name, "value": widget.value}) %}
+    {% do attrs.update({"name": widget.name, "value": widget.value or ""}) %}
     {% set event_name = get_event_name_from_id(widget.attrs.id) %}
 
     <div @click="picker.open()" x-data="dateTime('{{ event_name }}', '{{ widget.value or "" }}', {{ 'true' if time else 'false' }}, {{ 'true' if date else 'false' }})"

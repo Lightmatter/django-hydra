@@ -7,7 +7,7 @@
 
 {% macro toggle_widget(widget) %}
     {% set attrs = widget.attrs or {} %}
-    {% do attrs.update({"name": widget.name, "value": widget.value, "type": widget.type}) %}
+    {% do attrs.update({"name": widget.name, "value": widget.value or "", "type": widget.type}) %}
 
     {% if attrs.class %}
         {% set class = "{{attrs.class}}" %}
@@ -52,7 +52,7 @@
     {% set disabled, readonly = attrs.disabled, attrs.readonly %}
     {% set noedit = disabled or readonly %}
     <div
-        x-data="{ value: {{widget.value|tojson}} }"
+        x-data="{ value: '{{widget.value}}' }"
         x-switch:group
         class="{{class}}"
     >
