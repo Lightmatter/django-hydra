@@ -1,19 +1,20 @@
 {% from 'forms/input.jinja' import input_widget %}
+{% from "forms/wrappers.jinja" import file_shell %}
 {% from 'forms/checkbox.jinja' import checkbox_widget %}
 {% from 'components/util.jinja' import get_event_name_from_id %}
 
 {% macro clearable_file_input_field(field, errors) %}
-    {{ clearable_file_input_widget(field.field.widget, value=field.value(), id=field.id_for_label)}}
+    {{ file_shell(field, errors) }}
 {% endmacro %}
 
-{% macro clearable_file_input_widget(widget, value=None, id="") %}
+{% macro clearable_file_input_widget(widget) %}
     {% set attrs = widget.attrs or {} %}
-    {% set event_name = get_event_name_from_id(id) %}
+    {% set event_name = get_event_name_from_id(attrs.id) %}
 
     <div
          class="w-full input flex items-center pb-2">
         {% if is_initial %}
-            {{widget.initial_text}}: <a href="{{value.url}}">{{value}}</a>
+            {{widget.initial_text}}: <a href="{{widget.value.url}}">{{widget.value}}</a>
             {% if not required %}
                 {{ checkbox_widget({"type": "checkbox", "name": widget.checkbox_name, "attrs":{'id': widget.checkbox_id, 'disabled': attrs.disabled}}) }}
                 <label for="{{widget.checkbox_id}}">{{widget.clear_checkbox_label}}</label>
@@ -21,6 +22,6 @@
             <br>
             {{widget.input_text}}:
         {% endif %}
-        {{ input_widget(widget, type="file", input_classes="flex justify-center text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary-focus") }}
+        {{ input_widget(widget, input_classes="flex justify-center text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary-focus") }}
     </div>
 {% endmacro %}

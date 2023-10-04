@@ -1,17 +1,8 @@
 {% from 'components/util.jinja' import attributes, get_event_name_from_id %}
+{% from "forms/wrappers.jinja" import boolean_shell %}
 
 {% macro checkbox_field(field, errors) %}
-    <div class="relative flex items-start{% if errors %} error{% endif %}">
-        <div class="flex items-center h-5">{{ checkbox_widget(field.field.widget, value=field.value(), id=field.id_for_label) }}</div>
-        <div class="ml-3 text-sm">
-            {% if field.label %}{{ field.label_tag() }}{% endif %}
-            {% if field.help_text %}
-            <p class="text-gray-500">
-                {{ field.help_text|safe }}
-            </p>
-            {% endif %}
-        </div>
-    </div>
+    {{ boolean_shell(field, errors, wrapper_classes="gap-4") }}
 {% endmacro %}
 
 {% macro checkbox_widget(widget, value=False, id="") %}

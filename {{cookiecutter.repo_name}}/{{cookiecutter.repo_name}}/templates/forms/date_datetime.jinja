@@ -2,24 +2,24 @@
 {% from 'components/util.jinja' import attributes, get_event_name_from_id %}
 
 {% macro datetime_field(field, errors) %}
-    {{ input_shell(field, errors, date_datetime_widget(field.field.widget, value=field.value(), id=field.id_for_label, time=True, date=True)) }}
+    {{ input_shell(field, errors) }}
 {% endmacro %}
 
 {% macro date_field(field, errors) %}
-    {{ input_shell(field, errors, date_datetime_widget(field.field.widget, value=field.value(), id=field.id_for_label, time=False, date=True)) }}
+    {{ input_shell(field, errors) }}
 {% endmacro %}
 
 {% macro time_field(field, errors) %}
-    {{ input_shell(field, errors, date_datetime_widget(field.field.widget, value=field.value(), id=field.id_for_label, time=True, date=False)) }}
+    {{ input_shell(field, errors) }}
 {% endmacro %}
 
 
-{% macro date_datetime_widget(widget, value=None, id="", time=False, date=False) %}
+{% macro date_datetime_widget(widget, time=False, date=False) %}
     {% set attrs = widget.attrs or {} %}
-    {% do attrs.update({"name": widget.name, "value": value, "id": id}) %}
-    {% set event_name = get_event_name_from_id(id) %}
+    {% do attrs.update({"name": widget.name, "value": widget.value}) %}
+    {% set event_name = get_event_name_from_id(widget.attrs.id) %}
 
-    <div @click="picker.open()" x-data="dateTime('{{ event_name }}', '{{ value or "" }}', {{ 'true' if time else 'false' }}, {{ 'true' if date else 'false' }})"
+    <div @click="picker.open()" x-data="dateTime('{{ event_name }}', '{{ widget.value or "" }}', {{ 'true' if time else 'false' }}, {{ 'true' if date else 'false' }})"
          class="w-full input" :class="{'has-focus': active}">
         <input class="w-full rounded-md border border-gray-200 px-3 py-2.5 flatpickr flatpickr-input" x-ref="picker" type="text" {{ attributes(attrs) }}/>
     </div>

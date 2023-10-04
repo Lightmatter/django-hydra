@@ -1,6 +1,14 @@
 {% from 'components/util.jinja' import attributes %}
+{% from 'forms/wrappers.jinja' import boolean_shell %}
 
-{% macro toggle(name="", value=False, attrs={}) %}
+{% macro toggle_field(field, errors) %}
+    {{boolean_shell(field, errors)}}
+{% endmacro %}
+
+{% macro toggle_widget(widget) %}
+    {% set attrs = widget.attrs or {} %}
+    {% do attrs.update({"name": widget.name, "value": widget.value, "type": widget.type}) %}
+
     {% if attrs.class %}
         {% set class = "{{attrs.class}}" %}
     {% else %}
@@ -44,11 +52,11 @@
     {% set disabled, readonly = attrs.disabled, attrs.readonly %}
     {% set noedit = disabled or readonly %}
     <div
-        x-data="{ value: {{value|tojson}} }"
+        x-data="{ value: {{widget.value|tojson}} }"
         x-switch:group
         class="{{class}}"
     >
-        <input type="hidden" name="{{name}}" :value="value" {{attributes(attrs)}} />
+        <input type="hidden" :value="value" {{attributes(attrs)}} />
         <button
             x-switch
             x-model="value"
@@ -62,9 +70,4 @@
             ></span>
         </button>
     </div>
-{% endmacro %}
-
-{# takes a django widget and calls our input macro with the appropriate args #}
-{% macro widget_to_toggle(widget) %}
-    {{ toggle(name=widget.name, value=widget.value, attrs=widget.attrs )}}
 {% endmacro %}

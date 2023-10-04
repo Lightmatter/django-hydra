@@ -1,41 +1,36 @@
-{% from 'components/util.jinja' import attributes %}
+{% from 'components/util.jinja' import attributes, get_event_name_from_id %}
 
-{% macro select_option(value, label, attrs) %}
-    <option
-        value="{{ value }}"
-        {{attributes(attrs) }}
-    >
-        {{ label }}
-    </option>
+{% macro choice_field(field, errors) %}
+    {{ field }}
 {% endmacro %}
 
-
-{% macro select_optgroup(name, choices, index) %}
-    {% if name %}<optgroup label="{{ name }}">{% endif %}
-        {% for widget in choices %}
-            {% include widget.template_name %}
-        {% endfor %}
-    {% if name %}</optgroup>{% endif %}
-{% endmacro %}
-
-
-
-{% macro select(name, value, optgroups, attrs, dispatch_name="select", placeholder="") %}
+{% macro select_widget(widget)  %}
+    {% set event_name = get_event_name_from_id(widget.attrs.id) %}
 <select
     x-data="select"
     x-ref="select"
-    @change="$dispatch('{{dispatch_name}}')"
-    name="{{ name }}"
-    {{ attributes(attrs) }}>
-    {% for group_name, group_choices, group_index in optgroups %}
-      {{ select_optgroup(group_name, group_choices, group_index) }}
+    @change="$dispatch('{{event_name}}')"
+    {{ attributes(widget.attrs) }}>
+    {% for name, choices, index in widget.optgroups %}
+      {{ select_optgroup(name, choices) }}
     {% endfor %}
 </select>
 {% endmacro %}
 
+{% macro select_option(widget) %}
+    <option
+        value="{{ widget.value }}"
+        {{attributes(widget.attrs) }}
+    >
+        {{ widget.label }}
+    </option>
+{% endmacro %}
 
 
-{# takes a django widget and calls our input macro with the appropriate args #}
-{% macro widget_to_select(widget) %}
-    {{select( name=widget.name, value=widget.value, optgroups=widget.optgroups, attrs=widget.attrs )}}
+{% macro select_optgroup(name, choices) %}
+    {% if name %}<optgroup label="{{ name }}">{% endif %}
+        {% for widget in choices %}
+            {{ select_option(widget) }}
+        {% endfor %}
+    {% if name %}</optgroup>{% endif %}
 {% endmacro %}

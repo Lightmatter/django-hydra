@@ -1,18 +1,17 @@
 {% from 'components/util.jinja' import attributes, get_event_name_from_id %}
 
 {% macro textarea_field(field, errors) %}
-    {{ textarea_widget(field.field.widget, value=field.value(), id=field.id_for_label)}}
+    {{ field }}
 {% endmacro %}
 
-{# takes a django widget and calls our textarea macro with the appropriate args #}
-{% macro textarea_widget(widget, value=None, id="") %}
+{% macro textarea_widget(widget) %}
     {% set attrs = widget.attrs %}
-    {% do attrs.update({"type": widget.type, "id": id, "name": widget.name, "value": value or ""}) %}
-    {% set event_name = get_event_name_from_id(id) %}
+    {% do attrs.update({"type": widget.type, "name": widget.name, "value": widget.value or ""}) %}
+    {% set event_name = get_event_name_from_id(widget.attrs.id) %}
     <div class="flex flex-col">
     </div>
 
-    <div x-data="input('{{ event_name }}', '{{ value or ""}}')"
+    <div x-data="input('{{ event_name }}', '{{ widget.value or ""}}')"
         :class="active ? 'has-focus' : ''"
         x-ref="input"
          class="w-full input">
@@ -20,7 +19,7 @@
             x-model.debounce.500ms="value"
             {{ attributes(attrs)}}
         >
-            {% if value %}{{value}}{% endif %}
+            {% if widget.value %}{{widget.value}}{% endif %}
         </textarea>
     </div>
 {% endmacro %}

@@ -1,5 +1,5 @@
-
 {% from 'forms/checkbox.jinja' import checkbox_field %}
+{% from 'forms/radio.jinja' import radio_field %}
 {% from 'forms/input.jinja' import input_field, number_field, email_field, url_field %}
 {% from 'forms/textarea.jinja' import textarea_field %}
 {% from 'forms/date_datetime.jinja' import datetime_field, date_field, time_field %}
@@ -7,7 +7,7 @@
 {% from 'forms/password.jinja' import password_field %}
 {% from 'forms/select.jinja' import choice_field %}
 {% from 'forms/field.jinja' import field as f %}
-{% from 'forms/checkbox.jinja' import checkbox_widget %}
+{% from 'forms/toggle.jinja' import toggle_field %}
 
 <div class="w-80 flex flex-col gap-4">
     {% for field, error in fields %}
@@ -35,13 +35,17 @@
             {{ url_field(field, errors) }}
         {% elif field.name in ["choice"] %}
             {{ choice_field(field, errors) }}
+        {% elif field.name in ["radio_choice"] %}
+            {{ radio_field(field, errors) }}
         {% elif field.name in ["file"] %}
             {{ clearable_file_input_field(field, errors) }}
+        {% elif field.name in ["toggle"] %}
+            {{ toggle_field(field, errors) }}
         {% else %}
             <span class="text-green-500 flex gap-2">
                 Uncaught field
                 {{field.name}}
-                {{ field.widget_type }}
+                {{ field.widget_type }}k
                 {{ field.field.widget.input_type }}
             </span>
         {% endif %}

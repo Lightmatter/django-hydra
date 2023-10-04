@@ -2,6 +2,8 @@ from datetime import datetime
 
 from django import forms
 
+from {{ cookiecutter.repo_name }}.util.widgets import ToggleWidget
+
 
 class FormTest(forms.Form):
     template_name = "samples/test_form.jinja"
@@ -30,8 +32,10 @@ class FormTest(forms.Form):
     textarea = forms.CharField(widget=forms.Textarea())
 
     checkbox = forms.BooleanField()
-    choice = forms.ChoiceField(
-        choices=[("choice1", "choice 1"), ("choice2", "choice 2")]
+    toggle = forms.BooleanField(widget=ToggleWidget)
+    choice = forms.ChoiceField(choices=[("choice1", "Choice 1"), ("choice2", "Choice 2")])
+    radio_choice = forms.ChoiceField(
+        choices=[("choice1", "Choice 1"), ("choice2", "Choice 2")], widget=forms.RadioSelect
     )
     file = forms.FileField()
 

@@ -1,21 +1,7 @@
-{% macro radio(name="", value="", optgroups="", attrs={}) %}
-    {% if attrs.radio_active_color %}
-        {% set radio_active_color = "{{attrs.radio_active_color}}" %}
-    {% else %}
-        {% set radio_active_color = "primary" %}
-    {% endif %}
-    {% if attrs.radio_class %}
-        {% set radio_class = "{{attrs.radio_class}}" %}
-    {% else %}
-        {% set radio_class = "inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 border-white ring-1 ring-gray-600" %}
-    {% endif %}
-    <div class="radio py-4">
-        <div x-data="{value: '{{value.0}}'}" x-radio x-model="value" class="flex flex-col gap-4">
-            {% for group_name, group_choices, group_index in optgroups %}
-                {{ radio_optgroup(group_name, group_choices, group_index, radio_class, radio_active_color) }}
-            {% endfor %}
-        </div>
-    </div>
+{% from "forms/wrappers.jinja" import radio_shell %}
+
+{% macro radio_field(field, errors) %}
+    {{ radio_shell(field, errors) }}
 {% endmacro %}
 
 {% macro radio_optgroup(name, choices, index, radio_class, radio_active_color) %}
@@ -23,7 +9,7 @@
         <div
             x-radio:option
             value="{{choice.value}}"
-            class="flex items-center"
+            class="flex items-center cursor-pointer"
         >
             <input
                 id="{{ choice.attrs.id }}"
@@ -46,6 +32,25 @@
     {% endfor %}
 {% endmacro %}
 
-{% macro widget_to_radio(widget) %}
-    {{ radio(name=widget.name, value=widget.value, optgroups=widget.optgroups, attrs=widget.attrs) }}
+{% macro radio_widget(widget) %}
+    {% set attrs = widget.attrs or {} %}
+    {% do attrs.update({"name": widget.name, "value": widget.value, "type": widget.type}) %}
+
+    {% if attrs.radio_active_color %}
+        {% set radio_active_color = "{{attrs.radio_active_color}}" %}
+    {% else %}
+        {% set radio_active_color = "primary" %}
+    {% endif %}
+    {% if attrs.radio_class %}
+        {% set radio_class = "{{attrs.radio_class}}" %}
+    {% else %}
+        {% set radio_class = "inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 border-white ring-1 ring-gray-600" %}
+    {% endif %}
+    <div class="radio py-4">
+        <div x-data="{value: '{{widget.value}}'}" x-radio x-model="value" class="flex flex-col gap-4">
+            {% for group_name, group_choices, group_index in widget.optgroups %}
+                {{ radio_optgroup(group_name, group_choices, group_index, radio_class, radio_active_color) }}
+            {% endfor %}
+        </div>
+    </div>
 {% endmacro %}

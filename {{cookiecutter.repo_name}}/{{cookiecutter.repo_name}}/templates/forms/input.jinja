@@ -1,34 +1,34 @@
 {% from 'components/util.jinja' import attributes, get_event_name_from_id %}
 {% from "forms/wrappers.jinja" import input_shell %}
 
-{% macro input_field(field, errors, input_classes="") %}
-    {{ input_shell(field, errors, input_widget(field.field.widget, value=field.value(),  id=field.id_for_label, input_classes=input_classes)) }}
+{% macro input_field(field, errors) %}
+    {{ input_shell(field, errors) }}
 {% endmacro %}
 
-{% macro number_field(field, errors, input_classes="") %}
-    {{ input_shell(field, errors, input_widget(field.field.widget, value=field.value(),  id=field.id_for_label, type="number", input_classes=input_classes)) }}
+{% macro number_field(field, errors) %}
+    {{ input_shell(field, errors) }}
 {% endmacro %}
 
-{% macro email_field(field, errors, input_classes="") %}
-    {{ input_shell(field, errors, input_widget(field.field.widget, value=field.value(),  id=field.id_for_label, type="email", input_classes=input_classes)) }}
+{% macro email_field(field, errors) %}
+    {{ input_shell(field, errors) }}
 {% endmacro %}
 
-{% macro url_field(field, errors, input_classes="") %}
-    {{ input_shell(field, errors, input_widget(field.field.widget, value=field.value(), id=field.id_for_label, type="url", input_classes=input_classes)) }}
+{% macro url_field(field, errors) %}
+    {{ input_shell(field, errors) }}
 {% endmacro %}
 
 {# password_field has it's own file "password.jinja" #}
 
-{% macro input_widget(widget, value=None, id="", type="text", input_classes="") %}
+{% macro input_widget(widget, input_classes="") %}
     {% set attrs = widget.attrs or {} %}
-    {% do attrs.update({"name": widget.name, "value": value, "type": type, "id": id}) %}
+    {% do attrs.update({"name": widget.name, "value": widget.value, "type": widget.type}) %}
     {% set disabled, readonly = widget.attrs.disabled, attrs.readonly %}
     {% set noedit = disabled or readonly %}
-    {% set event_name = get_event_name_from_id(id) %}
+    {% set event_name = get_event_name_from_id(widget.attrs.id) %}
     <input
         x-model.debounce.500ms="value"
         :class="{'has-focus': active}"
-        x-data="input('{{ event_name }}', '{{ value or "" }}')"
+        x-data="input('{{ event_name }}', '{{ widget.value or "" }}')"
         x-ref="input" class="input {{ input_classes or ""}} {{attrs.classes or ""}}" {{ attributes(attrs)}}
     />
 {% endmacro %}
