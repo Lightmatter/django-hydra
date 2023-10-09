@@ -35,7 +35,7 @@
   "dependencies": {
     "@alpinejs/focus": "^3.13.1",
     "@alpinejs/mask": "^3.13.1",
-    "@alpinejs/morph": "^3.13.0",
+    "@alpinejs/morph": "^3.13.1",
     "@alpinejs/ui": "^3.10.5-beta.8",
     "alpinejs": "^3.13.0",
     "flatpickr": "^4.6.13",
