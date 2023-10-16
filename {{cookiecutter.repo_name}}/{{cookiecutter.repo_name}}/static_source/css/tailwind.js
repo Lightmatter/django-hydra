@@ -1,2 +1,2 @@
 // vite will only build js files
-import "@/css/tailwind.css";
+import "@/css/tailwind.scss";
