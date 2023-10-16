@@ -37,6 +37,23 @@ htmx.defineExtension("get-timezone", {
   }
 });
 
+htmx.defineExtension('alpine-morph', {
+  isInlineSwap: function (swapStyle) {
+    return swapStyle === 'morph';
+  },
+  handleSwap: function (swapStyle, target, fragment) {
+    if (swapStyle === 'morph') {
+      if (fragment.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+        Alpine.morph(target, fragment.firstElementChild);
+        return [target];
+      } else {
+        Alpine.morph(target, fragment.outerHTML);
+        return [target];
+      }
+    }
+  }
+});
+
 // This function will listen for HTMX errors and display the appropriate page
 // as needed. Without debug mode enabled, HTMX will normally refuse to
 // serve any HTML attached to an HTTP error code. This will allow us to present
