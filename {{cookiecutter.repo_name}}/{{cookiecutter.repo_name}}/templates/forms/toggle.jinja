@@ -44,24 +44,27 @@
     {% set disabled, readonly = attrs.disabled, attrs.readonly %}
     {% set noedit = disabled or readonly %}
     <div
-        x-data="{ value: {{value|tojson}} }"
-        x-switch:group
+        x-data="{ switchOn: {{value|tojson if value is not none else 'false'}} }"
         class="{{class}}"
     >
-        <input type="hidden" name="{{name}}" :value="value" {{attributes(attrs)}} />
+        <input type="hidden" name="{{name}}" x-model="switchOn" :checked="switchOn" {{attributes(attrs)}}>
+
         <button
-            x-switch
-            x-model="value"
-            :class="$switch.isChecked ? '{{switch_active_color}}' : '{{switch_inactive_color}}'"
+            x-ref="switchButton"
+            @click="switchOn = ! switchOn"
+            type="button"
+            :class="switchOn ? '{{switch_active_color}}' : '{{switch_inactive_color}}'"
             class="{{switch_wrapper_class}}"
+            x-cloak
             {% if noedit %}disabled="true"{% endif %}
         >
             <span
-                :class="$switch.isChecked ? '{{inner_active_class}}' : '{{inner_inactive_class}}'"
+                :class="switchOn ? '{{inner_active_class}}' : '{{inner_inactive_class}}'"
                 class="{{switch_inner_class}}"
             ></span>
         </button>
     </div>
+</div>
 {% endmacro %}
 
 {# takes a django widget and calls our input macro with the appropriate args #}
