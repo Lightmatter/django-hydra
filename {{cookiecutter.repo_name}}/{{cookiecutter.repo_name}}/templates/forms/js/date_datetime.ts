@@ -4,7 +4,12 @@ import "flatpickr/dist/themes/light.css";
 import { AlpineDataCallback } from "../../../static_source/js";
 import inputListener from "./common";
 
-const dateTime = (eventName: string, value: string, enableTime: boolean): AlpineComponent => ({
+const dateTime = (
+  eventName: string,
+  value: string,
+  enableTime: boolean,
+  enableCalendar: boolean
+): AlpineComponent => ({
   eventName,
   value,
   enableTime,
@@ -25,6 +30,7 @@ const dateTime = (eventName: string, value: string, enableTime: boolean): Alpine
       enableTime,
       dateFormat,
       defaultDate: value,
+      noCalendar: !enableCalendar,
       onChange: (_, dateString) => {
         this.value = dateString;
       },

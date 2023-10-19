@@ -1,0 +1,54 @@
+{% from 'forms/checkbox.jinja' import checkbox_field %}
+{% from 'forms/radio.jinja' import radio_field %}
+{% from 'forms/input.jinja' import input_field, number_field, email_field, url_field %}
+{% from 'forms/textarea.jinja' import textarea_field %}
+{% from 'forms/date_datetime.jinja' import datetime_field, date_field, time_field %}
+{% from 'forms/clearable_file_input.jinja' import clearable_file_input_field %}
+{% from 'forms/password.jinja' import password_field %}
+{% from 'forms/select.jinja' import choice_field %}
+{% from 'forms/field.jinja' import field as f %}
+{% from 'forms/toggle.jinja' import toggle_field %}
+
+<div class="w-80 flex flex-col gap-4">
+    {% for field, error in fields %}
+        {% if field.name == "first_name" %}
+            {{ f(field, errors) }}
+        {% elif field.name == "checkbox" %}
+            {{ checkbox_field(field, errors) }}
+        {% elif field.name in ["datetime_initial", "datetime_empty"] %}
+            {{ datetime_field(field, errors) }}
+        {% elif field.name in ["date_initial", "date_empty"] %}
+            {{ date_field(field, errors) }}
+        {% elif field.name in ["time_initial", "time_empty"] %}
+            {{ time_field(field, errors) }}
+        {% elif field.name in ["char"] %}
+            {{ input_field(field, errors) }}
+        {% elif field.name in ["textarea"] %}
+            {{ textarea_field(field, errors) }}
+        {% elif field.name in ["integer"] %}
+            {{ number_field(field, errors) }}
+        {% elif field.name in ["email"] %}
+            {{ email_field(field, errors) }}
+        {% elif field.name in ["password"] %}
+            {{ password_field(field, errors) }}
+        {% elif field.name in ["url"] %}
+            {{ url_field(field, errors) }}
+        {% elif field.name in ["choice"] %}
+            {{ choice_field(field, errors) }}
+        {% elif field.name in ["radio_choice"] %}
+            {{ radio_field(field, errors) }}
+        {% elif field.name in ["file"] %}
+            {{ clearable_file_input_field(field, errors) }}
+        {% elif field.name in ["toggle"] %}
+            {{ toggle_field(field, errors) }}
+        {% else %}
+            <span class="text-green-500 flex gap-2">
+                Uncaught field
+                {{field.name}}
+                {{ field.widget_type }}k
+                {{ field.field.widget.input_type }}
+            </span>
+        {% endif %}
+    {% endfor %}
+    <button class="p-2 m-2 bg-primary text-white" type="submit">Submit</button>
+</div>

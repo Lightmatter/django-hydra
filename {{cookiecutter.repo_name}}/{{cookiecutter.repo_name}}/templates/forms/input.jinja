@@ -1,20 +1,34 @@
-{% from 'components/util.jinja' import attributes %}
-{% macro input(type="text", name=none, value=none, event_name="", color='primary', attrs={}, left_icon='', right_icon='', input_classes="") %}
-    {% set disabled, readonly = attrs.disabled, attrs.readonly %}
-    {% set noedit = disabled or readonly %}
-        <input
-        {% if type !="checkbox" %}
-            {#
-                The following attrs are responsible for frontend validation (not used in admin) and label behavior for inputs/texareas.
-                May also need to be disabled for radio buttons if admin misbehaves again.
-             #}
-            x-model.debounce.500ms="value"
-            :class="{'has-focus': active}"
-        {% endif %}
-        x-data="input('update-{{ event_name | replace('_', '-') }}', '{{ value }}')"
-        x-ref="input" class="input {{ input_classes }} {{attrs.class}}" {% do attrs.update({"type": type, "name": name, "value": value}) %} {{ attributes(attrs)}} />
+{% from 'components/util.jinja' import attributes, get_event_name_from_id %}
+{% from "forms/wrappers.jinja" import input_shell %}
+
+{% macro input_field(field, errors) %}
+    {{ input_shell(field, errors) }}
 {% endmacro %}
-{# takes a django widget and calls our input macro with the appropriate args #}
-{% macro widget_to_input(widget) %}
-    {{ input(type=widget.type, name=widget.name, value=widget.value, event_name=widget.attrs.id, attrs=widget.attrs )}}
+
+{% macro number_field(field, errors) %}
+    {{ input_shell(field, errors) }}
+{% endmacro %}
+
+{% macro email_field(field, errors) %}
+    {{ input_shell(field, errors) }}
+{% endmacro %}
+
+{% macro url_field(field, errors) %}
+    {{ input_shell(field, errors) }}
+{% endmacro %}
+
+{# password_field has it's own file "password.jinja" #}
+
+{% macro input_widget(widget, input_classes="") %}
+    {% set attrs = widget.attrs or {} %}
+    {% do attrs.update({"name": widget.name, "value": widget.value, "type": widget.type}) %}
+    {% set disabled, readonly = widget.attrs.disabled, attrs.readonly %}
+    {% set noedit = disabled or readonly %}
+    {% set event_name = get_event_name_from_id(widget.attrs.id) %}
+    <input
+        x-model.debounce.500ms="value"
+        :class="{'has-focus': active}"
+        x-data="input('{{ event_name }}', '{{ widget.value or "" }}')"
+        x-ref="input" class="input {{ input_classes or ""}} {{attrs.classes or ""}}" {{ attributes(attrs)}}
+    />
 {% endmacro %}

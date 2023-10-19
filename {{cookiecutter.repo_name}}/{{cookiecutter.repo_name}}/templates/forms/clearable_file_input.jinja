@@ -1,20 +1,27 @@
-{% from 'forms/input.jinja' import input %}
-{% macro clearable_file_input(type="file", name="", value=None, is_initial=False, initial_text="", required=False, checkbox_name="", checkbox_id="", clear_checkbox_label="", input_text="", attrs={}) %}
-    <div x-data="input('update-{{ attrs.id | replace('_', '-') }}', '{{ value }}')"
+{% from 'forms/input.jinja' import input_widget %}
+{% from "forms/wrappers.jinja" import file_shell %}
+{% from 'forms/checkbox.jinja' import checkbox_widget %}
+{% from 'components/util.jinja' import get_event_name_from_id %}
+
+{% macro clearable_file_input_field(field, errors) %}
+    {{ file_shell(field, errors) }}
+{% endmacro %}
+
+{% macro clearable_file_input_widget(widget) %}
+    {% set attrs = widget.attrs or {} %}
+    {% set event_name = get_event_name_from_id(attrs.id) %}
+
+    <div
          class="w-full input flex items-center pb-2">
         {% if is_initial %}
-            {{widget.initial_text}}: <a href="{{value.url}}">{{value}}</a>
+            {{widget.initial_text}}: <a href="{{widget.value.url}}">{{widget.value}}</a>
             {% if not required %}
-                {{ input(type="checkbox", name=checkbox_name, attrs={'id': checkbox_id, 'disabled': attrs.disabled}) }}
-                <label for="{{checkbox_id}}">{{clear_checkbox_label}}</label>
+                {{ checkbox_widget({"type": "checkbox", "name": widget.checkbox_name, "attrs":{'id': widget.checkbox_id, 'disabled': attrs.disabled}}) }}
+                <label for="{{widget.checkbox_id}}">{{widget.clear_checkbox_label}}</label>
             {% endif %}
             <br>
-            {{input_text}}:
+            {{widget.input_text}}:
         {% endif %}
-        {{ input(type=type, name=name, attrs=attrs, input_classes="flex justify-center text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary-focus") }}
+        {{ input_widget(widget, input_classes="flex justify-center text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-white hover:file:bg-primary-focus") }}
     </div>
-{% endmacro %}
-{# takes a django widget and calls our input macro with the appropriate args #}
-{% macro widget_to_clearable_file_input(widget) %}
-    {{ clearable_file_input(type=widget.type, name=widget.name, value=widget.value, is_initial=widget.is_initial, initial_text=widget.initial_text, required=widget.required, checkbox_name=widget.checkbox_name, checkbox_id=widget.checkbox_id, clear_checkbox_label=widget.clear_checkbox_label, input_text=widget.input_text, attrs=widget.attrs)}}
 {% endmacro %}

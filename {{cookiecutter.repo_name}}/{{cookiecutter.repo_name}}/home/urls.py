@@ -1,7 +1,13 @@
 from django.urls import path
 from django.views.generic.base import TemplateView
 
-from .views import current_time, error, test_message_redirect, test_message_refresh
+from .views import (
+    current_time,
+    error,
+    form_test,
+    test_message_redirect,
+    test_message_refresh,
+)
 
 urlpatterns = [
     path("current-time/", current_time, name="current_time"),
@@ -13,5 +19,6 @@ urlpatterns = [
         name="random_chart",
     ),
     path("error/", error, name="error"),
+    path("form-test/", form_test, name="form-test"),
     path("", TemplateView.as_view(template_name="index.jinja"), name="home"),
 ]

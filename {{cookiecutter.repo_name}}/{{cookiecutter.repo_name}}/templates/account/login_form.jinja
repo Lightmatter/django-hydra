@@ -1,10 +1,10 @@
 {% from 'forms/field.jinja' import field as f %}
-{% from 'forms/checkbox.jinja' import checkbox %}
+{% from 'forms/checkbox.jinja' import checkbox_field %}
 <div class="form-wrapper justify-between mb-6">
     {{ errors }}
     {% for field, errors in fields %}
         {% if field.name == 'remember' %}
-            {{ checkbox(field) }}
+            {{ checkbox_field(field, errors) }}
         {% else %}
             {{ f(field, errors) }}
         {% endif %}

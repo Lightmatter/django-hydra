@@ -1,0 +1,10 @@
+{% extends "base.jinja" %}
+{% block title %}title{% endblock title %}
+{% block content %}
+<div class="flex flex-col items-center mt-4">
+    <span class="text-xl">Form test</span>
+    <form method="post" class="flex flex-col gap-4" hx-post="{{ url('form-test')}}" hx-swap="innerHTML">
+        {{form }}
+    </form>
+</div>
+{% endblock content %}

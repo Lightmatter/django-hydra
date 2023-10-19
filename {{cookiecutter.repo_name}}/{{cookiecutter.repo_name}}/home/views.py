@@ -2,6 +2,8 @@
 
 from django.contrib import messages
 from django.template.response import TemplateResponse
+from django.http import HttpResponse
+from django.shortcuts import render
 from django.views.defaults import (
     bad_request,
     page_not_found,
@@ -9,6 +11,8 @@ from django.views.defaults import (
     server_error,
 )
 from django_htmx.http import HttpResponseClientRedirect, HttpResponseClientRefresh
+
+from .forms import FormTest
 
 
 def error(request):
@@ -46,3 +50,10 @@ def FourOhFour(request, exception):
 
 def WorkedLocally(request):
     return server_error(request, template_name="500.jinja")
+
+
+def form_test(request):
+    form = FormTest()
+    if request.method == "GET":
+        return render(request, "form_test.jinja", context={"form": form})
+    return HttpResponse(form.render())
