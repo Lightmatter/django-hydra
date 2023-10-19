@@ -14,6 +14,7 @@ if (import.meta.env.MODE !== "development") {
   // https://github.com/vitejs/vite/issues/4786
 }
 
+// Turn off the history cache - have found this is generally error prone
 htmx.config.historyCacheSize = 0;
 
 // Optional behavior - will remove scroll to top animation for boosted pages
@@ -33,23 +34,6 @@ htmx.defineExtension("get-timezone", {
   onEvent: function(name: string, evt: any) {
     if (name === "htmx:configRequest") {
       evt.detail.headers["X-Timezone"] = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    }
-  }
-});
-
-htmx.defineExtension('alpine-morph', {
-  isInlineSwap: function (swapStyle) {
-    return swapStyle === 'morph';
-  },
-  handleSwap: function (swapStyle, target, fragment) {
-    if (swapStyle === 'morph') {
-      if (fragment.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
-        Alpine.morph(target, fragment.firstElementChild);
-        return [target];
-      } else {
-        Alpine.morph(target, fragment.outerHTML);
-        return [target];
-      }
     }
   }
 });

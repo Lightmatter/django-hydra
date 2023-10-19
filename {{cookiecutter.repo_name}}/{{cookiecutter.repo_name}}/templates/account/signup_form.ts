@@ -1,6 +1,20 @@
 import AlpineInstance, { AlpineComponent } from "alpinejs";
 
-const signup = (): AlpineComponent => ({
+
+interface Signup{
+  //callback requires indexing to string and symbol
+  [key: string]: unknown;
+  [key: symbol]: unknown;
+  //real types
+  password1: string;
+  password2: string;
+  pMatchError: string;
+  p2OriginalError: string;
+  passwordMatch: boolean;
+  toggleError(): void;
+}
+
+const signup = (): AlpineComponent<Signup> => ({
   password1: "",
   password2: "",
   pMatchError: "Passwords must match",

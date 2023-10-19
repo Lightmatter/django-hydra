@@ -1,8 +1,21 @@
 import AlpineInstance, { AlpineComponent } from "alpinejs";
-import { AlpineDataCallback } from "../../../static_source/js";
 import inputListener from "./common";
 
-const input = (eventName: string, value: string): AlpineComponent => ({
+interface Input {
+  //callback requires indexing to string and symbol
+  [key: string]: unknown;
+  [key: symbol]: unknown;
+  //real types
+  eventName: string;
+  value: string;
+  active: boolean;
+  updateFlag(e:Event): void;
+}
+
+
+const input = (...args: unknown[]): AlpineComponent<Input> => {
+  const [eventName, value] = args as [string, string];
+  return {
   eventName,
   value,
   active: false,
@@ -26,4 +39,4 @@ const input = (eventName: string, value: string): AlpineComponent => ({
   },
 });
 
-AlpineInstance.data("input", input as AlpineDataCallback);
+AlpineInstance.data("input", input);
