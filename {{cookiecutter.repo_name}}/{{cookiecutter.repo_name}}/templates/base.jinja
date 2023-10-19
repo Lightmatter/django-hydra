@@ -10,7 +10,6 @@
               content="ie=edge"/>
         <meta name="viewport"
               content="width=device-width, initial-scale=1.0"/>
-        <meta name="htmx-config" content='{"scrollBehavior":"auto", "historyCacheSize": 0}'>
         {% block opengraph %}
             {% from 'components/open_graph_tags.jinja' import og_tags %}
             {{ og_tags(title="TODO | Home", url="TODO", description="TODO", image_url="TODO")}}
@@ -29,8 +28,7 @@
         {% endblock extra_head %}
     </head>
     <body hx-boost="true"
-          hx-headers='js:{"X-Timezone": Intl.DateTimeFormat().resolvedOptions().timeZone}'
-          hx-ext="get-csrf"
+          hx-ext="get-csrf,get-timezone"
           class="{% block bodyclass %}{% endblock bodyclass %}">
         {% include "header/base.jinja" %}
         <div id="app">

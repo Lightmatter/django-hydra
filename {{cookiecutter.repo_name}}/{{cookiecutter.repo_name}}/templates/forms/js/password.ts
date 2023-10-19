@@ -1,28 +1,41 @@
 import AlpineInstance, { AlpineComponent } from "alpinejs";
-import { AlpineDataCallback } from "../../../static_source/js";
 import inputListener from "./common";
 
-const password = (eventName: unknown, value: unknown, type: unknown): AlpineComponent => ({
-  eventName,
-  value,
-  type,
-  active: false,
-  inputListener,
-  init() {
-    inputListener.call(this);
+interface Password {
+  //callback requires indexing to string and symbol
+  [key: string]: unknown;
+  [key: symbol]: unknown;
+  //real types
+  eventName: string;
+  value: unknown;
+  type: unknown;
+  active: boolean;
+}
 
-    if (this.value === "None") {
-      this.value = "";
-    }
-    if (this.eventName !== "") {
-      this.$watch("value", () => {
-        this.$dispatch(
-          this.eventName,
-          { value: this.value },
-        );
-      });
-    }
-  },
-});
+const password = (...args: unknown[]): AlpineComponent<Password> => {
+  const [eventName, value, type] = args as [string, unknown, unknown];
+  return {
+    eventName,
+    value,
+    type,
+    active: false,
+    inputListener,
 
-AlpineInstance.data("password", password as AlpineDataCallback);
+    init() {
+      inputListener.call(this);
+
+      if (this.value === "None") {
+        this.value = "";
+      }
+      if (this.eventName !== "") {
+        this.$watch("value", () => {
+          this.$dispatch(
+            this.eventName,
+            { value: this.value },
+          );
+        });
+      }
+    },
+  };
+}
+AlpineInstance.data("password", password);
