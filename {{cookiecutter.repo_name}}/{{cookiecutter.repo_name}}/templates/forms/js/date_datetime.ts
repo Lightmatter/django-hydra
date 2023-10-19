@@ -23,11 +23,14 @@ const dateTime = (...args: unknown[]): AlpineComponent<DateTime> => {
     picker: null,
     active: false,
     init() {
-
       inputListener.call(this);
+
       if (this.value === "None") {
         this.value = "";
       }
+
+      // see https://flatpickr.js.org/formatting/
+      const dateFormat = enableTime ? "m/d/Y H:i" : "m/d/Y";
 
       this.picker = flatpickr(this.$refs.picker, {
         mode: "single",
