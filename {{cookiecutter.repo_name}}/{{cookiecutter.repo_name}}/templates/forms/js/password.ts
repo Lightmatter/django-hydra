@@ -10,7 +10,6 @@ interface Password {
   value: unknown;
   type: unknown;
   active: boolean;
-  updateFlag(): void;
 }
 
 const password = (...args: unknown[]): AlpineComponent<Password> => {

@@ -1,5 +1,6 @@
 import AlpineInstance, { AlpineComponent } from "alpinejs";
 import flatpickr from "flatpickr";
+
 import "flatpickr/dist/themes/light.css";
 import inputListener from "./common";
 
@@ -11,6 +12,7 @@ interface DateTime{
   eventName: string;
   value: string;
   enableTime: boolean;
+  picker: flatpickr.Instance | null;
 }
 
 
@@ -43,7 +45,7 @@ const dateTime = (...args: unknown[]): AlpineComponent<DateTime> => {
       });
 
       this.$watch("value", () => {
-        this.picker.setDate(this.value);
+        this.picker?.setDate(this.value);
         if (this.eventName !== "") this.$dispatch(this.eventName, { value: this.value });
       });
 

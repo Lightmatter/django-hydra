@@ -9,34 +9,33 @@ interface Input {
   eventName: string;
   value: string;
   active: boolean;
-  updateFlag(e:Event): void;
 }
 
 
 const input = (...args: unknown[]): AlpineComponent<Input> => {
   const [eventName, value] = args as [string, string];
   return {
-  eventName,
-  value,
-  active: false,
-  init() {
-    inputListener.call(this);
+    eventName,
+    value,
+    active: false,
+    init() {
+      inputListener.call(this);
 
-    if (this.value === "None") {
-      this.value = "";
-    } else if (this.$refs !== undefined && "input" in this.$refs) {
-      // Toggle the focused state on an input when an initial value is set.
-      this.active = !this.active;
-    }
-    if (this.eventName !== "input") {
-      this.$watch("value", () => {
-        this.$dispatch(
-          this.eventName,
-          { value: this.value },
-        );
-      });
-    }
-  },
-});
-
+      if (this.value === "None") {
+        this.value = "";
+      } else if (this.$refs !== undefined && "input" in this.$refs) {
+        // Toggle the focused state on an input when an initial value is set.
+        this.active = !this.active;
+      }
+      if (this.eventName !== "input") {
+        this.$watch("value", () => {
+          this.$dispatch(
+            this.eventName,
+            { value: this.value },
+          );
+        });
+      }
+    },
+  }
+}
 AlpineInstance.data("input", input);
