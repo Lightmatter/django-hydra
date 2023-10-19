@@ -54,7 +54,8 @@ htmx.on("htmx:beforeOnLoad", (event:any) => {
 if (import.meta.hot) {
   import.meta.hot.on("template-hmr", () => {
     const dest = document.location.href;
-    htmx.ajax("GET", dest, { target: "body", swap: "morph" });
+    //switch to morph when ideomorph is ready
+    htmx.ajax("GET", dest, { target: "body" });
   });
 }
 
