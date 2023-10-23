@@ -833,13 +833,13 @@ six = "*"
 
 [[package]]
 name = "django-anymail"
-version = "10.0"
-description = "Django email backends and webhooks for Amazon SES, MailerSend, Mailgun, Mailjet, Mandrill, Postal, Postmark, SendGrid, SendinBlue, and SparkPost"
+version = "10.1"
+description = "Django email backends and webhooks for Amazon SES, Brevo (Sendinblue),     MailerSend, Mailgun, Mailjet, Mandrill, Postal, Postmark, SendGrid, and SparkPost"
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "django_anymail-10.0-py3-none-any.whl", hash = "sha256:7b7af58175b4284662f0841e90be655cdc0a6b70ec22587d62862a147c76c87f"},
-    {file = "django_anymail-10.0.tar.gz", hash = "sha256:59eb4c91e201cd6465bd5e27f2cc3342e897e8178c1b1a4bc1a10871ae0b6ef3"},
+    {file = "django_anymail-10.1-py3-none-any.whl", hash = "sha256:e0a65c1e235dcb863dab67a3e193e899a48503b650df483d7b73f73983fd874b"},
+    {file = "django_anymail-10.1.tar.gz", hash = "sha256:5c4f26bd0f5507324ed1da31e430bca3293bb2c16f386e813484f2ea2df83d06"},
 ]
 
 [package.dependencies]
@@ -3359,4 +3359,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "f0b6fa874f1b3651b356ae18306774d918eef5c735b23077694b3b80aa067daa"
+content-hash = "bee70184a0221453d84622a21257d434ca0b8d7d676e073621c971bccb2a3252"
