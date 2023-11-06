@@ -962,13 +962,13 @@ test = ["pytest", "pytest-cov", "pytest-django"]
 
 [[package]]
 name = "django-htmx"
-version = "1.15.0"
+version = "1.17.0"
 description = "Extensions for using Django with htmx."
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "django_htmx-1.15.0-py3-none-any.whl", hash = "sha256:b76068485905ad9f911419746f07f877633bb036c0870a0f9fc13dec42c6e425"},
-    {file = "django_htmx-1.15.0.tar.gz", hash = "sha256:bac7ff59bf507db6d40424f635f83889ce028a54f47663f227083413de22cabf"},
+    {file = "django_htmx-1.17.0-py3-none-any.whl", hash = "sha256:070a37092b88a42cd7af26c1b65f63c4529bae276710fd16137dc934938b44f2"},
+    {file = "django_htmx-1.17.0.tar.gz", hash = "sha256:2ef0d19db41c6152881e782673cd2cd1755a7fd6784f8b4f2279fb18dc03d2c2"},
 ]
 
 [package.dependencies]
@@ -3363,4 +3363,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "3be98d7777fabd668b01dce9588fd9168135124fa83daf9314e2a43763404c1a"
+content-hash = "03fe35e52749cbce49be0045cb3da8aa693923079a0f7f59b668d35b16627233"
