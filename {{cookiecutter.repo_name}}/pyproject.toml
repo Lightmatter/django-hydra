@@ -24,7 +24,7 @@ Pillow = "^10.0.1"
 django-anymail = {extras = ["sendgrid"], version = "^10.2"}
 django-vite = "^2.0.2"
 tblib = "^2.0.0"
-django-cachalot = "^2.5.0"
+django-cachalot = "^2.6.1"
 redis = "^4.4.0"
 django-redis = "^5.3.0"
 django-jinja = "^2.11.0"
