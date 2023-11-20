@@ -9,7 +9,7 @@
     "coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@tailwindcss/forms": "^0.5.6",
+    "@tailwindcss/forms": "^0.5.7",
     "@types/alpinejs": "^3.13.5",
     "@types/alpinejs__focus": "^3.13.3",
     "@types/alpinejs__mask": "^3.13.2",
