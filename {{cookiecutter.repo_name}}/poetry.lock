@@ -1038,12 +1038,13 @@ rich = ">=10.0.0"
 
 [[package]]
 name = "django-robots"
-version = "5.0"
+version = "6.1"
 description = "Robots exclusion application for Django, complementing Sitemaps."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "django-robots-5.0.tar.gz", hash = "sha256:f5817975a9e3b082440a81396111d8a6671b54f6aa11349847554bd1beebd959"},
+    {file = "django-robots-6.1.tar.gz", hash = "sha256:f86bcc3d16d7d7c2a4e37af6063cb4785f50ae16943f82248b48c9e7ac034f1d"},
+    {file = "django_robots-6.1-py3-none-any.whl", hash = "sha256:07e11a1bf3ddc08290123ec3c55abb45dbbffb9b38aea0a002e9b4a87bd9abcc"},
 ]
 
 [[package]]
@@ -3363,4 +3364,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "83de2b4940606c51880d702d3dc8b0fe2140190dc510fa24d07da8bd2de6a3e0"
+content-hash = "f1493c0b9b5c2051034a68d7ddecc816c29cd81a4d456292ee0b6da0f6f3c87c"
