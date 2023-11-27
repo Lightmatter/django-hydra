@@ -43,6 +43,6 @@
     "glob": "^10.3.10",
     "htmx.org": "1.9.9",
     "js-cookie": "^3.0.5",
-    "tom-select": "^2.2.3"
+    "tom-select": "^2.3.1"
   }
 }
