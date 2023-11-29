@@ -571,23 +571,24 @@ files = [
 
 [[package]]
 name = "cookiecutter"
-version = "2.1.1"
+version = "2.5.0"
 description = "A command-line utility that creates projects from project templates, e.g. creating a Python package project from a Python package project template."
 optional = false
 python-versions = ">=3.7"
 files = [
-    {file = "cookiecutter-2.1.1-py2.py3-none-any.whl", hash = "sha256:9f3ab027cec4f70916e28f03470bdb41e637a3ad354b4d65c765d93aad160022"},
-    {file = "cookiecutter-2.1.1.tar.gz", hash = "sha256:f3982be8d9c53dac1261864013fdec7f83afd2e42ede6f6dd069c5e149c540d5"},
+    {file = "cookiecutter-2.5.0-py3-none-any.whl", hash = "sha256:8aa2f12ed11bc05628651e9dc4353a10571dd9908aaaaeec959a2b9ea465a5d2"},
+    {file = "cookiecutter-2.5.0.tar.gz", hash = "sha256:e61e9034748e3f41b8bd2c11f00d030784b48711c4d5c42363c50989a65331ec"},
 ]
 
 [package.dependencies]
+arrow = "*"
 binaryornot = ">=0.4.4"
 click = ">=7.0,<9.0.0"
 Jinja2 = ">=2.7,<4.0.0"
-jinja2-time = ">=0.2.0"
 python-slugify = ">=4.0.0"
 pyyaml = ">=5.3.1"
 requests = ">=2.23.0"
+rich = "*"
 
 [[package]]
 name = "coverage"
@@ -1554,21 +1555,6 @@ MarkupSafe = ">=2.0"
 
 [package.extras]
 i18n = ["Babel (>=2.7)"]
-
-[[package]]
-name = "jinja2-time"
-version = "0.2.0"
-description = "Jinja2 Extension for Dates and Times"
-optional = false
-python-versions = "*"
-files = [
-    {file = "jinja2-time-0.2.0.tar.gz", hash = "sha256:d14eaa4d315e7688daa4969f616f226614350c48730bfa1692d2caebd8c90d40"},
-    {file = "jinja2_time-0.2.0-py2.py3-none-any.whl", hash = "sha256:d3eab6605e3ec8b7a0863df09cc1d23714908fa61aa6986a845c20ba488b4efa"},
-]
-
-[package.dependencies]
-arrow = "*"
-jinja2 = "*"
 
 [[package]]
 name = "jmespath"
@@ -3364,4 +3350,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "32dbce4024cc4d620864655a1e1f936f27d3cb83cc259c3144e128b51b6b54b2"
+content-hash = "6d33a9a5c19535ef8dc8b701cba1314f8aa4cf16d4cbe74073865c437481c1c8"
