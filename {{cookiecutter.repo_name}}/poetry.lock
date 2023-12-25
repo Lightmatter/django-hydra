@@ -1329,13 +1329,13 @@ files = [
 
 [[package]]
 name = "heroicons"
-version = "2.2.0"
+version = "2.6.0"
 description = "Use heroicons in your Django and Jinja templates."
 optional = false
-python-versions = ">=3.7"
+python-versions = ">=3.8"
 files = [
-    {file = "heroicons-2.2.0-py3-none-any.whl", hash = "sha256:c725fcdedd6666db49608a94f33fb7a9bbb6d194797cef492ddfa07592f7b391"},
-    {file = "heroicons-2.2.0.tar.gz", hash = "sha256:5325378056f8edef0c02b858873af10e74d528cab831a23d39875f5a9786df2e"},
+    {file = "heroicons-2.6.0-py3-none-any.whl", hash = "sha256:17a2b5c726768f3caacd2b6d5006d9047ba4690ed1f396d2f71617eea3efda81"},
+    {file = "heroicons-2.6.0.tar.gz", hash = "sha256:fd2408c7fa058b35eb1f821aab485ecd0261d7f5ec6544f1dddcb7cb591427bd"},
 ]
 
 [package.dependencies]
@@ -3347,4 +3347,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "876dd255d3e7eeb29017417086e70d0d5cfbf33605d2ccc06e993855ddc5f002"
+content-hash = "857d83523f14031ece790a979aa2b7afb89102da7cce98b011720a138d0098da"
