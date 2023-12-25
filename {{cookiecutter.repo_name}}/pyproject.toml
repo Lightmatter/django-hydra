@@ -28,7 +28,7 @@ django-cachalot = "^2.6.1"
 redis = "^5.0.1"
 django-redis = "^5.3.0"
 django-jinja = "^2.11.0"
-heroicons = {extras = ["jinja"], version = "^2.1.1"}
+heroicons = {extras = ["jinja"], version = "^2.6.0"}
 django-rich = "^1.7.0"
 django-hijack = "^3.4.1"
 django-cors-headers = "^3.13.0"
