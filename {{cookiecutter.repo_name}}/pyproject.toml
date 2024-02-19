@@ -38,7 +38,7 @@ django-robots = "^6.1"
 
 [tool.poetry.group.dev.dependencies]
 Werkzeug = "3.0.1"
-coverage = {extras = ["toml"], version = "^7.4.0"}
+coverage = {extras = ["toml"], version = "^7.4.1"}
 ipython = "^8.13.1"
 ipdb = "^0.13.13"
 ptpython = "^3.0.20"
