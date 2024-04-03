@@ -20,7 +20,7 @@ django-storages = "^1.14.2"
 uvicorn = "^0.25.0"
 gunicorn = "^21.2.0"
 sentry-sdk = "^1.29.2"
-Pillow = "^10.2.0"
+Pillow = "^10.3.0"
 django-anymail = {extras = ["sendgrid"], version = "^10.3"}
 django-vite = "^2.0.2"
 tblib = "^3.0.0"
