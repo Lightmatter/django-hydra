@@ -40,7 +40,7 @@
     "@alpinejs/ui": "^3.13.1-beta.0",
     "alpinejs": "^3.13.3",
     "flatpickr": "^4.6.13",
-    "glob": "^10.3.10",
+    "glob": "^10.3.12",
     "htmx.org": "1.9.11",
     "js-cookie": "^3.0.5",
     "tom-select": "^2.3.1"
