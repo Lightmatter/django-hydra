@@ -41,7 +41,7 @@
     "alpinejs": "^3.13.8",
     "flatpickr": "^4.6.13",
     "glob": "^10.3.12",
-    "htmx.org": "1.9.11",
+    "htmx.org": "1.9.12",
     "js-cookie": "^3.0.5",
     "tom-select": "^2.3.1"
   }
