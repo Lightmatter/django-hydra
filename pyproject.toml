@@ -10,7 +10,7 @@ cookiecutter = "^2.6.0"
 
 [tool.poetry.group.dev.dependencies]
 isort = "^5.13.2"
-retrocookie = "^0.4.2"
+retrocookie = "^0.4.3"
 
 [tool.poetry.group.docs.dependencies]
 Sphinx = "^7.3.7"
