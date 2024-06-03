@@ -691,19 +691,19 @@ use-chardet-on-py3 = ["chardet (>=3.0.2,<6)"]
 
 [[package]]
 name = "retrocookie"
-version = "0.4.2"
+version = "0.4.3"
 description = "Update Cookiecutter templates with changes from their instances"
 optional = false
-python-versions = ">=3.7,<4.0"
+python-versions = "<4.0.0,>=3.8.1"
 files = [
-    {file = "retrocookie-0.4.2-py3-none-any.whl", hash = "sha256:739b805c07f151f54e0bd5fbcb467407392d6525a7ea4edf546e5fd0c470c45d"},
-    {file = "retrocookie-0.4.2.tar.gz", hash = "sha256:bfaa9d55d7fd8a11ff44f11645c2b32a1640ea341bced26de3d9067d896acb56"},
+    {file = "retrocookie-0.4.3-py3-none-any.whl", hash = "sha256:dc727c78b3d415b8b63490731b0df5a403d9767d99c1512b20b4f94e7533dc0a"},
+    {file = "retrocookie-0.4.3.tar.gz", hash = "sha256:686a7a86ae1f3cecf65916695db54a8dc3f83182e5a76d7197241c2bf481d96e"},
 ]
 
 [package.dependencies]
 click = ">=8.0.3,<9.0.0"
 git-filter-repo = ">=2.26.0,<3.0.0"
-pygit2 = ">=1.2.1,<2.0.0"
+pygit2 = ">=1.2.1,<1.15"
 
 [package.extras]
 pr = ["appdirs (>=1.4.4,<2.0.0)", "github3.py (>=3.0.0,<4.0.0)", "rich (>=9.5.1,<11.0.0)", "tenacity (>=6.3.1,<9.0.0)", "typing-extensions (>=3.7.4,<5.0.0)"]
@@ -932,4 +932,4 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.11"
-content-hash = "98f34eb4e26859583c88d9d9c653ca1b8253c5b61316d0aba9dabe1791ee856a"
+content-hash = "7446fae664d91fe04852d5d2d7a5e21b57153c66fb7cad9d7936748511dbc53f"
