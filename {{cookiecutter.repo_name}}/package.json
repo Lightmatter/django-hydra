@@ -38,7 +38,7 @@
     "@alpinejs/focus": "^3.14.0",
     "@alpinejs/mask": "^3.14.1",
     "@alpinejs/ui": "^3.13.1-beta.0",
-    "alpinejs": "^3.14.0",
+    "alpinejs": "^3.14.1",
     "flatpickr": "^4.6.13",
     "glob": "^11.0.0",
     "htmx.org": "1.9.12",
